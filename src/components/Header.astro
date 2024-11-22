@@ -33,12 +33,12 @@ import { SITE_TITLE } from "../consts";
     const menu_button = document.querySelector("nav #menu-button");
 
     menu_button.addEventListener("click", function () {
-        links.classList.toggle("hide");
+        links.classList.toggle("show");
     });
 </script>
 <style is:global>
-    .hide {
-        display: none !important;
+    .show {
+        display: flex !important;
     }
 </style>
 <style>
@@ -112,7 +112,7 @@ import { SITE_TITLE } from "../consts";
         }
 
         nav .internal-links {
-            display: flex;
+            display: none;
             flex-direction: column;
             width: 90%;
             margin: 0 auto;
