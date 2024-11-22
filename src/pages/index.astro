@@ -1,38 +1,81 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+const founder_links = [
+    {
+        letter: "C",
+        link: "ezequiel_casiano",
+    },
+    {
+        letter: "R",
+        link: "magali_rodriguez",
+    },
+    {
+        letter: "O",
+        link: "valentina_osorio",
+    },
+    {
+        letter: "B",
+        link: "juan_beresiarte",
+    },
+    {
+        letter: "F",
+        link: "lautaro_ferreira",
+    },
+];
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-	<main>
-		<h1>🚀 Bienvenidos a CROBF</h1>
-		<p>
-			Somos <strong>CROBF</strong>, una empresa de desarrollo de software
-			conformada por un equipo joven pero con experiencia en diversas
-			tecnologías.
-		</p>
-		<p>
-			Nuestra misión es transformar ideas en software de alta calidad,
-			adaptándonos a las necesidades de nuestros clientes y brindando
-			resultados excepcionales.
-		</p>
-		<p>
-			En <strong>CROBF</strong>, combinamos creatividad, técnica y
-			compromiso para llevar tus proyectos al siguiente nivel.
-		</p>
-		<p>Estas son algunas cosas que podemos ofrecerte:</p>
-		<ul>
-			<li>Desarrollo de aplicaciones web y móviles.</li>
-			<li>Diseño de interfaces de usuario (UI/UX).</li>
-			<li>Asesoramiento en tecnologías modernas.</li>
-			<li>Mantenimiento y optimización de proyectos existentes.</li>
-		</ul>
-		<p>
-			¿Tienes una idea en mente? ¡Nos encantaría ayudarte a hacerla
-			realidad!
-			<br />
-			<a href="mailto:juanberesiarte@gmail.com">Contáctanos</a> para más información
-			o para comenzar un proyecto juntos.
-		</p>
-	</main>
+    <main>
+        <h1>
+            Bienvenidos a
+            <span>
+                {founder_links.map((founder) => <a href={`/founders/${founder.link}`}>{founder.letter}</a>)}
+            </span>
+        </h1>
+        <p>
+            Somos <strong>CROBF</strong>, una empresa de desarrollo de software conformada por un equipo joven pero con
+            experiencia en diversas tecnologías.
+        </p>
+        <p>
+            Nuestra misión es transformar ideas en software de alta calidad, adaptándonos a las necesidades de nuestros
+            clientes y brindando resultados excepcionales.
+        </p>
+        <p>
+            En <strong>CROBF</strong>, combinamos creatividad, técnica y compromiso para llevar tus proyectos al
+            siguiente nivel.
+        </p>
+        <p>Estas son algunas cosas que podemos ofrecerte:</p>
+        <ul>
+            <li>Desarrollo de aplicaciones web y móviles.</li>
+            <li>Diseño de interfaces de usuario (UI/UX).</li>
+            <li>Asesoramiento en tecnologías modernas.</li>
+            <li>Mantenimiento y optimización de proyectos existentes.</li>
+        </ul>
+        <p>
+            ¿Tienes una idea en mente? ¡Nos encantaría ayudarte a hacerla realidad!
+            <br />
+            <a href="mailto:juanberesiarte@gmail.com">Contáctanos</a> para más información o para comenzar un proyecto juntos.
+        </p>
+    </main>
 </Layout>
+<style>
+    h1 span {
+        border-bottom: 4px solid var(--accent);
+        cursor: no-drop;
+    }
+
+    h1 span a {
+        text-decoration: none;
+        color: var(--black);
+    }
+
+    @media (max-width: 800px) {
+        h1 {
+            font-size: 3rem;
+            text-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>
