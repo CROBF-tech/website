@@ -14,8 +14,7 @@ import { SITE_TITLE } from "../consts";
                 stroke-width="1.5"
                 stroke="currentColor"
                 class="size-6"
-                id="menu-button"
-            >
+                id="menu-button">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                 ></path>
             </svg>
@@ -31,9 +30,17 @@ import { SITE_TITLE } from "../consts";
 <script is:inline>
     const links = document.querySelector("nav .internal-links");
     const menu_button = document.querySelector("nav #menu-button");
-
+    const openMenuSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>`;
+    const closeMenuSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>`;
     menu_button.addEventListener("click", function () {
         links.classList.toggle("show");
+        menu_button.innerHTML = links.classList.contains("show") ? closeMenuSVG : openMenuSVG;
     });
 </script>
 <style is:global>
@@ -93,7 +100,7 @@ import { SITE_TITLE } from "../consts";
         }
 
         nav {
-            padding: 3vh 5%;
+            padding: 1.5vh 5%;
             margin: 0;
             flex-direction: column;
         }
