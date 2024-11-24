@@ -9,16 +9,18 @@ const { title, description } = Astro.props;
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ThemeIcon from "../components/ThemeIcon.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
     <head>
         <BaseHead title={title} description={description} />
     </head>
     <body>
         <Header />
         <slot />
+        <ThemeIcon />
         <Footer />
     </body>
 </html>
