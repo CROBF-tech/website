@@ -63,17 +63,18 @@ const founder_links = [
 <style>
     h1 span {
         border-bottom: 4px solid var(--accent);
-        cursor: no-drop;
     }
 
     h1 span a {
+        display: inline-block;
         text-decoration: none;
         color: var(--black);
+        transition: transform 0.2s ease;
     }
 
     h1 span a:hover {
         color: var(--accent-dark);
-        padding: 0 3px;
+        transform: scale(1.1);
     }
 
     @media (max-width: 800px) {
