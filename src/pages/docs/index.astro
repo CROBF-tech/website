@@ -8,11 +8,11 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import Layout from "../../layouts/Layout.astro";
 
 const documentation = (await getCollection("documentation")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<Layout title={`Docs - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
     <main>
         <section>
             <ul>
