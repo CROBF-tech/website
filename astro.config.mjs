@@ -8,4 +8,16 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
     site: "https://crobf.vercel.app",
     integrations: [mdx(), sitemap()],
+    vite: {
+        css: {
+            preprocessorOptions: {
+                sass: {
+                    api: 'modern-compiler'
+                },
+                scss: {
+                    api: 'modern-compiler'
+                }
+            }
+        }
+    }
 });
