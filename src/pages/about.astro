@@ -1,11 +1,102 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
+import CardFounder from "../components/CardFounder.astro";
 import { SITE_TITLE } from "../consts";
 ---
 
 <Layout
-    title={`About - ${SITE_TITLE}`}
-    description="Lorem ipsum dolor sit amet"
+    title={`Sobre Nosotros - ${SITE_TITLE}`}
+    description="Somos CROBF, una empresa de desarrollo de software conformada por un equipo joven pero con experiencia en diversas tecnologías."
     heroImage="/blog-placeholder-about.jpg">
-    <p>hola</p>
+    <section id="about-us">
+        <div class="container">
+            <p>
+                Bienvenidos a CROBF, un equipo de desarrolladores comprometidos con el aprendizaje constante y la
+                creación de soluciones innovadoras en el mundo del software.
+            </p>
+
+            <h2>¿Quiénes Somos?</h2>
+            <p>CROBF está formado por cinco profesionales apasionados por la tecnología y el desarrollo de software:</p>
+            <div class="cards">
+                <CardFounder name="Beresiarte Juan" image="/founders/juan_beresiarte.jpeg" />
+                <CardFounder name="Casiano Ezequiel" />
+                <CardFounder name="Ferreira Lautaro" />
+                <CardFounder name="Osorio Valentina" />
+                <CardFounder name="Rodriguez Magali" />
+            </div>
+            <p>
+                Nos define nuestra diversidad de conocimientos, nuestras ganas de aprender y nuestro compromiso con el
+                trabajo en equipo.
+            </p>
+
+            <h2>Nuestra Filosofía</h2>
+            <p>
+                En CROBF, creemos que el aprendizaje y el éxito van de la mano. Por eso, hemos estructurado nuestro
+                equipo en dos áreas principales:
+            </p>
+            <ul>
+                <li>
+                    <strong>Departamento de Aprendizaje:</strong> Un espacio donde exploramos nuevas tecnologías, mejoramos
+                    nuestras habilidades y nos preparamos para los desafíos del futuro. Aquí, todos colaboramos sin jerarquías,
+                    compartiendo conocimientos y creciendo juntos.
+                </li>
+                <li>
+                    <strong>Departamento de Ganancias:</strong> Enfocado en proyectos comerciales que aprovechan nuestras
+                    fortalezas individuales y colectivas. Este departamento nos permite transformar nuestras ideas en soluciones
+                    reales para clientes y usuarios.
+                </li>
+            </ul>
+            <p><em>Nuestro lema:</em> <strong>"Aprender, crecer y crear juntos."</strong></p>
+
+            <h2>Nuestros Valores</h2>
+            <ul>
+                <li><strong>Trabajo en equipo:</strong> Valoramos la colaboración y la diversidad de ideas.</li>
+                <li>
+                    <strong>Confianza:</strong> Respetamos la confidencialidad y protegemos nuestras creaciones colectivas.
+                </li>
+                <li><strong>Compromiso:</strong> Nos dedicamos con pasión y esfuerzo a cada proyecto.</li>
+                <li>
+                    <strong>Resolución de conflictos:</strong> Priorizamos el diálogo y el entendimiento mutuo para superar
+                    cualquier desafío.
+                </li>
+            </ul>
+
+            <h2>Nuestro Propósito</h2>
+            <ul>
+                <li>
+                    <strong>Aprender todo lo posible:</strong> Expandir nuestras habilidades en programación, diseño y desarrollo
+                    de software.
+                </li>
+                <li>
+                    <strong>Generar impacto:</strong> Crear soluciones innovadoras que aporten valor y resuelvan problemas
+                    reales.
+                </li>
+            </ul>
+            <p>
+                Con CROBF, no solo trabajamos en proyectos, sino que construimos un entorno donde todos podemos crecer
+                profesionalmente mientras hacemos lo que amamos.
+            </p>
+
+            <h2>Nuestra Visión a Futuro</h2>
+            <p>
+                Estamos trabajando para convertirnos en un equipo líder en desarrollo de software, manteniendo siempre
+                nuestra esencia de aprendizaje y colaboración. Nuestro objetivo es seguir innovando, explorando nuevas
+                oportunidades y creciendo tanto a nivel técnico como humano.
+            </p>
+
+            <h2>¿Quieres Saber Más?</h2>
+            <p>
+                Si deseas conocer más sobre nosotros o explorar nuestras soluciones, ¡no dudes en contactarnos! En
+                CROBF, estamos siempre listos para afrontar nuevos desafíos y construir un futuro juntos.
+            </p>
+        </div>
+    </section>
+    <style>
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
 </Layout>
