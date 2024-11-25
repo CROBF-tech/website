@@ -24,10 +24,16 @@
         width: 60px;
         height: 60px;
         position: fixed;
-        bottom: 5%;
-        right: 5%;
+        bottom: 3rem;
+        right: 3rem;
         cursor: pointer;
         background-color: #ffde44;
+        transition: all 250ms ease-in;
+    }
+
+    #themeToggle.hide {
+        visibility: hidden;
+        opacity: 0%;
     }
 
     :global(.dark) #themeToggle {
@@ -54,9 +60,19 @@
     :global(.dark) .moon {
         fill: white;
     }
+
+    @media screen and (max-width: 800px) {
+        #themeToggle {
+            bottom: 10px;
+            left: inherit;
+            right: 10px;
+        }
+    }
 </style>
 
 <script is:inline>
+    const buttonToggle = document.getElementById("themeToggle");
+
     const theme = (() => {
         if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
             return localStorage.getItem("theme");
@@ -83,5 +99,13 @@
         localStorage.setItem("theme", isDark ? "dark" : "light");
     };
 
-    document.getElementById("themeToggle").addEventListener("click", handleToggleClick);
+    buttonToggle.addEventListener("click", handleToggleClick);
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 10) {
+            buttonToggle.classList.add("hide");
+        } else {
+            buttonToggle.classList.remove("hide");
+        }
+    });
 </script>
