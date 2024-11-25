@@ -44,7 +44,11 @@ const { title, description, heroImage } = Astro.props;
             max-width: calc(100% - 2em);
             margin: auto;
             padding: 1em;
+            line-height: 2rem;
             color: rgb(var(--gray-dark));
+        }
+        html.dark .prose {
+            color: rgb(var(--white)) !important;
         }
         .title {
             margin-bottom: 1em;

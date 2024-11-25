@@ -7,8 +7,6 @@ heroImage: '/blog-placeholder-git.png'
 
 Git es una de las herramientas más importantes en el desarrollo de software. Este sistema de control de versiones distribuido permite gestionar proyectos de manera ordenada, rastrear cambios en los archivos, revertir errores y colaborar con otros de forma eficiente. Si eres nuevo en Git o quieres afianzar tus conocimientos básicos, esta guía te ayudará a comprender su funcionamiento y a dominar los comandos esenciales.
 
----
-
 ## ¿Qué es Git?
 
 Git es un sistema diseñado para manejar proyectos de software, especialmente cuando múltiples desarrolladores están trabajando en ellos simultáneamente. Imagina un gran equipo escribiendo un libro: cada persona trabaja en diferentes capítulos, corrige errores y guarda copias. Sin un sistema que organice esto, el caos sería inevitable. Aquí es donde entra Git.
@@ -19,8 +17,6 @@ Git ofrece varios beneficios clave:
 - **Reversión de errores**: Puedes deshacer cambios problemáticos y volver a un estado anterior del proyecto.
 - **Colaboración eficiente**: Varias personas pueden trabajar en el mismo proyecto sin sobrescribir el trabajo de los demás gracias a las ramas.
 - **Fusión de contribuciones**: Combina cambios realizados por diferentes colaboradores en un único flujo de trabajo.
-
----
 
 ## Los Conceptos Clave en Git
 
