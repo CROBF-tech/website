@@ -6,7 +6,7 @@ export const SITE_DESCRIPTION = 'Empresa de desarrollo de software';
 
 export const TEAM_MEMBERS = {
   Juan: {
-    fullName: "Beresiarte Juan Basiluk",
+    fullName: "Beresiarte Juan",
     logo: "/founders/juan_beresiarte.jpeg",
     email: "juanberesiarte@gmail.com",
     gitHub: "https://github.com/beresiartejuan",
@@ -15,7 +15,7 @@ export const TEAM_MEMBERS = {
   },
   Ezequiel: {
     fullName: "Casiano Ezequiel",
-    logo: "/founders/carpincho.jpg",
+    logo: "/founders/ezequiel_casiano.png",
     email: "ezequielcasiano15@gmail.com",
     gitHub: "https://github.com/yoezequiel",
     linkedin: "https://www.linkedin.com/in/yoezequiel/",
@@ -31,7 +31,7 @@ export const TEAM_MEMBERS = {
   },
   Valentina: {
     fullName: "Osorio Valentina",
-    logo: "",
+    logo: "/founders/valentina_osorio.jpeg",
     email: "valentina.osorio2203@gmail.com",
     gitHub: "https://github.com/Valen2203",
     linkedin: "",
