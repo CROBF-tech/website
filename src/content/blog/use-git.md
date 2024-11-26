@@ -2,7 +2,7 @@
 title: 'Introducción a Git: Aprende rápido'
 description: 'Descubre cómo funciona Git y su flujo de trabajo para empezar a colaborar de manera eficiente.'
 pubDate: 'Nov 21 2024'
-heroImage: '/blog-placeholder-git.png'
+heroImage: '/blog/blog-placeholder-git.png'
 ---
 
 Git es una de las herramientas más importantes en el desarrollo de software. Este sistema de control de versiones distribuido permite gestionar proyectos de manera ordenada, rastrear cambios en los archivos, revertir errores y colaborar con otros de forma eficiente. Si eres nuevo en Git o quieres afianzar tus conocimientos básicos, esta guía te ayudará a comprender su funcionamiento y a dominar los comandos esenciales.
