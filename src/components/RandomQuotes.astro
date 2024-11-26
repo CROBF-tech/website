@@ -1,0 +1,23 @@
+---
+interface Props {
+    quotes: string[];
+    styles?: { [key: string]: string };
+    marks?: boolean;
+}
+
+import Quote from "./Quote.astro";
+
+const { quotes, styles, marks } = Astro.props;
+
+function getRandomElement<T>(array: T[]): T | undefined {
+    if (array.length === 0) return undefined;
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
+}
+
+const random_quote = getRandomElement<string>(quotes);
+---
+
+<Quote styles={styles} marks={marks}>
+    {random_quote}
+</Quote>
