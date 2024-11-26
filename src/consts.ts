@@ -12,7 +12,7 @@ export const TEAM_MEMBERS = {
     gitHub: "https://github.com/beresiartejuan",
     linkedin: "https://www.linkedin.com/in/beresiartejuan/",
     link: "/founders/juan_beresiarte",
-    index: 0
+    index: 4
   },
   Ezequiel: {
     fullName: "Casiano Ezequiel",
@@ -20,7 +20,8 @@ export const TEAM_MEMBERS = {
     email: "ezequielcasiano15@gmail.com",
     gitHub: "https://github.com/yoezequiel",
     linkedin: "https://www.linkedin.com/in/yoezequiel/",
-    link: "/founders/ezequiel_casiano"
+    link: "/founders/ezequiel_casiano",
+    index: 1
   },
   Lautaro: {
     fullName: "Ferreira Lautaro",
@@ -28,7 +29,8 @@ export const TEAM_MEMBERS = {
     email: "Lauferreyraff@gmail.com",
     gitHub: "https://github.com/lautaroff",
     linkedin: "",
-    link: "/founders/lautaro_ferreira"
+    link: "/founders/lautaro_ferreira",
+    index: 5
   },
   Valentina: {
     fullName: "Osorio Valentina",
@@ -36,7 +38,8 @@ export const TEAM_MEMBERS = {
     email: "valentina.osorio2203@gmail.com",
     gitHub: "https://github.com/Valen2203",
     linkedin: "",
-    link: "/founders/valentina_osorio"
+    link: "/founders/valentina_osorio",
+    index: 3,
   },
   Magali: {
     fullName: "Rodriguez Magali",
@@ -44,6 +47,7 @@ export const TEAM_MEMBERS = {
     email: "magalidaianarodriguezm@gmail.com",
     gitHub: "https://github.com/Magali22R",
     linkedin: "",
-    link: "/founders/magali_rodriguez"
+    link: "/founders/magali_rodriguez",
+    index: 2
   },
 };
