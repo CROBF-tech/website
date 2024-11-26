@@ -4,7 +4,8 @@ import FounderLayout from "../../layouts/FounderLayout.astro";
 
 export async function getStaticPaths() {
     const founders = await getCollection("founder");
-    return founders.map((founder: CollectionEntry<"founder">["data"]) => ({
+    // xd
+    return founders.map((founder) => ({
         params: { slug: founder.slug },
         props: founder,
     }));

@@ -23,7 +23,7 @@ export const TEAM_MEMBERS = {
   },
   Lautaro: {
     fullName: "Ferreira Lautaro",
-    logo: "",
+    logo: "/founders/lautaro_ferreira.jpg",
     email: "Lauferreyraff@gmail.com",
     gitHub: "https://github.com/lautaroff",
     linkedin: "",
