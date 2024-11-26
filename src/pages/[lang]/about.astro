@@ -1,0 +1,97 @@
+---
+import Layout from "../../layouts/BlogPost.astro";
+import CardFounder from "../../components/CardFounder.astro";
+import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
+import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<Layout
+    title={`${t("about.title")} - ${SITE_TITLE}`}
+    description={t("about.description")}
+    heroImage="/blog-placeholder-about.jpg"
+>
+    <section id="about-us">
+        <div class="container">
+            <p set:html={t("about.welcome")} />
+            <h2 set:html={t("about.whoWeAre.title")} />
+            <p set:html={t("about.whoWeAre.description")} />
+            <div class="cards">
+                <CardFounder
+                    name={TEAM_MEMBERS.Juan.fullName}
+                    image={TEAM_MEMBERS.Juan.logo}
+                    github={TEAM_MEMBERS.Juan.gitHub}
+                    linkedin={TEAM_MEMBERS.Juan.linkedin}
+                    link={TEAM_MEMBERS.Juan.link}
+                />
+                <CardFounder
+                    name={TEAM_MEMBERS.Ezequiel.fullName}
+                    image={TEAM_MEMBERS.Ezequiel.logo}
+                    github={TEAM_MEMBERS.Ezequiel.gitHub}
+                    linkedin={TEAM_MEMBERS.Ezequiel.linkedin}
+                    link={TEAM_MEMBERS.Ezequiel.link}
+                />
+                <CardFounder
+                    name={TEAM_MEMBERS.Lautaro.fullName}
+                    image={TEAM_MEMBERS.Lautaro.logo}
+                    github={TEAM_MEMBERS.Lautaro.gitHub}
+                    linkedin={TEAM_MEMBERS.Lautaro.linkedin}
+                    link={TEAM_MEMBERS.Lautaro.link}
+                />
+                <CardFounder
+                    name={TEAM_MEMBERS.Valentina.fullName}
+                    image={TEAM_MEMBERS.Valentina.logo}
+                    github={TEAM_MEMBERS.Valentina.gitHub}
+                    linkedin={TEAM_MEMBERS.Valentina.linkedin}
+                    link={TEAM_MEMBERS.Valentina.link}
+                />
+                <CardFounder
+                    name={TEAM_MEMBERS.Magali.fullName}
+                    image={TEAM_MEMBERS.Magali.logo}
+                    github={TEAM_MEMBERS.Magali.gitHub}
+                    linkedin={TEAM_MEMBERS.Magali.linkedin}
+                    link={TEAM_MEMBERS.Magali.link}
+                />
+            </div>
+            <p set:html={t("about.team.values")} />
+
+            <h2 set:html={t("about.philosophy.title")} />
+            <p set:html={t("about.philosophy.description")} />
+            <ul>
+                <li set:html={t("about.philosophy.learningDept")} />
+                <li set:html={t("about.philosophy.profitDept")} />
+            </ul>
+            <p set:html={t("about.philosophy.motto")} />
+
+            <h2 set:html={t("about.values.title")} />
+            <ul>
+                <li set:html={t("about.values.teamwork")} />
+                <li set:html={t("about.values.trust")} />
+                <li set:html={t("about.values.commitment")} />
+                <li set:html={t("about.values.conflictResolution")} />
+            </ul>
+
+            <h2 set:html={t("about.purpose.title")} />
+            <ul>
+                <li set:html={t("about.purpose.learn")} />
+                <li set:html={t("about.purpose.impact")} />
+            </ul>
+            <p set:html={t("about.purpose.summary")} />
+
+            <h2 set:html={t("about.vision.title")} />
+            <p set:html={t("about.vision.description")} />
+
+            <h2 set:html={t("about.contact.title")} />
+            <p set:html={t("about.contact.description")} />
+        </div>
+    </section>
+    <style>
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+    </style>
+</Layout>

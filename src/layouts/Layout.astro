@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const { currentLocale } = Astro;
 
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
@@ -13,7 +14,7 @@ import ThemeIcon from "../components/ThemeIcon.astro";
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={currentLocale || "es"}>
     <head>
         <BaseHead title={title} description={description} />
     </head>

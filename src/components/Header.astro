@@ -1,6 +1,12 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import { useTranslations, getLangFromUrl } from "../i18n/tranlate";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang);
 ---
 
 <header>
@@ -14,16 +20,17 @@ import { SITE_TITLE } from "../consts";
                 stroke-width="1.5"
                 stroke="currentColor"
                 class="size-6"
-                id="menu-button">
+                id="menu-button"
+            >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                 ></path>
             </svg>
         </div>
         <div class="internal-links">
-            <HeaderLink href="/">Inicio</HeaderLink>
-            <HeaderLink href="/blog">Blog</HeaderLink>
-            <HeaderLink href="/docs">Documentación</HeaderLink>
-            <HeaderLink href="/about">Sobre Nosotros</HeaderLink>
+            <HeaderLink href={getRelativeLocaleUrl(lang)}>{t("navbar.home")}</HeaderLink>
+            <HeaderLink href={getRelativeLocaleUrl(lang, "blog")}>{t("navbar.blog")}</HeaderLink>
+            <HeaderLink href={getRelativeLocaleUrl(lang, "docs")}>{t("navbar.documentation")}</HeaderLink>
+            <HeaderLink href={getRelativeLocaleUrl(lang, "about")}>{t("navbar.about")}</HeaderLink>
         </div>
     </nav>
 </header>
