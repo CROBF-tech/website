@@ -1,0 +1,32 @@
+---
+interface Props {
+    background?: string;
+    color?: string;
+    styles?: { [key: string]: string };
+    marks?: boolean;
+}
+
+const { background, color, styles, marks } = Astro.props;
+---
+
+<blockquote
+    style={{
+        color: color,
+        background: background,
+        ...styles,
+    }}
+>
+    {marks ? `"` : ``}<slot />{marks ? `"` : ``}
+</blockquote>
+
+<style>
+    blockquote {
+        border-left-color: var(--gray) !important;
+        font-size: 1.3rem;
+        font-style: italic;
+    }
+
+    html.dark blockquote {
+        border-left-color: var(--gray-dark) !important;
+    }
+</style>
