@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import FounderLayout from "../../layouts/FounderLayout.astro";
+import FounderLayout from "../../../layouts/FounderLayout.astro";
 
 export async function getStaticPaths() {
     const founders = await getCollection("founder");

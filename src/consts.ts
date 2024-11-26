@@ -11,7 +11,8 @@ export const TEAM_MEMBERS = {
     email: "juanberesiarte@gmail.com",
     gitHub: "https://github.com/beresiartejuan",
     linkedin: "https://www.linkedin.com/in/beresiartejuan/",
-    link: "/founders/juan_beresiarte"
+    link: "/founders/juan_beresiarte",
+    index: 0
   },
   Ezequiel: {
     fullName: "Casiano Ezequiel",
