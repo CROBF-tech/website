@@ -26,7 +26,7 @@ export default defineConfig({
         routing: {
             prefixDefaultLocale: true,
             redirectToDefaultLocale: true
-        }
+        },
     },
     output: "server"
 });
