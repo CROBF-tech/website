@@ -28,5 +28,6 @@ export default defineConfig({
             redirectToDefaultLocale: true
         },
     },
-    output: "server"
+    output: "server",
+    adapter: undefined
 });

@@ -24,6 +24,9 @@ const currentLang = Astro.params.lang || Astro.currentLocale || "en";
 const t = useTranslations(getLangFromUrl(Astro.url));
 
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
+
+const real_lang = Astro.url.pathname.split("/")[0];
+if (real_lang == "pt") return Astro.redirect("/en/");
 ---
 
 <Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
