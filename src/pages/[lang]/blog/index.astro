@@ -3,6 +3,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../../components/FormattedDate.astro";
 import Layout from "../../../layouts/Layout.astro";
+
 export function getStaticPaths() {
     return [
         {
@@ -14,7 +15,17 @@ export function getStaticPaths() {
     ];
 }
 
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const lang = Astro.params.lang;
+
+const posts = (await getCollection("blog"))
+    .filter((post) => {
+        const { slug } = post;
+
+        const [blog_lang] = slug.match(/[^\/]+/g) || [];
+
+        return blog_lang === lang;
+    })
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout title={`Blog - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
@@ -24,7 +35,7 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
                 {
                     posts.map((post) => (
                         <li>
-                            <a href={`/blog/${post.slug}/`}>
+                            <a href={`/${lang}/blog${post.slug.slice(2)}/`}>
                                 <img width={720} height={360} src={post.data.heroImage} alt="" />
                                 <h4 class="title">{post.data.title}</h4>
                                 <p class="date">
