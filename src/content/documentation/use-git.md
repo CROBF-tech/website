@@ -2,7 +2,7 @@
 title: 'Introducción a Git: Aprende rápido'
 description: 'Descubre cómo funciona Git y su flujo de trabajo para empezar a colaborar de manera eficiente.'
 pubDate: 'Nov 21 2024'
-heroImage: '/blog-placeholder-git.png'
+heroImage: '/blog/blog-placeholder-git.png'
 ---
 
 Git es una herramienta de control de versiones distribuida que permite gestionar y rastrear cambios en proyectos de software. Es fundamental para trabajar en equipo, mantener un historial de cambios y colaborar de manera eficiente. Este tutorial está diseñado para aprender lo básico en el menor tiempo posible.

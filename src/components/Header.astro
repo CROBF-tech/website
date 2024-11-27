@@ -2,10 +2,9 @@
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
 import { useTranslations, getLangFromUrl } from "../i18n/tranlate";
+import LanguageSelector from "./LanguageSelector.astro";
 
 const lang = getLangFromUrl(Astro.url);
-const basePath = Astro.url.pathname.split("/")[1];
-
 const t = useTranslations(lang);
 ---
 
@@ -20,16 +19,18 @@ const t = useTranslations(lang);
                 stroke-width="1.5"
                 stroke="currentColor"
                 class="size-6"
-                id="menu-button">
+                id="menu-button"
+            >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                 ></path>
             </svg>
         </div>
         <div class="internal-links">
-            <HeaderLink href={`/${basePath}`}>{t("navbar.home")}</HeaderLink>
-            <HeaderLink href={`/${basePath}/blog`}>{t("navbar.blog")}</HeaderLink>
-            <HeaderLink href={`/${basePath}/docs`}>{t("navbar.documentation")}</HeaderLink>
-            <HeaderLink href={`/${basePath}/about`}>{t("navbar.about")}</HeaderLink>
+            <HeaderLink href={`/${lang}`}>{t("navbar.home")}</HeaderLink>
+            <HeaderLink href={`/${lang}/blog`}>{t("navbar.blog")}</HeaderLink>
+            <HeaderLink href={`/${lang}/docs`}>{t("navbar.documentation")}</HeaderLink>
+            <HeaderLink href={`/${lang}/about`}>{t("navbar.about")}</HeaderLink>
+            <LanguageSelector />
         </div>
     </nav>
 </header>
