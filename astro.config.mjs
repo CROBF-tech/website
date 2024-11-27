@@ -8,31 +8,31 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://crobf.vercel.app",
-  integrations: [mdx(), sitemap()],
+    site: "https://crobf.vercel.app",
+    integrations: [mdx(), sitemap()],
 
-  vite: {
-      css: {
-          preprocessorOptions: {
-              sass: {
-                  api: 'modern-compiler'
-              },
-              scss: {
-                  api: 'modern-compiler'
-              }
-          }
-      }
-  },
+    vite: {
+        css: {
+            preprocessorOptions: {
+                sass: {
+                    api: 'modern-compiler'
+                },
+                scss: {
+                    api: 'modern-compiler'
+                }
+            }
+        }
+    },
 
-  i18n: {
-      locales: ["es", "en"],
-      defaultLocale: "en",
-      routing: {
-          prefixDefaultLocale: true,
-          redirectToDefaultLocale: true
-      },
-  },
+    i18n: {
+        locales: ["es", "en"],
+        defaultLocale: "en",
+        routing: {
+            prefixDefaultLocale: true,
+            redirectToDefaultLocale: true
+        },
+    },
 
-  output: "server",
-  adapter: vercel()
+    output: "server",
+    adapter: vercel()
 });
