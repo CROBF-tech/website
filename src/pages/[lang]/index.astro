@@ -6,6 +6,12 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { ui } from "../../i18n/ui";
 import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
 
+const { lang } = Astro.params;
+
+if (!Object.keys(ui).includes(lang)) {
+    return Astro.redirect("/404");
+}
+
 export const getStaticPaths = (() => {
     const languages: string[] = Object.keys(ui);
     const langs: { params: { lang: string } }[] = [];
@@ -24,9 +30,6 @@ const currentLang = Astro.params.lang || Astro.currentLocale || "en";
 const t = useTranslations(getLangFromUrl(Astro.url));
 
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
-
-const real_lang = Astro.url.pathname.split("/")[0];
-if (real_lang == "pt") return Astro.redirect("/en/");
 ---
 
 <Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
