@@ -19,14 +19,5 @@ export default defineConfig({
                 }
             }
         }
-    },
-    i18n: {
-        locales: ["es", "en"],
-        defaultLocale: "en",
-        routing: {
-            prefixDefaultLocale: true,
-            redirectToDefaultLocale: true
-        }
-    },
-    output: "server"
+    }
 });
