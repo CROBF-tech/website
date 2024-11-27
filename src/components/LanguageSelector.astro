@@ -9,15 +9,13 @@ const actual_lang = getLangFromUrl(Astro.url);
 ---
 
 <div class="language-dropdown-container">
-    <!-- Icono SVG -->
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-6 language-dropdown-icon"
-    >
+        class="size-6 language-dropdown-icon">
         <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -25,7 +23,6 @@ const actual_lang = getLangFromUrl(Astro.url);
         ></path>
     </svg>
 
-    <!-- Select para idiomas -->
     <select id="language-dropdown" class="internal-link" value={actual_lang} {...Astro.props}>
         {
             Object.keys(languages).map((lang) => (
@@ -67,10 +64,9 @@ const actual_lang = getLangFromUrl(Astro.url);
         background-color: transparent;
         border: none;
         cursor: pointer;
-        color: var(--black); /* Mantener el color consistente con los enlaces */
+        color: var(--black);
     }
 
-    /* Agregar el estilo para que se vea bien en la barra de navegación */
     nav .internal-links {
         display: flex;
         align-items: center;
@@ -88,14 +84,19 @@ const actual_lang = getLangFromUrl(Astro.url);
     select:focus {
         outline: none;
     }
+    html.dark option {
+        background-color: #333;
+        padding: 10px;
+        border-radius: 10px;
+    }
 
     @media screen and (max-width: 800px) {
         .language-dropdown-container {
-            margin-top: 10px; /* Espaciado superior en móviles */
+            margin-top: 10px;
         }
 
         select {
-            font-size: 1.1rem; /* Aumentar un poco el tamaño del select en móviles */
+            font-size: 1.1rem;
         }
     }
 </style>

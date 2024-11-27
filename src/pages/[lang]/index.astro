@@ -4,7 +4,7 @@ import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
 const t = useTranslations(getLangFromUrl(Astro.url));
-const basePath = Astro.url.pathname.split("/")[1];
+const lang = getLangFromUrl(Astro.url);
 export function getStaticPaths() {
     return [
         {
@@ -22,7 +22,7 @@ export function getStaticPaths() {
         <h1>
             {t("index.welcome")}
             <span>
-                {FOUNDERS.map((founder) => <a href={`/${basePath}` + founder.link}>{founder.fullName.at(0)}</a>)}
+                {FOUNDERS.map((founder) => <a href={`/${lang}${founder.link}`}>{founder.fullName.at(0)}</a>)}
             </span>
         </h1>
         <p set:html={t("index.description")} />
