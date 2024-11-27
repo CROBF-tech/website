@@ -3,19 +3,18 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../../components/FormattedDate.astro";
 import Layout from "../../../layouts/Layout.astro";
-export function getStaticPaths() {
-    return [
-        {
-            params: { lang: "es" },
-        },
-        {
-            params: { lang: "en" },
-        },
-    ];
+
+export async function getStaticPaths() {
+    return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
 }
-const documentation = (await getCollection("documentation")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+
+const lang = Astro.params.lang;
+const documentation = (await getCollection("documentation"))
+    .filter((doc) => {
+        const [docLang] = doc.slug.split("/");
+        return docLang === lang;
+    })
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout title={`Docs - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
@@ -25,8 +24,8 @@ const documentation = (await getCollection("documentation")).sort(
                 {
                     documentation.map((doc) => (
                         <li>
-                            <a href={`/docs/${doc.slug}/`}>
-                                <img width={720} height={360} src={doc.data.heroImage} alt="" />
+                            <a href={`/${lang}/docs/${doc.slug.split("/").slice(1).join("/")}/`}>
+                                <img width={720} height={360} src={doc.data.heroImage} alt={doc.data.title} />
                                 <h4 class="title">{doc.data.title}</h4>
                                 <p class="date">
                                     <FormattedDate date={doc.data.pubDate} />
