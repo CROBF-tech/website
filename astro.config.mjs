@@ -21,13 +21,16 @@ export default defineConfig({
         }
     },
     i18n: {
-        locales: ["es", "en"],
+        locales: ["es", "en", "fr", "pt"],
         defaultLocale: "en",
+        fallback: {
+            "fr": "en",
+            "pt": "en"
+        },
         routing: {
             prefixDefaultLocale: true,
             redirectToDefaultLocale: true
         },
     },
     output: "server",
-    adapter: undefined
 });
