@@ -9,7 +9,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
 <Layout
     title={`${t("about.title")} - ${SITE_TITLE}`}
-    description={t("about.description")}
+    description={t("about.description") as string}
     heroImage="/blog-placeholder-about.jpg"
 >
     <section id="about-us">
