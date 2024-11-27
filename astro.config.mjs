@@ -12,12 +12,12 @@ export default defineConfig({
         css: {
             preprocessorOptions: {
                 sass: {
-                    api: 'modern-compiler'
+                    api: "modern-compiler",
                 },
                 scss: {
-                    api: 'modern-compiler'
-                }
-            }
-        }
-    }
+                    api: "modern-compiler",
+                },
+            },
+        },
+    },
 });

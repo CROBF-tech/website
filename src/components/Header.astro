@@ -1,6 +1,12 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import { useTranslations, getLangFromUrl } from "../i18n/tranlate";
+
+const lang = getLangFromUrl(Astro.url);
+const basePath = Astro.url.pathname.split("/")[1];
+
+const t = useTranslations(lang);
 ---
 
 <header>
@@ -20,10 +26,10 @@ import { SITE_TITLE } from "../consts";
             </svg>
         </div>
         <div class="internal-links">
-            <HeaderLink href="/">Inicio</HeaderLink>
-            <HeaderLink href="/blog">Blog</HeaderLink>
-            <HeaderLink href="/docs">Documentación</HeaderLink>
-            <HeaderLink href="/about">Sobre Nosotros</HeaderLink>
+            <HeaderLink href={`/${basePath}`}>{t("navbar.home")}</HeaderLink>
+            <HeaderLink href={`/${basePath}/blog`}>{t("navbar.blog")}</HeaderLink>
+            <HeaderLink href={`/${basePath}/docs`}>{t("navbar.documentation")}</HeaderLink>
+            <HeaderLink href={`/${basePath}/about`}>{t("navbar.about")}</HeaderLink>
         </div>
     </nav>
 </header>

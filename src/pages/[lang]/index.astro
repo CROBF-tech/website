@@ -1,4 +1,10 @@
 ---
+import Layout from "../../layouts/Layout.astro";
+import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
+import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
+const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
+const t = useTranslations(getLangFromUrl(Astro.url));
+const basePath = Astro.url.pathname.split("/")[1];
 export function getStaticPaths() {
     return [
         {
@@ -9,8 +15,51 @@ export function getStaticPaths() {
         },
     ];
 }
-
-const { lang } = Astro.params;
 ---
 
-<h1>{lang}</h1>
+<Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
+    <main>
+        <h1>
+            {t("index.welcome")}
+            <span>
+                {FOUNDERS.map((founder) => <a href={`/${basePath}` + founder.link}>{founder.fullName.at(0)}</a>)}
+            </span>
+        </h1>
+        <p set:html={t("index.description")} />
+        <p set:html={t("index.mission")} />
+        <p set:html={t("index.about")} />
+        <p set:html={t("index.offer")} />
+        <ul>
+            {(t("index.services") as string[]).map((service) => <li set:html={service} />)}
+        </ul>
+        <p>
+            {t("index.cta")}
+            <a href="https://mailto:juanberesiarte@gmail.com">{t("index.contact")}</a>
+        </p>
+    </main>
+</Layout>
+<style>
+    h1 span {
+        border-bottom: 5px solid var(--accent);
+    }
+
+    h1 span a {
+        display: inline-block;
+        text-decoration: none;
+        color: var(--black);
+        transition: transform 0.2s ease;
+    }
+
+    h1 span a:hover {
+        color: var(--accent-dark);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 800px) {
+        h1 {
+            font-size: 3rem;
+            text-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>

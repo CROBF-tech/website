@@ -1,0 +1,22 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import FounderLayout from "../../../layouts/FounderLayout.astro";
+export function getStaticPaths() {
+    return [
+        {
+            params: { lang: "es" },
+        },
+        {
+            params: { lang: "en" },
+        },
+    ];
+}
+type Props = CollectionEntry<"founder">;
+
+const documentation = Astro.props;
+const { Content } = await documentation.render();
+---
+
+<FounderLayout {...documentation.data}>
+    <Content />
+</FounderLayout>
