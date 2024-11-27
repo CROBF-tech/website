@@ -3,8 +3,7 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
-
-import vercel from "@astrojs/vercel/serverless";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,13 +14,13 @@ export default defineConfig({
         css: {
             preprocessorOptions: {
                 sass: {
-                    api: 'modern-compiler'
+                    api: "modern-compiler",
                 },
                 scss: {
-                    api: 'modern-compiler'
-                }
-            }
-        }
+                    api: "modern-compiler",
+                },
+            },
+        },
     },
 
     i18n: {
@@ -29,10 +28,12 @@ export default defineConfig({
         defaultLocale: "en",
         routing: {
             prefixDefaultLocale: true,
-            redirectToDefaultLocale: true
+            redirectToDefaultLocale: true,
         },
     },
 
     output: "server",
-    adapter: vercel()
+    adapter: node({
+        mode: "standalone",
+    }),
 });
