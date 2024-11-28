@@ -1,0 +1,98 @@
+---
+import { languages } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/tranlate";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"select">;
+
+const actual_lang = getLangFromUrl(Astro.url);
+---
+
+<div class="language-dropdown-container">
+    <select id="language-dropdown" class="internal-link" value={actual_lang} {...Astro.props}>
+        {
+            Object.keys(languages).map((lang) => (
+                <option selected={lang === actual_lang} value={lang}>
+                    友ₐ {languages[lang as keyof typeof languages]}
+                </option>
+            ))
+        }
+    </select>
+</div>
+
+<script>
+    import Cookies from "js-cookie";
+
+    const language_dropdown = document.getElementById("language-dropdown")!;
+
+    language_dropdown.addEventListener("change", function (event) {
+        const lang = (event.target as HTMLSelectElement).value;
+        Cookies.set("prefered_language", lang, { expires: 7, path: "/" });
+        location.reload();
+    });
+</script>
+
+<style>
+    .language-dropdown-container {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        padding: 0;
+        border-bottom: solid 4px transparent;
+    }
+
+    @media screen and (max-width: 800px) {
+        .language-dropdown-container {
+            padding: 1em 0;
+        }
+
+        select {
+            border-left: none !important;
+            padding: 0 !important;
+        }
+    }
+
+    select {
+        display: inline-block;
+        font-size: 1rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--black);
+        border-left: #333 1px solid;
+        padding: 0.4em 0.6em;
+    }
+
+    nav .internal-links {
+        display: flex;
+        align-items: center;
+    }
+
+    nav select {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: transparent;
+        border: none;
+        color: var(--black);
+        cursor: pointer;
+    }
+
+    select:focus {
+        outline: none;
+    }
+    html.dark option {
+        background-color: #333;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    @media screen and (max-width: 800px) {
+        .language-dropdown-container {
+            margin-top: 10px;
+        }
+
+        select {
+            font-size: 1.1rem;
+        }
+    }
+</style>

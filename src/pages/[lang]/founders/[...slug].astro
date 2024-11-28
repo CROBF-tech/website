@@ -1,0 +1,32 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import FounderLayout from "../../../layouts/FounderLayout.astro";
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const posts = await getCollection("founder");
+
+    return posts.map((post) => {
+        const { slug } = post;
+        const match = slug.match(/[^\/]+/g);
+        if (!match || match.length < 2) {
+            throw new Error(`El slug "${slug}" no tiene el formato esperado.`);
+        }
+
+        const [lang = "en", ...real_slug] = match;
+
+        return {
+            params: { lang, slug: real_slug.join("/") },
+            props: post,
+        };
+    });
+}
+type Props = CollectionEntry<"founder">;
+
+const documentation = Astro.props;
+const { Content } = await documentation.render();
+---
+
+<FounderLayout {...documentation.data}>
+    <Content />
+</FounderLayout>

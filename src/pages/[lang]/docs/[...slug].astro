@@ -1,0 +1,23 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../../layouts/BlogPost.astro";
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const documentation = await getCollection("documentation");
+    return documentation.map((doc) => {
+        const [lang = "en", ...realSlug] = doc.slug.split("/");
+        return {
+            params: { lang, slug: realSlug.join("/") },
+            props: doc,
+        };
+    });
+}
+
+const documentation: CollectionEntry<"documentation"> = Astro.props;
+const { Content } = await documentation.render();
+---
+
+<BlogPost {...documentation.data}>
+    <Content />
+</BlogPost>

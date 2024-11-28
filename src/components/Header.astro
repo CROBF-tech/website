@@ -1,6 +1,11 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import { useTranslations, getLangFromUrl } from "../i18n/tranlate";
+import LanguageSelector from "./LanguageSelector.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <header>
@@ -20,10 +25,11 @@ import { SITE_TITLE } from "../consts";
             </svg>
         </div>
         <div class="internal-links">
-            <HeaderLink href="/">Inicio</HeaderLink>
-            <HeaderLink href="/blog">Blog</HeaderLink>
-            <HeaderLink href="/docs">Documentación</HeaderLink>
-            <HeaderLink href="/about">Sobre Nosotros</HeaderLink>
+            <HeaderLink href={`/${lang}`}>{t("navbar.home")}</HeaderLink>
+            <HeaderLink href={`/${lang}/blog`}>{t("navbar.blog")}</HeaderLink>
+            <HeaderLink href={`/${lang}/docs`}>{t("navbar.documentation")}</HeaderLink>
+            <HeaderLink href={`/${lang}/about`}>{t("navbar.about")}</HeaderLink>
+            <LanguageSelector />
         </div>
     </nav>
 </header>
@@ -83,6 +89,9 @@ import { SITE_TITLE } from "../consts";
     }
     nav .menu svg {
         display: none;
+    }
+    .internal-links {
+        display: flex;
     }
     @media screen and (max-width: 800px) {
         nav .menu svg {

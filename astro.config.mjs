@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,12 +13,14 @@ export default defineConfig({
         css: {
             preprocessorOptions: {
                 sass: {
-                    api: 'modern-compiler'
+                    api: "modern-compiler",
                 },
                 scss: {
-                    api: 'modern-compiler'
-                }
-            }
-        }
-    }
+                    api: "modern-compiler",
+                },
+            },
+        },
+    },
+    output: "server",
+    adapter: vercel()
 });

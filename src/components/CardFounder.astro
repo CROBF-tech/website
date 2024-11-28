@@ -1,9 +1,11 @@
 ---
+import { getLangFromUrl } from "../i18n/tranlate";
 const { name, image, github, linkedin, link } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <div class="card">
-    <a class="card-link" href={link} aria-label=`Link para perfil de ${name}`>
+    <a class="card-link" href={`/${lang}${link}`} aria-label=`Link para perfil de ${name}`>
         <div class="icon">
             <img src=`${image}` alt=`Imagen del integrante ${name}` />
         </div>
