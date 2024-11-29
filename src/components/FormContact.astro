@@ -19,7 +19,7 @@ const t = useTranslations(lang);
 <style>
     .contact-form {
         background-color: #f2f2f2;
-        padding: 20px;
+        padding: 1rem 1.5rem 2rem 1.5rem;
         border-radius: 10px;
     }
     html.dark .contact-form {
@@ -35,11 +35,13 @@ const t = useTranslations(lang);
     }
 
     .contact-form .heading {
-        font-size: 24px;
+        line-height: 2.4rem;
+        font-size: 2.4rem;
         color: black;
-        margin-bottom: 12px;
+        margin: 1rem 0;
         font-weight: bold;
-        display: block;
+        display: inline-block;
+        border-bottom: var(--accent) 3px solid;
     }
     html.dark .heading {
         color: white !important;
@@ -76,7 +78,7 @@ const t = useTranslations(lang);
     .contact-form textarea:focus {
         outline: none;
         box-shadow: 0 0 5px var(--accent);
-        transform: scale(1.03);
+        transform: scale(1.02);
         transition: transform 0.3s ease-in-out;
     }
 
@@ -85,13 +87,13 @@ const t = useTranslations(lang);
         color: #fff;
         border: none;
         border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
+        padding: 0.7rem;
+        font-size: 1.2rem;
         cursor: pointer;
     }
 
     .contact-form button[type="submit"]:hover {
-        transform: scale(1.03);
+        transform: scale(1.02);
         transition: transform 0.3s ease-in-out;
     }
 </style>
