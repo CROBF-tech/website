@@ -3,6 +3,7 @@ title: '¿Que es solid y por que deberías utilizarlo?'
 description: 'Si alguna vez has trabajado en un proyecto de desarrollo que escaló rapidamente y se volvió muy difícil de manetener, sabras lo importante que es seguir convenciones y estandares para evitar dolores de cabeza. Aquí es donde entra SOLID.'
 pubDate: 'Nov 26 2024'
 heroImage: '/blog/placheholder-blog-solid.jpg'
+author: 'Juan Beresiarte'
 ---
 
 Si alguna vez has trabajado en un proyecto de desarrollo que escaló rapidamente y se volvió muy difícil de manetener, sabras lo importante que es seguir convenciones y estandares para evitar dolores de cabeza. Aquí es donde entra SOLID.

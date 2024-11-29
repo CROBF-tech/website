@@ -7,7 +7,7 @@ type Props = Omit<CollectionEntry<"blog">["data"], "pubDate" | "updatedDate"> & 
     pubDate?: Date;
     updatedDate?: Date;
 };
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props;
 ---
 
 <Layout title={title} description={description}>
@@ -34,6 +34,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 <slot />
             </div>
         </article>
+        {author && <span class="author">- Escrito por {author} -</span>}
     </main>
     <style>
         main {
@@ -78,6 +79,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         }
         .last-updated-on {
             font-style: italic;
+        }
+        .author {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+
+            color: #7a7a7a;
         }
 
         h1,
