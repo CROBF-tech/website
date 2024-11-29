@@ -58,8 +58,13 @@ const t = useTranslations(lang);
     header {
         margin: 0;
         padding: 0;
-        background: var(--gray-light);
+        background: rgb(var(--gray-light));
         box-shadow: 0 2px 4px rgba(var(--black), 0.2);
+        position: sticky;
+        top: 0;
+    }
+    html.dark header {
+        background-color: #333;
     }
     h2 {
         margin: 0;
