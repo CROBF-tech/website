@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
+export const prerender = true;
+
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
 const t = useTranslations(getLangFromUrl(Astro.url));
 const lang = getLangFromUrl(Astro.url);
