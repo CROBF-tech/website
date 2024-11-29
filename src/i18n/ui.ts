@@ -51,7 +51,13 @@ export const ui = {
         "about.vision.title": "Nuestra Visión a Futuro",
         "about.vision.description": "Estamos trabajando para convertirnos en un equipo líder en desarrollo de software, manteniendo siempre nuestra esencia de aprendizaje y colaboración. Nuestro objetivo es seguir innovando, explorando nuevas oportunidades y creciendo tanto a nivel técnico como humano.",
         "about.contact.title": "¿Quieres Saber Más?",
-        "about.contact.description": "Si deseas conocer más sobre nosotros o explorar nuestras soluciones, ¡no dudes en contactarnos! En CROBF, estamos siempre listos para afrontar nuevos desafíos y construir un futuro juntos."
+        "about.contact.description": "Si deseas conocer más sobre nosotros o explorar nuestras soluciones, ¡no dudes en contactarnos! En CROBF, estamos siempre listos para afrontar nuevos desafíos y construir un futuro juntos.",
+        // ===============================================================
+        "form.contact.title": "Contáctanos",
+        "form.contact.name": "Nombre",
+        "form.contact.email": "Email",
+        "form.contact.message":"Mensaje",
+        "form.contact.submit":"Enviar"
     },
     en: {
         // ================================================================
@@ -98,6 +104,12 @@ export const ui = {
         "about.vision.title": "Our Vision for the Future",
         "about.vision.description": "We are working to become a leading software development team, always maintaining our essence of learning and collaboration. Our goal is to continue innovating, exploring new opportunities, and growing both technically and personally.",
         "about.contact.title": "Want to Know More?",
-        "about.contact.description": "If you want to learn more about us or explore our solutions, don't hesitate to contact us! At CROBF, we are always ready to face new challenges and build a future together."
+        "about.contact.description": "If you want to learn more about us or explore our solutions, don't hesitate to contact us! At CROBF, we are always ready to face new challenges and build a future together.",
+        // ===============================================================
+        "form.contact.title": "Contact Us",
+        "form.contact.name": "Name",
+        "form.contact.email": "Email",
+        "form.contact.message":"Message",
+        "form.contact.submit":"Send"
     }
 }

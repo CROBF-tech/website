@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
+import FormContact from "../../components/FormContact.astro";
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
 const t = useTranslations(getLangFromUrl(Astro.url));
 const lang = getLangFromUrl(Astro.url);
@@ -36,6 +37,7 @@ export function getStaticPaths() {
             {t("index.cta")}
             <a href="https://mailto:juanberesiarte@gmail.com">{t("index.contact")}</a>
         </p>
+        <FormContact />
     </main>
 </Layout>
 <style>
