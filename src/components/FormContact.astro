@@ -8,7 +8,7 @@ const t = useTranslations(lang);
     <span class="heading">{t("form.contact.title")}</span>
     <form action="https://formspree.io/f/xnnqonwb" method="POST">
         <label for="name">{t("form.contact.name")}</label>
-        <input type="text" required="" />
+        <input type="text" name="name" required="" />
         <label for="email">{t("form.contact.email")}</label>
         <input type="email" id="email" name="email" required="" />
         <label for="message">{t("form.contact.message")}</label>
