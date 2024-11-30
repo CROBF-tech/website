@@ -57,7 +57,8 @@ export const ui = {
         "form.contact.name": "Nombre",
         "form.contact.email": "Email",
         "form.contact.message":"Mensaje",
-        "form.contact.submit":"Enviar"
+        "form.contact.submit":"Enviar",
+        "form.contact.placeholder.message":"Escribe tu mensaje aquí"
     },
     en: {
         // ================================================================
@@ -110,6 +111,7 @@ export const ui = {
         "form.contact.name": "Name",
         "form.contact.email": "Email",
         "form.contact.message":"Message",
-        "form.contact.submit":"Send"
+        "form.contact.submit":"Send",
+        "form.contact.placeholder.message":"Write your message here"
     }
 }

@@ -1,5 +1,6 @@
 ---
 import { useTranslations, getLangFromUrl } from "../i18n/tranlate";
+const MAIL_KEY = import.meta.env.MAIL_KEY;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -7,7 +8,7 @@ const t = useTranslations(lang);
 <div class="contact-form">
     <span class="heading">{t("form.contact.title")}</span>
     <form method="POST" id="contact_form">
-        <input type="hidden" name="access_key" value="e76c6c67-e1aa-4375-8e44-d3eabf0b2074" />
+        <input type="hidden" name="access_key" value={MAIL_KEY} />
 
         <label for="name">{t("form.contact.name")}</label>
         <input type="text" name="name" placeholder="Jhon Doe" required="" />
@@ -16,7 +17,8 @@ const t = useTranslations(lang);
         <input type="email" id="email" name="email" placeholder="jhondoe@email.com" required="" />
 
         <label for="message">{t("form.contact.message")}</label>
-        <textarea id="message" name="message" placeholder="Lorem ipsum dolor sit amet..." required=""></textarea>
+        <textarea id="message" name="message" placeholder={t("form.contact.placeholder.message") as string} required=""
+        ></textarea>
 
         <button type="submit">{t("form.contact.submit")}</button>
 
