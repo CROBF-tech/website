@@ -1,5 +1,5 @@
 ---
-import { useTranslations, getLangFromUrl } from "../i18n/tranlate";
+import { useTranslations, getLangFromUrl } from "../i18n/translate";
 const MAIL_KEY = import.meta.env.MAIL_KEY;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

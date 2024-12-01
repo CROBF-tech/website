@@ -2,7 +2,7 @@
 import Layout from "../../layouts/BlogPost.astro";
 import CardFounder from "../../components/CardFounder.astro";
 import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
-import { useTranslations, getLangFromUrl } from "../../i18n/tranlate";
+import { useTranslations, getLangFromUrl } from "../../i18n/translate";
 export function getStaticPaths() {
     return [
         {
@@ -19,7 +19,8 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <Layout
     title={`${t("about.title")} - ${SITE_TITLE}`}
     description={t("about.description") as string}
-    heroImage="/blog-placeholder-about.jpg">
+    heroImage="/blog-placeholder-about.jpg"
+>
     <section id="about-us">
         <div class="container">
             <p set:html={t("about.welcome")} />

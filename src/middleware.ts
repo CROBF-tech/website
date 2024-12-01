@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { defaultLang, ui } from "./i18n/ui";
+import { getAvailableLanguages, getDefaultLanguage } from "./i18n/translate";
 
 const language_cookie_name = "prefered_language";
 const cookies_config = {
@@ -8,8 +8,9 @@ const cookies_config = {
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
+    const defaultLang = getDefaultLanguage();
     const { cookies } = context;
-    const validLangs = Object.keys(ui);
+    const validLangs = getAvailableLanguages() as string[];
     const [url_lang, ...url_path] = context.url.pathname.split('/').slice(1);
 
     // Obtén el idioma preferido desde la cookie

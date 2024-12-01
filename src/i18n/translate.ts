@@ -11,3 +11,11 @@ export function useTranslations(lang: keyof typeof ui) {
         return ui[lang][key] || ui[defaultLang][key];
     }
 }
+
+export function getDefaultLanguage(): typeof defaultLang {
+    return defaultLang;
+}
+
+export function getAvailableLanguages(): (keyof typeof ui)[] {
+    return Object.keys(ui) as (keyof typeof ui)[];
+}
