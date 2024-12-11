@@ -26,6 +26,7 @@ export const ui = {
         "navbar.blog": "Blog",
         "navbar.documentation": "Documentación",
         "navbar.about": "Sobre Nosotros",
+        "navbar.contact":"Contacto",
         // ===============================================================
         "about.title": "Sobre Nosotros",
         "about.description": "Somos CROBF, una empresa de desarrollo de software conformada por un equipo joven pero con experiencia en diversas tecnologías.",
@@ -80,6 +81,8 @@ export const ui = {
         "navbar.blog": "Blog",
         "navbar.documentation": "Documentation",
         "navbar.about": "About",
+        "navbar.contact": "Contact",
+        // ===============================================
         // ===================================================================
         "about.title": "About Us",
         "about.description": "We are CROBF, a software development company composed of a young but experienced team in various technologies.",

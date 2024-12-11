@@ -19,8 +19,7 @@ const t = useTranslations(lang);
                 stroke-width="1.5"
                 stroke="currentColor"
                 class="size-6"
-                id="menu-button"
-            >
+                id="menu-button">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                 ></path>
             </svg>
@@ -30,6 +29,7 @@ const t = useTranslations(lang);
             <HeaderLink href={`/${lang}/blog`}>{t("navbar.blog")}</HeaderLink>
             <HeaderLink href={`/${lang}/docs`}>{t("navbar.documentation")}</HeaderLink>
             <HeaderLink href={`/${lang}/about`}>{t("navbar.about")}</HeaderLink>
+            <HeaderLink href={`/${lang}/contact`}>{t("navbar.contact")}</HeaderLink>
             <LanguageSelector />
         </div>
     </nav>

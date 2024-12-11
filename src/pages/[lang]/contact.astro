@@ -1,0 +1,30 @@
+---
+import FormContact from "../../components/FormContact.astro";
+import Layout from "../../layouts/Layout.astro";
+import { useTranslations, getLangFromUrl } from "../../i18n/translate";
+import { SITE_TITLE } from "../../consts";
+export function getStaticPaths() {
+    return [
+        {
+            params: { lang: "es" },
+        },
+        {
+            params: { lang: "en" },
+        },
+    ];
+}
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<Layout title={`${t("navbar.contact")} - ${SITE_TITLE}`} description={t("about.description") as string}>
+    <div>
+        <FormContact />
+    </div>
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+    </style>
+</Layout>
