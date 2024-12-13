@@ -2,10 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
-import FormContact from "../../components/FormContact.astro";
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
 const t = useTranslations(getLangFromUrl(Astro.url));
 const lang = getLangFromUrl(Astro.url);
+
+export const prerender = true;
+
 export function getStaticPaths() {
     return [
         {
