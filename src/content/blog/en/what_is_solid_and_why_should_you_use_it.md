@@ -3,6 +3,7 @@ title: 'What is SOLID and Why Should You Use It?'
 description: 'If you’ve ever worked on a development project that scaled rapidly and became difficult to maintain, you know how important it is to follow conventions and standards to avoid headaches. This is where SOLID comes in.'
 pubDate: 'Nov 26 2024'
 heroImage: '/blog/placheholder-blog-solid.jpg'
+author: 'Juan Beresiarte'
 ---
 
 If you’ve ever worked on a development project that scaled rapidly and became difficult to maintain, you know how important it is to follow conventions and standards to avoid headaches. This is where SOLID comes in.
