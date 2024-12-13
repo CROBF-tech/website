@@ -1,23 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import CardProyect from "../../components/CardProyect.astro";
 import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
 const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
 const t = useTranslations(getLangFromUrl(Astro.url));
 const lang = getLangFromUrl(Astro.url);
-
-export const prerender = true;
-
-export function getStaticPaths() {
-    return [
-        {
-            params: { lang: "es" },
-        },
-        {
-            params: { lang: "en" },
-        },
-    ];
-}
 ---
 
 <Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
@@ -38,6 +26,13 @@ export function getStaticPaths() {
         <p>
             {t("index.cta")}
         </p>
+        <h3>{t("projects.title")}</h3>
+        <CardProyect
+            name="FullLite"
+            description="Template ligero para applicaciones full stack"
+            image="/proyects/animal.svg"
+            link="https://full-lite.vercel.app/"
+        />
     </main>
 </Layout>
 <style>
