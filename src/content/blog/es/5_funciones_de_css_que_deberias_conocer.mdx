@@ -1,7 +1,7 @@
 ---
 title: '5 funciones de css que deberías conocer'
 description: ''
-pubDate: 'Dic 26 2024'
+pubDate: 'Dec 26 2024'
 heroImage: '/blog/5_funciones_de_css_que_deberias_conocer.png'
 author: "Juan Beresiarte"
 ---
@@ -80,29 +80,7 @@ Con `min()`, reduces reglas de media queries y logras un diseño más fluido.
 
 ---
 
-## 4. inset(): Márgenes y paddings en una sola declaración 📦
-
-`inset()` simplifica la definición de `top`, `right`, `bottom` y `left`, ayudándote a mantener tu código más conciso.
-
-### Ejemplo sin inset():
-```css
-.element {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-```
-### Ejemplo con inset():
-```css
-.element {
-  margin: inset(10px); /* Todo el margen definido en una sola línea */
-}
-```
-
----
-
-## 5. clamp(): Control total del tamaño en diseños responsivos
+## 4. clamp(): Control total del tamaño en diseños responsivos
 
 `clamp()` permite definir un rango de tamaños mínimo y máximo, ideal para fuentes y elementos que necesitan escalar según el tamaño de la pantalla.
 
@@ -132,3 +110,33 @@ Con `min()`, reduces reglas de media queries y logras un diseño más fluido.
 ```
 
 Con `clamp()`, eliminas varias reglas de media queries y consigues un diseño mucho más flexible.
+
+---
+
+## 5. fit-content(): Ajusta el ancho al contenido 
+
+`fit-content()` te permite ajustar el ancho de un elemento al tamaño de su contenido, pero sin que este se expanda más allá de un valor máximo que definas. Esto es muy útil para crear botones o elementos que se ajusten dinámicamente al texto que contienen, pero que no se hagan excesivamente grandes en pantallas anchas.
+
+### Ejemplo sin fit-content():
+
+```css
+.button {
+  width: auto; /* Se expande según el contenido */
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+```
+
+(En este caso, si el texto del botón es muy largo, el botón se extenderá demasiado).
+
+### Ejemplo con fit-content():
+
+```css
+.button {
+  width: fit-content(200px); /* Se ajusta al contenido, pero con un máximo de 200px */
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+```
+
+Con `fit-content()`, el botón se ajustará al tamaño del texto, pero nunca superará los 200px de ancho. Si el texto es más corto, el botón será más pequeño.
