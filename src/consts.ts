@@ -12,6 +12,8 @@ export const TEAM_MEMBERS = {
     gitHub: "https://github.com/beresiartejuan",
     linkedin: "https://www.linkedin.com/in/beresiartejuan/",
     link: "/founders/juan_beresiarte",
+    profession: "Desarrollador Full Stack",
+    description: "Estudiante de la tecnicatura universitaria en programación en la UTN. Me apasiona la tecnología y el desarrollo de software. Me gusta aprender cosas nuevas y enfrentar desafíos. Soy una persona proactiva, responsable y comprometida con mi trabajo.",
     index: 4
   },
   Ezequiel: {
@@ -21,6 +23,8 @@ export const TEAM_MEMBERS = {
     gitHub: "https://github.com/yoezequiel",
     linkedin: "https://www.linkedin.com/in/yoezequiel/",
     link: "/founders/ezequiel_casiano",
+    profession: "Desarrollador Full Stack",
+    description: "¡Hola! Soy Casiano Ezequiel, estudiante de desarrollo de software con enfoque en desarrollo web y Python. Siempre dispuesto a explorar y aprender más.",
     index: 1
   },
   Lautaro: {
@@ -30,6 +34,8 @@ export const TEAM_MEMBERS = {
     gitHub: "https://github.com/lautaroff",
     linkedin: "",
     link: "/founders/lautaro_ferreira",
+    profession: "Desarrollador Full Stack",
+    description: "¡Hola! Soy Lautaro Ferreyra, estudiante de la Tecnicatura Superior en Desarrollo de Software, con un marcado interés en el desarrollo backend y la creación de soluciones tecnológicas robustas.",
     index: 5
   },
   Valentina: {
@@ -39,6 +45,8 @@ export const TEAM_MEMBERS = {
     gitHub: "https://github.com/Valen2203",
     linkedin: "",
     link: "/founders/valentina_osorio",
+    profession: "Desarrollador Full Stack",
+    description: "Soy una estudiante de programación de software con una marcada preferencia por el diseño de páginas web. ",
     index: 3,
   },
   Magali: {
@@ -48,6 +56,8 @@ export const TEAM_MEMBERS = {
     gitHub: "https://github.com/Magali22R",
     linkedin: "",
     link: "/founders/magali_rodriguez",
+    profession: "Desarrollador Full Stack",
+    description: "Soy una estudiante de desarrollo de software con una gran ambición por mejorar y convertirme en una profesional algún día.",
     index: 2
   },
 };

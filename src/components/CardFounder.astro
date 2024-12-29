@@ -2,7 +2,7 @@
 import { getLangFromUrl } from "../i18n/translate";
 import Github from "./svgs/Github.astro";
 import Linkedin from "./svgs/Linkedin.astro";
-const { name, image, github, linkedin, link } = Astro.props;
+const { name, image, github, linkedin, link, profession, description } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 ---
 
@@ -10,11 +10,8 @@ const lang = getLangFromUrl(Astro.url);
     <img src=`${image}` alt=`Imagen del integrante ${name}` />
     <div>
         <h2>{name}</h2>
-        <h3>Profesión</h3>
-        <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde neque ad eligendi assumenda, maiores
-            cumquequasi veniam nesciunt saepe
-        </p>
+        <h3>{profession}</h3>
+        <p>{description}</p>
         <div class="socials">
             <div>
                 <a
@@ -138,6 +135,9 @@ const lang = getLangFromUrl(Astro.url);
             border: 0.75rem solid var(--card);
             box-shadow: none;
             margin: -7.75rem 0 1.875rem 0;
+        }
+        .card {
+            margin: 2.3rem 0;
         }
     }
 </style>
