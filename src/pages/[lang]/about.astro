@@ -19,8 +19,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <Layout
     title={`${t("about.title")} - ${SITE_TITLE}`}
     description={t("about.description") as string}
-    heroImage="/blog-placeholder-about.jpg"
->
+    heroImage="/blog-placeholder-about.jpg">
     <section id="about-us">
         <div class="container">
             <p set:html={t("about.welcome")} />
@@ -101,6 +100,16 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
+        }
+        @media (width <= 37.5rem) {
+            .cards {
+                margin-top: 4em;
+            }
+        }
+        @media (width <= 27.5rem) {
+            .cards {
+                margin-top: 5em;
+            }
         }
     </style>
 </Layout>
