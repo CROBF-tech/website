@@ -14,6 +14,7 @@ export const TEAM_MEMBERS = {
     link: "/founders/juan_beresiarte",
     profession: "Desarrollador Full Stack",
     description: "Estudiante de la tecnicatura universitaria en programación en la UTN. Me apasiona la tecnología y el desarrollo de software. Me gusta aprender cosas nuevas y enfrentar desafíos. Soy una persona proactiva, responsable y comprometida con mi trabajo.",
+    index: 1
   },
   Ezequiel: {
     fullName: "Casiano Ezequiel",
@@ -24,6 +25,7 @@ export const TEAM_MEMBERS = {
     link: "/founders/ezequiel_casiano",
     profession: "Desarrollador Full Stack",
     description: "¡Hola! Soy Casiano Ezequiel, estudiante de desarrollo de software con enfoque en desarrollo web y Python. Siempre dispuesto a explorar y aprender más.",
+    index: 2
   },
   Lautaro: {
     fullName: "Ferreira Lautaro",
@@ -34,6 +36,8 @@ export const TEAM_MEMBERS = {
     link: "/founders/lautaro_ferreira",
     profession: "Desarrollador Full Stack",
     description: "¡Hola! Soy Lautaro Ferreyra, estudiante de la Tecnicatura Superior en Desarrollo de Software, con un marcado interés en el desarrollo backend y la creación de soluciones tecnológicas robustas.",
+    index: 3
+
   },
   Sofia:{
     fullName: "Rubio Sofia",
@@ -44,6 +48,7 @@ export const TEAM_MEMBERS = {
     link: "/founders/sofia_rubio",
     profession: "Desarrolladora Full Stack",
     description: "Hola, soy Sofia Rubio, estudiante de Desarrollo de Software. Soy una persona comprometida y responsable, me gusta el desarrollo frontend y estoy a disposición para abordar desafíos en el backend.",
+    index: 4
   },
   Julieta:{
     fullName:"Sotelo Julieta",
@@ -53,7 +58,8 @@ export const TEAM_MEMBERS = {
     linkedin: "https://www.linkedin.com/in/julieta-sotelo-54181a347",
     link: "/founders/julieta_sotelo",
     profession: "Diseño, Análisis, Fullstack",
-    description:"¡Hola! Soy Julieta Sotelo, estudiante de la Tecnicatura Superior en Desarrollo de software explorando el camino de la programación y diseño web."
+    description:"¡Hola! Soy Julieta Sotelo, estudiante de la Tecnicatura Superior en Desarrollo de software explorando el camino de la programación y diseño web.",
+    index: 5
   },
   Santiago:{
     fullName:"Suarez Santiago",
@@ -63,7 +69,8 @@ export const TEAM_MEMBERS = {
     linkedin: "https://www.linkedin.com/in/santiago-suarez-96a61a341/",
     link: "/founders/santiago_suarez",
     profession: "Desarrollador Backend",
-    description:"Hola! Soy Santiago Suarez, estudiante de la Tecnicatura Superior en Desarrollo de Software. Me apasiona analizar y resolver problemas, disfrutando del desafío que implica descomponer situaciones complejas para encontrar soluciones prácticas y efectivas."
+    description:"Hola! Soy Santiago Suarez, estudiante de la Tecnicatura Superior en Desarrollo de Software. Me apasiona analizar y resolver problemas, disfrutando del desafío que implica descomponer situaciones complejas para encontrar soluciones prácticas y efectivas.",
+    index: 6
   },
   Paula:{
     fullName: "Toledo Ana Paula",
@@ -73,7 +80,8 @@ export const TEAM_MEMBERS = {
     linkedin: "https://www.linkedin.com/in/ana-paula-toledo-a27527261/",
     link: "/founders/ana_paula_toledo",
     profession: "Desarrollo Backend, Análisis, Documentación, Ciencia de Datos. ",
-    description:"¡Hola! Soy Ana Paula, estudiante de la Tecnicatura Superior en Desarrollo de Software, apasionada por encontrar soluciones creativas e innovadoras a problemas tecnológicos.Mi capacidad autodidacta me permite aprender nuevas habilidades de forma constante."
+    description:"¡Hola! Soy Ana Paula, estudiante de la Tecnicatura Superior en Desarrollo de Software, apasionada por encontrar soluciones creativas e innovadoras a problemas tecnológicos.Mi capacidad autodidacta me permite aprender nuevas habilidades de forma constante.",
+    index: 7
   },
   Silvina:{
     fullName: "Olivares Silvina",
@@ -83,6 +91,7 @@ export const TEAM_MEMBERS = {
     linkedin: "https:https://www.linkedin.com/in/silvinaolivares/",
     link: "/founders/silvina_olivares",
     profession: "Diseño UX UI",
-    description:"¡Hola! Soy Silvina y soy estudiante de Diseño UX/UI con conocimientos en conceptos básicosMi objetivo es colaborar en la creación de productos intuitivos y funcionales mientras desarrollo mis competencias en investigación, diseño y mejora de experiencias digitales."
+    description:"¡Hola! Soy Silvina y soy estudiante de Diseño UX/UI con conocimientos en conceptos básicosMi objetivo es colaborar en la creación de productos intuitivos y funcionales mientras desarrollo mis competencias en investigación, diseño y mejora de experiencias digitales.",
+    index: 8
   }
 };
