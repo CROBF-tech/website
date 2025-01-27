@@ -12,9 +12,7 @@ const lang = getLangFromUrl(Astro.url);
     <main>
         <h1>
             {t("index.welcome")}
-            <span>
-                {FOUNDERS.map((founder) => <a href={`/${lang}${founder.link}`}>{founder.fullName.at(0)}</a>)}
-            </span>
+            <span> CROBF </span>
         </h1>
         <p set:html={t("index.description")} />
         <p set:html={t("index.mission")} />
