@@ -26,7 +26,7 @@ export default {
     "about.heroImage": "/blog-placeholder-about.jpg",
     "about.welcome": "Welcome to CROBF, a team of developers committed to constant learning and creating innovative solutions in the software world.",
     "about.whoWeAre.title": "Who Are We?",
-    "about.whoWeAre.description": "CROBF is composed of five professionals passionate about technology and software development:",
+    "about.whoWeAre.description": "CROBF is composed of eight professionals passionate about technology and software development:",
     "about.team.values": "We are defined by our diverse knowledge, eagerness to learn, and commitment to teamwork.",
     "about.philosophy.title": "Our Philosophy",
     "about.philosophy.description": "At CROBF, we believe that learning and success go hand in hand. That's why we have structured our team into two main areas:",
