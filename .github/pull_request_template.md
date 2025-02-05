@@ -1,6 +1,6 @@
 ### Title
 
-Escribir: Titulo
+Titulo
 
 ---
 

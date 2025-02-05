@@ -83,15 +83,4 @@ export const TEAM_MEMBERS = {
     description:"¡Hola! Soy Ana Paula, estudiante de la Tecnicatura Superior en Desarrollo de Software, apasionada por encontrar soluciones creativas e innovadoras a problemas tecnológicos.Mi capacidad autodidacta me permite aprender nuevas habilidades de forma constante.",
     index: 7
   },
-  Silvina:{
-    fullName: "Olivares Silvina",
-    logo: "/founders/silvina_olivares.jpeg",
-    email: "silvinaolivares78@gmail.com",
-    gitHub: "https://github.com/silvimgl",
-    linkedin: "https:https://www.linkedin.com/in/silvinaolivares/",
-    link: "/founders/silvina_olivares",
-    profession: "Diseño UX UI",
-    description:"¡Hola! Soy Silvina y soy estudiante de Diseño UX/UI con conocimientos en conceptos básicosMi objetivo es colaborar en la creación de productos intuitivos y funcionales mientras desarrollo mis competencias en investigación, diseño y mejora de experiencias digitales.",
-    index: 8
-  }
 };
