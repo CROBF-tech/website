@@ -25,7 +25,7 @@ export default {
     "about.heroImage": "/blog-placeholder-about.jpg",
     "about.welcome": "Bienvenidos a CROBF, un equipo de desarrolladores comprometidos con el aprendizaje constante y la creación de soluciones innovadoras en el mundo del software.",
     "about.whoWeAre.title": "¿Quiénes Somos?",
-    "about.whoWeAre.description": "CROBF está formado por ocho profesionales apasionados por la tecnología y el desarrollo de software:",
+    "about.whoWeAre.description": "CROBF está formado por siete profesionales apasionados por la tecnología y el desarrollo de software:",
     "about.team.values": "Nos define nuestra diversidad de conocimientos, nuestras ganas de aprender y nuestro compromiso con el trabajo en equipo.",
     "about.philosophy.title": "Nuestra Filosofía",
     "about.philosophy.description": "En CROBF, creemos que el aprendizaje y el éxito van de la mano. Por eso, hemos estructurado nuestro equipo en dos áreas principales:",
