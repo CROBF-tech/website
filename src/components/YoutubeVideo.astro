@@ -11,5 +11,12 @@ const { youtubeIdVideo } = Astro.props;
     title="YouTube video player"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-    class="w-[95%] mx-auto rounded-md !my-12 aspect-video"></iframe>
+    allowfullscreen>
+</iframe>
+<style>
+    iframe {
+        width: 95%;
+        border-radius: 10px;
+        aspect-ratio: 16/9;
+    }
+</style>
