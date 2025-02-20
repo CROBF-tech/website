@@ -33,7 +33,7 @@ export const TEAM_MEMBERS = {
     email: "Lauferreyraff@gmail.com",
     gitHub: "https://github.com/lautaroff",
     linkedin: "https://www.linkedin.com/in/lautaro-francisco-ferreyra-217743244",
-    link: "/founders/lautaro_ferreira",
+    link: "/founders/lautaro_ferreyra",
     profession: "Desarrollador Full Stack",
     description: "¡Hola! Soy Lautaro Ferreyra, estudiante de la Tecnicatura Superior en Desarrollo de Software, con un marcado interés en el desarrollo backend y la creación de soluciones tecnológicas robustas.",
     index: 3
