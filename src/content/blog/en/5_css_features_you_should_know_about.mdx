@@ -1,0 +1,142 @@
+---
+title: '5 CSS Features You Should Know'
+description: ''
+pubDate: 'Dec 26 2024'
+heroImage: '/blog/5_funciones_de_css_que_deberias_conocer.png'
+author: "Juan Beresiarte"
+---
+Today I want to talk about five great CSS features that will probably change the way you write styles. If you're learning CSS, this functions are going to make your life easier. Let's look at them one by one, with examples that show how we would do things "by hand" and how we can simplify them with this tools.
+
+## 1. calc(): Perform calculations directly in your CSS ​​📏
+
+Have you ever manually added or subtracted values to adjust an element's size? Whit `calc()`, you can do it directly in your stylesheet, without needing previous calculations.
+
+### Example without calc():
+```css
+.container {
+  width: 70%;
+  margin: 20px;
+}
+```
+### Example whit calc():
+```css
+.container {
+  width: calc(70% - 20px);
+  margin: 20px;
+}
+```
+
+With `calc()`, you can combine different measurement units, such as percentages and pixels, to achieve more flexible and adaptable designs.
+
+---
+
+## 2. repeat(): Simplify Grid Creation 💡
+
+If you use Grid Layout, you've surely found yourself writing repetitive columns or rows. Whit `repeat()`, you can avoid redundant code and improve readability.
+
+### Example without repeat():
+```css
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+}
+```
+### Example whit repeat():
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* The same, but cleaner */
+}
+```
+
+`repeat()` is ideal for complex grids or those with a defined pattern.
+
+---
+
+## 3. min(): Control Maximum Dynamic Size 🤏
+
+`min()` allows you to specify the smallest size among several values, perfect for responsive designs.
+
+### Example without min():
+```css
+.box {
+  width: 50vw; /* Might be too large on big screens */
+}
+
+@media (min-width: 600px) {
+  .box {
+    width: 300px; /* Fixed size on larger screens */
+  }
+}
+```
+### Example with min():
+```css
+.box {
+  width: min(50vw, 300px); /* Automatically picks the smallest value */
+}
+```
+
+With `min()`, you reduce media query rules and achieve a more fluid design.
+
+---
+
+## 4. clamp(): Full Control Over Size in Responsive Designs
+
+`clamp()` allows you to define a range of minimum and maximum sizes, ideal for fonts and elements that need to scale according to screen size.
+
+### Example without clamp():
+```css
+.text {
+  font-size: 16px; /* Fixed size */
+}
+
+@media (min-width: 600px) {
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .text {
+    font-size: 24px;
+  }
+}
+```
+### Example with clamp():
+```css
+.text {
+  font-size: clamp(16px, 2vw, 24px); /* Escala entre 16px y 24px */
+}
+```
+
+With `clamp()`, you eliminate multiple media query rules and achieve a much more flexible design.
+
+---
+
+## 5. fit-content(): Adjust Width to Content 
+
+`fit-content()` allows allows you to adjust an element’s width to its content size while preventing it from expanding beyond a defined maximum value. This is very useful for creating buttons or elements that dynamically adjust to the text contain but don’t become excessively large on wide screens.
+
+### Example without fit-content():
+
+```css
+.button {
+  width: auto; /* Expands based on content */
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+```
+
+(In this case, if the button text is too long, the button will stretch too much.)
+
+### Example with fit-content():
+
+```css
+.button {
+  width: fit-content(200px); /* Adjusts to content but maxes out at 200px */
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+```
+
+With `fit-content()`, the button will adjust to the text size but will never exceed 200px in width. If the text is shorter, the button will be smaller.
