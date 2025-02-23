@@ -7,13 +7,20 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://crobf.tech/blog/</loc>
+        <loc>https://crobf.tech/es/blog/</loc>
         <lastmod>2025-02-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://crobf.tech/contacto/</loc>
+        <loc>https://crobf.tech/es/about/</loc>
+        <lastmod>2025-02-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>
+    <url>
+        <loc>https://crobf.tech/es/contacto/</loc>
         <lastmod>2025-02-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
