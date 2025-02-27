@@ -1,0 +1,35 @@
+/* public/styles/dynamic-background.css */
+
+/* Contenedor del fondo dinámico: debe ocupar todo el contenedor principal */
+.dynamic-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;           /* Se ubica detrás del contenido */
+    pointer-events: none;  /* No interfiere con la interacción del usuario */
+}
+  
+  /* Estilo base para cada ícono (símbolo) */
+.symbol {
+    position: absolute;
+    opacity: 0;                   /* Se inicia oculto y aparece con fade-in */
+    transition: transform 0.5s ease-out;
+    pointer-events: none;
+    animation: fadeIn 1s forwards;
+}
+  
+  /* Animación para el fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.3; }
+}
+  
+  /* Forzar que los SVG (en <img>) se muestren en gris claro y translúcidos */
+.dynamic-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(1) brightness(1.5);
+}
