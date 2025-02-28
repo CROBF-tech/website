@@ -18,9 +18,27 @@ import ThemeIcon from "../components/ThemeIcon.astro";
         <BaseHead title={title} description={description} />
     </head>
     <body>
-        <Header />
-        <slot />
-        <ThemeIcon />
-        <Footer />
-    </body>
+        <div class="has-dynamic-background" style="position: relative; width: 100%; min-height: 100vh;">
+            <Header />
+            <slot />
+            <ThemeIcon />
+            <Footer />
+        </div>
+    </body><script>
+        import { createDynamicBackground } from "../utils/dynamic-background.ts";
+        createDynamicBackground({
+            count: 42,
+            size: 50,
+            rotationRange: 90,
+            svgWeights: {
+                "envelope-paper.svg": 1,
+                "send.svg": 1,
+                "info-circle.svg": 1,
+                "logo_crobf.svg": 2,
+                "envelope.svg": 1,
+                "mailbox.svg": 1,
+                "share.svg": 1,
+            },
+        });
+    </script>
 </html>
