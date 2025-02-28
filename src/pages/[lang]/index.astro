@@ -12,76 +12,76 @@ const lang = getLangFromUrl(Astro.url);
     <div class="has-dynamic-background" style="position: relative; width: 100%; min-height: 100vh;">
         <main style="position: relative;">
             <div class="has-dynamic-background">
-            <h1>
-                {t("index.welcome")}
-                <span> CROBF </span>
-            </h1>
-            <p set:html={t("index.description")} />
-            <p set:html={t("index.mission")} />
-            <p set:html={t("index.about")} />
-            <p set:html={t("index.offer")} />
-            <ul>
-                {(t("index.services") as string[]).map((service) => <li set:html={service} />)}
-            </ul>
-            <p>
-                {t("index.cta")}
-            </p>
-            <h3>{t("projects.title")}</h3>
-            <CardProyect
-                name="FullLite"
-                description="Template ligero para aplicaciones full stack"
-                image="/projects/animal.svg"
-                link="https://full-lite.vercel.app/"
-            />
-            <CardProyect
-                name="CROBF-UI"
-                description="Librería de componentes para CSS"
-                image="/projects/logo-ui.png"
-                link="https://crobf-ui.vercel.app/"
-            />
+                <h1>
+                    {t("index.welcome")}
+                    <span> CROBF </span>
+                </h1>
+                <p set:html={t("index.description")} />
+                <p set:html={t("index.mission")} />
+                <p set:html={t("index.about")} />
+                <p set:html={t("index.offer")} />
+                <ul>
+                    {(t("index.services") as string[]).map((service) => <li set:html={service} />)}
+                </ul>
+                <p>
+                    {t("index.cta")}
+                </p>
+                <h3>{t("projects.title")}</h3>
+                <CardProyect
+                    name="FullLite"
+                    description="Template ligero para aplicaciones full stack"
+                    image="/projects/animal.svg"
+                    link="https://full-lite.vercel.app/"
+                />
+                <CardProyect
+                    name="CROBF-UI"
+                    description="Librería de componentes para CSS"
+                    image="/projects/logo-ui.png"
+                    link="https://crobf-ui.vercel.app/"
+                />
+            </div>
         </main>
     </div>
+    <script>
+        import { createDynamicBackground } from "../../pages/utils/dynamic-background.ts";
+        createDynamicBackground({
+            count: 42,
+            size: 50,
+            rotationRange: 90,
+            svgWeights: {
+                "envelope-paper.svg": 1,
+                "send.svg": 1,
+                "info-circle.svg": 1,
+                "logo_crobf.svg": 2,
+                "envelope.svg": 1,
+                "mailbox.svg": 1,
+                "share.svg": 1,
+            },
+        });
+    </script>
+    <style>
+        h1 span {
+            border-bottom: 5px solid var(--accent);
+        }
+
+        h1 span a {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--black);
+            transition: transform 0.2s ease;
+        }
+
+        h1 span a:hover {
+            color: var(--accent-dark);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 800px) {
+            h1 {
+                font-size: 3rem;
+                text-wrap: balance;
+                text-align: center;
+            }
+        }
+    </style>
 </Layout>
-<script>
-    import {createDynamicBackground} from "../../pages/utils/dynamic-background.ts";
-    createDynamicBackground({
-        count: 42,
-        size: 50,
-        rotationRange: 90,
-        svgWeights: {
-            "envelope-paper.svg": 1,
-            "send.svg": 1,
-            "info-circle.svg": 1,
-            "logo_crobf.svg": 2,
-            "envelope.svg":1,
-            "mailbox.svg":1,
-            "share.svg":1
-  
-        }
-      });
-</script>
-<style>
-    h1 span {
-        border-bottom: 5px solid var(--accent);
-    }
-
-    h1 span a {
-        display: inline-block;
-        text-decoration: none;
-        color: var(--black);
-        transition: transform 0.2s ease;
-    }
-
-    h1 span a:hover {
-        color: var(--accent-dark);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 800px) {
-        h1 {
-            font-size: 3rem;
-            text-wrap: balance;
-            text-align: center;
-        }
-    }
-</style>
