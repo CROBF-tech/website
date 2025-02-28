@@ -23,7 +23,7 @@ export default {
     "about.title": "Sobre Nosotros",
     "about.description": "Somos CROBF, una empresa de desarrollo de software conformada por un equipo joven pero con experiencia en diversas tecnologías.",
     "about.heroImage": "/blog-placeholder-about.jpg",
-    "about.welcome": "Bienvenidos a CROBF, un equipo de desarrolladores comprometidos con el aprendizaje constante y la creación de soluciones innovadoras en el mundo del software.",
+    "about.welcome": "Bienvenidos a CROBF, un equipo de desarrolladores <span style='color: blue'>comprometidos</span> con el aprendizaje constante y la creación de soluciones innovadoras en el mundo del software.",
     "about.whoWeAre.title": "¿Quiénes Somos?",
     "about.whoWeAre.description": "CROBF está formado por siete profesionales apasionados por la tecnología y el desarrollo de software:",
     "about.team.values": "Nos define nuestra diversidad de conocimientos, nuestras ganas de aprender y nuestro compromiso con el trabajo en equipo.",
