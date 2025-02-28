@@ -42,7 +42,7 @@ export default {
     "about.purpose.title": "Nuestro Propósito",
     "about.purpose.learn": "<strong>Aprender todo lo posible:</strong> Expandir nuestras habilidades en programación, diseño y desarrollo de software.",
     "about.purpose.impact": "<strong>Generar impacto:</strong> Crear soluciones innovadoras que aporten valor y resuelvan problemas reales.",
-    "about.purpose.summary": "Con CROBF, no solo trabajamos en proyectos, sino que construimos un entorno donde todos podemos crecer profesionalmente mientras hacemos lo que amamos.",
+    "about.purpose.summary": "Con CROBF, no solo trabajamos en proyectos, sino que construimos un entorno donde todos podemos <span style:'color:blue'>crecer profesionalmente</span> mientras hacemos lo que amamos.",
     "about.vision.title": "Nuestra Visión a Futuro",
     "about.vision.description": "Estamos trabajando para convertirnos en un equipo líder en desarrollo de software, manteniendo siempre nuestra esencia de aprendizaje y colaboración. Nuestro objetivo es seguir innovando, explorando nuevas oportunidades y creciendo tanto a nivel técnico como humano.",
     "about.contact.title": "¿Quieres Saber Más?",

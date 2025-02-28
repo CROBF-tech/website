@@ -93,9 +93,9 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                 <h2 class="philosophy">{t("about.philosophy.title")}</h2>
                 <p set:html={t("about.philosophy.description")} />
                 <PhilosophyCards />
-                <p set:html={t("about.philosophy.motto")} />
+                <p class="motto" set:html={t("about.philosophy.motto")} />
 
-                <h2 class="values">{t("about.values.title")}</h2>
+                <h2 set:html={t("about.values.title")} />
                 <ul>
                     <li set:html={t("about.values.teamwork")} />
                     <li set:html={t("about.values.trust")} />
@@ -119,6 +119,10 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         </div>
     </main>
     <style>
+        .motto {
+            color: var(--accent);
+            font-size: 30px;
+        }
         .title {
             font-size: 40px;
         }
@@ -129,11 +133,6 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             font-size: 36px;
         }
         .philosophy {
-            font-size: 36px;
-            text-align: left;
-            width: 100%;
-        }
-        .values {
             font-size: 36px;
             text-align: left;
             width: 100%;
