@@ -1,0 +1,79 @@
+---
+const { title, description } = Astro.props;
+---
+<div class="service-card">
+  <div class="service-card__icon-and-text">
+    <!-- Ícono a la izquierda -->
+    <div class="service-card__icon">
+      <slot />
+    </div>
+    <!-- Título y descripción a la derecha -->
+    <div class="service-card__text">
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Contenedor principal de la card */
+.service-card {
+  border: 1px solid #333;
+  background-color: #FFFFFF;
+  padding: 1rem; /* ~ p-4 */
+  border-radius: 0.5rem; /* ~ rounded-lg */
+}
+
+/* Estructura horizontal: icono y texto */
+.service-card__icon-and-text {
+  display: flex;
+  align-items: flex-start; /* Icono y primera línea de texto alineados arriba */
+  gap: 1rem;
+  flex-direction: column;
+}
+
+/* Icono (SVG usa fill="currentColor") */
+.service-card__icon {
+  color: var(--black); /* Heredado por el SVG */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Texto */
+.service-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* Ajustado a un espacio más reducido */
+}
+
+/* Título */
+.service-card__text h2 {
+  font-size: 1rem;  /* Texto base */
+  font-weight: bold;
+  color: var(--black);
+  line-height: 1.25; /* leading-tight */
+}
+
+/* Descripción */
+.service-card__text p {
+  font-size: 0.875rem; /* Texto un poco más pequeño */
+  color: var(--black);
+  line-height: 1.25;   /* leading-normal */
+}
+
+:global(html.dark) .service-card {
+  background-color: #333333;
+  border: 1px solid #555555;
+}
+
+:global(html.dark) .service-card__icon,
+:global(html.dark) .service-card h2 {
+  color: #ffffff;
+}
+
+:global(html.dark) .service-card p {
+  color: #cccccc;
+}
+
+</style>
