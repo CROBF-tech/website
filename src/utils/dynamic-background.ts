@@ -1,203 +1,249 @@
-/* public/scripts/dynamic-background.js */
+interface Weights {
+    [key: string]: number;
+}
+
+interface DinamycBackgroundOptions {
+    count: number; // Número de íconos a generar
+    size: number; // Tamaño (en píxeles) de cada ícono
+    svgWeights?: { [key: string]: number }; // Objeto con los pesos para cada archivo SVG
+    rotationRange: number; // Rango (en grados) para la rotación aleatoria
+}
+
+const DEFAULT_SVGS_WEOGHTS = {
+    "envelope.svg": 1,
+    "globe2.svg": 1,
+    "logo_crobf.svg": 2,
+    "reception-4.svg": 1,
+    "code-slash.svg": 2,
+    "window-stack.svg": 1,
+    "menu-button-wide.svg": 1,
+    "gear.svg": 1,
+};
 
 /**
- * Selecciona aleatoriamente un archivo SVG basado en los pesos asignados.
- *
- * @param {Object} weights - Objeto con nombres de archivos SVG y sus respectivos pesos.
- *                           Ejemplo: { "envelope.svg": 2, "globe2.svg": 1 }
- * @returns {string} - Nombre del archivo SVG seleccionado.
+ * Selecciona una clave aleatoria basada en los pesos proporcionados.
+ * @param {Weights} weights - Objeto con los pesos para cada SVG.
+ * @returns {string} La clave seleccionada aleatoriamente.
  */
-function weightedRandom(weights) {
-    let total = 0;
-    for (const key in weights) {
-      total += weights[key];
+function weightedRandom(weights: Weights): string {
+    const weightsValues = Object.values(weights);
+
+    if (weightsValues.length <= 0) {
+        throw new Error("Invalid arguments for dynamic background");
     }
+
+    const total = weightsValues.reduce((sum, weight) => sum + weight, 0);
     const random = Math.random() * total;
+
     let sum = 0;
-    for (const key in weights) {
-      sum += weights[key];
-      if (random < sum) {
-        return key;
-      }
+    for (const [key, weight] of Object.entries(weights)) {
+        sum += weight;
+        if (random < sum) {
+            return key;
+        }
     }
+
     return Object.keys(weights)[0];
-  }
-  
-  /**
-   * Crea y configura el fondo dinámico en el contenedor principal utilizando el patrón "jittered".
-   *
-   * En este patrón se divide el contenedor en una cuadrícula virtual y a cada celda se le aplica
-   * un desplazamiento aleatorio (jitter) y una rotación aleatoria para dar un aspecto desordenado,
-   * manteniendo una separación uniforme para mejorar el rendimiento.
-   *
-   * Condiciones:
-   *  - El contenedor principal debe tener la clase "main-container".
-   *  - El contenedor debe tener `position: relative` y dimensiones definidas (por ejemplo,
-   *    `width: 100%` y `min-height: 100vh`) para que el fondo cubra todo el área.
-   *
-   * Opciones disponibles (todas son opcionales):
-   *   - count: Número de íconos a generar (por defecto: 42 ese es el maximo recomendable).
-   *   - size: Tamaño (en píxeles) de cada ícono (por defecto: 50).
-   *   - svgWeights: Objeto con los pesos para cada archivo SVG.  
-   *       Por defecto:
-   *         {
-   *             "envelope.svg": 1, 
-                  "globe2.svg": 1, 
-                  "logo_crobf.svg": 2,
-                  "reception-4.svg": 1, 
-                  "code-slash.svg": 2,
-                  "window-stack.svg": 1,
-                  "menu-button-wide.svg": 1,
-                  "gear.svg": 1
-   * 
-   *         }
-   *   - rotationRange: Rango (en grados) para la rotación aleatoria. Cada ícono se rotará un ángulo
-   *         aleatorio entre -rotationRange y +rotationRange (por defecto: 45, es decir, ±45°).
-   *
-   * @param {Object} options - Opciones de configuración.
-   */
-  export function createDynamicBackground(options) {
-    const count = options?.count || 42;
-    const size = options?.size || 50;
-    const svgWeights = options?.svgWeights || { 
-      "envelope.svg": 1, 
-      "globe2.svg": 1, 
-      "logo_crobf.svg": 2,
-      "reception-4.svg": 1, 
-      "code-slash.svg": 2,
-      "window-stack.svg": 1,
-      "menu-button-wide.svg": 1,
-      "gear.svg": 1
-    };
-    const rotationRange = typeof options?.rotationRange === 'number' ? options.rotationRange : 45;
-  
-    // Buscar el contenedor principal
-    const container = document.querySelector('.has-dynamic-background');
+}
+
+/**
+ * Busca y devuelve el contenedor principal para el fondo dinámico.
+ * @returns {HTMLElement} El contenedor con la clase `has-dynamic-background`.
+ * @throws {Error} Si no se encuentra ningún contenedor con la clase especificada.
+ */
+function getMainContainerForDynamicBackground(): HTMLElement {
+    const container = document.querySelector('.has-dynamic-background') as HTMLElement;
+
     if (!container) {
-      console.warn('No se encontró un contenedor con la clase "main-container".');
-      return;
+        console.warn('No se encontró un contenedor con la clase "has-dynamic-background".');
+        throw new Error('Contenedor no encontrado: se requiere un elemento con la clase "has-dynamic-background".');
     }
-    // Asegurar que el contenedor tenga position: relative
-    if (getComputedStyle(container).position === 'static') {
-      container.style.position = 'relative';
+
+    container.style.position = 'relative';
+    return container;
+}
+
+/**
+ * Crea y configura un contenedor para el fondo dinámico.
+ * @param {HTMLElement} container - El contenedor principal donde se insertará el fondo dinámico.
+ * @returns {HTMLElement} El contenedor creado para el fondo dinámico.
+ */
+function createBackgroundContainer(container: HTMLElement): HTMLElement {
+    // Eliminar el contenedor de fondo dinámico existente si lo hay
+    const existingBgContainer = container.querySelector('.dynamic-background');
+    if (existingBgContainer) {
+        existingBgContainer.remove();
     }
-  
-    // Crear el contenedor para el fondo dinámico y colocarlo detrás del contenido
+
+    // Crear un nuevo contenedor para el fondo dinámico
     const bgContainer = document.createElement('div');
     bgContainer.className = 'dynamic-background';
     container.insertBefore(bgContainer, container.firstChild);
-  
-    const symbols = [];
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
-  
-    // Función auxiliar para generar un ángulo aleatorio entre -rotationRange y +rotationRange
-    const getRandomRotation = () => (Math.random() * 2 * rotationRange) - rotationRange;
-  
-    // Usamos el patrón "jittered": se divide el contenedor en celdas iguales y se añade jitter en cada celda.
+
+    return bgContainer;
+}
+
+/**
+ * Calcula las dimensiones de la cuadrícula y el jitter (desplazamiento aleatorio) para el fondo dinámico.
+ * @param {number} count - Número total de íconos que se distribuirán en la cuadrícula.
+ * @param {number} containerWidth - Ancho del contenedor principal en píxeles.
+ * @param {number} containerHeight - Alto del contenedor principal en píxeles.
+ * @returns {Object} Un objeto con las dimensiones de la cuadrícula y el jitter.
+ */
+function calculateGridDimensions(count: number, containerWidth: number, containerHeight: number) {
     const columns = Math.ceil(Math.sqrt(count));
     const rows = Math.ceil(count / columns);
     const cellWidth = containerWidth / columns;
     const cellHeight = containerHeight / rows;
-    // Definimos el jitter máximo como el 50% del tamaño de cada celda.
     const jitterX = cellWidth * 0.5;
     const jitterY = cellHeight * 0.5;
-  
-    let iconIndex = 0;
-    for (let r = 0; r < rows && iconIndex < count; r++) {
-      for (let c = 0; c < columns && iconIndex < count; c++) {
-        // Coordenadas base: centro de la celda
-        const baseX = c * cellWidth + cellWidth / 2;
-        const baseY = r * cellHeight + cellHeight / 2;
-        // Aplicar un desplazamiento aleatorio (jitter)
-        const offsetX = (Math.random() - 0.5) * jitterX;
-        const offsetY = (Math.random() - 0.5) * jitterY;
-        // Calcular la posición final (ajustando para centrar el ícono)
-        const x = baseX + offsetX - size / 2;
-        const y = baseY + offsetY - size / 2;
-        // Calcular un ángulo aleatorio
-        const randomRotation = getRandomRotation();
-  
-        // Crear el elemento del ícono
-        const symbolEl = document.createElement('div');
-        symbolEl.classList.add('symbol');
-        symbolEl.style.transform = `translate(${x}px, ${y}px) rotate(${randomRotation}deg)`;
-        symbolEl.style.width = `${size}px`;
-        symbolEl.style.height = `${size}px`;
-  
-        // Seleccionar el SVG según los pesos
-        const svgFile = weightedRandom(svgWeights);
-        const img = document.createElement('img');
-        img.src = `/svg/${svgFile}`;
-        img.alt = "";
-        img.style.width = '100%';
-        img.style.height = '100%';
-        symbolEl.appendChild(img);
-  
-        bgContainer.appendChild(symbolEl);
-        symbols.push({ element: symbolEl, x, y, rotation: randomRotation });
-        iconIndex++;
-      }
-    }
-  
-    // Configurar la interacción: los íconos se alejan del cursor
+    return { columns, rows, cellWidth, cellHeight, jitterX, jitterY };
+}
+
+/**
+ * Crea un ícono con posición, rotación y SVG aleatorios.
+ * @param {number} x - Posición en el eje X.
+ * @param {number} y - Posición en el eje Y.
+ * @param {number} size - Tamaño del ícono en píxeles.
+ * @param {number} rotation - Rotación del ícono en grados.
+ * @param {string} svgFile - Nombre del archivo SVG.
+ * @returns {HTMLElement} El elemento del ícono creado.
+ */
+function createIcon(x: number, y: number, size: number, rotation: number, svgFile: string): HTMLElement {
+    const symbolEl = document.createElement('div');
+    symbolEl.classList.add('symbol');
+    symbolEl.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+    symbolEl.style.width = `${size}px`;
+    symbolEl.style.height = `${size}px`;
+
+    const img = document.createElement('img');
+    img.src = `/svg/${svgFile}`;
+    img.alt = "";
+    img.style.width = '100%';
+    img.style.height = '100%';
+    symbolEl.appendChild(img);
+
+    return symbolEl;
+}
+
+/**
+ * Configura la interacción del cursor con los íconos.
+ * @param {HTMLElement} container - El contenedor principal.
+ * @param {Array} symbols - Lista de símbolos (íconos) en el fondo dinámico.
+ * @param {number} size - Tamaño de los íconos en píxeles.
+ */
+function setupCursorInteraction(container: HTMLElement, symbols: any[], size: number) {
     const cursorRadius = 150;
     const moveDistance = 80;
+
     container.addEventListener('mousemove', (event) => {
-      const rect = container.getBoundingClientRect();
-      const cursorX = event.clientX - rect.left;
-      const cursorY = event.clientY - rect.top;
-      symbols.forEach((sym) => {
-        const centerX = sym.x + size / 2;
-        const centerY = sym.y + size / 2;
-        const dx = centerX - cursorX;
-        const dy = centerY - cursorY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < cursorRadius) {
-          const angle = Math.atan2(dy, dx);
-          const offset = (moveDistance / cursorRadius) * (cursorRadius - distance);
-          const newX = sym.x + offset * Math.cos(angle);
-          const newY = sym.y + offset * Math.sin(angle);
-          sym.element.style.transform = `translate(${newX}px, ${newY}px) rotate(${sym.rotation}deg)`;
-        } else {
-          sym.element.style.transform = `translate(${sym.x}px, ${sym.y}px) rotate(${sym.rotation}deg)`;
-        }
-      });
+        const rect = container.getBoundingClientRect();
+        const cursorX = event.clientX - rect.left;
+        const cursorY = event.clientY - rect.top;
+        symbols.forEach((sym) => {
+            const centerX = sym.x + size / 2;
+            const centerY = sym.y + size / 2;
+            const dx = centerX - cursorX;
+            const dy = centerY - cursorY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < cursorRadius) {
+                const angle = Math.atan2(dy, dx);
+                const offset = (moveDistance / cursorRadius) * (cursorRadius - distance);
+                const newX = sym.x + offset * Math.cos(angle);
+                const newY = sym.y + offset * Math.sin(angle);
+                sym.element.style.transform = `translate(${newX}px, ${newY}px) rotate(${sym.rotation}deg)`;
+            } else {
+                sym.element.style.transform = `translate(${sym.x}px, ${sym.y}px) rotate(${sym.rotation}deg)`;
+            }
+        });
     });
+
     container.addEventListener('mouseleave', () => {
-      symbols.forEach((sym) => {
-        sym.element.style.transform = `translate(${sym.x}px, ${sym.y}px) rotate(${sym.rotation}deg)`;
-      });
+        symbols.forEach((sym) => {
+            sym.element.style.transform = `translate(${sym.x}px, ${sym.y}px) rotate(${sym.rotation}deg)`;
+        });
     });
-  
-    // Ajustar posiciones al redimensionar la ventana (con debounce para reducir cálculos)
-    let resizeTimeout;
+}
+
+/**
+ * Configura el manejo del redimensionamiento de la ventana.
+ * @param {HTMLElement} container - El contenedor principal.
+ * @param {Array} symbols - Lista de símbolos (íconos) en el fondo dinámico.
+ * @param {number} count - Número total de íconos.
+ * @param {number} size - Tamaño de los íconos en píxeles.
+ */
+function setupResizeHandler(container: HTMLElement, symbols: any[], count: number, size: number) {
+    let resizeTimeout: any;
     window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
-        const newColumns = Math.ceil(Math.sqrt(count));
-        const newRows = Math.ceil(count / newColumns);
-        const newCellWidth = newWidth / newColumns;
-        const newCellHeight = newHeight / newRows;
-        const newJitterX = newCellWidth * 0.5;
-        const newJitterY = newCellHeight * 0.5;
-        let iconIndex = 0;
-        for (let r = 0; r < newRows && iconIndex < count; r++) {
-          for (let c = 0; c < newColumns && iconIndex < count; c++) {
-            const baseX = c * newCellWidth + newCellWidth / 2;
-            const baseY = r * newCellHeight + newCellHeight / 2;
-            const offsetX = (Math.random() - 0.5) * newJitterX;
-            const offsetY = (Math.random() - 0.5) * newJitterY;
-            const newX = baseX + offsetX - size / 2;
-            const newY = baseY + offsetY - size / 2;
-            symbols[iconIndex].x = newX;
-            symbols[iconIndex].y = newY;
-            symbols[iconIndex].element.style.transform = `translate(${newX}px, ${newY}px) rotate(${symbols[iconIndex].rotation}deg)`;
-            iconIndex++;
-          }
-        }
-      }, 100);
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const newWidth = container.clientWidth;
+            const newHeight = container.clientHeight;
+            const { columns, rows, cellWidth, cellHeight, jitterX, jitterY } = calculateGridDimensions(count, newWidth, newHeight);
+            let iconIndex = 0;
+            for (let r = 0; r < rows && iconIndex < count; r++) {
+                for (let c = 0; c < columns && iconIndex < count; c++) {
+                    const baseX = c * cellWidth + cellWidth / 2;
+                    const baseY = r * cellHeight + cellHeight / 2;
+                    const offsetX = (Math.random() - 0.5) * jitterX;
+                    const offsetY = (Math.random() - 0.5) * jitterY;
+                    const newX = baseX + offsetX - size / 2;
+                    const newY = baseY + offsetY - size / 2;
+                    symbols[iconIndex].x = newX;
+                    symbols[iconIndex].y = newY;
+                    symbols[iconIndex].element.style.transform = `translate(${newX}px, ${newY}px) rotate(${symbols[iconIndex].rotation}deg)`;
+                    iconIndex++;
+                }
+            }
+        }, 100);
     });
-  }
+}
+
+/**
+ * Crea y configura un fondo dinámico en el contenedor principal usando el patrón "jittered".
+ * @param {DinamycBackgroundOptions} options - Opciones de configuración.
+ */
+export function createDynamicBackground(options: DinamycBackgroundOptions) {
+    const { count, size, rotationRange } = options;
+    const svgWeights = options.svgWeights ?? DEFAULT_SVGS_WEOGHTS;
+
+    // Buscar el contenedor principal
+    const container = getMainContainerForDynamicBackground();
+
+    // Asegurar que no haya desbordamiento horizontal
+    container.style.overflowX = 'hidden';
+
+    // Crear el contenedor para el fondo dinámico y colocarlo detrás del contenido
+    const bgContainer = createBackgroundContainer(container);
+
+    const symbols: any[] = [];
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    // Calcular las dimensiones de la cuadrícula
+    const { columns, rows, cellWidth, cellHeight, jitterX, jitterY } = calculateGridDimensions(count, containerWidth, containerHeight);
+
+    let iconIndex = 0;
+    for (let r = 0; r < rows && iconIndex < count; r++) {
+        for (let c = 0; c < columns && iconIndex < count; c++) {
+            const baseX = c * cellWidth + cellWidth / 2;
+            const baseY = r * cellHeight + cellHeight / 2;
+            const offsetX = (Math.random() - 0.5) * jitterX;
+            const offsetY = (Math.random() - 0.5) * jitterY;
+
+            // Asegurar que los íconos no se salgan del contenedor
+            const x = Math.max(size / 2, Math.min(containerWidth - size / 2, baseX + offsetX - size / 2));
+            const y = Math.max(size / 2, Math.min(containerHeight - size / 2, baseY + offsetY - size / 2));
+
+            const randomRotation = (Math.random() * 2 * rotationRange) - rotationRange;
+
+            const symbolEl = createIcon(x, y, size, randomRotation, weightedRandom(svgWeights));
+            bgContainer.appendChild(symbolEl);
+            symbols.push({ element: symbolEl, x, y, rotation: randomRotation });
+            iconIndex++;
+        }
+    }
+
+    setupCursorInteraction(container, symbols, size);
+    setupResizeHandler(container, symbols, count, size);
+}
