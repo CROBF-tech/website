@@ -1,5 +1,6 @@
 ---
-import ValuesCards from './ValuesCards.astro'
+interface Props {}
+import ValuesCards from "./ValuesCards.astro";
 import { useTranslations, getLangFromUrl } from "../i18n/translate";
 export function getStaticPaths() {
     return [
@@ -10,47 +11,38 @@ export function getStaticPaths() {
             params: { lang: "en" },
         },
     ];
-        
 }
-const t= useTranslations(getLangFromUrl(Astro.url));
-
+const t = useTranslations(getLangFromUrl(Astro.url));
 ---
+
 <div class="CardsContainer">
-    
-        <ValuesCards image="/svg/equipo.svg" description={t("about.values.teamwork")} />
-        <ValuesCards image="/svg/confianza.svg" description={t("about.values.trust")} />
-        <ValuesCards image="/svg/compromiso.svg" description={t("about.values.commitment")} />
-        <ValuesCards image="/svg/resolucion.svg" description={t("about.values.conflictResolution")} />
-    
+    <ValuesCards image="/svg/equipo.svg" description={t("about.values.teamwork")} />
+    <ValuesCards image="/svg/confianza.svg" description={t("about.values.trust")} />
+    <ValuesCards image="/svg/compromiso.svg" description={t("about.values.commitment")} />
+    <ValuesCards image="/svg/resolucion.svg" description={t("about.values.conflictResolution")} />
 </div>
 
 <style>
-    
     .CardsContainer {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 1rem; 
-        justify-content: center; 
-        align-items: center; 
-        width: fit-content; 
-        margin: 0 auto; 
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+        margin: 0 auto;
     }
 
-    
-
-    
     .Card {
         padding: 20px;
         border-radius: 10px;
         text-align: center;
-        width: 250px; 
+        width: 250px;
     }
 
     @media (max-width: 768px) {
-        .CardsContainer  {
-            grid-template-columns: 1fr; 
+        .CardsContainer {
+            grid-template-columns: 1fr;
         }
     }
 </style>
-
-
