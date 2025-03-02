@@ -1,0 +1,52 @@
+---
+import PurposeCards from "./PurposeCards.astro";
+import { useTranslations, getLangFromUrl } from "../i18n/translate";
+export function getStaticPaths() {
+    return [
+        {
+            params: { lang: "es" },
+        },
+        {
+            params: { lang: "en" },
+        },
+    ];
+        
+}
+const t= useTranslations(getLangFromUrl(Astro.url));
+
+---
+<div class="CardsContainer">
+    
+        <PurposeCards image="/svg/aprender.svg" description={t("about.purpose.learn")} />
+        <PurposeCards image="/svg/impacto.svg" description={t("about.purpose.impact")} />
+    
+</div>
+
+<style>
+    .CardsContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem; 
+        justify-content: center; 
+        align-items: center; 
+        width: fit-content; 
+        margin: 0 auto; 
+    }
+
+    
+    .Card {
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 250px; 
+    }
+
+    @media (max-width: 768px) {
+        .CardsContainer  {
+            flex-direction: column; 
+            align-items: center; 
+        }
+    }
+</style>
+
+

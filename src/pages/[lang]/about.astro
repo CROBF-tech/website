@@ -3,6 +3,8 @@ import Layout from "../../layouts/BlogPost.astro";
 import CardFounder from "../../components/CardFounder.astro";
 import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
+import Values from "../../components/Values.astro";
+import Purpose from "../../components/Purpose.astro";
 export function getStaticPaths() {
     return [
         {
@@ -99,26 +101,20 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                 </ul>
                 <p set:html={t("about.philosophy.motto")} />
 
-                <h2 set:html={t("about.values.title")} />
-                <ul>
-                    <li set:html={t("about.values.teamwork")} />
-                    <li set:html={t("about.values.trust")} />
-                    <li set:html={t("about.values.commitment")} />
-                    <li set:html={t("about.values.conflictResolution")} />
-                </ul>
+                <h2 class="values" set:html={t("about.values.title")} />
+                <Values />
+                
 
-                <h2 set:html={t("about.purpose.title")} />
-                <ul>
-                    <li set:html={t("about.purpose.learn")} />
-                    <li set:html={t("about.purpose.impact")} />
-                </ul>
+                <h2 class="purpose" set:html={t("about.purpose.title")} />
+                <Purpose />
                 <p set:html={t("about.purpose.summary")} />
 
-                <h2 set:html={t("about.vision.title")} />
+                <h2 class="future" set:html={t("about.vision.title")} />
                 <p set:html={t("about.vision.description")} />
-
-                <h2 set:html={t("about.contact.title")} />
+            <div class="whoWeAre">
+                <h2 class="contact" set:html={t("about.contact.title")} />
                 <p set:html={t("about.contact.description")} />
+            </div>
             </div>
         </div>
         <style>
@@ -138,6 +134,33 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                     margin-top: 5em;
                 }
             }
+            h2.values{
+                text-align: left !important;
+                width: 100%;
+            }
+
+            h2.purpose{
+                text-align: left !important;
+                width: 100%;
+            }
+
+            h2.future{
+                text-align: left !important;
+                width: 100%;
+            }
+            h2.contact{
+                text-align: left !important;
+                width: 100%;
+            }
+            .whoWeAre{
+                border: solid 3px blue;
+                border-radius: 40px;
+                padding: 10px;
+            }
+
+
+
+    
         </style>
     </section>
 </Layout>
