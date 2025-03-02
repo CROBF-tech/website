@@ -105,7 +105,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
                 <h2 class="future" set:html={t("about.vision.title")} />
                 <p set:html={t("about.vision.description")} />
-                <div class="whoWeAre">
+                <div class="divcontact">
                     <h2 class="contact" set:html={t("about.contact.title")} />
                     <p set:html={t("about.contact.description")} />
                 </div>
@@ -148,7 +148,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         font-size: 36px;
     }
 
-    .whoWeAre {
+    .divcontact {
         border: solid 3px blue;
         border-radius: 40px;
         padding: 10px;

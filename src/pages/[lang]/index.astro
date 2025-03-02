@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import CardProyect from "../../components/CardProyect.astro";
 import { SITE_DESCRIPTION } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
+import ServicesGrid from "../../components/ServicesGrid.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -18,9 +19,7 @@ const t = useTranslations(lang);
             <p set:html={t("index.mission")} />
             <p set:html={t("index.about")} />
             <p set:html={t("index.offer")} />
-            <ul>
-                {(t("index.services") as string[]).map((service) => <li set:html={service} />)}
-            </ul>
+            <ServicesGrid />
             <p>
                 {t("index.cta")}
             </p>
