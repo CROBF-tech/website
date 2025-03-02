@@ -1,0 +1,58 @@
+---
+interface Props {}
+import { useTranslations, getLangFromUrl } from "../i18n/translate";
+export function getStaticPaths() {
+    return [
+        {
+            params: { lang: "es" },
+        },
+        {
+            params: { lang: "en" },
+        },
+    ];
+}
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<div class="cards-philosophy">
+    <div class="card">
+        <figure>
+            <img src="/svg/aprendizaje.svg" alt="" />
+        </figure>
+        <h4 set:html={t("about.philosophy.learningDept.title")} />
+        <p set:html={t("about.philosophy.learningDept")} />
+    </div>
+    <div class="card">
+        <figure>
+            <img src="/svg/ganancias.svg" alt="" />
+        </figure>
+        <h4 set:html={t("about.philosophy.profitDept.title")} />
+        <p set:html={t("about.philosophy.profitDept")} />
+    </div>
+</div>
+<style>
+    .cards-philosophy {
+        display: flex;
+        flex-direction: arrow;
+        gap: 10px;
+    }
+    html.dark .card {
+        background-color: #39445b;
+    }
+    .card {
+        font-size: 15px;
+        text-align: center;
+        padding: 10px;
+        max-width: 300px;
+        border: solid 1px black;
+    }
+    .card h4 {
+        color: var(--accent);
+        font-size: 20px;
+    }
+    @media (max-width: 600px) {
+        .cards-philosophy {
+            flex-direction: column;
+        }
+    }
+</style>

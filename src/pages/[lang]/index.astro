@@ -1,17 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import CardProyect from "../../components/CardProyect.astro";
-import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
+import { SITE_DESCRIPTION } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
-const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
-const t = useTranslations(getLangFromUrl(Astro.url));
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
-    <div class="has-dynamic-background" style="position: relative; width: 100%; min-height: 100vh;">
-        <main style="position: relative;">
-            <div class="has-dynamic-background">
+    <main style="position: relative;">
+        <div>
             <h1>
                 {t("index.welcome")}
                 <span> CROBF </span>
@@ -39,27 +37,9 @@ const lang = getLangFromUrl(Astro.url);
                 image="/projects/logo-ui.png"
                 link="https://crobf-ui.vercel.app/"
             />
-        </main>
-    </div>
+        </div>
+    </main>
 </Layout>
-<script>
-    import {createDynamicBackground} from "../../pages/utils/dynamic-background.ts";
-    createDynamicBackground({
-        count: 42,
-        size: 50,
-        rotationRange: 90,
-        svgWeights: {
-            "envelope-paper.svg": 1,
-            "send.svg": 1,
-            "info-circle.svg": 1,
-            "logo_crobf.svg": 2,
-            "envelope.svg":1,
-            "mailbox.svg":1,
-            "share.svg":1
-  
-        }
-      });
-</script>
 <style>
     h1 span {
         border-bottom: 5px solid var(--accent);
