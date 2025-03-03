@@ -3,13 +3,18 @@ export default {
     "index.welcome": "Bienvenidos a",
     "index.description": "Somos <strong>CROBF</strong>, una empresa de desarrollo de software conformada por un equipo joven pero con experiencia en diversas tecnologías. Nuestra misión es transformar ideas en software de alta calidad, adaptándonos a las necesidades de nuestros clientes y brindando resultados excepcionales.",
     "index.about": "En <strong>CROBF</strong>, combinamos creatividad, técnica y compromiso para llevar tus proyectos al siguiente nivel.",
+    // ===============================================================
     "index.offer": "Nuestros servicios",
-    "index.services": [
-        "Desarrollo de aplicaciones web y móviles.",
-        "Diseño de interfaces de usuario (UI/UX).",
-        "Asesoramiento en tecnologías modernas.",
-        "Mantenimiento y optimización de proyectos existentes."
-    ],
+    "index.services1":"Desarrollo de aplicaciones web y móviles.",
+    "index.services2":"Diseño de interfaces de usuario (UI/UX).",
+    "index.services3":"Asesoramiento en tecnologías modernas.",
+    "index.services4":"Mantenimiento y optimización de proyectos existentes.",
+    // ===============================================================
+    "index.services11":"Creamos soluciones personalizadas para tus necesidades.",
+    "index.services22":"Diseños intuitivos y funcionales para una mejor experiencia.",
+    "index.services33":"Te ayudamos a elegir las mejores herramientas.",
+    "index.services44":"Mejoramos tus proyectos existentes para máximo rendimiento.",
+    // ===============================================================
     "index.cta": "¿Tienes una idea en mente? ¡Nos encantaría ayudarte a hacerla realidad!",
     "index.contact": "Contáctanos.",
     // ===============================================================
