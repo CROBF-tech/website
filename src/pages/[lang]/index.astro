@@ -16,9 +16,8 @@ const t = useTranslations(lang);
                 <span> CROBF </span>
             </h1>
             <p set:html={t("index.description")} />
-            <p set:html={t("index.mission")} />
             <p set:html={t("index.about")} />
-            <p set:html={t("index.offer")} />
+            <h3>{t("index.offer")}</h3>
             <ServicesGrid />
             <p>
                 {t("index.cta")}

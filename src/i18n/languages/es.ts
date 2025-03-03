@@ -1,10 +1,9 @@
 export default {
     // =============================================================
     "index.welcome": "Bienvenidos a",
-    "index.description": "Somos <strong>CROBF</strong>, una empresa de desarrollo de software conformada por un equipo joven pero con experiencia en diversas tecnologías.",
-    "index.mission": "Nuestra misión es transformar ideas en software de alta calidad, adaptándonos a las necesidades de nuestros clientes y brindando resultados excepcionales.",
+    "index.description": "Somos <strong>CROBF</strong>, una empresa de desarrollo de software conformada por un equipo joven pero con experiencia en diversas tecnologías. Nuestra misión es transformar ideas en software de alta calidad, adaptándonos a las necesidades de nuestros clientes y brindando resultados excepcionales.",
     "index.about": "En <strong>CROBF</strong>, combinamos creatividad, técnica y compromiso para llevar tus proyectos al siguiente nivel.",
-    "index.offer": "Estas son algunas cosas que podemos ofrecerte:",
+    "index.offer": "Nuestros servicios",
     "index.services": [
         "Desarrollo de aplicaciones web y móviles.",
         "Diseño de interfaces de usuario (UI/UX).",

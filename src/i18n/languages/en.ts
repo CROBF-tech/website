@@ -1,10 +1,9 @@
 export default {
     // ================================================================
     "index.welcome": "Welcome to",
-    "index.description": "We are <strong>CROBF</strong>, a software development company made up of a young but experienced team in various technologies.",
-    "index.mission": "Our mission is to turn ideas into high-quality software, adapting to the needs of our clients and delivering exceptional results.",
+    "index.description": "We are <strong>CROBF</strong>, a software development company made up of a young but experienced team in various technologies. Our mission is to turn ideas into high-quality software, adapting to the needs of our clients and delivering exceptional results.",
     "index.about": "At <strong>CROBF</strong>, we combine creativity, technical skills, and commitment to take your projects to the next level.",
-    "index.offer": "Here are some things we can offer you:",
+    "index.offer": "Our services",
     "index.services": [
         "Web and mobile application development.",
         "User interface design (UI/UX).",
