@@ -48,7 +48,7 @@ export default {
     "about.values.conflictResolution-title":"Resolución de conflictos",
     "about.values.conflictResolution": "Priorizamos el diálogo y el entendimiento mutuo para superar cualquier desafío.",
     "about.purpose.title": "Nuestro Propósito",
-    "about.purpose.learn-title":"Aprender todo lo posible",
+    "about.purpose.learn.title":"Aprender todo lo posible",
     "about.purpose.learn": "Expandir nuestras habilidades en programación, diseño y desarrollo de software.",
     "about.purpose.impact-title":"Generar impacto",
     "about.purpose.impact": "Crear soluciones innovadoras que aporten valor y resuelvan problemas reales.",
