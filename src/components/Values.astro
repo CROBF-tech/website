@@ -16,10 +16,26 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
 <div class="CardsContainer">
-    <ValuesCards image="/svg/equipo.svg" description={t("about.values.teamwork")} />
-    <ValuesCards image="/svg/confianza.svg" description={t("about.values.trust")} />
-    <ValuesCards image="/svg/compromiso.svg" description={t("about.values.commitment")} />
-    <ValuesCards image="/svg/resolucion.svg" description={t("about.values.conflictResolution")} />
+    <ValuesCards
+        image="/svg/equipo.svg"
+        title={t("about.values.teamwork-title")}
+        description={t("about.values.teamwork")}
+    />
+    <ValuesCards
+        image="/svg/confianza.svg"
+        title={t("about.values.trust-title")}
+        description={t("about.values.trust")}
+    />
+    <ValuesCards
+        image="/svg/compromiso.svg"
+        title={t("about.values.commitment-title")}
+        description={t("about.values.commitment")}
+    />
+    <ValuesCards
+        image="/svg/resolucion.svg"
+        title={t("about.values.conflictResolution-title")}
+        description={t("about.values.conflictResolution")}
+    />
 </div>
 
 <style>

@@ -61,17 +61,6 @@ export const TEAM_MEMBERS = {
     description:"¡Hola! Soy Julieta Sotelo, estudiante de la Tecnicatura Superior en Desarrollo de software explorando el camino de la programación y diseño web.",
     index: 5
   },
-  Santiago:{
-    fullName:"Suarez Santiago",
-    logo: "/founders/santiago_suarez.jpeg",
-    email: "santiago.suarez9898@gmail.com",
-    gitHub: "https://github.com/SantiagoSuarez9",
-    linkedin: "https://www.linkedin.com/in/santiago-suarez-96a61a341/",
-    link: "/founders/santiago_suarez",
-    profession: "Desarrollador Backend",
-    description:"Hola! Soy Santiago Suarez, estudiante de la Tecnicatura Superior en Desarrollo de Software. Me apasiona analizar y resolver problemas, disfrutando del desafío que implica descomponer situaciones complejas para encontrar soluciones prácticas y efectivas.",
-    index: 6
-  },
   Paula:{
     fullName: "Toledo Ana Paula",
     logo: "/founders/ana_paula_toledo.jpeg",
