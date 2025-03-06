@@ -18,9 +18,60 @@ import ThemeIcon from "../components/ThemeIcon.astro";
         <BaseHead title={title} description={description} />
     </head>
     <body>
-        <Header />
-        <slot />
-        <ThemeIcon />
-        <Footer />
+        <div class="has-dynamic-background" style="position: relative; width: 100%; min-height: 100vh;">
+            <Header />
+            <slot />
+            <ThemeIcon />
+            <Footer />
+        </div>
+        <script>
+            import { createDynamicBackground } from "../utils/dynamic-background.ts";
+
+            // Función para calcular el número de íconos en función del ancho de la pantalla
+            function calculateIconCount() {
+                const documentWidth = document.documentElement.scrollWidth;
+                const documentHeight = document.documentElement.scrollHeight;
+
+                // Ajusta estos valores según tus necesidades
+                if (documentWidth < 768) {
+                    // Dispositivos móviles
+                    return Math.floor((documentHeight / 60) * (documentWidth / 500)); // Menos íconos en móviles
+                } else if (documentWidth < 1024) {
+                    // Tablets
+                    return Math.floor((documentHeight / 55) * (documentWidth / 900));
+                } else {
+                    // Pantallas grandes
+                    return Math.floor((documentHeight / 50) * (documentWidth / 1500));
+                }
+            }
+
+            // Función para inicializar el fondo dinámico
+            function initDynamicBackground() {
+                const iconCount = calculateIconCount();
+
+                createDynamicBackground({
+                    count: iconCount,
+                    size: 50,
+                    rotationRange: 90,
+                    svgWeights: {
+                        "envelope-paper.svg": 1,
+                        "send.svg": 1,
+                        "info-circle.svg": 1,
+                        "logo_crobf.svg": 2,
+                        "envelope.svg": 1,
+                        "mailbox.svg": 1,
+                        "share.svg": 1,
+                    },
+                });
+            }
+
+            // Inicializar el fondo dinámico al cargar la página
+            initDynamicBackground();
+
+            // Recalcular el número de íconos al redimensionar la ventana
+            window.addEventListener("resize", () => {
+                initDynamicBackground();
+            });
+        </script>
     </body>
 </html>

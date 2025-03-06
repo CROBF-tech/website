@@ -1,8 +1,11 @@
 ---
-import Layout from "../../layouts/BlogPost.astro";
+import Layout from "../../layouts/Layout.astro";
 import CardFounder from "../../components/CardFounder.astro";
+import PhilosophyCards from "../../components/PhilosophyCards.astro";
 import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
+import Values from "../../components/Values.astro";
+import Purpose from "../../components/Purpose.astro";
 export function getStaticPaths() {
     return [
         {
@@ -16,14 +19,12 @@ export function getStaticPaths() {
 const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
-<Layout
-    title={`${t("about.title")} - ${SITE_TITLE}`}
-    description={t("about.description") as string}
-    heroImage="/blog-placeholder-about.jpg">
-    <section id="about-us">
+<Layout title={`${t("about.title")} - ${SITE_TITLE}`} description={t("about.description") as string}>
+    <main style="position: relative;">
         <div class="container">
+            <h1 class="title">{t("about.title")} - <span>CROBF</span></h1>
             <p set:html={t("about.welcome")} />
-            <h2 set:html={t("about.whoWeAre.title")} />
+            <h2 class="whoWeAre">{t("about.whoWeAre.title")}</h2>
             <p set:html={t("about.whoWeAre.description")} />
             <div class="cards">
                 <CardFounder
@@ -72,15 +73,6 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                     description={TEAM_MEMBERS.Julieta.description}
                 />
                 <CardFounder
-                    name={TEAM_MEMBERS.Santiago.fullName}
-                    image={TEAM_MEMBERS.Santiago.logo}
-                    github={TEAM_MEMBERS.Santiago.gitHub}
-                    linkedin={TEAM_MEMBERS.Santiago.linkedin}
-                    link={TEAM_MEMBERS.Santiago.link}
-                    profession={TEAM_MEMBERS.Santiago.profession}
-                    description={TEAM_MEMBERS.Santiago.description}
-                />
-                <CardFounder
                     name={TEAM_MEMBERS.Paula.fullName}
                     image={TEAM_MEMBERS.Paula.logo}
                     github={TEAM_MEMBERS.Paula.gitHub}
@@ -91,53 +83,84 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                 />
                 <p set:html={t("about.team.values")} />
 
-                <h2 set:html={t("about.philosophy.title")} />
+                <h2 class="philosophy">{t("about.philosophy.title")}</h2>
                 <p set:html={t("about.philosophy.description")} />
-                <ul>
-                    <li set:html={t("about.philosophy.learningDept")} />
-                    <li set:html={t("about.philosophy.profitDept")} />
-                </ul>
-                <p set:html={t("about.philosophy.motto")} />
+                <PhilosophyCards />
+                <p class="motto" set:html={t("about.philosophy.motto")} />
 
-                <h2 set:html={t("about.values.title")} />
-                <ul>
-                    <li set:html={t("about.values.teamwork")} />
-                    <li set:html={t("about.values.trust")} />
-                    <li set:html={t("about.values.commitment")} />
-                    <li set:html={t("about.values.conflictResolution")} />
-                </ul>
-
-                <h2 set:html={t("about.purpose.title")} />
-                <ul>
-                    <li set:html={t("about.purpose.learn")} />
-                    <li set:html={t("about.purpose.impact")} />
-                </ul>
+                <h2 class="values" set:html={t("about.values.title")} />
+                <Values />
+                <h2 class="purpose" set:html={t("about.purpose.title")} />
+                <Purpose />
                 <p set:html={t("about.purpose.summary")} />
 
-                <h2 set:html={t("about.vision.title")} />
+                <h2 class="future" set:html={t("about.vision.title")} />
                 <p set:html={t("about.vision.description")} />
-
-                <h2 set:html={t("about.contact.title")} />
-                <p set:html={t("about.contact.description")} />
+                <div class="divcontact">
+                    <h2 class="contact" set:html={t("about.contact.title")} />
+                    <p set:html={t("about.contact.description")} />
+                </div>
             </div>
         </div>
-        <style>
-            .cards {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1rem;
-            }
-            @media (width <= 37.5rem) {
-                .cards {
-                    margin-top: 4em;
-                }
-            }
-            @media (width <= 27.5rem) {
-                .cards {
-                    margin-top: 5em;
-                }
-            }
-        </style>
-    </section>
+    </main>
 </Layout>
+<style>
+    .motto {
+        color: var(--accent);
+        font-size: 30px;
+    }
+    html.dark .motto {
+        color: #a8a8ff;
+    }
+    .title {
+        font-size: 40px;
+    }
+    .title span {
+        color: var(--accent);
+    }
+    html.dark .title span {
+        color: #a8a8ff;
+    }
+    .philosophy {
+        font-size: 36px;
+        text-align: left;
+        width: 100%;
+    }
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .values {
+        width: 100%;
+        font-size: 36px;
+    }
+    .purpose {
+        width: 100%;
+        font-size: 36px;
+    }
+    .future {
+        width: 100%;
+        font-size: 36px;
+    }
+
+    .divcontact {
+        border: solid 3px var(--accent);
+        border-radius: 40px;
+        padding: 10px;
+    }
+    html.dark .divcontact {
+        border: solid 3px #a8a8ff;
+    }
+    @media (width <= 37.5rem) {
+        .cards {
+            margin-top: 4em;
+        }
+    }
+    @media (width <= 27.5rem) {
+        .cards {
+            margin-top: 5em;
+        }
+    }
+</style>

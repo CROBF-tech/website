@@ -1,42 +1,41 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import CardProyect from "../../components/CardProyect.astro";
-import { SITE_DESCRIPTION, TEAM_MEMBERS } from "../../consts";
+import { SITE_DESCRIPTION } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
-const FOUNDERS = Object.values(TEAM_MEMBERS).sort((a, b) => a.index - b.index);
-const t = useTranslations(getLangFromUrl(Astro.url));
+import ServicesGrid from "../../components/ServicesGrid.astro";
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
-    <main>
-        <h1>
-            {t("index.welcome")}
-            <span> CROBF </span>
-        </h1>
-        <p set:html={t("index.description")} />
-        <p set:html={t("index.mission")} />
-        <p set:html={t("index.about")} />
-        <p set:html={t("index.offer")} />
-        <ul>
-            {(t("index.services") as string[]).map((service) => <li set:html={service} />)}
-        </ul>
-        <p>
-            {t("index.cta")}
-        </p>
-        <h2>{t("projects.title")}</h2>
-        <CardProyect
-            name="FullLite"
-            description="Template ligero para aplicaciones full stack"
-            image="/projects/animal.svg"
-            link="https://full-lite.vercel.app/"
-        />
-        <CardProyect
-            name="CROBF-UI"
-            description="Librería de componentes para CSS"
-            image="/projects/logo-ui.png"
-            link="https://crobf-ui.vercel.app/"
-        />
+    <main style="position: relative;">
+        <div>
+            <h1>
+                {t("index.welcome")}
+                <span> CROBF </span>
+            </h1>
+            <p set:html={t("index.description")} />
+            <p set:html={t("index.about")} />
+            <h3>{t("index.offer")}</h3>
+            <ServicesGrid />
+            <p>
+                {t("index.cta")}
+            </p>
+            <h2>{t("projects.title")}</h2>
+            <CardProyect
+                name="FullLite"
+                description="Template ligero para aplicaciones full stack"
+                image="/projects/animal.svg"
+                link="https://full-lite.vercel.app/"
+            />
+            <CardProyect
+                name="HexaDevs"
+                description="Academia online de programación"
+                image="/projects/hexadevs.png"
+                link="https://hexadevs.crobf.tech/"
+            />
+        </div>
     </main>
 </Layout>
 <style>

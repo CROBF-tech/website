@@ -1,0 +1,32 @@
+---
+const { image, title, description } = Astro.props;
+---
+
+<div>
+    <figure>
+        <img src={image} alt="Card Image" class="card-img" />
+    </figure>
+    <h5>{title}</h5>
+    <p set:html={description} />
+</div>
+
+<style>
+    div {
+        padding: 10px;
+        border-radius: 20px;
+    }
+    .card-img {
+        width: 60%;
+        max-height: 310px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    figure {
+        text-align: center;
+    }
+    h5 {
+        color: var(--accent);
+        font-size: 22px;
+        text-align: center;
+    }
+</style>
