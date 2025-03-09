@@ -65,5 +65,7 @@ export default {
     "form.contact.submit": "Enviar",
     "form.contact.placeholder.message": "Escribe tu mensaje aquí",
     // =================================================================
-    "projects.title": "Nuestros proyectos"
+    "projects.title": "Nuestros proyectos",
+    "projects.description1":"Template ligero para aplicaciones full stack",
+    "projects.description2":"Academia online de programación"
 }
