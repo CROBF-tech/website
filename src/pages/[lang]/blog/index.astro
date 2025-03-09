@@ -3,17 +3,12 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../../components/FormattedDate.astro";
 import Layout from "../../../layouts/Layout.astro";
+import Pagination from "../../../components/Pagination.astro";
+import { PAGINATION_SIZE } from "../../../consts";
 
-export function getStaticPaths() {
-    return [
-        {
-            params: { lang: "es" },
-        },
-        {
-            params: { lang: "en" },
-        },
-    ];
-}
+export const prerender = false;
+
+const actualPage: number = Number(Astro.url.searchParams.get("page")) || 1;
 
 const lang = Astro.params.lang;
 
@@ -33,26 +28,29 @@ const posts = (await getCollection("blog"))
         <section>
             <ul>
                 {
-                    posts.map((post) => (
-                        <li>
-                            <a href={`/${lang}/blog${post.slug.slice(2)}/`}>
-                                <img
-                                    width={720}
-                                    height={360}
-                                    src={post.data.heroImage}
-                                    alt=""
-                                    style="object-fit: cover; width: 100%; height: 100%;"
-                                />
-                                <h4 class="title">{post.data.title}</h4>
-                                <p class="date">
-                                    <FormattedDate date={post.data.pubDate} />
-                                </p>
-                            </a>
-                        </li>
-                    ))
+                    posts
+                        .slice((actualPage - 1) * PAGINATION_SIZE, (actualPage - 1) * PAGINATION_SIZE + PAGINATION_SIZE)
+                        .map((post) => (
+                            <li>
+                                <a href={`/${lang}/blog${post.slug.slice(2)}/`}>
+                                    <img
+                                        width={720}
+                                        height={360}
+                                        src={post.data.heroImage}
+                                        alt=""
+                                        style="object-fit: cover; width: 100%; height: 100%;"
+                                    />
+                                    <h4 class="title">{post.data.title}</h4>
+                                    <p class="date">
+                                        <FormattedDate date={post.data.pubDate} />
+                                    </p>
+                                </a>
+                            </li>
+                        ))
                 }
             </ul>
         </section>
+        <Pagination total={Math.ceil(posts.length / PAGINATION_SIZE)} current={actualPage} />
     </main>
 
     <style>

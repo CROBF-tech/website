@@ -4,6 +4,8 @@
 export const SITE_TITLE = 'CROBF';
 export const SITE_DESCRIPTION = 'Empresa de desarrollo de software';
 
+export const PAGINATION_SIZE = 7;
+
 export const TEAM_MEMBERS = {
   Juan: {
     fullName: "Beresiarte Juan",

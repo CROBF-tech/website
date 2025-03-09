@@ -1,0 +1,102 @@
+---
+interface Props {
+    total: number;
+    current: number;
+}
+
+const { total, current } = Astro.props;
+
+const pages = Array.from({ length: total }, (_, i) => i + 1);
+---
+
+<div class="pagination">
+    {
+        current > 1 && (
+            <a href={`?page=${current - 1}`} class="pagination-link prev">
+                <svg width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zm7.219.376a1 1 0 111.562 1.249L11.28 10l3.5 4.375a1 1 0 11-1.562 1.249l-4-5a1 1 0 010-1.25l4-5z"
+                        fill="currentColor"
+                    />
+                </svg>
+            </a>
+        )
+    }
+
+    <div class="pagination-numbers">
+        {
+            pages.map((page) => {
+                if (page - 1 === current || page === current || page + 1 === current) {
+                    return (
+                        <a href={`?page=${page}`} class:list={["pagination-link", { active: page === current }]}>
+                            {page}
+                        </a>
+                    );
+                }
+                return null;
+            })
+        }
+    </div>
+
+    {
+        current < total && (
+            <a href={`?page=${current + 1}`} class="pagination-link next">
+                <svg width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zm-7.219.376l4 5a1 1 0 010 1.249l-4 5a1 1 0 11-1.562-1.25l3.5-4.374-3.5-4.376a1 1 0 111.562-1.25z"
+                        fill="current"
+                    />
+                </svg>
+            </a>
+        )
+    }
+</div>
+
+<style>
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .pagination-numbers {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .pagination-link {
+        padding: 0.5rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #333;
+        transition: all 0.2s ease;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pagination-link:hover {
+        background-color: #f0f0f0;
+    }
+
+    .pagination-link.active {
+        background-color: #333;
+        color: white;
+        border-color: #333;
+    }
+
+    .prev,
+    .next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+</style>
