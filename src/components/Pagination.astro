@@ -44,7 +44,7 @@ const pages = Array.from({ length: total }, (_, i) => i + 1);
                 <svg width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M14 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zm-7.219.376l4 5a1 1 0 010 1.249l-4 5a1 1 0 11-1.562-1.25l3.5-4.374-3.5-4.376a1 1 0 111.562-1.25z"
-                        fill="current"
+                        fill="currentColor"
                     />
                 </svg>
             </a>
@@ -52,7 +52,7 @@ const pages = Array.from({ length: total }, (_, i) => i + 1);
     }
 </div>
 
-<style>
+<style lang="scss">
     .pagination {
         display: flex;
         align-items: center;
@@ -77,6 +77,7 @@ const pages = Array.from({ length: total }, (_, i) => i + 1);
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: transparent;
     }
 
     .pagination-link:hover {
@@ -84,9 +85,9 @@ const pages = Array.from({ length: total }, (_, i) => i + 1);
     }
 
     .pagination-link.active {
-        background-color: #333;
+        background-color: #30374a;
         color: white;
-        border-color: #333;
+        border-color: white;
     }
 
     .prev,
