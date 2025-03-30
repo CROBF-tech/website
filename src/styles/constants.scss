@@ -10,7 +10,7 @@
     --color-blue-500: #4c6aff;
     --color-blue-700: #202ee2;
 
-    --accent: #2337ff;
+    --accent: #4c6aff;
     --white: 230, 230, 230; /* Este color se usa en modo claro para el texto */
     --black: 15, 18, 25; /* Este color se usa en modo oscuro para el texto */
 
@@ -44,6 +44,6 @@
     --text-color: rgb(var(--black));
     --primary-color: var(--color-blue-700); // Azul oscuro
     --secondary-color: var(--color-bright-gray-700); // Gris brillante oscuro
-    --accent: #000d8a;
+    --accent: #202ee2;
     --background-color: var(--color-bright-gray-950); // Fondo oscuro
 }
