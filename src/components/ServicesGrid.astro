@@ -55,4 +55,9 @@ import ServiceCard from "./ServiceCard.astro";
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
     }
+    @media (width < 800px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
