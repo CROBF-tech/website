@@ -1,0 +1,50 @@
+[
+    {
+        "id": "hexadevs",
+        "name": "HexaDevs",
+        "type": "WEB",
+        "description": {
+            "es": "Academia online de programación con cursos interactivos y proyectos prácticos",
+            "en": "Online programming academy with interactive courses and practical projects"
+        },
+        "image": "/projects/hexadevs.png",
+        "link": "https://hexadevs.crobf.tech/",
+        "technologies": ["Next.js", "TypeScript", "Tailwind CSS"]
+    },
+    {
+        "id": "bunny-js",
+        "name": "Bunny JS",
+        "type": "LIBRARY",
+        "description": {
+            "es": "Libreria JavaScript ligero y moderno para desarrollo web rápido",
+            "en": "Lightweight and modern JavaScript library for rapid web development"
+        },
+        "image": "/projects/bunny-js.svg",
+        "link": "https://bunny-js.crobf.tech/",
+        "technologies": ["JavaScript", "TypeScript", "Vite"]
+    },
+    {
+        "id": "todo-app",
+        "name": "Todo App",
+        "type": "APP",
+        "description": {
+            "es": "Aplicación de gestión de tareas con diseño minimalista y funcionalidades avanzadas",
+            "en": "Task management application with minimalist design and advanced features"
+        },
+        "image": "/projects/todo-app.svg",
+        "link": "https://todoapp.crobf.tech/",
+        "technologies": ["React", "TypeScript", "CSS3"]
+    },
+    {
+        "id": "flashcards",
+        "name": "Flashcards",
+        "type": "APP",
+        "description": {
+            "es": "Aplicación de estudio con tarjetas de memoria para aprendizaje efectivo",
+            "en": "Study application with memory cards for effective learning"
+        },
+        "image": "/projects/flashcards.svg",
+        "link": "https://flashcards.crobf.tech/",
+        "technologies": ["React", "TypeScript", "Local Storage"]
+    }
+]

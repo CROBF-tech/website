@@ -20,165 +20,446 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
 <Layout title={`${t("about.title")} - ${SITE_TITLE}`} description={t("about.description") as string}>
-    <main style="position: relative;">
+    <main class="about-main">
         <div class="container">
-            <h1 class="title">{t("about.title")} - <span>CROBF</span></h1>
-            <p set:html={t("about.welcome")} />
-            <h2 class="whoWeAre">{t("about.whoWeAre.title")}</h2>
-            <p set:html={t("about.whoWeAre.description")} />
-            <div class="cards">
-                <CardFounder
-                    name={TEAM_MEMBERS.Juan.fullName}
-                    image={TEAM_MEMBERS.Juan.logo}
-                    github={TEAM_MEMBERS.Juan.gitHub}
-                    linkedin={TEAM_MEMBERS.Juan.linkedin}
-                    link={TEAM_MEMBERS.Juan.link}
-                    profession={TEAM_MEMBERS.Juan.profession}
-                    description={TEAM_MEMBERS.Juan.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Ezequiel.fullName}
-                    image={TEAM_MEMBERS.Ezequiel.logo}
-                    github={TEAM_MEMBERS.Ezequiel.gitHub}
-                    linkedin={TEAM_MEMBERS.Ezequiel.linkedin}
-                    link={TEAM_MEMBERS.Ezequiel.link}
-                    profession={TEAM_MEMBERS.Ezequiel.profession}
-                    description={TEAM_MEMBERS.Ezequiel.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Leandro.fullname}
-                    image={TEAM_MEMBERS.Leandro.logo}
-                    github={TEAM_MEMBERS.Leandro.gitHub}
-                    linkedin={TEAM_MEMBERS.Leandro.linkedin}
-                    link={TEAM_MEMBERS.Leandro.link}
-                    profession={TEAM_MEMBERS.Leandro.profession}
-                    description={TEAM_MEMBERS.Leandro.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Joaquin.fullname}
-                    image={TEAM_MEMBERS.Joaquin.logo}
-                    github={TEAM_MEMBERS.Joaquin.gitHub}
-                    linkedin={TEAM_MEMBERS.Joaquin.linkedin}
-                    link={TEAM_MEMBERS.Joaquin.link}
-                    profession={TEAM_MEMBERS.Joaquin.profession}
-                    description={TEAM_MEMBERS.Joaquin.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Lautaro.fullName}
-                    image={TEAM_MEMBERS.Lautaro.logo}
-                    github={TEAM_MEMBERS.Lautaro.gitHub}
-                    linkedin={TEAM_MEMBERS.Lautaro.linkedin}
-                    link={TEAM_MEMBERS.Lautaro.link}
-                    profession={TEAM_MEMBERS.Lautaro.profession}
-                    description={TEAM_MEMBERS.Lautaro.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Briana.fullname}
-                    image={TEAM_MEMBERS.Briana.logo}
-                    github={TEAM_MEMBERS.Briana.gitHub}
-                    linkedin={TEAM_MEMBERS.Briana.linkedin}
-                    link={TEAM_MEMBERS.Briana.link}
-                    profession={TEAM_MEMBERS.Briana.profession}
-                    description={TEAM_MEMBERS.Briana.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Sofia.fullName}
-                    image={TEAM_MEMBERS.Sofia.logo}
-                    github={TEAM_MEMBERS.Sofia.gitHub}
-                    linkedin={TEAM_MEMBERS.Sofia.linkedin}
-                    link={TEAM_MEMBERS.Sofia.link}
-                    profession={TEAM_MEMBERS.Sofia.profession}
-                    description={TEAM_MEMBERS.Sofia.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Julieta.fullName}
-                    image={TEAM_MEMBERS.Julieta.logo}
-                    github={TEAM_MEMBERS.Julieta.gitHub}
-                    linkedin={TEAM_MEMBERS.Julieta.linkedin}
-                    link={TEAM_MEMBERS.Julieta.link}
-                    profession={TEAM_MEMBERS.Julieta.profession}
-                    description={TEAM_MEMBERS.Julieta.description}
-                />
-                <CardFounder
-                    name={TEAM_MEMBERS.Paula.fullName}
-                    image={TEAM_MEMBERS.Paula.logo}
-                    github={TEAM_MEMBERS.Paula.gitHub}
-                    linkedin={TEAM_MEMBERS.Paula.linkedin}
-                    link={TEAM_MEMBERS.Paula.link}
-                    profession={TEAM_MEMBERS.Paula.profession}
-                    description={TEAM_MEMBERS.Paula.description}
-                />
-                <p set:html={t("about.team.values")} />
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h1 class="hero-title">{t("about.title")} - <span class="accent-text">CROBF</span></h1>
+                <p class="hero-description" set:html={t("about.welcome")} />
+            </section>
 
-                <h2 class="philosophy">{t("about.philosophy.title")}</h2>
-                <p set:html={t("about.philosophy.description")} />
+            <!-- Who We Are Section -->
+            <section class="section">
+                <h2 class="section-title">{t("about.whoWeAre.title")}</h2>
+                <p class="section-description" set:html={t("about.whoWeAre.description")} />
+            </section>
+
+            <!-- Team Grid -->
+            <section class="team-section">
+                <div class="team-grid">
+                    <CardFounder
+                        name={TEAM_MEMBERS.Juan.fullName}
+                        image={TEAM_MEMBERS.Juan.logo}
+                        github={TEAM_MEMBERS.Juan.gitHub}
+                        linkedin={TEAM_MEMBERS.Juan.linkedin}
+                        link={TEAM_MEMBERS.Juan.link}
+                        profession={TEAM_MEMBERS.Juan.profession}
+                        description={TEAM_MEMBERS.Juan.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Ezequiel.fullName}
+                        image={TEAM_MEMBERS.Ezequiel.logo}
+                        github={TEAM_MEMBERS.Ezequiel.gitHub}
+                        linkedin={TEAM_MEMBERS.Ezequiel.linkedin}
+                        link={TEAM_MEMBERS.Ezequiel.link}
+                        profession={TEAM_MEMBERS.Ezequiel.profession}
+                        description={TEAM_MEMBERS.Ezequiel.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Leandro.fullname}
+                        image={TEAM_MEMBERS.Leandro.logo}
+                        github={TEAM_MEMBERS.Leandro.gitHub}
+                        linkedin={TEAM_MEMBERS.Leandro.linkedin}
+                        link={TEAM_MEMBERS.Leandro.link}
+                        profession={TEAM_MEMBERS.Leandro.profession}
+                        description={TEAM_MEMBERS.Leandro.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Joaquin.fullname}
+                        image={TEAM_MEMBERS.Joaquin.logo}
+                        github={TEAM_MEMBERS.Joaquin.gitHub}
+                        linkedin={TEAM_MEMBERS.Joaquin.linkedin}
+                        link={TEAM_MEMBERS.Joaquin.link}
+                        profession={TEAM_MEMBERS.Joaquin.profession}
+                        description={TEAM_MEMBERS.Joaquin.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Lautaro.fullName}
+                        image={TEAM_MEMBERS.Lautaro.logo}
+                        github={TEAM_MEMBERS.Lautaro.gitHub}
+                        linkedin={TEAM_MEMBERS.Lautaro.linkedin}
+                        link={TEAM_MEMBERS.Lautaro.link}
+                        profession={TEAM_MEMBERS.Lautaro.profession}
+                        description={TEAM_MEMBERS.Lautaro.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Briana.fullname}
+                        image={TEAM_MEMBERS.Briana.logo}
+                        github={TEAM_MEMBERS.Briana.gitHub}
+                        linkedin={TEAM_MEMBERS.Briana.linkedin}
+                        link={TEAM_MEMBERS.Briana.link}
+                        profession={TEAM_MEMBERS.Briana.profession}
+                        description={TEAM_MEMBERS.Briana.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Sofia.fullName}
+                        image={TEAM_MEMBERS.Sofia.logo}
+                        github={TEAM_MEMBERS.Sofia.gitHub}
+                        linkedin={TEAM_MEMBERS.Sofia.linkedin}
+                        link={TEAM_MEMBERS.Sofia.link}
+                        profession={TEAM_MEMBERS.Sofia.profession}
+                        description={TEAM_MEMBERS.Sofia.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Julieta.fullName}
+                        image={TEAM_MEMBERS.Julieta.logo}
+                        github={TEAM_MEMBERS.Julieta.gitHub}
+                        linkedin={TEAM_MEMBERS.Julieta.linkedin}
+                        link={TEAM_MEMBERS.Julieta.link}
+                        profession={TEAM_MEMBERS.Julieta.profession}
+                        description={TEAM_MEMBERS.Julieta.description}
+                    />
+                    <CardFounder
+                        name={TEAM_MEMBERS.Paula.fullName}
+                        image={TEAM_MEMBERS.Paula.logo}
+                        github={TEAM_MEMBERS.Paula.gitHub}
+                        linkedin={TEAM_MEMBERS.Paula.linkedin}
+                        link={TEAM_MEMBERS.Paula.link}
+                        profession={TEAM_MEMBERS.Paula.profession}
+                        description={TEAM_MEMBERS.Paula.description}
+                    />
+                </div>
+                <div class="team-values">
+                    <p set:html={t("about.team.values")} />
+                </div>
+            </section>
+
+            <!-- Philosophy Section -->
+            <section class="section philosophy-section">
+                <h2 class="section-title">{t("about.philosophy.title")}</h2>
+                <p class="section-description" set:html={t("about.philosophy.description")} />
                 <PhilosophyCards />
                 <p class="motto" set:html={t("about.philosophy.motto")} />
+            </section>
 
-                <h2 class="values" set:html={t("about.values.title")} />
+            <!-- Values Section -->
+            <section class="section">
+                <h2 class="section-title" set:html={t("about.values.title")} />
                 <Values />
-                <h2 class="purpose" set:html={t("about.purpose.title")} />
-                <Purpose />
-                <p set:html={t("about.purpose.summary")} />
+            </section>
 
-                <h2 class="future" set:html={t("about.vision.title")} />
-                <p set:html={t("about.vision.description")} />
-                <div class="divcontact">
-                    <h2 class="contact" set:html={t("about.contact.title")} />
-                    <p set:html={t("about.contact.description")} />
+            <!-- Purpose Section -->
+            <section class="section">
+                <h2 class="section-title" set:html={t("about.purpose.title")} />
+                <Purpose />
+                <p class="section-description" set:html={t("about.purpose.summary")} />
+            </section>
+
+            <!-- Vision Section -->
+            <section class="section">
+                <h2 class="section-title" set:html={t("about.vision.title")} />
+                <p class="section-description" set:html={t("about.vision.description")} />
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact-section">
+                <div class="contact-card">
+                    <h2 class="contact-title" set:html={t("about.contact.title")} />
+                    <p class="contact-description" set:html={t("about.contact.description")} />
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 </Layout>
 <style>
-    .motto {
-        color: var(--accent);
-        font-size: 30px;
-    }
-    .title {
-        font-size: 40px;
-    }
-    .title span {
-        color: var(--accent);
-    }
-    .philosophy {
-        font-size: 36px;
-        text-align: left;
-        width: 100%;
-    }
-    .cards {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-    .values {
-        width: 100%;
-        font-size: 36px;
-    }
-    .purpose {
-        width: 100%;
-        font-size: 36px;
-    }
-    .future {
-        width: 100%;
-        font-size: 36px;
+    .about-main {
+        position: relative;
+        padding: 2rem 0;
     }
 
-    .divcontact {
-        border: solid 3px var(--accent);
-        border-radius: 40px;
-        padding: 10px;
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
     }
-    @media (width <= 37.5rem) {
-        .cards {
-            margin-top: 4em;
+
+    /* Hero Section */
+    .hero-section {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--color-bright-gray-950);
+        line-height: 1.2;
+    }
+
+    :global(html.dark) .hero-title {
+        color: var(--color-bright-gray-50);
+    }
+
+    .accent-text {
+        color: var(--accent);
+        background: linear-gradient(135deg, var(--accent), var(--color-blue-700));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-description {
+        font-size: 1.25rem;
+        line-height: 1.6;
+        color: var(--color-bright-gray-500);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    :global(html.dark) .hero-description {
+        color: var(--color-bright-gray-100);
+    }
+
+    /* Section Styling */
+    .section {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--color-bright-gray-950);
+        text-align: center;
+    }
+
+    :global(html.dark) .section-title {
+        color: var(--color-bright-gray-50);
+    }
+
+    .section-description {
+        font-size: 1.125rem;
+        line-height: 1.7;
+        color: var(--color-bright-gray-500);
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        text-align: center;
+    }
+
+    :global(html.dark) .section-description {
+        color: var(--color-bright-gray-100);
+    }
+
+    /* Team Section */
+    .team-section {
+        margin-bottom: 5rem;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        justify-items: center;
+        margin-bottom: 3rem;
+    }
+
+    .team-values {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 2rem;
+        background: var(--color-bright-gray-100);
+        border-radius: 16px;
+        border-left: 4px solid var(--accent);
+    }
+
+    :global(html.dark) .team-values {
+        background: var(--color-bright-gray-700);
+        border-left-color: var(--accent);
+    }
+
+    .team-values p {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        margin: 0;
+        color: var(--color-bright-gray-500);
+        font-style: italic;
+    }
+
+    :global(html.dark) .team-values p {
+        color: var(--color-bright-gray-100);
+    }
+
+    /* Philosophy Section */
+    .philosophy-section {
+        background: linear-gradient(135deg, var(--color-bright-gray-50) 0%, var(--color-blue-100) 100%);
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        margin: 4rem 0;
+    }
+
+    :global(html.dark) .philosophy-section {
+        background: linear-gradient(135deg, var(--color-bright-gray-700) 0%, var(--color-bright-gray-950) 100%);
+    }
+
+    .motto {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 600;
+        text-align: center;
+        margin: 2rem 0;
+        color: var(--accent);
+        font-style: italic;
+        line-height: 1.4;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        margin-top: 4rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .contact-card {
+        background: var(--color-bright-gray-50);
+        border: 2px solid var(--accent);
+        border-radius: 20px;
+        padding: 2.5rem;
+        max-width: 600px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    :global(html.dark) .contact-card {
+        background: var(--color-bright-gray-700);
+        border-color: var(--accent);
+    }
+
+    .contact-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent), var(--color-blue-700));
+    }
+
+    .contact-title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--color-bright-gray-950);
+    }
+
+    :global(html.dark) .contact-title {
+        color: var(--color-bright-gray-50);
+    }
+
+    .contact-description {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        margin: 0;
+        color: var(--color-bright-gray-500);
+    }
+
+    :global(html.dark) .contact-description {
+        color: var(--color-bright-gray-100);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .about-main {
+            padding: 1rem 0;
+        }
+
+        .hero-section {
+            margin-bottom: 3rem;
+            padding: 1rem 0;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-values {
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .philosophy-section {
+            padding: 2rem 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .contact-card {
+            padding: 2rem 1.5rem;
+            margin: 0 1rem;
         }
     }
-    @media (width <= 27.5rem) {
-        .cards {
-            margin-top: 5em;
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 0.75rem;
+        }
+
+        .hero-section {
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .team-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .team-values {
+            padding: 1rem;
+        }
+
+        .philosophy-section {
+            padding: 1.5rem 1rem;
+            margin: 2rem 0;
+        }
+
+        .contact-card {
+            padding: 1.5rem 1rem;
+        }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+        .card {
+            border: 2px solid var(--color-bright-gray-950);
+        }
+
+        :global(html.dark) .card {
+            border-color: var(--color-bright-gray-50);
+        }
+
+        .contact-card {
+            border-width: 3px;
+        }
+
+        .team-values {
+            border-left-width: 6px;
+        }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        .card,
+        .card img,
+        .card-overlay,
+        .social-link {
+            transition: none;
+        }
+
+        .card:hover {
+            transform: none;
+        }
+
+        .card:hover img {
+            transform: none;
         }
     }
 </style>
