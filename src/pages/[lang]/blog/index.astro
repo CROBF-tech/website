@@ -26,7 +26,10 @@ const posts = (await getCollection("blog"))
 <Layout title={`Blog - ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
     <main>
         <section>
-            <ul>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar posts..." class="search-input" />
+            </div>
+            <ul id="postsList">
                 {
                     posts
                         .slice((actualPage - 1) * PAGINATION_SIZE, (actualPage - 1) * PAGINATION_SIZE + PAGINATION_SIZE)
@@ -56,6 +59,23 @@ const posts = (await getCollection("blog"))
     <style>
         main {
             width: 960px;
+        }
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid rgb(var(--gray-light));
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .search-input:focus {
+            border-color: rgb(var(--accent));
         }
         ul {
             display: flex;
@@ -165,4 +185,23 @@ const posts = (await getCollection("blog"))
             }
         }
     </style>
+
+    <script>
+        const searchInput = document.getElementById("searchInput")! as HTMLInputElement;
+        const postsList = document.getElementById("postsList")!;
+        const allPosts = Array.from(postsList.children) as HTMLDivElement[];
+
+        searchInput.addEventListener("input", (e) => {
+            const searchTerm = e.target?.value.toLowerCase().trim();
+
+            allPosts.forEach((post) => {
+                const title = post.querySelector(".title")?.textContent.toLowerCase();
+                if (searchTerm === "" || title?.includes(searchTerm)) {
+                    post.style.display = "block";
+                } else {
+                    post.style.display = "none";
+                }
+            });
+        });
+    </script>
 </Layout>
