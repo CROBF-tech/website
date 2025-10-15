@@ -19,18 +19,6 @@ export const TEAM_MEMBERS = {
             'Estudiante de la tecnicatura universitaria en programación en la UTN. Me apasiona la tecnología y el desarrollo de software. Me gusta aprender cosas nuevas y enfrentar desafíos. Soy una persona proactiva, responsable y comprometida con mi trabajo.',
         index: 1,
     },
-    Ezequiel: {
-        fullName: 'Casiano Ezequiel',
-        logo: '/founders/ezequiel_casiano.png',
-        email: 'ezequielcasiano15@gmail.com',
-        gitHub: 'https://github.com/yoezequiel',
-        linkedin: 'https://www.linkedin.com/in/yoezequiel/',
-        link: '/founders/ezequiel_casiano',
-        profession: 'Desarrollador Full Stack',
-        description:
-            '¡Hola! Soy Casiano Ezequiel, estudiante de desarrollo de software con enfoque en desarrollo web y Python. Siempre dispuesto a explorar y aprender más.',
-        index: 2,
-    },
     Leandro: {
         fullname: 'Leandro Diaz',
         logo: '/founders/leandro_diaz.jpeg',
@@ -99,17 +87,5 @@ export const TEAM_MEMBERS = {
         description:
             '¡Hola! Soy Julieta Sotelo, estudiante de la Tecnicatura Superior en Desarrollo de software explorando el camino de la programación y diseño web.',
         index: 5,
-    },
-    Paula: {
-        fullName: 'Toledo Ana Paula',
-        logo: '/founders/ana_paula_toledo.jpeg',
-        email: 'anapaulatoledo2003@gmail.com',
-        gitHub: 'https://github.com/paulytoledoo',
-        linkedin: 'https://www.linkedin.com/in/ana-paula-toledo-a27527261/',
-        link: '/founders/ana_paula_toledo',
-        profession: 'Desarrollo Backend, Análisis, Documentación, Ciencia de Datos. ',
-        description:
-            '¡Hola! Soy Ana Paula, estudiante de la Tecnicatura Superior en Desarrollo de Software, apasionada por encontrar soluciones creativas e innovadoras a problemas tecnológicos.Mi capacidad autodidacta me permite aprender nuevas habilidades de forma constante.',
-        index: 7,
     },
 };
