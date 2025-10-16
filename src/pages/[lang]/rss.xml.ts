@@ -2,8 +2,6 @@ import rss from '@astrojs/rss';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 
-export const prerender = true;
-
 export async function GET(context: any) {
 
     const lang = context.params.lang;
