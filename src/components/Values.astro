@@ -2,16 +2,6 @@
 interface Props {}
 import ValuesCards from "./ValuesCards.astro";
 import { useTranslations, getLangFromUrl } from "../i18n/translate";
-export function getStaticPaths() {
-    return [
-        {
-            params: { lang: "es" },
-        },
-        {
-            params: { lang: "en" },
-        },
-    ];
-}
 const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
