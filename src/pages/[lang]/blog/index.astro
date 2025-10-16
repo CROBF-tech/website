@@ -192,10 +192,10 @@ const posts = (await getCollection("blog"))
         const allPosts = Array.from(postsList.children) as HTMLDivElement[];
 
         searchInput.addEventListener("input", (e) => {
-            const searchTerm = e.target?.value.toLowerCase().trim();
+            const searchTerm = searchInput.value.toLowerCase().trim();
 
             allPosts.forEach((post) => {
-                const title = post.querySelector(".title")?.textContent.toLowerCase();
+                const title = post.querySelector(".title")?.textContent.toLowerCase() ?? "";
                 if (searchTerm === "" || title?.includes(searchTerm)) {
                     post.style.display = "block";
                 } else {
