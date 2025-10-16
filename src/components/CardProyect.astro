@@ -1,5 +1,5 @@
 ---
-import { useTranslations, getLangFromUrl } from "../i18n/translate";
+//import { useTranslations, getLangFromUrl } from "../i18n/translate";
 
 interface Props {
     name: string;
@@ -8,7 +8,8 @@ interface Props {
     link: string;
 }
 
-const t = useTranslations(getLangFromUrl(Astro.url));
+// TODO: Move proyects to translations files
+//const t = useTranslations(getLangFromUrl(Astro.url));
 
 const { name, image, description, link } = Astro.props;
 ---

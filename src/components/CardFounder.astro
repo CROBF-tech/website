@@ -15,16 +15,18 @@ const lang = getLangFromUrl(Astro.url);
                     href={`${github}`}
                     target="_blank"
                     aria-label={`Link para github de ${name}`}
-                    onclick="event.stopPropagation();"
-                    class="social-link">
+                    onclick="this.event.stopPropagation();"
+                    class="social-link"
+                >
                     <Github />
                 </a>
                 <a
                     href={`${linkedin}`}
                     target="_blank"
                     aria-label={`Link para linkedin de ${name}`}
-                    onclick="event.stopPropagation();"
-                    class="social-link">
+                    onclick="this.event.stopPropagation();"
+                    class="social-link"
+                >
                     <Linkedin />
                 </a>
             </div>
