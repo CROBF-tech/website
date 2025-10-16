@@ -3,6 +3,9 @@ import FormContact from "../../components/FormContact.astro";
 import Layout from "../../layouts/Layout.astro";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
 import { SITE_TITLE } from "../../consts";
+
+export const prerender = true;
+
 export function getStaticPaths() {
     return [
         {

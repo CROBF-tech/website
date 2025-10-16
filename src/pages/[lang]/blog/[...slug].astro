@@ -13,7 +13,7 @@ export async function getStaticPaths() {
             throw new Error(`El slug "${slug}" no tiene el formato esperado.`);
         }
 
-        const [lang = "en", ...real_slug] = match;
+        const [lang = "es", ...real_slug] = match;
 
         return {
             params: { lang, slug: real_slug.join("/") },
