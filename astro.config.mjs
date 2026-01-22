@@ -7,7 +7,7 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://crobf.vercel.app",
+    site: "https://crobf.tech",
     integrations: [mdx(), sitemap()],
     vite: {
         css: {
