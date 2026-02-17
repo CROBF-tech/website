@@ -16,8 +16,7 @@ const lang = getLangFromUrl(Astro.url);
                     target="_blank"
                     aria-label={`Link para github de ${name}`}
                     onclick="this.event.stopPropagation();"
-                    class="social-link"
-                >
+                    class="social-link">
                     <Github />
                 </a>
                 <a
@@ -25,8 +24,7 @@ const lang = getLangFromUrl(Astro.url);
                     target="_blank"
                     aria-label={`Link para linkedin de ${name}`}
                     onclick="this.event.stopPropagation();"
-                    class="social-link"
-                >
+                    class="social-link">
                     <Linkedin />
                 </a>
             </div>
@@ -78,7 +76,7 @@ const lang = getLangFromUrl(Astro.url);
     .card img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain !important;
         transition: transform 0.3s ease;
     }
 
