@@ -4,11 +4,16 @@ import Github from "./svgs/Github.astro";
 import Linkedin from "./svgs/Linkedin.astro";
 const { name, image, github, linkedin, link, profession, description } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+
+// Seleccionar imagen aleatoria si es un array
+const selectedImage = Array.isArray(image) 
+    ? image[Math.floor(Math.random() * image.length)]
+    : image;
 ---
 
 <div class="card" onclick={`window.location.href='/${lang}${link}'`}>
     <div class="card-image-container">
-        <img src=`${image}` alt=`Imagen del integrante ${name}` />
+        {selectedImage && <img src={selectedImage} alt={`Imagen del integrante ${name}`} />}
         <div class="card-overlay">
             <div class="socials">
                 <a
