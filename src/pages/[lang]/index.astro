@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import YouCanScroll from "../../components/YouCanScroll.astro";
+import InteractiveNeuralVortex from "../../components/ui/interactive-neural-vortex-background";
 import { SITE_DESCRIPTION } from "../../consts";
 import { getLangFromUrl } from "../../i18n/translate";
 
@@ -199,7 +200,18 @@ const projects = [
             </div>
         </section>
 
-        <section class="hero-gap" aria-hidden="true"></section>
+        <section class="scroll-frames" aria-label="Animacion por desplazamiento">
+            <div class="scroll-frames-sticky">
+                <canvas class="scroll-frames-canvas" aria-label="Animacion de producto"></canvas>
+                <div class="frames-neural-overlay" aria-hidden="true">
+                    <InteractiveNeuralVortex client:load hideHero={true} embedded={true} className="frames-neural-react" />
+                </div>
+                <div class="frames-loader" role="status" aria-live="polite">
+                    <span class="frames-loader-label">Cargando animacion...</span>
+                    <span class="frames-loader-progress">0%</span>
+                </div>
+            </div>
+        </section>
 
         <section class="services" id="services">
             <p class="eyebrow">{copy.servicesSubtitle}</p>
@@ -282,6 +294,154 @@ const projects = [
             </div>
         </section>
 
+        <script is:inline type="module">
+            const framesSection = document.querySelector(".scroll-frames");
+            if (framesSection) {
+                const canvas = framesSection.querySelector(".scroll-frames-canvas");
+                const loader = framesSection.querySelector(".frames-loader");
+                const loaderProgress = framesSection.querySelector(".frames-loader-progress");
+                const neuralOverlay = framesSection.querySelector(".frames-neural-overlay");
+
+                if (canvas instanceof HTMLCanvasElement) {
+                    const ctx = canvas.getContext("2d", { alpha: true });
+                    const totalFrames = 91;
+                    const videoWidth = 1920;
+                    const videoHeight = 1080;
+                    const notebookScreen = {
+                        x: 0.158,
+                        y: 0.05,
+                        width: 0.684,
+                        height: 0.742,
+                    };
+                    const images = new Array(totalFrames);
+                    let loadedCount = 0;
+                    let rafPending = false;
+                    let currentFrame = -1;
+                    let currentProgress = -1;
+                    let renderWidth = 0;
+                    let renderHeight = 0;
+
+                    const updateLoader = () => {
+                        const percent = Math.round((loadedCount / totalFrames) * 100);
+                        if (loaderProgress) loaderProgress.textContent = `${percent}%`;
+                        if (loader && loadedCount >= totalFrames) loader.classList.add("is-complete");
+                    };
+
+                    const resizeCanvas = () => {
+                        const viewportW = window.innerWidth;
+                        const viewportH = window.innerHeight;
+
+                        renderWidth = viewportW;
+                        renderHeight = Math.round(viewportH * 0.96);
+
+                        const dpr = Math.max(1, window.devicePixelRatio || 1);
+                        canvas.style.width = `${renderWidth}px`;
+                        canvas.style.height = `${renderHeight}px`;
+                        canvas.width = Math.round(renderWidth * dpr);
+                        canvas.height = Math.round(renderHeight * dpr);
+
+                        if (!ctx) return;
+                        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                        if (currentFrame >= 0 && images[currentFrame]) {
+                            drawFrame(currentFrame, currentProgress < 0 ? 0 : currentProgress);
+                        }
+                    };
+
+                    const drawFrame = (frameIndex, progress) => {
+                        if (!ctx || !images[frameIndex]) return;
+
+                        const containScale = Math.min(renderWidth / videoWidth, renderHeight / videoHeight);
+                        const coverScale = Math.max(renderWidth / videoWidth, renderHeight / videoHeight) * 1.02;
+                        const zoomProgress = Math.min(1, Math.max(0, (progress - 0.12) / 0.56));
+                        const scale = containScale + (coverScale - containScale) * zoomProgress;
+
+                        const frameDrawWidth = videoWidth * scale;
+                        const frameDrawHeight = videoHeight * scale;
+                        const offsetX = (renderWidth - frameDrawWidth) / 2;
+                        const offsetY = (renderHeight - frameDrawHeight) / 2;
+
+                        ctx.clearRect(0, 0, renderWidth, renderHeight);
+                        ctx.drawImage(images[frameIndex], offsetX, offsetY, frameDrawWidth, frameDrawHeight);
+
+                        if (neuralOverlay instanceof HTMLElement) {
+                            // Coordinates normalized to the source video, then projected with the same zoom/offset as the notebook.
+                            const screenX = offsetX + notebookScreen.x * frameDrawWidth;
+                            const screenY = offsetY + notebookScreen.y * frameDrawHeight;
+                            const screenW = notebookScreen.width * frameDrawWidth;
+                            const screenH = notebookScreen.height * frameDrawHeight;
+                            const openProgress = Math.min(1, Math.max(0, (progress - 0.08) / 0.48));
+                            const reveal = Math.pow(openProgress, 1.2);
+
+                            neuralOverlay.style.left = `${screenX}px`;
+                            neuralOverlay.style.top = `${screenY}px`;
+                            neuralOverlay.style.width = `${screenW}px`;
+                            neuralOverlay.style.height = `${screenH}px`;
+                            neuralOverlay.style.opacity = String(reveal * 0.98);
+                            neuralOverlay.style.transform = `translateZ(0) scale(${0.94 + reveal * 0.08})`;
+                            neuralOverlay.style.borderRadius = `${Math.max(8, screenH * 0.025)}px`;
+                        }
+
+                        currentFrame = frameIndex;
+                        currentProgress = progress;
+                    };
+
+                    const requestDraw = (frameIndex, progress) => {
+                        if (rafPending) return;
+                        if (frameIndex === currentFrame && Math.abs(progress - currentProgress) < 0.002) return;
+                        rafPending = true;
+                        requestAnimationFrame(() => {
+                            drawFrame(frameIndex, progress);
+                            rafPending = false;
+                        });
+                    };
+
+                    const onScroll = () => {
+                        const rect = framesSection.getBoundingClientRect();
+                        const scrollRange = framesSection.offsetHeight - window.innerHeight;
+                        if (scrollRange <= 0) return;
+
+                        const traveled = Math.min(scrollRange, Math.max(0, -rect.top));
+                        const progress = traveled / scrollRange;
+                        const targetFrame = Math.min(totalFrames - 1, Math.floor(progress * (totalFrames - 1)));
+                        requestDraw(targetFrame, progress);
+                    };
+
+                    const preloadPromises = [];
+                    for (let i = 1; i <= totalFrames; i += 1) {
+                        const img = new Image();
+                        img.decoding = "async";
+                        images[i - 1] = img;
+
+                        preloadPromises.push(
+                            new Promise((resolve) => {
+                                img.onload = () => {
+                                    loadedCount += 1;
+                                    updateLoader();
+                                    resolve(true);
+                                };
+                                img.onerror = () => {
+                                    loadedCount += 1;
+                                    updateLoader();
+                                    resolve(false);
+                                };
+                            })
+                        );
+
+                        img.src = `/videos/frames/frame_${String(i).padStart(4, "0")}.webp`;
+                    }
+
+                    resizeCanvas();
+                    window.addEventListener("resize", resizeCanvas, { passive: true });
+                    window.addEventListener("scroll", onScroll, { passive: true });
+
+                    Promise.all(preloadPromises).then(() => {
+                        drawFrame(0, 0);
+                        onScroll();
+                    });
+                }
+            }
+        </script>
+
         <script is:inline>
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -332,6 +492,10 @@ const projects = [
         padding: 1.2rem 0 5rem;
         display: grid;
         gap: 5.4rem;
+    }
+
+    :global(body) {
+        overflow-x: hidden;
     }
 
     .eyebrow {
@@ -448,11 +612,81 @@ const projects = [
         content: none;
     }
 
-    .hero-gap {
-        height: 270px;
-        border: 1px solid rgba(124, 140, 187, 0.22);
-        border-radius: 0.2rem;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(249, 251, 255, 0.1));
+    .scroll-frames {
+        height: 600vh;
+        position: relative;
+        margin-top: -0.3rem;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        overflow-x: clip;
+    }
+
+    .scroll-frames-sticky {
+        position: sticky;
+        top: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        border-radius: 0;
+        background: transparent;
+        border: none;
+        overflow: visible;
+        overflow-x: clip;
+    }
+
+    .scroll-frames-canvas {
+        display: block;
+        width: 100vw;
+        height: 96svh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .frames-neural-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-radius: 1.1rem;
+        overflow: hidden;
+        pointer-events: none;
+        opacity: 0;
+        z-index: 2;
+        mix-blend-mode: normal;
+        filter: saturate(1.12) contrast(1.08);
+        transform-origin: center center;
+        will-change: left, top, width, height, opacity, transform;
+        transition: opacity 120ms linear;
+    }
+
+    .frames-neural-react {
+        width: 100%;
+        height: 100%;
+    }
+
+    .frames-loader {
+        position: absolute;
+        left: 50%;
+        bottom: 6.5vh;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.78rem;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        border: 1px solid rgba(85, 112, 184, 0.28);
+        color: rgba(20, 32, 61, 0.9);
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(7px);
+        transition: opacity 220ms ease;
+    }
+
+    .frames-loader.is-complete {
+        opacity: 0;
+        pointer-events: none;
     }
 
     .services-grid {
@@ -755,9 +989,14 @@ const projects = [
         background: linear-gradient(180deg, #04070f 0%, #060915 100%);
     }
 
-    :global(html.dark) .hero-gap {
-        border-color: rgba(122, 137, 188, 0.35);
-        background: rgba(5, 9, 18, 0.8);
+    :global(html.dark) .scroll-frames-sticky {
+        background: transparent;
+    }
+
+    :global(html.dark) .frames-loader {
+        border-color: rgba(112, 138, 209, 0.32);
+        color: rgba(230, 238, 255, 0.9);
+        background: rgba(12, 20, 39, 0.72);
     }
 
     :global(html.dark) .step-card {
@@ -807,8 +1046,8 @@ const projects = [
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .hero-gap {
-            height: 200px;
+        .scroll-frames {
+            height: 520vh;
         }
     }
 
@@ -827,8 +1066,8 @@ const projects = [
             grid-template-columns: 1fr;
         }
 
-        .hero-gap {
-            height: 160px;
+        .scroll-frames {
+            height: 460vh;
         }
 
         .floating-cta {
