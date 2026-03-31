@@ -1,0 +1,503 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { SITE_DESCRIPTION } from "../../consts";
+import { getLangFromUrl } from "../../i18n/translate";
+
+const lang = getLangFromUrl(Astro.url);
+
+const pageCopy =
+    lang === "en"
+        ? {
+              title: "CROBF Blog Archive",
+              badge: "Legacy Articles",
+              heading: "Articles that were previously on this site",
+              text: "The historical CROBF blog now lives in its dedicated project. You can read old and new posts from this page.",
+              cta: "View complete archive",
+              read: "Read article",
+              dateLabel: "Published",
+              authorLabel: "Author",
+          }
+        : {
+              title: "Archivo del Blog CROBF",
+              badge: "Articulos historicos",
+              heading: "Articulos que antes estaban en este sitio",
+              text: "El blog historico de CROBF ahora vive en su proyecto dedicado. Desde esta pagina podes leer articulos anteriores y nuevos.",
+              cta: "Ver archivo completo",
+              read: "Leer articulo",
+              dateLabel: "Publicado",
+              authorLabel: "Autor",
+          };
+
+const posts =
+    lang === "en"
+        ? [
+              {
+                  slug: "international-womens-day",
+                  title: "International Women's Day",
+                  date: "Mar 8, 2025",
+                  author: "Ana Paula Toledo",
+                  href: "https://blog.crobf.tech/en/blog/international-womens-day/",
+                  image: "https://blog.crobf.tech/blog/Dia_internacional_de_la_mujer.png",
+              },
+              {
+                  slug: "unlock-the-power-of-your-software-team",
+                  title: "Unlock the Power of Your Software Team",
+                  date: "Feb 19, 2025",
+                  author: "Casiano Ezequiel",
+                  href: "https://blog.crobf.tech/en/blog/unlock-the-power-of-your-software-team/",
+                  image: "https://blog.crobf.tech/blog/desbloquea_el_poder_de_tu_equipo_de_software.jpg",
+              },
+              {
+                  slug: "benefits-of-using-the-pair-programming-technique-in-teams",
+                  title: "Benefits of Pair Programming in Teams",
+                  date: "Feb 13, 2025",
+                  author: "Casiano Ezequiel",
+                  href: "https://blog.crobf.tech/en/blog/benefits-of-using-the-pair-programming-technique-in-teams/",
+                  image: "https://blog.crobf.tech/blog/Beneficios_de_usar_la_t%C3%A9cnica_Pair_Programming_en_equipos.jpg",
+              },
+              {
+                  slug: "5-css-features-you-should-know-about",
+                  title: "5 CSS Features You Should Know",
+                  date: "Dec 26, 2024",
+                  author: "Juan Beresiarte",
+                  href: "https://blog.crobf.tech/en/blog/5-css-features-you-should-know-about/",
+                  image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
+              },
+              {
+                  slug: "what-is-solid-and-why-should-you-use-it",
+                  title: "What is SOLID and Why Use It?",
+                  date: "Nov 26, 2024",
+                  author: "Juan Beresiarte",
+                  href: "https://blog.crobf.tech/en/blog/what-is-solid-and-why-should-you-use-it/",
+                  image: "https://blog.crobf.tech/blog/placheholder-blog-solid.jpg",
+              },
+              {
+                  slug: "how-to-build-a-highly-effective-development-team",
+                  title: "How to Build a Highly Effective Development Team",
+                  date: "Nov 26, 2024",
+                  author: "Casiano Ezequiel",
+                  href: "https://blog.crobf.tech/en/blog/how-to-build-a-highly-effective-development-team/",
+                  image: "https://blog.crobf.tech/blog/Como_Construir_un_Equipo_de_Desarrollo_Altamente_Efectivo.jpg",
+              },
+          ]
+        : [
+              {
+                  slug: "el-rol-de-las-mujeres-en-el-mundo-it",
+                  title: "El Rol de las Mujeres en el Mundo IT",
+                  date: "Mar 8, 2026",
+                  author: "Juan Beresiarte",
+                  href: "https://blog.crobf.tech/es/blog/el-rol-de-las-mujeres-en-el-mundo-it/",
+                  image: "https://blog.crobf.tech/blog/dia-de-la-mujer.png",
+              },
+              {
+                  slug: "la-trampa-de-la-sobre-normalizacion",
+                  title: "La Trampa de la Sobre-Normalizacion",
+                  date: "May 27, 2025",
+                  author: "Casiano Ezequiel",
+                  href: "https://blog.crobf.tech/es/blog/la-trampa-de-la-sobre-normalizacion/",
+                  image: "https://blog.crobf.tech/blog/La-Trampa-de-la-Sobre-Normalizacion.png",
+              },
+              {
+                  slug: "introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave",
+                  title: "Introduccion a los Requerimientos de Software",
+                  date: "Apr 2, 2025",
+                  author: "Ana Paula Toledo",
+                  href: "https://blog.crobf.tech/es/blog/introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave/",
+                  image: "https://blog.crobf.tech/blog/introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave.jpg",
+              },
+              {
+                  slug: "dia-internacional-de-la-mujer",
+                  title: "Dia Internacional de La Mujer",
+                  date: "Mar 8, 2025",
+                  author: "Ana Paula Toledo",
+                  href: "https://blog.crobf.tech/es/blog/dia-internacional-de-la-mujer/",
+                  image: "https://blog.crobf.tech/blog/Dia_internacional_de_la_mujer.png",
+              },
+              {
+                  slug: "desbloquea-el-poder-de-tu-equipo-de-software",
+                  title: "Desbloquea el Poder de tu Equipo de Software",
+                  date: "Feb 19, 2025",
+                  author: "Casiano Ezequiel",
+                  href: "https://blog.crobf.tech/es/blog/desbloquea-el-poder-de-tu-equipo-de-software/",
+                  image: "https://blog.crobf.tech/blog/desbloquea_el_poder_de_tu_equipo_de_software.jpg",
+              },
+              {
+                  slug: "5-funciones-de-css-que-deberias-conocer",
+                  title: "5 funciones de css que deberias conocer",
+                  date: "Dec 26, 2024",
+                  author: "Juan Beresiarte",
+                  href: "https://blog.crobf.tech/es/blog/5-funciones-de-css-que-deberias-conocer/",
+                  image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
+              },
+          ];
+---
+
+<Layout title={pageCopy.title} description={SITE_DESCRIPTION}>
+    <main class="blog-page">
+        <section class="blog-hero">
+            <p class="eyebrow">{pageCopy.badge}</p>
+            <h1>{pageCopy.heading}</h1>
+            <p>{pageCopy.text}</p>
+            <a class="btn" href="#posts">{pageCopy.cta}</a>
+        </section>
+
+        <section class="posts-grid" id="posts" aria-label="Blog posts">
+            {
+                posts.map((post) => {
+                    const tags = lang === "en" ? ["Blog", "Software"] : ["Blog", "Software"];
+                    const readTime = lang === "en" ? "5 min read" : "5 min lectura";
+                    const excerpt =
+                        lang === "en"
+                            ? "Insights, practices, and ideas for product and engineering teams."
+                            : "Ideas, practicas y aprendizajes para equipos de producto y desarrollo.";
+
+                    return (
+                        <article class="post-card">
+                            <a class="post-media" href={`/${lang}/blog/${post.slug}`}>
+                                <img src={post.image} alt={post.title} loading="lazy" />
+                                <div class="post-gradient"></div>
+                                <div class="post-tags">
+                                    {tags.map((tag) => (
+                                        <span class="post-tag">{tag}</span>
+                                    ))}
+                                </div>
+                                <div class="post-hover-action">{pageCopy.read}</div>
+                            </a>
+
+                            <div class="post-content">
+                                <h2>{post.title}</h2>
+                                <p class="post-excerpt">{excerpt}</p>
+
+                                <div class="post-meta">
+                                    <div class="post-author">
+                                        <span class="avatar-fallback">{post.author[0]}</span>
+                                        <div class="author-info">
+                                            <span class="author-name">{post.author}</span>
+                                            <span class="author-date">{post.date}</span>
+                                        </div>
+                                    </div>
+
+                                    <span class="read-time">{readTime}</span>
+                                </div>
+                            </div>
+                        </article>
+                    );
+                })
+            }
+        </section>
+
+        <script>
+            import { animate, inView, stagger } from "motion";
+            const mAnimate: any = animate;
+            const mInView: any = inView;
+
+            const cards = Array.from(document.querySelectorAll(".post-card")).filter(
+                (card): card is HTMLElement => card instanceof HTMLElement
+            );
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            if (!prefersReducedMotion && cards.length > 0) {
+                mAnimate(
+                    cards,
+                    {
+                        opacity: [0.78, 1],
+                        transform: ["translateY(16px) scale(0.985)", "translateY(0px) scale(1)"],
+                    },
+                    { duration: 0.55, delay: stagger(0.08), easing: [0.22, 1, 0.36, 1] }
+                );
+
+                mInView(
+                    ".post-card",
+                    (element: any) => {
+                        mAnimate(
+                            element,
+                            {
+                                opacity: [0.82, 1],
+                                transform: ["translateY(14px)", "translateY(0px)"],
+                            },
+                            { duration: 0.38, easing: [0.22, 1, 0.36, 1] }
+                        );
+                    },
+                    { amount: 0.35 }
+                );
+
+                cards.forEach((card) => {
+                    card.addEventListener("pointerenter", () => {
+                        mAnimate(
+                            card,
+                            { transform: "translateY(-6px) scale(1.015)" },
+                            { duration: 0.2, easing: "ease-out" }
+                        );
+                    });
+
+                    card.addEventListener("pointerleave", () => {
+                        mAnimate(
+                            card,
+                            { transform: "translateY(0px) scale(1)" },
+                            { duration: 0.24, easing: "ease-out" }
+                        );
+                    });
+                });
+            }
+        </script>
+    </main>
+</Layout>
+
+<style>
+    .blog-page {
+        width: min(1120px, calc(100% - 2.2rem));
+        margin: 0 auto;
+        padding: 2rem 0 5rem;
+        display: grid;
+        gap: 2rem;
+    }
+
+    .blog-hero {
+        border: 1px solid rgba(67, 77, 104, 0.22);
+        border-radius: 1rem;
+        background: linear-gradient(170deg, rgba(253, 254, 255, 0.98), rgba(243, 246, 255, 0.95));
+        padding: 1.4rem;
+    }
+
+    .eyebrow {
+        margin: 0 0 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+        color: rgba(23, 30, 48, 0.72);
+    }
+
+    h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+        line-height: 1.1;
+    }
+
+    .blog-hero p {
+        margin-top: 0.9rem;
+        margin-bottom: 0;
+        color: rgba(23, 30, 48, 0.8);
+        max-width: 64ch;
+    }
+
+    .btn {
+        margin-top: 1.2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.72rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        color: #f6f8ff;
+        background: linear-gradient(120deg, #1f34f3, #4c6aff);
+        box-shadow: 0 10px 30px rgba(41, 76, 255, 0.25);
+    }
+
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+    }
+
+    .post-card {
+        border: 1px solid rgba(95, 114, 166, 0.3);
+        border-radius: 1.1rem;
+        background: linear-gradient(170deg, rgba(254, 255, 255, 0.6), rgba(244, 248, 255, 0.45));
+        backdrop-filter: blur(12px);
+        display: grid;
+        gap: 0;
+        align-content: start;
+        overflow: hidden;
+        transition: transform 200ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .post-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(73, 109, 244, 0.45);
+        box-shadow: 0 18px 34px rgba(32, 56, 120, 0.16);
+    }
+
+    .post-media {
+        position: relative;
+        display: block;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .post-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 420ms ease;
+    }
+
+    .post-card:hover .post-media img {
+        transform: scale(1.08);
+    }
+
+    .post-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(4, 8, 18, 0.02), rgba(4, 8, 18, 0.6));
+    }
+
+    .post-tags {
+        position: absolute;
+        left: 0.8rem;
+        bottom: 0.8rem;
+        display: flex;
+        gap: 0.45rem;
+        z-index: 2;
+    }
+
+    .post-tag {
+        font-size: 0.7rem;
+        letter-spacing: 0.02em;
+        padding: 0.25rem 0.5rem;
+        border-radius: 999px;
+        color: #f2f6ff;
+        background: rgba(10, 16, 34, 0.52);
+        border: 1px solid rgba(189, 207, 255, 0.24);
+        backdrop-filter: blur(4px);
+    }
+
+    .post-hover-action {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: #f4f7ff;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        background: rgba(8, 15, 36, 0.26);
+        backdrop-filter: blur(2px);
+        opacity: 0;
+        transition: opacity 230ms ease;
+    }
+
+    .post-card:hover .post-hover-action {
+        opacity: 1;
+    }
+
+    .post-content {
+        padding: 1rem;
+        display: grid;
+        gap: 0.65rem;
+    }
+
+    .post-card h2 {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.28;
+    }
+
+    .post-excerpt {
+        margin: 0;
+        font-size: 0.82rem;
+        color: rgba(23, 30, 48, 0.78);
+    }
+
+    .post-meta {
+        margin-top: 0.2rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(88, 107, 158, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.65rem;
+    }
+
+    .post-author {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 0;
+    }
+
+    .avatar-fallback {
+        width: 1.95rem;
+        height: 1.95rem;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #eaf0ff;
+        background: linear-gradient(130deg, #2f56f0, #6282ff);
+        border: 1px solid rgba(174, 193, 255, 0.4);
+        flex: 0 0 auto;
+    }
+
+    .author-info {
+        display: grid;
+        gap: 0.05rem;
+    }
+
+    .author-name,
+    .author-date,
+    .read-time {
+        font-size: 0.72rem;
+    }
+
+    .author-name {
+        font-weight: 600;
+        color: rgba(20, 30, 58, 0.93);
+    }
+
+    .author-date,
+    .read-time {
+        color: rgba(23, 30, 48, 0.62);
+    }
+
+    :global(html.dark) .blog-hero,
+    :global(html.dark) .post-card {
+        border-color: rgba(94, 120, 214, 0.32);
+        background: linear-gradient(180deg, rgba(15, 20, 35, 0.92), rgba(14, 18, 31, 0.76));
+        box-shadow: 0 0 0 1px rgba(47, 77, 180, 0.24) inset;
+    }
+
+    :global(html.dark) .eyebrow,
+    :global(html.dark) .blog-hero p,
+    :global(html.dark) .post-excerpt {
+        color: rgba(229, 236, 255, 0.76);
+    }
+
+    :global(html.dark) .post-card {
+        border-color: rgba(107, 126, 183, 0.36);
+    }
+
+    :global(html.dark) .post-hover-action {
+        background: rgba(4, 10, 25, 0.36);
+    }
+
+    :global(html.dark) .post-meta {
+        border-top-color: rgba(160, 178, 235, 0.2);
+    }
+
+    :global(html.dark) .author-name {
+        color: rgba(235, 241, 255, 0.94);
+    }
+
+    :global(html.dark) .author-date,
+    :global(html.dark) .read-time {
+        color: rgba(229, 236, 255, 0.68);
+    }
+
+    @media (max-width: 980px) {
+        .posts-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 720px) {
+        .blog-page {
+            padding-top: 1.2rem;
+        }
+
+        .posts-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

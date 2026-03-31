@@ -1,51 +1,839 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ProjectsGrid from "../../components/ProjectsGrid.astro";
+import YouCanScroll from "../../components/YouCanScroll.astro";
 import { SITE_DESCRIPTION } from "../../consts";
-import { useTranslations, getLangFromUrl } from "../../i18n/translate";
+import { getLangFromUrl } from "../../i18n/translate";
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+
+const copy =
+    lang === "en"
+        ? {
+              badge: "Technology studio",
+              heroTitle: "Need an app, website, or system for your company?",
+              heroText: "We build digital products with strategy, design, and engineering to help your business scale.",
+              heroPrimary: "Start a project",
+              heroSecondary: "View services",
+              heroMetaA: "Consulting and Product",
+              heroMetaB: "In-house software team",
+              heroGapTitle: "",
+              servicesTitle: "What can we build together?",
+              servicesSubtitle: "Examples",
+              processTitle: "How it works",
+              processSubtitle: "Work process",
+              portfolioTitle: "Your industry could be next",
+              portfolioSubtitle: "Success stories",
+              withUsSubtitle: "Solutions Squad",
+              teamTitle: "Our team",
+              teamText: "Product designers, engineers, and growth specialists focused on real outcomes.",
+              teamAction: "View founders",
+              ctaText: "Join the future of autonomous software development.",
+              ctaAction: "Schedule a meeting",
+              endTitle: "Ready to digitize your business?",
+              endPrimary: "Let's start",
+                            endSecondary: "Learn more about us",
+          }
+        : {
+              badge: "Estudio de tecnologia",
+              heroTitle: "Necesitas una app, web o sistema para tu empresa?",
+              heroText: "Construimos productos digitales con estrategia, diseno y desarrollo para escalar tu negocio.",
+              heroPrimary: "Iniciar proyecto",
+              heroSecondary: "Ver servicios",
+              heroMetaA: "Consultoria y producto",
+              heroMetaB: "Equipo interno de software",
+              heroGapTitle: "",
+              servicesTitle: "Que podemos crear juntos?",
+              servicesSubtitle: "Ejemplos",
+              processTitle: "Como funciona",
+              processSubtitle: "Proceso de trabajo",
+              portfolioTitle: "Ya lo hicimos. Tu industria puede ser la proxima",
+              portfolioSubtitle: "Casos reales",
+              withUsSubtitle: "Solutions Squad",
+              teamTitle: "Nuestro equipo",
+              teamText: "Disenadores, developers y especialistas en crecimiento enfocados en resultados reales.",
+              teamAction: "Ver founders",
+              ctaText: "Sumate al futuro del desarrollo de software autonomo.",
+              ctaAction: "Agenda una reunion",
+              endTitle: "Listo para digitalizar tu negocio?",
+              endPrimary: "Comencemos",
+              endSecondary: "Conoce mas sobre nosotros",
+          };
+
+const serviceItems =
+    lang === "en"
+        ? [
+              {
+                  title: "App and web systems",
+                  text: "Order, stock, shift, and customer management. Built around your workflow.",
+              },
+              {
+                  title: "Dashboards and reports",
+                  text: "Clear real-time business data for better decisions.",
+              },
+              {
+                  title: "Automation",
+                  text: "Remove repetitive tasks so your team can focus on what matters.",
+              },
+              {
+                  title: "E-commerce",
+                  text: "Online stores integrated with payment, invoicing, logistics, and stock.",
+              },
+              {
+                  title: "Artificial intelligence",
+                  text: "Chatbots, demand prediction, and data analysis with AI for your business.",
+              },
+              {
+                  title: "Integrations",
+                  text: "We connect tools like SAP, Tango, MercadoPago, WhatsApp, and your current stack.",
+              },
+          ]
+        : [
+              {
+                  title: "App y sistemas web",
+                  text: "Gestion de pedidos, stock, turnos y clientes. Lo que necesites, a medida.",
+              },
+              {
+                  title: "Dashboards e informes",
+                  text: "Datos de tu negocio claros y en tiempo real para tomar mejores decisiones.",
+              },
+              {
+                  title: "Automatizacion",
+                  text: "Elimina tareas manuales y repetitivas para que tu equipo se enfoque en lo importante.",
+              },
+              {
+                  title: "E-commerce",
+                  text: "Tiendas online integradas con medios de pago, facturacion, logistica y stock.",
+              },
+              {
+                  title: "Inteligencia artificial",
+                  text: "Chatbots, prediccion de demanda y analisis de datos con IA aplicada a tu negocio.",
+              },
+              {
+                  title: "Integraciones",
+                  text: "Conectamos SAP, Tango, MercadoPago, WhatsApp y lo que ya uses hoy.",
+              },
+          ];
+
+const steps = [
+    {
+        number: "01",
+        title: "Descubrimiento y analisis",
+        text: "Entendemos negocio, procesos y objetivos para definir una base clara.",
+    },
+    {
+        number: "02",
+        title: "Diseno estrategico",
+        text: "Prototipos y arquitectura para validar antes de desarrollar.",
+    },
+    {
+        number: "03",
+        title: "Pruebas y lanzamiento",
+        text: "Construimos, iteramos y publicamos una version lista para crecer.",
+    },
+    {
+        number: "04",
+        title: "Soporte continuo",
+        text: "Mejora evolutiva con datos reales de uso y negocio.",
+    },
+];
+
+const projects = [
+    {
+        image: "/projects/hexadevs.png",
+        title: "Hexadevs",
+        text: "Sitio institucional con foco en conversion.",
+    },
+    {
+        image: "/projects/todo-app.svg",
+        title: "Taskflow",
+        text: "Sistema de tareas y productividad para equipos.",
+    },
+    {
+        image: "/projects/flashcards.svg",
+        title: "Learning Hub",
+        text: "Plataforma educativa para aprendizaje dinamico.",
+    },
+    {
+        image: "/projects/bunny-js.svg",
+        title: "Bunny JS",
+        text: "Web app ligera orientada a performance y conversion.",
+    },
+    {
+        image: "/projects/animal.svg",
+        title: "Animal UI",
+        text: "Landing visual con identidad de marca y narrativa clara.",
+    },
+];
+
 ---
 
-<Layout title="CROBF - Equipo de desarrollo" description={SITE_DESCRIPTION}>
-    <main style="position: relative;">
-        <div>
-            <h1>
-                {t("index.welcome")}
-                <span> CROBF </span>
-            </h1>
-            <p set:html={t("index.description")} />
-            <p set:html={t("index.about")} />
-            <p>
-                {t("index.cta")}
-            </p>
-            <ProjectsGrid />
-        </div>
+<Layout title="CROBF" description={SITE_DESCRIPTION}>
+    <script is:inline type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <main class="home">
+        <section class="hero" id="inicio">
+            <div class="hero-copy">
+                <p class="eyebrow">{copy.badge}</p>
+                <h1>{copy.heroTitle}</h1>
+                <p class="subtitle">{copy.heroText}</p>
+                <ul class="hero-meta">
+                    <li>{copy.heroMetaA}</li>
+                    <li>{copy.heroMetaB}</li>
+                </ul>
+                <div class="actions">
+                    <a href={`/${lang}/contact`} class="btn btn-primary">{copy.heroPrimary}</a>
+                    <a href="#services" class="btn btn-ghost">{copy.heroSecondary}</a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <model-viewer
+                    class="hero-phone"
+                    src="/models/iphone_17_pro_max.glb"
+                    alt="Phone 3D model"
+                    auto-rotate
+                    rotation-per-second="10deg"
+                    interaction-prompt="none"
+                    disable-zoom
+                    shadow-intensity="0.9"
+                    exposure="1.1"
+                ></model-viewer>
+            </div>
+        </section>
+
+        <section class="hero-gap" aria-hidden="true"></section>
+
+        <section class="services" id="services">
+            <p class="eyebrow">{copy.servicesSubtitle}</p>
+            <h2>{copy.servicesTitle}</h2>
+            <div class="services-grid">
+                {
+                    serviceItems.map((service) => (
+                        <article class="service-card tilt-card">
+                            <span class="service-icon tilt-layer" data-depth="18" aria-hidden="true"></span>
+                            <h3 class="tilt-layer" data-depth="24">{service.title}</h3>
+                            <p class="tilt-layer" data-depth="14">{service.text}</p>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="process">
+            <p class="eyebrow">{copy.processSubtitle}</p>
+            <h2>{copy.processTitle}</h2>
+            <div class="process-grid">
+                {
+                    steps.map((step) => (
+                        <article class="step-card">
+                            <div class="step-dot"></div>
+                            <p class="step-number">{step.number}</p>
+                            <h3>{step.title}</h3>
+                            <p>{step.text}</p>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="portfolio" id="casos-exito">
+            <p class="eyebrow">{copy.portfolioSubtitle}</p>
+            <h2>{copy.portfolioTitle}</h2>
+            <div class="portfolio-row">
+                {
+                    projects.map((project) => (
+                        <article class="project-card">
+                            <img src={project.image} alt={project.title} loading="lazy" />
+                            <h3>{project.title}</h3>
+                            <p>{project.text}</p>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+
+        <YouCanScroll />
+
+        <section class="team" id="about-us">
+            <div class="team-grid" aria-hidden="true">
+                <span class="block one"></span>
+                <span class="block two"></span>
+                <span class="block three"></span>
+                <span class="block four"></span>
+                <span class="block five"></span>
+                <span class="block six"></span>
+            </div>
+            <div class="team-copy">
+                <p class="eyebrow">{copy.withUsSubtitle}</p>
+                <h2>{copy.teamTitle}</h2>
+                <p>{copy.teamText}</p>
+                <a href={`/${lang}/about`} class="btn btn-primary">{copy.teamAction}</a>
+            </div>
+        </section>
+
+        <section class="floating-cta">
+            <p>{copy.ctaText}</p>
+            <a href={`/${lang}/contact`} class="btn btn-primary">{copy.ctaAction}</a>
+        </section>
+
+        <section class="end-cta" id="contacto">
+            <h2>{copy.endTitle}</h2>
+            <div class="actions">
+                <a href={`/${lang}/contact`} class="btn btn-ghost">{copy.endPrimary}</a>
+                <a href={`/${lang}/about`} class="btn btn-primary">{copy.endSecondary}</a>
+            </div>
+        </section>
+
+        <script is:inline>
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            if (!reduceMotion) {
+                document.querySelectorAll(".tilt-card").forEach((card) => {
+                    const layers = card.querySelectorAll(".tilt-layer");
+                    const maxRotate = 7;
+
+                    const reset = () => {
+                        card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+                        layers.forEach((layer) => {
+                            const depth = Number(layer.getAttribute("data-depth") || 0);
+                            layer.style.transform = `translateZ(${depth}px)`;
+                        });
+                    };
+
+                    reset();
+
+                    card.addEventListener("mousemove", (event) => {
+                        const rect = card.getBoundingClientRect();
+                        const px = (event.clientX - rect.left) / rect.width - 0.5;
+                        const py = (event.clientY - rect.top) / rect.height - 0.5;
+
+                        const ry = px * maxRotate * 2;
+                        const rx = -py * maxRotate * 2;
+
+                        card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+
+                        layers.forEach((layer) => {
+                            const depth = Number(layer.getAttribute("data-depth") || 0);
+                            const lx = -px * depth * 0.5;
+                            const ly = -py * depth * 0.5;
+                            layer.style.transform = `translate3d(${lx}px, ${ly}px, ${depth}px)`;
+                        });
+                    });
+
+                    card.addEventListener("mouseleave", reset);
+                    card.addEventListener("blur", reset, true);
+                });
+            }
+        </script>
     </main>
 </Layout>
+
 <style>
-    h1 span {
-        border-bottom: 5px solid var(--accent);
+    .home {
+        width: min(1120px, calc(100% - 2.2rem));
+        padding: 1.2rem 0 5rem;
+        display: grid;
+        gap: 5.4rem;
     }
 
-    h1 span a {
-        display: inline-block;
+    .eyebrow {
+        margin: 0 0 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+        color: rgba(23, 30, 48, 0.72);
+    }
+
+    .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+        align-items: center;
+        min-height: 58svh;
+        padding-top: 1.4rem;
+    }
+
+    .hero-phone {
+        position: relative;
+        z-index: 3;
+        width: clamp(230px, 33vw, 340px);
+        height: clamp(390px, 54vw, 560px);
+        flex: 0 0 auto;
+        background: transparent;
+        background-color: transparent;
+        --poster-color: transparent;
+        filter: drop-shadow(0 24px 36px rgba(4, 12, 34, 0.5));
+    }
+
+    h1 {
+        font-size: clamp(2rem, 4.6vw, 4.2rem);
+        line-height: 1.02;
+        margin: 0;
+        max-width: 14ch;
+    }
+
+    h2 {
+        font-size: clamp(1.7rem, 3vw, 2.8rem);
+        margin: 0;
+        max-width: 20ch;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        color: rgba(23, 30, 48, 0.78);
+        max-width: 52ch;
+        margin: 1rem 0 0;
+    }
+
+    .hero-meta {
+        margin: 0.95rem 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.2rem;
+        font-size: 0.72rem;
+        color: rgba(31, 42, 72, 0.72);
+    }
+
+    .hero-meta li::before {
+        content: "+ ";
+        color: #4d6eff;
+        font-weight: 700;
+    }
+
+    .actions {
+        margin-top: 1.8rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+    }
+
+    .btn {
+        padding: 0.72rem 1.2rem;
+        border-radius: 999px;
+        font-size: 0.86rem;
+        letter-spacing: 0.02em;
         text-decoration: none;
-        color: var(--black);
-        transition: transform 0.2s ease;
+        border: 1px solid transparent;
+        transition: transform 140ms ease, box-shadow 140ms ease;
     }
 
-    h1 span a:hover {
-        color: var(--accent-dark);
-        transform: scale(1.1);
+    .btn:hover {
+        transform: translateY(-1px);
     }
 
-    @media (max-width: 800px) {
-        h1 {
-            font-size: 3rem;
-            text-wrap: balance;
-            text-align: center;
+    .btn-primary {
+        background: linear-gradient(120deg, #1f34f3, #4c6aff);
+        color: #f6f8ff;
+        box-shadow: 0 10px 30px rgba(41, 76, 255, 0.25);
+    }
+
+    .btn-ghost {
+        border-color: rgba(41, 76, 255, 0.4);
+        color: #263575;
+        background: rgba(255, 255, 255, 0.68);
+    }
+
+    .hero-visual {
+        position: relative;
+        min-height: 520px;
+        display: grid;
+        place-items: center;
+        border-radius: 1.35rem;
+        overflow: visible;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .hero-visual::before {
+        content: none;
+    }
+
+    .hero-gap {
+        height: 270px;
+        border: 1px solid rgba(124, 140, 187, 0.22);
+        border-radius: 0.2rem;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(249, 251, 255, 0.1));
+    }
+
+    .services-grid {
+        margin-top: 1.6rem;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.55rem;
+    }
+
+    .services {
+        background: linear-gradient(180deg, #05070d 0%, #070a12 100%);
+        border-radius: 1rem;
+        padding: 2.2rem 1.7rem 2.5rem;
+    }
+
+    .services > .eyebrow,
+    .services > h2 {
+        text-align: center;
+        margin-inline: auto;
+    }
+
+    .services > .eyebrow {
+        color: rgba(230, 236, 255, 0.78);
+        margin-bottom: 0.8rem;
+    }
+
+    .services > h2 {
+        color: rgba(247, 249, 255, 0.98);
+        max-width: 12ch;
+        font-size: clamp(2.2rem, 4.3vw, 3.25rem);
+    }
+
+    .service-card {
+        position: relative;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        border: 1px solid rgba(53, 100, 255, 0.92);
+        border-radius: 0.92rem;
+        background: linear-gradient(118deg, #1c1f29 0%, #12141b 48%, #0b0c12 100%);
+        min-height: 182px;
+        display: grid;
+        align-items: start;
+        gap: 0.52rem;
+        padding: 1.2rem 1.15rem 1.1rem;
+        box-shadow: 0 0 0 1px rgba(56, 95, 255, 0.2) inset, 0 0 24px rgba(35, 78, 255, 0.26), 0 10px 24px rgba(6, 12, 31, 0.55);
+        transform-style: preserve-3d;
+        transition: transform 220ms ease;
+        will-change: transform;
+    }
+
+    .tilt-layer {
+        transform-style: preserve-3d;
+        transition: transform 220ms ease;
+        will-change: transform;
+    }
+
+    .service-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        box-shadow: 0 0 0 1px rgba(70, 112, 255, 0.52) inset;
+    }
+
+    .service-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 22px;
+        border-radius: 0 0 0.92rem 0.92rem;
+        background:
+            linear-gradient(180deg, rgba(34, 76, 224, 0) 0%, rgba(32, 74, 220, 0.42) 100%),
+            radial-gradient(circle at 1px 1px, rgba(58, 116, 255, 0.65) 1px, transparent 1px);
+        background-size: 3px 3px;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .service-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 0.45rem;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(140deg, #1d49db, #3058f6);
+        border: 1px solid rgba(123, 153, 255, 0.92);
+        box-shadow: 0 0 18px rgba(116, 145, 255, 0.46);
+        position: relative;
+    }
+
+    .service-icon::after {
+        content: "";
+        position: absolute;
+        inset: -10px;
+        border-radius: 0.7rem;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0));
+        filter: blur(2px);
+        z-index: -1;
+    }
+
+    .service-icon::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border: 1.5px solid rgba(246, 249, 255, 0.95);
+        border-radius: 999px;
+    }
+
+    .service-card h3 {
+        margin: 0.62rem 0 0;
+        font-size: 1.95rem;
+        line-height: 1.12;
+        font-weight: 600;
+        color: rgba(246, 248, 255, 0.96);
+    }
+
+    .service-card p {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.44;
+        color: rgba(233, 239, 255, 0.9);
+        max-width: 31ch;
+    }
+
+    .process-grid {
+        margin-top: 1.6rem;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.8rem;
+    }
+
+    .process > .eyebrow,
+    .process > h2 {
+        text-align: center;
+        margin-inline: auto;
+    }
+
+    .step-card {
+        border-top: 1px solid rgba(55, 66, 99, 0.28);
+        padding-top: 0.9rem;
+        position: relative;
+    }
+
+    .step-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        border: 2px solid #3151ff;
+        box-shadow: 0 0 0 3px rgba(74, 103, 255, 0.15);
+        background: #f4f7ff;
+    }
+
+    .step-number {
+        margin: 0.75rem 0 0.5rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    .step-card h3 {
+        margin: 0;
+        font-size: 0.96rem;
+    }
+
+    .step-card p {
+        margin: 0.45rem 0 0;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        color: rgba(23, 30, 48, 0.78);
+    }
+
+    .portfolio-row {
+        margin-top: 1.7rem;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(170px, 190px);
+        gap: 0.8rem;
+        overflow-x: auto;
+        padding-bottom: 0.7rem;
+    }
+
+    .portfolio > .eyebrow,
+    .portfolio > h2 {
+        text-align: center;
+        margin-inline: auto;
+    }
+
+    .project-card {
+        border-radius: 0.9rem;
+        border: 1px solid rgba(67, 77, 104, 0.22);
+        background: linear-gradient(170deg, rgba(253, 254, 255, 0.98), rgba(243, 246, 255, 0.95));
+        padding: 0.55rem;
+        min-height: 280px;
+    }
+
+    .project-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .project-card h3 {
+        margin: 0.75rem 0 0;
+        font-size: 0.9rem;
+    }
+
+    .project-card p {
+        margin: 0.35rem 0 0;
+        font-size: 0.75rem;
+        color: rgba(23, 30, 48, 0.78);
+        line-height: 1.4;
+    }
+
+    .team {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem;
+        max-width: 320px;
+    }
+
+    .block {
+        aspect-ratio: 1;
+        border-radius: 0.7rem;
+        background: linear-gradient(180deg, rgba(21, 26, 38, 0.18), rgba(11, 15, 25, 0.34));
+    }
+
+    .three,
+    .four {
+        border-radius: 999px;
+    }
+
+    .floating-cta {
+        border-radius: 0.9rem;
+        padding: 2rem 1.6rem;
+        background: linear-gradient(130deg, rgba(255, 255, 255, 0.92), rgba(240, 245, 255, 0.9));
+        border: 1px solid rgba(82, 103, 161, 0.25);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .floating-cta p {
+        margin: 0;
+        max-width: 32ch;
+        font-size: 1.2rem;
+        line-height: 1.15;
+    }
+
+    .end-cta {
+        text-align: center;
+        padding: 0.7rem 0 2.2rem;
+    }
+
+    .end-cta h2 {
+        margin-inline: auto;
+    }
+
+    .end-cta .actions {
+        justify-content: center;
+    }
+
+    :global(html.dark) .eyebrow {
+        color: rgba(229, 236, 255, 0.7);
+    }
+
+    :global(html.dark) .subtitle,
+    :global(html.dark) .hero-meta,
+    :global(html.dark) .step-card p,
+    :global(html.dark) .project-card p,
+    :global(html.dark) .service-card p {
+        color: rgba(229, 236, 255, 0.76);
+    }
+
+    :global(html.dark) .btn-ghost {
+        border-color: rgba(116, 136, 255, 0.45);
+        color: #dce4ff;
+        background: rgba(30, 36, 55, 0.65);
+    }
+
+    :global(html.dark) .service-card,
+    :global(html.dark) .project-card,
+    :global(html.dark) .floating-cta {
+        border-color: rgba(94, 120, 214, 0.32);
+        background: linear-gradient(180deg, rgba(15, 20, 35, 0.92), rgba(14, 18, 31, 0.76));
+        box-shadow: 0 0 0 1px rgba(47, 77, 180, 0.24) inset;
+    }
+
+    :global(html.dark) .services {
+        background: linear-gradient(180deg, #04070f 0%, #060915 100%);
+    }
+
+    :global(html.dark) .hero-gap {
+        border-color: rgba(122, 137, 188, 0.35);
+        background: rgba(5, 9, 18, 0.8);
+    }
+
+    :global(html.dark) .step-card {
+        border-top-color: rgba(173, 188, 255, 0.2);
+    }
+
+    :global(html.dark) .step-dot {
+        background: #080f20;
+    }
+
+    :global(html.dark) .block {
+        background: linear-gradient(170deg, rgba(198, 209, 251, 0.2), rgba(40, 51, 82, 0.35));
+    }
+
+    :global(html.dark) .team {
+        background: linear-gradient(180deg, rgba(6, 10, 19, 0.75), rgba(6, 10, 19, 0.26));
+        border-radius: 1rem;
+        padding: 1.4rem;
+    }
+
+    :global(html.dark) .home {
+        gap: 5.9rem;
+    }
+
+    @media (max-width: 960px) {
+        .hero,
+        .team {
+            grid-template-columns: 1fr;
+        }
+
+        .hero {
+            padding-top: 1rem;
+        }
+
+        .hero-phone {
+            width: clamp(220px, 58vw, 300px);
+            height: clamp(360px, 72vw, 470px);
+        }
+
+        .hero-visual {
+            min-height: 460px;
+            margin-top: 0.8rem;
+        }
+
+
+        .process-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hero-gap {
+            height: 200px;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .home {
+            padding-top: 1.2rem;
+            gap: 3.4rem;
+        }
+
+        .services-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-gap {
+            height: 160px;
+        }
+
+        .floating-cta {
+            flex-direction: column;
+            align-items: flex-start;
         }
     }
 </style>
