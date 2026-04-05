@@ -6,51 +6,38 @@ const homeHref = `/${lang}`;
 
 const links = [
     { href: homeHref, label: "Inicio" },
-    { href: `${homeHref}/#casos-exito`, label: "Casos De Exito" },
+    { href: `${homeHref}/#casos-exito`, label: "Proyectos" },
     { href: `${homeHref}/blog`, label: "Blog" },
-    { href: `${homeHref}/about`, label: "Nuestro equipo" },
+    { href: `${homeHref}/about`, label: "Equipo" },
+];
+
+const socials = [
+    { href: "#", label: "Instagram" },
+    { href: "#", label: "LinkedIn" },
+    { href: "#", label: "X/Twitter" },
+    { href: "#", label: "Awwwards" },
 ];
 ---
 
 <header class="top-nav">
     <nav class="nav-shell" aria-label="Principal">
         <div class="menu-wrap">
-            <button
-                id="menu-button"
-                class="menu-button"
-                aria-label="Abrir menu"
-                aria-controls="menu-panel"
-                aria-expanded="false"
-                type="button"
-            >
-                <span class="menu-icon" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
-                <span class="menu-label">Menu</span>
+            <button role="button" data-sidenav-toggle="" data-sidenav-button="" class="sidenav__button">
+                <div class="sidenav__button-text">
+                    <p data-sidenav-label="" class="sidenav__button-label">Menu</p>
+                    <p data-sidenav-label="" class="sidenav__button-label">Close</p>
+                </div>
+                <div data-sidenav-icon="" class="sidenav__button-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none" class="sidenav__button-icon-svg">
+                        <path d="M7.33333 16L7.33333 -3.2055e-07L8.66667 -3.78832e-07L8.66667 16L7.33333 16Z" fill="currentColor"></path>
+                        <path d="M16 8.66667L-2.62269e-07 8.66667L-3.78832e-07 7.33333L16 7.33333L16 8.66667Z" fill="currentColor"></path>
+                        <path d="M6 7.33333L7.33333 7.33333L7.33333 6C7.33333 6.73637 6.73638 7.33333 6 7.33333Z" fill="currentColor"></path>
+                        <path d="M10 7.33333L8.66667 7.33333L8.66667 6C8.66667 6.73638 9.26362 7.33333 10 7.33333Z" fill="currentColor"></path>
+                        <path d="M6 8.66667L7.33333 8.66667L7.33333 10C7.33333 9.26362 6.73638 8.66667 6 8.66667Z" fill="currentColor"></path>
+                        <path d="M10 8.66667L8.66667 8.66667L8.66667 10C8.66667 9.26362 9.26362 8.66667 10 8.66667Z" fill="currentColor"></path>
+                    </svg>
+                </div>
             </button>
-
-            <div class="menu-panel" id="menu-panel" role="dialog" aria-hidden="true">
-                <div class="menu-panel-header">
-                    <button id="menu-close" class="menu-close" aria-label="Cerrar menu" type="button">
-                        <span class="menu-close-icon" aria-hidden="true"></span>
-                    </button>
-                </div>
-
-                <div class="menu-card">
-                    <p class="menu-eyebrow">Navegacion</p>
-                    <div class="menu-links">
-                        {
-                            links.map((item) => (
-                                <a href={item.href} class="menu-link">{item.label}</a>
-                            ))
-                        }
-                    </div>
-
-                    <a href={`${homeHref}/contact`} class="menu-contact">Contactanos</a>
-                </div>
-            </div>
         </div>
 
         <a href={homeHref} class="brand" aria-label="Ir al inicio">
@@ -62,448 +49,625 @@ const links = [
 
         <a href={`${homeHref}/contact`} class="cta">Contactanos</a>
     </nav>
+
+    <div data-sidenav-wrap="" data-nav-state="closed" class="sidenav__nav">
+        <div data-sidenav-overlay="" data-sidenav-toggle="" class="sidenav__overlay"></div>
+        <nav data-sidenav-menu="" class="sidenav__menu">
+            <div class="sidenav__menu-bg">
+                <div data-sidenav-panel="" class="sidenav__menu-bg-panel is--first"></div>
+                <div data-sidenav-panel="" class="sidenav__menu-bg-panel is--second"></div>
+                <div data-sidenav-panel="" class="sidenav__menu-bg-panel"></div>
+            </div>
+            <div class="sidenav__menu-inner">
+                <div class="sidenav__menu-header">
+                  <button class="sidenav__menu-close" aria-label="Cerrar menu">
+                    <span class="sidenav__menu-close-text">Close</span>
+                        <span class="sidenav__menu-close-icon">✕</span>
+                    </button>
+                </div>
+                <ul class="sidenav__menu-list">
+                    {
+                        links.map((link, index) => (
+                            <li class="sidenav__menu-list-item">
+                                <a data-sidenav-link="" href={link.href} class="sidenav__menu-link">
+                                    <p class="sidenav__menu-link-heading">{link.label}</p>
+                                    <p class="sidenav__menu-link-eyebrow">0{index + 1}</p>
+                                </a>
+                            </li>
+                        ))
+                    }
+                    <li class="sidenav__menu-list-item">
+                        <a data-sidenav-link="" href={`${homeHref}/contact`} class="sidenav__menu-link">
+                            <p class="sidenav__menu-link-heading">Contactanos</p>
+                            <p class="sidenav__menu-link-eyebrow">0{links.length + 1}</p>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidenav__menu-details">
+                    <p data-sidenav-fade="" class="sidenav__button-label">Socials</p>
+                    <div class="sidenav__menu-socials">
+                        {
+                            socials.map((social) => (
+                                <a data-sidenav-fade="" href={social.href} class="sidenav__button-label">{social.label}</a>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 </header>
 
 <script is:inline>
-    const navPanel = document.getElementById("menu-panel");
-    const menuButton = document.getElementById("menu-button");
-    const closeButton = document.getElementById("menu-close");
-    const menuWrap = document.querySelector(".menu-wrap");
+  // Cargar GSAP dinámicamente y luego iniciar
+  function loadGSAPAndInit() {
+    // Cargar gsap
+    const gsapScript = document.createElement('script');
+    gsapScript.src = 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js';
+    gsapScript.onload = () => {
+      // Cargar CustomEase después de GSAP
+      const customEaseScript = document.createElement('script');
+      customEaseScript.src = 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js';
+      customEaseScript.onload = () => {
+        initSideNavWipeEffect();
+      };
+      document.head.appendChild(customEaseScript);
+    };
+    document.head.appendChild(gsapScript);
+  }
 
-    if (navPanel && menuButton && menuWrap) {
-        const openMenu = () => {
-            navPanel.classList.add("open");
-            navPanel.setAttribute("aria-hidden", "false");
-            menuButton.setAttribute("aria-expanded", "true");
-        };
-
-        const closeMenu = () => {
-            navPanel.classList.remove("open");
-            navPanel.setAttribute("aria-hidden", "true");
-            menuButton.setAttribute("aria-expanded", "false");
-        };
-
-        menuButton.addEventListener("click", () => {
-            const isOpen = navPanel.classList.contains("open");
-            if (isOpen) {
-                closeMenu();
-                return;
-            }
-            openMenu();
-        });
-
-        closeButton?.addEventListener("click", closeMenu);
-
-        navPanel.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
-                closeMenu();
-            });
-        });
-
-        document.addEventListener("click", (event) => {
-            if (!(event.target instanceof Node)) return;
-            if (!navPanel.classList.contains("open")) return;
-
-            if (!menuWrap.contains(event.target)) {
-                closeMenu();
-            }
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                closeMenu();
-            }
-        });
+  function initSideNavWipeEffect(){
+    if (!window.gsap) {
+      setTimeout(initSideNavWipeEffect, 100);
+      return;
     }
+
+    const gsap = window.gsap;
+    
+    // Registrar CustomEase si está disponible
+    if (window.CustomEase) {
+      gsap.registerPlugin(window.CustomEase);
+      window.CustomEase.create("main", "0.65, 0.01, 0.05, 0.99");
+    }
+
+    gsap.defaults({
+      ease: window.CustomEase ? "main" : "power2.inOut",
+      duration: 0.7
+    });
+
+    let navWrap = document.querySelector("[data-sidenav-wrap]");
+    if (!navWrap) {
+      console.log("navWrap no encontrado");
+      return;
+    }
+
+    // Evita agregar listeners duplicados si el script se ejecuta de nuevo.
+    if (navWrap.dataset.sidenavInitialized === "true") {
+      return;
+    }
+    navWrap.dataset.sidenavInitialized = "true";
+    
+    let overlay = navWrap.querySelector("[data-sidenav-overlay]");
+    let menu = navWrap.querySelector("[data-sidenav-menu]");
+    let bgPanels = navWrap.querySelectorAll("[data-sidenav-panel]");
+    let menuToggles = document.querySelectorAll("[data-sidenav-toggle]");
+    let menuLinks = navWrap.querySelectorAll("[data-sidenav-link]");
+    let fadeTargets = navWrap.querySelectorAll("[data-sidenav-fade]");
+    let menuCloseButton = navWrap.querySelector(".sidenav__menu-close");
+    let menuButton = document.querySelector("[data-sidenav-button]");
+    let menuButtonTexts = menuButton?.querySelectorAll("[data-sidenav-label]");
+    let menuButtonIcon = menuButton?.querySelector("[data-sidenav-icon]");
+
+    // Estado visual inicial del botón: mostrar "Menu".
+    if (menuButtonTexts?.length) {
+      gsap.set(menuButtonTexts, { yPercent: 0 });
+    }
+    if (menuButtonIcon) {
+      gsap.set(menuButtonIcon, { rotate: 0 });
+    }
+
+    let state = navWrap.getAttribute("data-nav-state");
+    let tl = gsap.timeline();
+    
+    const openNav = () => {
+      state = "open";
+      navWrap.setAttribute("data-nav-state", "open");
+      
+      tl.clear()
+        .set(navWrap, {display: "block"})
+        .set(menu, {xPercent: 0}, "<")
+        .fromTo(menuButtonTexts, {yPercent: 0}, {yPercent: -100, stagger: 0.2})
+        .fromTo(menuButtonIcon, {rotate: 0}, {rotate: 315}, "<")
+        .fromTo(overlay, {autoAlpha: 0}, {autoAlpha: 1}, "<")
+        .fromTo(bgPanels, {xPercent: -101}, {xPercent: 0, stagger: 0.12, duration: 0.575}, "<")
+        .fromTo(menuLinks, {yPercent: 140, rotate: 10}, {yPercent: 0, rotate: 0, stagger: 0.05}, "<+=0.35")
+        .fromTo(fadeTargets, {autoAlpha: 0, yPercent: 50}, {autoAlpha: 1, yPercent: 0, stagger: 0.04}, "<+=0.2");
+    };
+    
+    const closeNav = () => {
+      state = "closed";
+      navWrap.setAttribute("data-nav-state", "closed");
+      
+      tl.clear()
+        .to(overlay, {autoAlpha: 0})
+        .to(menu, {xPercent: -120}, "<")
+        .to(menuButtonTexts, {yPercent: 0}, "<")
+        .to(menuButtonIcon, {rotate: 0}, "<")
+        .set(navWrap, {display: "none"});
+    };
+    
+    menuToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        state = navWrap.getAttribute("data-nav-state");
+        if (state === "open") {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });    
+    });
+
+    if (menuCloseButton) {
+      menuCloseButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeNav();
+      });
+    }
+    
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && navWrap.getAttribute("data-nav-state") === "open") {
+        closeNav();
+      }
+    });
+    
+    console.log("Sidenav initialized successfully");
+  }
+
+  // Inicializar cuando el documento esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadGSAPAndInit);
+  } else {
+    loadGSAPAndInit();
+  }
 </script>
 
 <style>
-    :global(html) {
-        scroll-behavior: smooth;
-    }
+  :global(html) {
+    scroll-behavior: smooth;
+  }
 
-    .top-nav {
-        position: sticky;
-        top: 0;
-        z-index: 40;
-        background: #ffffff;
-        border-bottom: 1px solid rgba(24, 33, 58, 0.14);
-    }
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(24, 33, 58, 0.14);
+  }
 
-    .nav-shell {
-        width: min(1220px, 100% - 2.6rem);
-        margin: 0 auto;
-        min-height: 72px;
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        column-gap: 1.1rem;
-        position: relative;
-    }
+  .nav-shell {
+    width: min(1220px, 100% - 2.6rem);
+    margin: 0 auto;
+    min-height: 72px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    column-gap: 1.1rem;
+    position: relative;
+  }
 
-    .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        text-decoration: none;
-        color: rgba(16, 25, 49, 0.96);
-        justify-self: center;
-    }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96);
+    justify-self: center;
+  }
 
-    .brand-mark {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .brand-logo {
-        width: 22px;
-        height: 22px;
-        object-fit: contain;
-    }
+  .brand-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
 
+  .brand-text {
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: rgba(16, 25, 49, 0.96);
+  }
+
+  .menu-wrap {
+    justify-self: start;
+    position: relative;
+    display: flex;
+  }
+
+  .cta {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-width: 150px;
+    padding: 0 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #f8f9ff;
+    font-size: 16px;
+    font-weight: 600;
+    background: #4e6ff7;
+    transition: background-color 160ms ease;
+  }
+
+  .cta:hover {
+    background: #5f7efc;
+  }
+
+  .sidenav__button {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.48rem;
+    justify-content: center;
+    border: none;
+    background: #ffffff;
+    min-width: 92px;
+    height: 42px;
+    padding: 0 0.8rem;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(20, 33, 64, 0.92);
+    cursor: pointer;
+    transition: none;
+    position: relative;
+    z-index: 2;
+    box-shadow: none !important;
+    outline: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .sidenav__button:hover {
+    background: #ffffff;
+  }
+
+  .sidenav__button:focus,
+  .sidenav__button:focus-visible,
+  .sidenav__button:active {
+    outline: none !important;
+    box-shadow: none !important;
+    background: #ffffff;
+    transform: none;
+  }
+
+  .sidenav__button-text {
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 1.5em;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .sidenav__button-icon {
+    justify-content: center;
+    align-items: center;
+    width: 1em;
+    height: 1em;
+    transition: transform 0.4s cubic-bezier(0.65, 0.05, 0, 1);
+    display: flex;
+  }
+
+  .sidenav__button-icon-svg {
+    width: 100%;
+  }
+
+  .sidenav__button-label {
+    color: #000000;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.125em;
+    line-height: 1.4;
+  }
+
+  .sidenav__nav {
+    z-index: 9;
+    width: 100%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    position: fixed;
+    inset: 0%;
+  }
+
+  .sidenav__overlay {
+    z-index: 0;
+    cursor: pointer;
+    background-color: #13131366;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0%;
+  }
+
+  .sidenav__menu {
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 26em;
+    height: auto;
+    margin-left: 0;
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: 4em;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    border-top-right-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
+  }
+
+  .sidenav__menu-bg {
+    z-index: 0;
+    position: absolute;
+    inset: 0%;
+    overflow: hidden;
+  }
+
+  .sidenav__menu-bg-panel {
+    z-index: 0;
+    background-color: #ffffff;
+    position: absolute;
+    inset: 0%;
+    min-height: 100%;
+    min-width: 100%;
+    border-top-right-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
+  }
+
+  .sidenav__menu-bg-panel.is--first {
+    background-color: #0052cc;
+  }
+
+  .sidenav__menu-bg-panel.is--second {
+    background-color: #131313;
+  }
+
+  .sidenav__menu-inner {
+    z-index: 1;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidenav__menu-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1.5em 2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .sidenav__menu-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25em;
+    color: #000000;
+    padding: 0.2em 0.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45em;
+    transition: transform 0.2s ease;
+    position: relative;
+    z-index: 4;
+  }
+
+  .sidenav__menu-close:hover {
+    transform: scale(1.1);
+  }
+
+  .sidenav__menu-close-text {
+    font-size: 0.95em;
+    line-height: 1;
+  }
+
+  .sidenav__menu-close-icon {
+    display: inline-block;
+    line-height: 1;
+  }
+
+  .sidenav__menu-list {
+    flex-flow: column;
+    width: 100%;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+  }
+
+  .sidenav__menu-list-item {
+    height: 5em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sidenav__menu-link {
+    grid-column-gap: 0.75em;
+    grid-row-gap: 0.75em;
+    color: #131313;
+    width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    text-decoration: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.35em;
+  }
+
+  .sidenav__menu-link-heading {
+    z-index: 1;
+    font-family: PP Neue Corp Tight, Arial, sans-serif;
+    font-size: 2.8em;
+    font-weight: 700;
+    line-height: 0.9;
+    transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
+    position: relative;
+    margin: 0px;
+    letter-spacing: -0.015em;
+    color: #000000;
+    flex: 0 0 auto;
+  }
+
+  .sidenav__menu-link-eyebrow {
+    z-index: 1;
+    color: #0052cc;
+    text-transform: uppercase;
+    font-family: RM Mono, Arial, sans-serif;
+    font-weight: 400;
+    position: relative;
+    margin: 0;
+    font-size: 1.1em;
+    white-space: nowrap;
+    margin-left: 0;
+  }
+
+  .sidenav__menu-details {
+    grid-column-gap: 1.25em;
+    grid-row-gap: 1.25em;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 2em;
+    padding-bottom: 2em;
+    padding-right: 2em;
+    display: flex;
+  }
+
+  .sidenav__menu-socials {
+    grid-column-gap: 1.5em;
+    grid-row-gap: 1.5em;
+    flex-flow: row;
+    display: flex;
+  }
+
+  :global(html.dark) .top-nav {
+    background: #04070f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  :global(html.dark) .brand,
+  :global(html.dark) .brand-text {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__button {
+    background: rgba(7, 12, 26, 0.8);
+    border-color: rgba(230, 238, 255, 0.24);
+    color: #f4f6ff;
+  }
+
+  :global(html.dark) .sidenav__button .sidenav__button-label,
+  :global(html.dark) .sidenav__button .sidenav__button-icon {
+    color: #f4f6ff;
+  }
+
+  :global(html.dark) .sidenav__menu-details .sidenav__button-label,
+  :global(html.dark) .sidenav__menu-details .sidenav__button-label:link,
+  :global(html.dark) .sidenav__menu-details .sidenav__button-label:visited {
+    color: #131313;
+  }
+
+  :global(html.dark) .sidenav__button:hover {
+    background: rgba(106, 134, 235, 0.2);
+    border-color: rgba(230, 238, 255, 0.38);
+  }
+
+  :global(html.dark) .sidenav__menu-link {
+    color: rgba(242, 244, 250, 0.95);
+  }
+
+  :global(html.dark) .sidenav__menu-link:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 1020px) {
     .brand-text {
-        font-size: 28px;
-        line-height: 1;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        color: rgba(16, 25, 49, 0.96);
-    }
-
-    .menu-wrap {
-        justify-self: start;
-        position: relative;
+      font-size: 22px;
     }
 
     .cta {
-        justify-self: end;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 42px;
-        min-width: 150px;
-        padding: 0 1.5rem;
-        border-radius: 999px;
-        text-decoration: none;
-        color: #f8f9ff;
-        font-size: 16px;
-        font-weight: 600;
-        background: #4e6ff7;
-        transition: background-color 160ms ease;
+      font-size: 14px;
+      height: 38px;
+      min-width: 122px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .nav-shell {
+      width: min(1220px, 100% - 1.8rem);
+      min-height: 74px;
+      grid-template-columns: 1fr auto 1fr;
+      column-gap: 0.6rem;
     }
 
-    .cta:hover {
-        background: #5f7efc;
+    .brand-text {
+      font-size: clamp(18px, 5.2vw, 22px);
     }
 
-    .menu-links {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
+    .cta {
+      display: none;
     }
 
-    .menu-link {
-        color: rgba(18, 28, 52, 0.94);
-        text-decoration: none;
-        font-size: clamp(1.3rem, 2.8vw, 1.9rem);
-        line-height: 1.1;
-        font-weight: 500;
-        letter-spacing: -0.02em;
-        padding: 0.82rem 0;
-        border-bottom: 1px solid rgba(41, 57, 95, 0.14);
-        transition: color 160ms ease;
+    .sidenav__menu {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-shell {
+      width: calc(100% - 1rem);
+      min-height: 68px;
     }
 
-    .menu-link:hover {
-        color: #314ea9;
+    .sidenav__button {
+      min-width: 84px;
+      height: 38px;
+      padding: 0 0.65rem;
+      font-size: 13px;
     }
 
-    .menu-button {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.48rem;
-        justify-content: center;
-        border: 1px solid rgba(27, 42, 77, 0.18);
-        background: #ffffff;
-        min-width: 92px;
-        height: 42px;
-        padding: 0 0.8rem;
-        border-radius: 999px;
-        font-size: 14px;
-        font-weight: 600;
-        color: rgba(20, 33, 64, 0.92);
-        cursor: pointer;
-        transition: background-color 160ms ease, border-color 160ms ease, transform 220ms ease;
-        position: relative;
-        z-index: 2;
+    .brand-logo {
+      width: 19px;
+      height: 19px;
     }
-
-    .menu-button:hover {
-        background: rgba(60, 92, 198, 0.08);
-        border-color: rgba(34, 51, 92, 0.28);
-    }
-
-    .menu-icon {
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .menu-icon span {
-        display: block;
-        width: 17px;
-        height: 2px;
-        border-radius: 999px;
-        background: currentColor;
-    }
-
-    .menu-label {
-        line-height: 1;
-        letter-spacing: 0.01em;
-    }
-
-    .menu-panel {
-        display: block;
-        position: absolute;
-        left: 0;
-        top: calc(100% + 0.55rem);
-        width: min(520px, calc(100% - 1.6rem));
-        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-        border: 1px solid rgba(23, 39, 72, 0.14);
-        border-radius: 1rem;
-        box-shadow: 0 16px 40px rgba(11, 22, 48, 0.15);
-        z-index: 120;
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transform: translateY(-10px) scale(0.9);
-        transform-origin: 28px -18px;
-        clip-path: circle(8px at 52px -14px);
-        transition:
-            opacity 240ms ease,
-            transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
-            clip-path 380ms cubic-bezier(0.16, 1, 0.3, 1),
-            visibility 0ms linear 380ms;
-    }
-
-    .menu-panel.open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0) scale(1);
-        clip-path: circle(165% at 52px -14px);
-        transition:
-            opacity 220ms ease,
-            transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
-            clip-path 400ms cubic-bezier(0.16, 1, 0.3, 1),
-            visibility 0ms;
-    }
-
-    .menu-button[aria-expanded="true"] {
-        transform: translateY(1px);
-    }
-
-    .menu-panel-header {
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        padding: 0 1rem;
-        border-bottom: 1px solid rgba(28, 43, 78, 0.12);
-    }
-
-    .menu-close {
-        display: inline-flex;
-        align-items: center;
-        border: none;
-        background: transparent;
-        color: rgba(17, 30, 58, 0.96);
-        cursor: pointer;
-        padding: 0;
-    }
-
-    .menu-close-icon {
-        width: 20px;
-        height: 20px;
-        position: relative;
-    }
-
-    .menu-close-icon::before,
-    .menu-close-icon::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        border-radius: 999px;
-        background: currentColor;
-    }
-
-    .menu-close-icon::before {
-        transform: translateY(-50%) rotate(45deg);
-    }
-
-    .menu-close-icon::after {
-        transform: translateY(-50%) rotate(-45deg);
-    }
-
-    .menu-card {
-        width: calc(100% - 1.1rem);
-        margin: 0.55rem auto;
-        padding: 1.1rem 1rem 1.2rem;
-        border-radius: 0.9rem;
-        background: linear-gradient(165deg, #ffffff 0%, #f2f6ff 100%);
-        border: 1px solid rgba(31, 49, 89, 0.12);
-    }
-
-    .menu-eyebrow {
-        margin: 0 0 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        font-size: 0.86rem;
-        color: rgba(44, 62, 103, 0.7);
-    }
-
-    .menu-contact {
-        display: inline-flex;
-        margin-top: 2rem;
-        padding: 0.35rem 0.6rem;
-        border-radius: 0.35rem;
-        text-decoration: none;
-        font-size: 0.88rem;
-        color: rgba(20, 33, 64, 0.92);
-        background: rgba(46, 80, 184, 0.12);
-    }
-
-    :global(html.dark) .top-nav {
-        background: #04070f;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    :global(html.dark) .brand,
-    :global(html.dark) .brand-text {
-        color: #ffffff;
-    }
-
-    :global(html.dark) .menu-button {
-        background: rgba(7, 12, 26, 0.8);
-        border-color: rgba(230, 238, 255, 0.24);
-        color: #f4f6ff;
-    }
-
-    :global(html.dark) .menu-button:hover {
-        background: rgba(106, 134, 235, 0.2);
-        border-color: rgba(230, 238, 255, 0.38);
-    }
-
-    :global(html.dark) .menu-panel {
-        background: linear-gradient(180deg, #171519 0%, #141216 100%);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 16px 40px rgba(5, 7, 14, 0.5);
-    }
-
-    :global(html.dark) .menu-panel-header {
-        border-bottom: 1px solid rgba(244, 247, 255, 0.12);
-    }
-
-    :global(html.dark) .menu-close {
-        color: rgba(248, 250, 255, 0.96);
-    }
-
-    :global(html.dark) .menu-card {
-        background: linear-gradient(165deg, #252227 0%, #211f24 100%);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    :global(html.dark) .menu-eyebrow {
-        color: rgba(206, 212, 232, 0.72);
-    }
-
-    :global(html.dark) .menu-link {
-        color: rgba(242, 244, 250, 0.95);
-        border-bottom: 1px solid rgba(222, 226, 238, 0.12);
-    }
-
-    :global(html.dark) .menu-link:hover {
-        color: #ffffff;
-    }
-
-    :global(html.dark) .menu-contact {
-        color: rgba(245, 248, 255, 0.9);
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 1020px) {
-        .brand-text {
-            font-size: 22px;
-        }
-
-        .cta {
-            font-size: 14px;
-            height: 38px;
-            min-width: 122px;
-        }
-    }
-
-    @media (max-width: 820px) {
-        .nav-shell {
-            width: min(1220px, 100% - 1.8rem);
-            min-height: 74px;
-            grid-template-columns: 1fr auto 1fr;
-            column-gap: 0.6rem;
-        }
-
-        .brand-text {
-            font-size: clamp(18px, 5.2vw, 22px);
-        }
-
-        .cta {
-            display: none;
-        }
-
-        .menu-panel {
-            left: 0;
-            width: min(420px, calc(100% - 1.6rem));
-            transform-origin: 26px -16px;
-            clip-path: circle(8px at 50px -12px);
-        }
-
-        .menu-panel.open {
-            clip-path: circle(175% at 50px -12px);
-        }
-
-        .menu-card {
-            width: calc(100% - 1rem);
-            margin: 0.5rem auto;
-            border-radius: 0.85rem;
-            padding: 0.95rem;
-        }
-
-        .menu-link {
-            font-size: clamp(1.18rem, 6.2vw, 1.5rem);
-        }
-    }
-
-    @media (max-width: 420px) {
-        .nav-shell {
-            width: calc(100% - 1rem);
-            min-height: 68px;
-        }
-
-        .menu-button {
-            min-width: 84px;
-            height: 38px;
-            padding: 0 0.65rem;
-            font-size: 13px;
-        }
-
-        .brand-logo {
-            width: 19px;
-            height: 19px;
-        }
-    }
+  }
 </style>
