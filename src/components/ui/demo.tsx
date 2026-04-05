@@ -1,7 +1,11 @@
-import InteractiveNeuralVortex from "@/components/ui/interactive-neural-vortex-background";
+import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
 
 const DemoOne = () => {
-    return <InteractiveNeuralVortex />;
+    return (
+        <div className="w-full h-screen bg-black">
+            <AnimatedShaderBackground />
+        </div>
+    );
 };
 
 export { DemoOne };

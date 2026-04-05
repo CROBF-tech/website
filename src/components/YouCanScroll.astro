@@ -25,7 +25,7 @@ import "normalize.css";
             </ul>
         </section>
         <section>
-            <h2 class="fluid">El momento es ahora.</h2>
+            <h2 class="fluid final-moment">El momento es ahora.</h2>
         </section>
     </main>
     <footer></footer>
@@ -48,152 +48,52 @@ import "normalize.css";
     </a>
 </section>
 
-<script is:inline type="module">
-    import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
-    import gsap from "https://cdn.skypack.dev/gsap@3.12.0";
-    import ScrollTrigger from "https://cdn.skypack.dev/gsap@3.12.0/ScrollTrigger";
-
+<script is:inline>
     const root = document.querySelector("[data-you-scroll]");
 
     if (root) {
-        const config = {
-            theme: "dark",
-            animate: true,
-            snap: true,
-            start: gsap.utils.random(0, 100, 1),
-            end: gsap.utils.random(900, 1000, 1),
-            scroll: true,
-            debug: false,
-        };
+        const items = Array.from(root.querySelectorAll("ul li"));
+        let rafId = 0;
 
-        const ctrl = new Pane({ title: "Config", expanded: false });
-        let items;
-        let scrollerScrub;
-        let dimmerScrub;
-        let chromaEntry;
-        let chromaExit;
+        const updateWordFocus = () => {
+            rafId = 0;
+            const viewportCenter = window.innerHeight * 0.5;
 
-        const update = () => {
-            root.dataset.theme = config.theme;
-            root.dataset.syncScrollbar = config.scroll;
-            root.dataset.animate = config.animate;
-            root.dataset.snap = config.snap;
-            root.dataset.debug = config.debug;
-            root.style.setProperty("--start", config.start);
-            root.style.setProperty("--hue", config.start);
-            root.style.setProperty("--end", config.end);
+            let activeIndex = 0;
+            let minDistance = Number.POSITIVE_INFINITY;
 
-            if (!config.animate) {
-                chromaEntry?.scrollTrigger.disable(true, false);
-                chromaExit?.scrollTrigger.disable(true, false);
-                dimmerScrub?.disable(true, false);
-                scrollerScrub?.disable(true, false);
-                gsap.set(items, { opacity: 1 });
-                gsap.set(root, { "--chroma": 0 });
-            } else {
-                gsap.set(items, { opacity: (i) => (i !== 0 ? 0.2 : 1) });
-                dimmerScrub?.enable(true, true);
-                scrollerScrub?.enable(true, true);
-                chromaEntry.scrollTrigger.enable(true, true);
-                chromaExit.scrollTrigger.enable(true, true);
+            items.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                const center = rect.top + rect.height * 0.5;
+                const distance = Math.abs(center - viewportCenter);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    activeIndex = index;
+                }
+            });
+
+            items.forEach((item, index) => {
+                item.classList.toggle("is-active", index === activeIndex);
+                item.classList.toggle("is-near", Math.abs(index - activeIndex) === 1);
+            });
+
+            const activeItem = items[activeIndex];
+            if (activeItem) {
+                const rect = activeItem.getBoundingClientRect();
+                const activeCenterY = rect.top + rect.height * 0.5;
+                root.style.setProperty("--focus-top", `${activeCenterY}px`);
             }
         };
 
-        const sync = (event) => {
-            if (
-                !document.startViewTransition ||
-                event.target.controller.view.labelElement.innerText !== "Theme"
-            )
-                return update();
-            document.startViewTransition(() => update());
+        const requestUpdate = () => {
+            if (rafId) return;
+            rafId = window.requestAnimationFrame(updateWordFocus);
         };
 
-        ctrl.addBinding(config, "animate", { label: "Animate" });
-        ctrl.addBinding(config, "snap", { label: "Snap" });
-        ctrl.addBinding(config, "start", { label: "Hue Start", min: 0, max: 1000, step: 1 });
-        ctrl.addBinding(config, "end", { label: "Hue End", min: 0, max: 1000, step: 1 });
-        ctrl.addBinding(config, "scroll", { label: "Scrollbar" });
-        ctrl.addBinding(config, "debug", { label: "Debug" });
-        ctrl.addBinding(config, "theme", {
-            label: "Theme",
-            options: { System: "system", Light: "light", Dark: "dark" },
-        });
-
-        ctrl.on("change", sync);
-
-        if (!CSS.supports("(animation-timeline: scroll()) and (animation-range: 0% 100%)")) {
-            gsap.registerPlugin(ScrollTrigger);
-
-            items = gsap.utils.toArray(root.querySelectorAll("ul li"));
-            gsap.set(items, { opacity: (i) => (i !== 0 ? 0.2 : 1) });
-
-            const dimmer = gsap
-                .timeline()
-                .to(items.slice(1), { opacity: 1, stagger: 0.5 })
-                .to(
-                    items.slice(0, items.length - 1),
-                    {
-                        opacity: 0.2,
-                        stagger: 0.5,
-                    },
-                    0
-                );
-
-            dimmerScrub = ScrollTrigger.create({
-                trigger: items[0],
-                endTrigger: items[items.length - 1],
-                start: "center center",
-                end: "center center",
-                animation: dimmer,
-                scrub: 0.2,
-            });
-
-            const scroller = gsap.timeline().fromTo(
-                root,
-                { "--hue": config.start },
-                { "--hue": config.end, ease: "none" }
-            );
-
-            scrollerScrub = ScrollTrigger.create({
-                trigger: items[0],
-                endTrigger: items[items.length - 1],
-                start: "center center",
-                end: "center center",
-                animation: scroller,
-                scrub: 0.2,
-            });
-
-            chromaEntry = gsap.fromTo(
-                root,
-                { "--chroma": 0 },
-                {
-                    "--chroma": 0.3,
-                    ease: "none",
-                    scrollTrigger: {
-                        scrub: 0.2,
-                        trigger: items[0],
-                        start: "center center+=40",
-                        end: "center center",
-                    },
-                }
-            );
-            chromaExit = gsap.fromTo(
-                root,
-                { "--chroma": 0.3 },
-                {
-                    "--chroma": 0,
-                    ease: "none",
-                    scrollTrigger: {
-                        scrub: 0.2,
-                        trigger: items[items.length - 2],
-                        start: "center center",
-                        end: "center center-=40",
-                    },
-                }
-            );
-        }
-
-        update();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+        requestUpdate();
     }
 </script>
 
@@ -204,6 +104,7 @@ import "normalize.css";
     .you-can-scroll-demo {
         --start: 0;
         --end: 360;
+        --focus-top: 50vh;
         --lightness: 65%;
         --base-chroma: 0.3;
         --font-size-min: 14;
@@ -220,11 +121,15 @@ import "normalize.css";
         font-family: "Geist", "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
         position: relative;
         margin: 0;
-        margin-bottom: -4.2rem;
+        margin-bottom: -0.4rem;
     }
 
     .you-can-scroll-demo[data-theme="light"] { color-scheme: light only; }
     .you-can-scroll-demo[data-theme="dark"] { color-scheme: dark only; --lightness: 75%; }
+
+    :global(html:not(.dark)) .you-can-scroll-demo {
+        color-scheme: light only;
+    }
 
     .you-can-scroll-demo *,
     .you-can-scroll-demo *::before,
@@ -243,21 +148,24 @@ import "normalize.css";
     }
 
     .you-can-scroll-demo header {
-        min-height: 22vh;
+        min-height: 10vh;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: center;
         width: 100%;
-        padding-inline: 5rem;
-        padding-top: 0.6rem;
+        padding-inline: 0;
+        padding-top: 0.9rem;
     }
 
     .you-can-scroll-demo h1 {
-        --font-size-min: 20;
+        --font-size-min: 26;
         --font-level: 7;
         text-wrap: pretty;
         white-space: nowrap;
-        line-height: 0.8;
+        line-height: 1.05;
+        font-weight: 600;
         margin: 0;
+        text-align: center;
         background: linear-gradient(canvasText 60%, color-mix(in oklch, canvas, canvasText));
         background-clip: text;
         color: transparent;
@@ -275,7 +183,8 @@ import "normalize.css";
 
     .you-can-scroll-demo section:first-of-type h2 {
         position: sticky;
-        top: calc(50% - 0.5lh);
+        top: var(--focus-top);
+        transform: translateY(-50%);
         font-size: inherit;
         margin: 0;
         display: inline-block;
@@ -284,26 +193,38 @@ import "normalize.css";
     }
 
     .you-can-scroll-demo section:last-of-type {
-        min-height: 24vh;
+        min-height: 2vh;
         display: flex;
         align-items: flex-start;
         width: 100%;
         justify-content: center;
-        padding-top: 3.2rem;
+        padding-top: 0;
     }
 
-    .you-can-scroll-demo section:last-of-type h2 { --font-level: 5; }
+    .you-can-scroll-demo section:last-of-type h2 {
+        --font-level: 6;
+        font-weight: 600;
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    .you-can-scroll-demo .final-moment {
+        --font-level: 5;
+    }
 
     .you-can-scroll-demo ul {
         --step: calc((var(--end) - var(--start)) / (var(--count) - 1));
         font-weight: 600;
         padding-inline: 0;
+        padding-top: 20vh;
+        padding-bottom: 18vh;
         margin: 0;
         list-style-type: none;
     }
 
-    .you-can-scroll-demo[data-snap="true"] { scroll-snap-type: y proximity; }
-    .you-can-scroll-demo[data-snap="true"] li { scroll-snap-align: center; }
+    .you-can-scroll-demo { scroll-snap-type: y mandatory; }
+    .you-can-scroll-demo li { scroll-snap-align: center; }
+    .you-can-scroll-demo li { scroll-snap-stop: always; }
 
     .you-can-scroll-demo h2,
     .you-can-scroll-demo li:last-of-type {
@@ -312,8 +233,34 @@ import "normalize.css";
         color: transparent;
     }
 
+    :global(html:not(.dark)) .you-can-scroll-demo h1,
+    :global(html:not(.dark)) .you-can-scroll-demo h2,
+    :global(html:not(.dark)) .you-can-scroll-demo li:last-of-type {
+        background: linear-gradient(#101a35 52%, #2b3f6f 100%);
+        background-clip: text;
+        color: transparent;
+    }
+
+    :global(html:not(.dark)) .you-can-scroll-demo .bear-link {
+        color: #142247;
+    }
+
     .you-can-scroll-demo li:not(:last-of-type) {
         color: oklch(var(--lightness) var(--base-chroma) calc(var(--start) + (var(--step) * var(--i))));
+    }
+
+    .you-can-scroll-demo li {
+        opacity: 0;
+        transition: opacity 180ms linear;
+    }
+
+    .you-can-scroll-demo li.is-near {
+        opacity: 0.42;
+    }
+
+    .you-can-scroll-demo li.is-active {
+        opacity: 1;
+        filter: brightness(1.15);
     }
 
     .you-can-scroll-demo li:last-of-type {
@@ -354,63 +301,28 @@ import "normalize.css";
         border-width: 0;
     }
 
-    @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
-        .you-can-scroll-demo[data-animate="true"] li {
-            opacity: 0.2;
-            animation-name: brighten;
-            animation-fill-mode: both;
-            animation-timing-function: linear;
-            animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
-            animation-timeline: view();
-        }
-
-        .you-can-scroll-demo[data-animate="true"] li:first-of-type { --start-opacity: 1; }
-        .you-can-scroll-demo[data-animate="true"] li:last-of-type { --brightness: 1; --end-opacity: 1; }
-
-        .you-can-scroll-demo[data-sync-scrollbar="true"][data-animate="true"] {
-            timeline-scope: --list;
-            animation-name: change, chroma-on, chroma-off;
-            animation-fill-mode: both;
-            animation-timing-function: linear;
-            animation-range: entry 50% exit 50%, entry 40% entry 50%, exit 30% exit 40%;
-            animation-timeline: --list;
-            scrollbar-color: oklch(var(--lightness) var(--chroma, 0) var(--hue)) transparent;
-        }
-
-        .you-can-scroll-demo[data-sync-scrollbar="true"][data-animate="true"] ul {
-            view-timeline: --list;
-        }
-    }
-
-    @keyframes brighten {
-        0% { opacity: var(--start-opacity, 0.2); }
-        50% { opacity: 1; filter: brightness(var(--brightness, 1.2)); }
-        100% { opacity: var(--end-opacity, 0.2); }
-    }
-
-    @keyframes change { to { --hue: var(--end); } }
-    @keyframes chroma-on { to { --chroma: 0.3; } }
-    @keyframes chroma-off { to { --chroma: 0; } }
-
-    div.tp-dfwv { position: fixed; }
-
     @media (max-width: 900px) {
         .you-can-scroll-demo header {
-            min-height: 18vh;
-            padding-top: 0.35rem;
+            min-height: 8vh;
+            padding-top: 0.55rem;
         }
 
         .you-can-scroll-demo section:first-of-type {
             padding-left: 1.4rem;
         }
 
+        .you-can-scroll-demo ul {
+            padding-top: 18vh;
+            padding-bottom: 15vh;
+        }
+
         .you-can-scroll-demo section:last-of-type {
-            min-height: 18vh;
-            padding-top: 1.6rem;
+            min-height: 2vh;
+            padding-top: 0;
         }
 
         .you-can-scroll-demo {
-            margin-bottom: -2.4rem;
+            margin-bottom: -0.3rem;
         }
     }
 </style>
