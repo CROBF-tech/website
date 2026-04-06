@@ -85,14 +85,15 @@ const totalCards = images.length;
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		width: 15%;
+		width: 8%; /* reducir ancho del fade para no cubrir tanto el carrusel */
 		pointer-events: none;
-		z-index: 10;
+		z-index: 1; /* mantener detrás de las cards */
 	}
-	
+
 	.scene::before {
 		left: 0;
-		background: linear-gradient(to right, #fff3ed, transparent);
+		/* quitar el degradado visible para evitar overlay en el borde izquierdo */
+		background: none;
 	}
 	
 	.scene::after {
