@@ -74,33 +74,37 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                         profession={TEAM_MEMBERS.Lautaro.profession}
                         description={TEAM_MEMBERS.Lautaro.description}
                     />
+                    <div class="team-center-col">
+                        <CardFounder
+                            name={TEAM_MEMBERS.Briana.fullname}
+                            image={TEAM_MEMBERS.Briana.logo}
+                            github={TEAM_MEMBERS.Briana.gitHub}
+                            linkedin={TEAM_MEMBERS.Briana.linkedin}
+                            link={TEAM_MEMBERS.Briana.link}
+                            profession={TEAM_MEMBERS.Briana.profession}
+                            description={TEAM_MEMBERS.Briana.description}
+                        />
+                    </div>
                     <CardFounder
-                        name={TEAM_MEMBERS.Briana.fullname}
-                        image={TEAM_MEMBERS.Briana.logo}
-                        github={TEAM_MEMBERS.Briana.gitHub}
-                        linkedin={TEAM_MEMBERS.Briana.linkedin}
-                        link={TEAM_MEMBERS.Briana.link}
-                        profession={TEAM_MEMBERS.Briana.profession}
-                        description={TEAM_MEMBERS.Briana.description}
-                    />
-                    <CardFounder
-                        name={TEAM_MEMBERS.Sofia.fullName}
+                        name={"Valentina Osorio"}
                         image={TEAM_MEMBERS.Sofia.logo}
                         github={TEAM_MEMBERS.Sofia.gitHub}
                         linkedin={TEAM_MEMBERS.Sofia.linkedin}
                         link={TEAM_MEMBERS.Sofia.link}
-                        profession={TEAM_MEMBERS.Sofia.profession}
+                        profession={'Diseñador UX/UI'}
                         description={TEAM_MEMBERS.Sofia.description}
                     />
-                    <CardFounder
-                        name={"Magali Rodriguez"}
-                        image={'/founders/magali_rodriguez.jpeg'}
-                        github={""}
-                        linkedin={""}
-                        link={'/founders/magali_rodriguez'}
-                        profession={'Diseñador UX/UI'}
-                        description={""}
-                    />
+                    <div class="team-center-col">
+                        <CardFounder
+                            name={"Magali Rodriguez"}
+                            image={'/founders/magali_rodriguez.jpeg'}
+                            github={""}
+                            linkedin={""}
+                            link={'/founders/magali_rodriguez'}
+                            profession={'Diseñador UX/UI'}
+                            description={""}
+                        />
+                    </div>
                 </div>
                 <div class="team-values">
                     <p set:html={t("about.team.values")} />
@@ -260,6 +264,27 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         .team-grid > :first-child {
             grid-column: 1 / -1;
             max-width: 640px;
+        }
+    }
+
+    /* Explicit center-column helper for selected cards */
+    .team-center-col {
+        grid-column: 2 / 3;
+        justify-self: center;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (max-width: 1024px) {
+        .team-center-col {
+            grid-column: 1 / -1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .team-center-col {
+            grid-column: 1 / -1;
         }
     }
 
