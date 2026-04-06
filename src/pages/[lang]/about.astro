@@ -233,13 +233,13 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         text-align: center;
         margin-top: 3rem;
         padding: 2rem;
-        background: var(--color-bright-gray-100);
+        background: transparent !important;
         border-radius: 16px;
         border-left: 4px solid var(--accent);
     }
 
     :global(html.dark) .team-values {
-        background: var(--color-bright-gray-700);
+        background: transparent !important;
         border-left-color: var(--accent);
     }
 
@@ -257,14 +257,14 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
     /* Philosophy Section */
     .philosophy-section {
-        background: linear-gradient(135deg, var(--color-bright-gray-50) 0%, var(--color-blue-100) 100%);
+        background: transparent !important;
         border-radius: 24px;
         padding: 3rem 2rem;
         margin: 4rem 0;
     }
 
     :global(html.dark) .philosophy-section {
-        background: linear-gradient(135deg, var(--color-bright-gray-700) 0%, var(--color-bright-gray-950) 100%);
+        background: transparent !important;
     }
 
     .motto {
@@ -285,7 +285,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     }
 
     .contact-card {
-        background: var(--color-bright-gray-50);
+        background: transparent !important;
         border: 2px solid var(--accent);
         border-radius: 20px;
         padding: 2.5rem;
@@ -296,7 +296,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     }
 
     :global(html.dark) .contact-card {
-        background: var(--color-bright-gray-700);
+        background: transparent !important;
         border-color: var(--accent);
     }
 
