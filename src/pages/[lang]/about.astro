@@ -92,6 +92,15 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                         profession={TEAM_MEMBERS.Sofia.profession}
                         description={TEAM_MEMBERS.Sofia.description}
                     />
+                    <CardFounder
+                        name={"Magali Rodriguez"}
+                        image={'/founders/magali_rodriguez.jpeg'}
+                        github={""}
+                        linkedin={""}
+                        link={'/founders/magali_rodriguez'}
+                        profession={'Diseñador UX/UI'}
+                        description={""}
+                    />
                 </div>
                 <div class="team-values">
                     <p set:html={t("about.team.values")} />
@@ -223,10 +232,65 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
     .team-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(3, minmax(320px, 1fr));
         gap: 2rem;
         justify-items: center;
+        align-items: start;
         margin-bottom: 3rem;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Make first card span full width and center it (1 above, 3 below) */
+    .team-grid > :first-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 720px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        .team-grid {
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+        }
+
+        .team-grid > :first-child {
+            grid-column: 1 / -1;
+            max-width: 640px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .team-grid > :first-child {
+            grid-column: 1 / -1;
+            max-width: 100%;
+        }
+    }
+
+    /* Place Briana in the center column and Magali centered below her */
+    /* Assuming DOM order: 1=Juan(span), 2=Ezequiel,3=Leandro,4=Lautaro,5=Briana,6=Sofia,7=Magali */
+    .team-grid > :nth-child(5) {
+        grid-column: 2 / 3;
+        justify-self: center;
+    }
+
+    .team-grid > :nth-child(7) {
+        grid-column: 2 / 3;
+        justify-self: center;
+    }
+
+    @media (max-width: 1024px) {
+        .team-grid > :nth-child(5),
+        .team-grid > :nth-child(7) {
+            grid-column: 1 / -1;
+        }
     }
 
     .team-values {
