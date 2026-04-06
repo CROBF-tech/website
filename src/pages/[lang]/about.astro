@@ -25,15 +25,10 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         <div class="container">
             <!-- Hero Section -->
             <section class="hero-section">
-                <h1 class="hero-title">{t("about.title")} - <span class="accent-text">CROBF</span></h1>
-                <p class="hero-description" set:html={t("about.welcome")} />
+                <h1 class="hero-title">SOBRE NOSOTROS</h1>
             </section>
 
-            <!-- Who We Are Section -->
-            <section class="section">
-                <h2 class="section-title">{t("about.whoWeAre.title")}</h2>
-                <p class="section-description" set:html={t("about.whoWeAre.description")} />
-            </section>
+            <!-- Who We Are Section removed per request -->
 
             <!-- Team Grid -->
             <section class="team-section">
@@ -87,7 +82,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                     </div>
                     <CardFounder
                         name={"Valentina Osorio"}
-                        image={TEAM_MEMBERS.Sofia.logo}
+                        image={'/founders/valentina_osorio.jpeg'}
                         github={TEAM_MEMBERS.Sofia.gitHub}
                         linkedin={TEAM_MEMBERS.Sofia.linkedin}
                         link={TEAM_MEMBERS.Sofia.link}

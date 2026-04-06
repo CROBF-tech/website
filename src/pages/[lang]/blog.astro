@@ -21,7 +21,7 @@ const pageCopy =
               title: "Archivo del Blog CROBF",
               badge: "",
               heading: "BLOG",
-              text: "Explora recursos y consejos de nuestro equipo de expertos para llevar tus conocimientos al siguiente nivel.",
+              text: "Explora recursos y consejos de nuestro equipo<br/>de expertos para llevar tus conocimientos al<br/>siguiente nivel y potenciar tu práctica profesional",
               cta: "Ver archivo completo",
               read: "Leer articulo",
               dateLabel: "Publicado",
@@ -137,7 +137,7 @@ const posts =
         <section class="blog-hero">
             {pageCopy.badge && <p class="eyebrow">{pageCopy.badge}</p>}
             <h1>{pageCopy.heading}</h1>
-            <p>{pageCopy.text}</p>
+            <p set:html={pageCopy.text}></p>
             <!-- Botón eliminado según solicitud -->
         </section>
 
@@ -253,12 +253,18 @@ const posts =
     }
 
     .blog-hero {
-        /* Hero: dejar solo el texto sin fondo de card */
+        /* Hero: dejar solo el texto sin fondo de card, centrado */
         border: none;
         border-radius: 0;
         background: transparent;
-        padding: 0;
+        padding: 3rem 0 1.25rem;
+        margin-top: 0.6rem;
         margin-bottom: 0.6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
     .eyebrow {
@@ -279,7 +285,7 @@ const posts =
         margin-top: 0.9rem;
         margin-bottom: 0;
         color: rgba(23, 30, 48, 0.8);
-        max-width: 64ch;
+        max-width: 72ch;
     }
 
     .btn {
@@ -492,7 +498,6 @@ const posts =
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 0 !important;
     }
 
     @media (max-width: 980px) {

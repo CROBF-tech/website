@@ -164,6 +164,17 @@ const selectedImage = Array.isArray(image)
         color: var(--color-blue-100);
     }
 
+    /* Force black icons and profession text in light mode */
+    :global(html:not(.dark)) .card-profession {
+        color: var(--color-bright-gray-950) !important;
+    }
+
+    :global(html:not(.dark)) .social-link {
+        color: var(--color-bright-gray-950) !important;
+        border-color: rgba(0,0,0,0.06);
+        background: rgba(0,0,0,0.04);
+    }
+
     /* description removed by design */
 
     /* Responsive Design */
