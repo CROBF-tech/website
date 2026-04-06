@@ -205,7 +205,7 @@ const projects = [
                                                 <span
                                                     class="hero-left-rotate"
                                                     data-hero-left-rotate
-                                                    data-hero-words="para solucionar|para innovar|para transformar|para simplificar|para asegurar"
+                                                    data-hero-words="para solucionar|para innovar|para simplificar|para asegurar"
                                                 >
                                                     para solucionar
                                                 </span>
@@ -648,6 +648,25 @@ const projects = [
         text-align: center;
         gap: 1.5rem;
         row-gap: 1.8rem;
+    }
+
+    /* Mover el bloque hero hacia la izquierda en pantallas grandes */
+    @media (min-width: 820px) {
+        .hero-intro {
+            justify-items: center;
+            text-align: center;
+            /* mantener padding horizontal, pero centrar el contenido */
+            padding-left: 1.3rem;
+            padding-right: 1.3rem;
+        }
+
+        .hero-intro-content {
+            width: min(920px, 70%);
+            margin-inline: auto;
+            /* Desplazar ligeramente a la izquierda para posicionamiento visual */
+            transform: translateX(-6%);
+            will-change: transform;
+        }
     }
 
     .hero {
