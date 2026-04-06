@@ -617,6 +617,13 @@ const socials = [
     color: #ffffff;
   }
 
+  /* Forzar enlaces sociales negros en modo oscuro para mayor contraste */
+  :global(html.dark) .sidenav__menu-socials .sidenav__button-label,
+  :global(html.dark) .sidenav__menu-socials .sidenav__button-label:link,
+  :global(html.dark) .sidenav__menu-socials .sidenav__button-label:visited {
+    color: #000000 !important;
+  }
+
   @media (max-width: 1020px) {
     .brand-text {
       font-size: 22px;
