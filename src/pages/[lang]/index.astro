@@ -38,9 +38,9 @@ const copy =
           }
         : {
               badge: "Estudio de tecnología",
-              heroTitle: "La mejor forma de Programar y diseñar",
+              heroTitle: "La mejor forma de Creando sistemas",
               heroTitleLine1: "La mejor forma de",
-              heroTitleLine2: "Programar y diseñar",
+              heroTitleLine2: "Creando sistemas",
               heroText: "Somos expertos en desarrollo de software y diseño de experiencias digitales. Creamos todo tipo de aplicaciones con código propio y soluciones a medida.",
               heroPrimary: "Completar formulario",
               heroSecondary: "Whatsapp directo",
@@ -196,21 +196,15 @@ const projects = [
                     {
                         lang === "es" ? (
                             <>
-                                <span class="hero-title__line hero-title__swap" data-hero-top-swap>
-                                    <span class="hero-title__swap-track">
-                                        <span class="hero-title__swap-item">La mejor forma de</span>
-                                        <span class="hero-title__swap-item">Programar y diseñar</span>
-                                    </span>
-                                </span>
+                                <span class="hero-title__line">Creando sistemas</span>
                                 <span class="hero-title__line hero-title__swap" data-hero-bottom-swap>
                                     <span class="hero-title__swap-track">
-                                        <span class="hero-title__swap-item">Programar y diseñar</span>
                                         <span class="hero-title__swap-item">
                                             <span class="hero-left-rotate-wrap">
                                                 <span
                                                     class="hero-left-rotate"
                                                     data-hero-left-rotate
-                                                    data-hero-words="para solucionar|para innovar"
+                                                    data-hero-words="para solucionar|para innovar|para transformar|para simplificar|para asegurar"
                                                 >
                                                     para solucionar
                                                 </span>
@@ -342,20 +336,11 @@ const projects = [
         <script is:inline>
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             const portfolioRow = document.querySelector(".portfolio-row");
-            const heroTopSwap = document.querySelector("[data-hero-top-swap]");
-            const heroBottomSwap = document.querySelector("[data-hero-bottom-swap]");
             const heroLeftRotate = document.querySelector("[data-hero-left-rotate]");
             const WORD_LIST_DURATION_MS = 1200;
             const SELECTOR_DURATION_MS = 500;
 
             if (!reduceMotion) {
-                if (heroTopSwap instanceof HTMLElement && heroBottomSwap instanceof HTMLElement) {
-                    window.setTimeout(() => {
-                        heroTopSwap.classList.add("is-shifted");
-                        heroBottomSwap.classList.add("is-shifted");
-                    }, 1700);
-                }
-
                 if (heroLeftRotate instanceof HTMLElement) {
                     const words = (heroLeftRotate.dataset.heroWords || "")
                         .split("|")
@@ -642,7 +627,7 @@ const projects = [
         gap: 1.2rem;
         align-items: center;
         min-height: auto;
-        padding-top: 9rem;
+        padding-top: 7.2rem;
         padding-bottom: 0;
         isolation: isolate;
         justify-items: center;
@@ -728,39 +713,25 @@ const projects = [
     }
 
     .hero-title__swap {
-        --hero-swap-step: 1.14em;
-        height: var(--hero-swap-step);
-        overflow: clip;
-        backface-visibility: hidden;
-        contain: paint;
-        isolation: isolate;
+        position: relative;
+        display: inline-block;
     }
 
     .hero-title__swap-track {
-        display: flex;
-        flex-direction: column;
-        transform: translate3d(0, 0, 0);
-        transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: transform;
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
+        display: block;
+        transform: none;
     }
 
     .hero-title__swap.is-shifted .hero-title__swap-track {
-        transform: translate3d(0, calc(-1 * var(--hero-swap-step)), 0);
+        transform: none;
     }
 
     .hero-title__swap-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: var(--hero-swap-step);
-        line-height: 1;
-        padding-block: 0.035em;
-        margin-block: -0.035em;
-        transform: translateZ(0);
-        -webkit-font-smoothing: antialiased;
-        text-shadow: 0 0 0 currentColor;
+        display: none;
+    }
+    
+    .hero-title__swap-item:first-child {
+        display: inline;
     }
 
     .hero-left-rotate {
@@ -879,7 +850,7 @@ const projects = [
         border-radius: 0;
         padding: 2.2rem 1.7rem 2.5rem;
         border: 0;
-        margin-top: 1.6rem;
+        margin-top: 12rem;
     }
 
     .services > .eyebrow,
