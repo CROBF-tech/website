@@ -17,11 +17,11 @@ const pageCopy =
               dateLabel: "Published",
               authorLabel: "Author",
           }
-        : {
+          : {
               title: "Archivo del Blog CROBF",
-              badge: "Articulos historicos",
-              heading: "Articulos que antes estaban en este sitio",
-              text: "El blog historico de CROBF ahora vive en su proyecto dedicado. Desde esta pagina podes leer articulos anteriores y nuevos.",
+              badge: "",
+              heading: "BLOG",
+              text: "Explora recursos y consejos de nuestro equipo de expertos para llevar tus conocimientos al siguiente nivel.",
               cta: "Ver archivo completo",
               read: "Leer articulo",
               dateLabel: "Publicado",
@@ -135,10 +135,10 @@ const posts =
 <Layout title={pageCopy.title} description={SITE_DESCRIPTION}>
     <main class="blog-page">
         <section class="blog-hero">
-            <p class="eyebrow">{pageCopy.badge}</p>
+            {pageCopy.badge && <p class="eyebrow">{pageCopy.badge}</p>}
             <h1>{pageCopy.heading}</h1>
             <p>{pageCopy.text}</p>
-            <a class="btn" href="#posts">{pageCopy.cta}</a>
+            <!-- Botón eliminado según solicitud -->
         </section>
 
         <section class="posts-grid" id="posts" aria-label="Blog posts">
@@ -253,10 +253,12 @@ const posts =
     }
 
     .blog-hero {
-        border: 1px solid rgba(67, 77, 104, 0.22);
-        border-radius: 1rem;
-        background: linear-gradient(170deg, rgba(253, 254, 255, 0.98), rgba(243, 246, 255, 0.95));
-        padding: 1.4rem;
+        /* Hero: dejar solo el texto sin fondo de card */
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        padding: 0;
+        margin-bottom: 0.6rem;
     }
 
     .eyebrow {
