@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import YouCanScroll from "../../components/YouCanScroll.astro";
+import Carousel3D from "../../components/Carousel3D.astro";
 import { BentoGrid } from "../../components/ui/bento-grid";
 import { SITE_DESCRIPTION } from "../../consts";
 import { getLangFromUrl } from "../../i18n/translate";
@@ -228,6 +229,8 @@ const projects = [
                 </div>
             </div>
         </section>
+
+        <Carousel3D />
 
         <section class="parallax-flow" id="parallax-flow" aria-hidden="true"></section>
 

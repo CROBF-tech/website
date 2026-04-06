@@ -1,0 +1,215 @@
+---
+// Carrusel 3D con efecto de rotación
+const images = [
+	'1540968221243-29f5d70540bf',
+	'1596135187959-562c650d98bc',
+	'1628944682084-831f35256163',
+	'1590013330451-3946e83e0392',
+	'1590421959604-741d0eec0a2e',
+	'1572613000712-eadc57acbecd',
+	'1570097192570-4b49a6736f9f',
+	'1620789550663-2b10e0080354',
+	'1617775623669-20bff4ffaa5c',
+	'1548600916-dc8492f8e845',
+	'1573824969595-a76d4365a2e6',
+	'1633936929709-59991b5fdd72'
+];
+
+const totalCards = images.length;
+---
+
+<section class="carousel-section">
+	<div class="scene">
+		<div class="a3d" style={`--n: ${totalCards}`}>
+			{images.map((imageId, index) => (
+				<img 
+					class="card" 
+					src={`https://images.unsplash.com/photo-${imageId}?w=280`} 
+					style={`--i: ${index}`} 
+					alt="jellyfish"
+				/>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.carousel-section {
+		/* Salir del contenedor padre para ocupar todo el ancho */
+		width: 100vw;
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
+		padding: 4rem 0 12rem;
+		margin-top: 0;
+		margin-bottom: 4rem;
+		display: grid;
+		place-items: center;
+		/* Permitir que las cards se vean completamente */
+		overflow: visible !important;
+		/* Eliminar cualquier clipping */
+		clip-path: none;
+		position: relative;
+		/* Forzar que no se corte */
+		contain: none;
+	}
+
+	/* ====== Relevant CSS ====== */
+	.scene, 
+	.a3d {
+		display: grid;
+	}
+
+	.scene {
+		/* NO usar overflow hidden aquí para evitar clipping */
+		overflow: visible !important;
+		/* for 3D look; smaller = more extreme effect */
+		perspective: 35em;
+		/* ELIMINAR mask completamente para debugging */
+		min-height: 900px;
+		width: 100%;
+		display: grid;
+		place-items: center;
+		/* Agregar padding vertical MUY generoso para que las cards NUNCA se corten */
+		padding: 8rem 0;
+		/* Eliminar cualquier clipping */
+		clip-path: none;
+		position: relative;
+		/* Forzar que no se corte */
+		contain: none;
+	}
+	
+	/* Aplicar fade solo en los lados con pseudo-elementos */
+	.scene::before,
+	.scene::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 15%;
+		pointer-events: none;
+		z-index: 10;
+	}
+	
+	.scene::before {
+		left: 0;
+		background: linear-gradient(to right, #fff3ed, transparent);
+	}
+	
+	.scene::after {
+		right: 0;
+		background: linear-gradient(to left, #fff3ed, transparent);
+	}
+
+	.a3d {
+		place-self: center /* middle align */;
+		/* don't flatten 3D transformed children 
+		 * of this parent having its own 3D transform */
+		transform-style: preserve-3d;
+		animation: ry 32s linear infinite;
+		/* Mejorar rendimiento durante scroll */
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		/* Asegurar que no haya clipping */
+		overflow: visible;
+	}
+
+	/* simplest y axis rotation */
+	@keyframes ry {
+		to {
+			rotate: y 1turn;
+		}
+	}
+
+	.card {
+		/* base card width, you may change this */
+		--w: 17.5em;
+		/* compute base angle corresponding to a card */
+		--ba: 1turn/var(--n); /* in the future: sibling-count() */
+		
+		grid-area: 1/ 1 /* stack in same one grid cell */;
+		width: var(--w);
+		aspect-ratio: 7/ 10;
+		object-fit: cover;
+		border-radius: 1.5em;
+		/* don't want to see back of cards in front of screen plane */
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		/* need to use a transform chain here, cannot use separate 
+		 * rotate & translate properties because they'd be applied 
+		 * in wrong order (translate, then rotate) for what we need */
+		transform: 
+			/* rotate around y axis; in the future: sibling-index() */
+			rotatey(calc(var(--i)*var(--ba)))
+			/* only after that translate along z axis with minus */
+			translatez(calc(-1*(.5*var(--w) + .5em)/tan(.5*var(--ba))));
+		/* Mejorar rendimiento */
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: crisp-edges;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.a3d {
+			animation-duration: 128s;
+		}
+	}
+
+	/* Tablet */
+	@media (max-width: 1024px) {
+		.carousel-section {
+			padding: 1.5rem 0 6rem;
+			margin-top: 0;
+			margin-bottom: 3rem;
+		}
+
+		.scene {
+			min-height: 600px;
+			padding: 4rem 0;
+		}
+
+		.card {
+			--w: 15em;
+		}
+		
+		.scene {
+			min-height: 380px;
+		}
+	}
+
+	/* Mobile */
+	@media (max-width: 768px) {
+		.carousel-section {
+			padding: 1rem 0 5rem;
+			margin-top: 0;
+			margin-bottom: 2rem;
+		}
+
+		.card {
+			--w: 11em;
+		}
+		
+		.scene {
+			min-height: 550px;
+			perspective: 30em;
+			padding: 3.5rem 0;
+		}
+	}
+
+	/* Small mobile */
+	@media (max-width: 480px) {
+		.carousel-section {
+			padding: 0.5rem 0 4rem;
+			margin-top: 0;
+			margin-bottom: 1.5rem;
+		}
+
+		.card {
+			--w: 9em;
+		}
+		
+		.scene {
+			min-height: 500px;
+			perspective: 25em;
+			padding: 3rem 0;
+		}
+	}
+</style>
