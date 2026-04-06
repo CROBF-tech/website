@@ -127,3 +127,36 @@ hr {
 		padding: 1em;
 	}
 }
+
+/* Global override: make common panel/card sections transparent and remove shadows */
+/* This makes cards/panels appear without colored backgrounds across the site. */
+.card,
+.panel,
+.panel-card,
+.post-card,
+.hero-card,
+.section-card,
+.service-card,
+.project-card,
+.founder-card,
+.site-panel,
+.banner,
+.card-overlay {
+	background: transparent !important;
+	box-shadow: none !important;
+	border: none !important;
+}
+
+/* Social icon backgrounds */
+.social-link {
+	background: transparent !important;
+	border: none !important;
+}
+
+@media (max-width: 768px) {
+	.card,
+	.post-card,
+	.section-card {
+		padding: 0 !important;
+	}
+}
