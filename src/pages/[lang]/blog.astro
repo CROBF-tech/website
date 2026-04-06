@@ -487,6 +487,14 @@ const posts =
         color: rgba(229, 236, 255, 0.68);
     }
 
+    /* Asegurar que el hero no tenga fondo en modo oscuro */
+    :global(html.dark) .blog-hero {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
     @media (max-width: 980px) {
         .posts-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
