@@ -12,8 +12,10 @@ const links = [
 ];
 
 const socials = [
-  { href: "#", label: "Instagram" },
-  { href: "#", label: "LinkedIn" },
+    { href: "#", label: "Instagram" },
+    { href: "#", label: "LinkedIn" },
+    { href: "#", label: "X/Twitter" },
+    { href: "#", label: "Awwwards" },
 ];
 ---
 
@@ -317,7 +319,7 @@ const socials = [
     gap: 0.48rem;
     justify-content: center;
     border: none;
-    background: transparent;
+    background: #ffffff;
     min-width: 92px;
     height: 42px;
     padding: 0 0.8rem;
@@ -578,8 +580,8 @@ const socials = [
   }
 
   :global(html.dark) .top-nav {
-    background: #201D1D !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: #04070f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   :global(html.dark) .brand,
@@ -588,8 +590,8 @@ const socials = [
   }
 
   :global(html.dark) .sidenav__button {
-    background: transparent !important;
-    border-color: transparent;
+    background: rgba(7, 12, 26, 0.8);
+    border-color: rgba(230, 238, 255, 0.24);
     color: #f4f6ff;
   }
 
@@ -605,8 +607,8 @@ const socials = [
   }
 
   :global(html.dark) .sidenav__button:hover {
-    background: transparent !important;
-    border-color: transparent;
+    background: rgba(106, 134, 235, 0.2);
+    border-color: rgba(230, 238, 255, 0.38);
   }
 
   :global(html.dark) .sidenav__menu-link {
@@ -615,13 +617,6 @@ const socials = [
 
   :global(html.dark) .sidenav__menu-link:hover {
     color: #ffffff;
-  }
-
-  /* Forzar enlaces sociales negros en modo oscuro para mayor contraste */
-  :global(html.dark) .sidenav__menu-socials .sidenav__button-label,
-  :global(html.dark) .sidenav__menu-socials .sidenav__button-label:link,
-  :global(html.dark) .sidenav__menu-socials .sidenav__button-label:visited {
-    color: #000000 !important;
   }
 
   @media (max-width: 1020px) {
