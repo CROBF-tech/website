@@ -66,7 +66,6 @@ const totalCards = images.length;
 		overflow: visible !important;
 		/* for 3D look; smaller = more extreme effect */
 		perspective: 35em;
-		/* ELIMINAR mask completamente para debugging */
 		min-height: 900px;
 		width: 100%;
 		display: grid;
@@ -78,39 +77,6 @@ const totalCards = images.length;
 		position: relative;
 		/* Forzar que no se corte */
 		contain: none;
-	}
-	
-	/* Aplicar fade solo en los lados con pseudo-elementos */
-	.scene::before,
-	.scene::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 8%; /* reducir ancho del fade para no cubrir tanto el carrusel */
-		pointer-events: none;
-		z-index: 1; /* mantener detrás de las cards */
-	}
-
-	.scene::before {
-		left: 0;
-		/* quitar el degradado visible para evitar overlay en el borde izquierdo */
-		background: none;
-	}
-	
-	.scene::after {
-		right: 0;
-		/* quitar degradado claro por defecto para evitar franja en modo oscuro */
-		background: none;
-	}
-
-	/* En modo oscuro desactivar totalmente los fades laterales (evita franjas claras) */
-	@media (prefers-color-scheme: dark) {
-		.scene::before,
-		.scene::after {
-			background: none !important;
-			width: 0 !important;
-		}
 	}
 
 	.a3d {
