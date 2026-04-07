@@ -41,9 +41,8 @@ const t = useTranslations(lang);
     <div class="visual-panel" aria-hidden="true">
         <!-- Decorative side: large image or gradient to match reference -->
         <div class="visual-content">
-            <div class="quote">{t("form.contact.panelQuote") ?? "Untitled’s software helps us manage cash flow, financial reporting and payroll with ease."}</div>
-            <div class="credit">{t("form.contact.panelCredit") ?? "Maya Rothwell — Founder & CEO"}</div>
-        </div>
+                <video class="panel-video" src="/video_formulario.mp4" autoplay muted loop playsinline></video>
+            </div>
     </div>
 </div>
 <script is:inline>
@@ -123,10 +122,10 @@ const t = useTranslations(lang);
     .visual-panel {
         flex: 1 1 480px;
         background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 36px;
+        display: block;
+        padding: 0; /* remove padding so video can fill */
+        overflow: hidden;
+        position: relative; /* allow absolute video to fill */
     }
 
     html.dark .visual-panel { background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.1)); }
@@ -157,10 +156,20 @@ const t = useTranslations(lang);
     .actions button[type="submit"]:hover{ transform: translateY(-2px); transition: transform 0.18s ease; }
 
     .visual-content { max-width: 420px; }
+    .visual-content { width:100%; height:100%; display:block; position:relative; }
     .visual-content .quote { font-size: 1.05rem; color: rgba(0,0,0,0.85); font-weight:700; margin-bottom:16px; }
     html.dark .visual-content .quote { color: rgba(255,255,255,0.95); }
     .visual-content .credit { font-size:0.9rem; color: rgba(0,0,0,0.6); }
     html.dark .visual-content .credit { color: rgba(255,255,255,0.6); }
+
+    .panel-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 
     @media (max-width: 900px) {
         .contact-form { flex-direction: column; }
