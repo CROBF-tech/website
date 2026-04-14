@@ -14,12 +14,11 @@ const links = [
 const socials = [
     { href: "#", label: "Instagram" },
     { href: "#", label: "LinkedIn" },
-    { href: "#", label: "X/Twitter" },
-    { href: "#", label: "Awwwards" },
+    { href: "#", label: "Github" },
 ];
 ---
 
-<header class="top-nav">
+<header class="top-nav" data-navbar>
     <nav class="nav-shell" aria-label="Principal">
         <div class="menu-wrap">
             <button role="button" data-sidenav-toggle="" data-sidenav-button="" class="sidenav__button">
@@ -42,12 +41,12 @@ const socials = [
 
         <a href={homeHref} class="brand" aria-label="Ir al inicio">
             <span class="brand-mark" aria-hidden="true">
-                <img src="/Logo%20de%20crobf%201.png" alt="" class="brand-logo" />
+                <img src="/crobf-logo.png" alt="" class="brand-logo" />
             </span>
             <span class="brand-text">CROBF</span>
         </a>
 
-        <a href={`${homeHref}/contact`} class="cta">Contactanos</a>
+        <a href={`${homeHref}/contact`} class="cta">Contáctanos</a>
     </nav>
 
     <div data-sidenav-wrap="" data-nav-state="closed" class="sidenav__nav">
@@ -59,12 +58,6 @@ const socials = [
                 <div data-sidenav-panel="" class="sidenav__menu-bg-panel"></div>
             </div>
             <div class="sidenav__menu-inner">
-                <div class="sidenav__menu-header">
-                  <button class="sidenav__menu-close" aria-label="Cerrar menu">
-                    <span class="sidenav__menu-close-text">Close</span>
-                        <span class="sidenav__menu-close-icon">✕</span>
-                    </button>
-                </div>
                 <ul class="sidenav__menu-list">
                     {
                         links.map((link, index) => (
@@ -78,7 +71,7 @@ const socials = [
                     }
                     <li class="sidenav__menu-list-item">
                         <a data-sidenav-link="" href={`${homeHref}/contact`} class="sidenav__menu-link">
-                            <p class="sidenav__menu-link-heading">Contactanos</p>
+                            <p class="sidenav__menu-link-heading">Contáctanos</p>
                             <p class="sidenav__menu-link-eyebrow">0{links.length + 1}</p>
                         </a>
                     </li>
@@ -97,6 +90,14 @@ const socials = [
         </nav>
     </div>
 </header>
+
+<!-- Botón flotante que aparece al hacer scroll (fuera del header) -->
+<button class="floating-menu-btn" data-floating-menu aria-label="Abrir menú">
+    <span class="hamburger-icon">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </span>
+</button>
 
 <script is:inline>
   // Cargar GSAP dinámicamente y luego iniciar
@@ -153,7 +154,6 @@ const socials = [
     let menuToggles = document.querySelectorAll("[data-sidenav-toggle]");
     let menuLinks = navWrap.querySelectorAll("[data-sidenav-link]");
     let fadeTargets = navWrap.querySelectorAll("[data-sidenav-fade]");
-    let menuCloseButton = navWrap.querySelector(".sidenav__menu-close");
     let menuButton = document.querySelector("[data-sidenav-button]");
     let menuButtonTexts = menuButton?.querySelectorAll("[data-sidenav-label]");
     let menuButtonIcon = menuButton?.querySelector("[data-sidenav-icon]");
@@ -206,14 +206,6 @@ const socials = [
         }
       });    
     });
-
-    if (menuCloseButton) {
-      menuCloseButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        closeNav();
-      });
-    }
     
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && navWrap.getAttribute("data-nav-state") === "open") {
@@ -230,6 +222,98 @@ const socials = [
   } else {
     loadGSAPAndInit();
   }
+
+  // Scroll detection for floating button
+  function initScrollBehavior() {
+    const navbar = document.querySelector('[data-navbar]');
+    const floatingBtn = document.querySelector('[data-floating-menu]');
+    const navWrap = document.querySelector("[data-sidenav-wrap]");
+    
+    console.log('Floating button found:', floatingBtn);
+    
+    if (!navbar || !floatingBtn) {
+      console.log('Navbar or floating button not found');
+      return;
+    }
+
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const navbarHeight = navbar.offsetHeight;
+      
+      console.log('Scroll Y:', currentScrollY, 'Navbar height:', navbarHeight);
+      
+      // Show floating button when scrolled past the navbar
+      if (currentScrollY > navbarHeight + 50) {
+        floatingBtn.classList.add('show');
+        console.log('Showing floating button');
+      } else {
+        floatingBtn.classList.remove('show');
+        console.log('Hiding floating button');
+      }
+
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }
+
+    // Floating button opens the sidenav
+    floatingBtn.addEventListener('click', () => {
+      console.log('Floating button clicked');
+      const state = navWrap?.getAttribute("data-nav-state");
+      if (state === "closed") {
+        // Trigger the same open function
+        const menuToggle = document.querySelector("[data-sidenav-toggle]");
+        if (menuToggle) {
+          menuToggle.click();
+        }
+        floatingBtn.classList.add('menu-open');
+      } else {
+        // Close the menu
+        const menuToggle = document.querySelector("[data-sidenav-toggle]");
+        if (menuToggle) {
+          menuToggle.click();
+        }
+        floatingBtn.classList.remove('menu-open');
+      }
+    });
+
+    // Listen for menu state changes to update button
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-nav-state') {
+          const state = navWrap.getAttribute('data-nav-state');
+          if (state === 'open') {
+            floatingBtn.classList.add('menu-open');
+          } else {
+            floatingBtn.classList.remove('menu-open');
+          }
+        }
+      });
+    });
+
+    if (navWrap) {
+      observer.observe(navWrap, { attributes: true });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Check initial state
+    updateNavbar();
+  }
+
+  // Initialize scroll behavior after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initScrollBehavior);
+  } else {
+    initScrollBehavior();
+  }
 </script>
 
 <style>
@@ -238,9 +322,8 @@ const socials = [
   }
 
   .top-nav {
-    position: sticky;
-    top: 0;
-    z-index: 40;
+    position: relative;
+    z-index: 1000;
     background: #ffffff;
     border-bottom: 1px solid rgba(24, 33, 58, 0.14);
   }
@@ -301,15 +384,15 @@ const socials = [
     padding: 0 1.5rem;
     border-radius: 999px;
     text-decoration: none;
-    color: #f8f9ff;
+    color: rgba(16, 25, 49, 0.96);
     font-size: 16px;
     font-weight: 600;
-    background: #4e6ff7;
-    transition: background-color 160ms ease;
+    background: transparent;
+    transition: opacity 160ms ease;
   }
 
   .cta:hover {
-    background: #5f7efc;
+    opacity: 0.7;
   }
 
   .sidenav__button {
@@ -319,7 +402,7 @@ const socials = [
     gap: 0.48rem;
     justify-content: center;
     border: none;
-    background: #ffffff;
+    background: transparent;
     min-width: 92px;
     height: 42px;
     padding: 0 0.8rem;
@@ -330,7 +413,7 @@ const socials = [
     cursor: pointer;
     transition: none;
     position: relative;
-    z-index: 2;
+    z-index: 1001;
     box-shadow: none !important;
     outline: none !important;
     appearance: none;
@@ -340,7 +423,7 @@ const socials = [
   }
 
   .sidenav__button:hover {
-    background: #ffffff;
+    background: transparent;
   }
 
   .sidenav__button:focus,
@@ -348,7 +431,7 @@ const socials = [
   .sidenav__button:active {
     outline: none !important;
     box-shadow: none !important;
-    background: #ffffff;
+    background: transparent;
     transform: none;
   }
 
@@ -383,7 +466,7 @@ const socials = [
   }
 
   .sidenav__nav {
-    z-index: 9;
+    z-index: 9999;
     width: 100%;
     height: 100vh;
     margin-left: auto;
@@ -459,44 +542,9 @@ const socials = [
     display: flex;
     position: relative;
     overflow: hidden;
-  }
-
-  .sidenav__menu-header {
+    padding-top: 8em;
+    padding-left: 5em;
     width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    padding: 1.5em 2em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .sidenav__menu-close {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.25em;
-    color: #000000;
-    padding: 0.2em 0.4em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45em;
-    transition: transform 0.2s ease;
-    position: relative;
-    z-index: 4;
-  }
-
-  .sidenav__menu-close:hover {
-    transform: scale(1.1);
-  }
-
-  .sidenav__menu-close-text {
-    font-size: 0.95em;
-    line-height: 1;
-  }
-
-  .sidenav__menu-close-icon {
-    display: inline-block;
-    line-height: 1;
   }
 
   .sidenav__menu-list {
@@ -506,58 +554,51 @@ const socials = [
     padding-left: 0;
     list-style: none;
     display: flex;
+    align-items: flex-start;
   }
 
   .sidenav__menu-list-item {
-    height: 5em;
+    height: auto;
     margin-top: 0;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.8em;
     position: relative;
     overflow: hidden;
+    width: auto;
   }
 
   .sidenav__menu-link {
     grid-column-gap: 0.75em;
     grid-row-gap: 0.75em;
     color: #131313;
-    width: 100%;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-left: 2em;
+    width: auto;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 0;
     padding-right: 2em;
     text-decoration: none;
     display: flex;
     flex-flow: row;
     justify-content: flex-start;
-    align-items: flex-start;
-    gap: 0.35em;
+    align-items: center;
+    gap: 0.5em;
   }
 
   .sidenav__menu-link-heading {
     z-index: 1;
     font-family: PP Neue Corp Tight, Arial, sans-serif;
     font-size: 2.8em;
-    font-weight: 700;
-    line-height: 0.9;
+    font-weight: 500;
+    line-height: 1.1;
     transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
     position: relative;
     margin: 0px;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     color: #000000;
     flex: 0 0 auto;
   }
 
   .sidenav__menu-link-eyebrow {
-    z-index: 1;
-    color: #0052cc;
-    text-transform: uppercase;
-    font-family: RM Mono, Arial, sans-serif;
-    font-weight: 400;
-    position: relative;
-    margin: 0;
-    font-size: 1.1em;
-    white-space: nowrap;
-    margin-left: 0;
+    display: none;
   }
 
   .sidenav__menu-details {
@@ -569,7 +610,9 @@ const socials = [
     padding-left: 2em;
     padding-bottom: 2em;
     padding-right: 2em;
+    padding-top: 3em;
     display: flex;
+    width: 100%;
   }
 
   .sidenav__menu-socials {
@@ -580,7 +623,7 @@ const socials = [
   }
 
   :global(html.dark) .top-nav {
-    background: #04070f;
+    background: #201D1D;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
@@ -589,10 +632,19 @@ const socials = [
     color: #ffffff;
   }
 
+  :global(html.dark) .cta {
+    color: #ffffff;
+  }
+
   :global(html.dark) .sidenav__button {
-    background: rgba(7, 12, 26, 0.8);
-    border-color: rgba(230, 238, 255, 0.24);
+    background: transparent;
+    border-color: transparent;
     color: #f4f6ff;
+  }
+
+  .sidenav__button .sidenav__button-label,
+  .sidenav__button .sidenav__button-icon {
+    color: rgba(20, 33, 64, 0.92);
   }
 
   :global(html.dark) .sidenav__button .sidenav__button-label,
@@ -603,12 +655,12 @@ const socials = [
   :global(html.dark) .sidenav__menu-details .sidenav__button-label,
   :global(html.dark) .sidenav__menu-details .sidenav__button-label:link,
   :global(html.dark) .sidenav__menu-details .sidenav__button-label:visited {
-    color: #131313;
+    color: #ffffff;
   }
 
   :global(html.dark) .sidenav__button:hover {
-    background: rgba(106, 134, 235, 0.2);
-    border-color: rgba(230, 238, 255, 0.38);
+    background: transparent;
+    border-color: transparent;
   }
 
   :global(html.dark) .sidenav__menu-link {
@@ -616,6 +668,22 @@ const socials = [
   }
 
   :global(html.dark) .sidenav__menu-link:hover {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__menu-bg-panel {
+    background-color: #201D1D;
+  }
+
+  :global(html.dark) .sidenav__menu-bg-panel.is--first {
+    background-color: #201D1D;
+  }
+
+  :global(html.dark) .sidenav__menu-bg-panel.is--second {
+    background-color: #201D1D;
+  }
+
+  :global(html.dark) .sidenav__menu-link-heading {
     color: #ffffff;
   }
 
@@ -668,6 +736,113 @@ const socials = [
     .brand-logo {
       width: 19px;
       height: 19px;
+    }
+  }
+
+  /* Floating menu button styles */
+  .floating-menu-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #4e6ff7;
+    border: none;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(78, 111, 247, 0.5);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    padding: 0;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .floating-menu-btn:hover {
+    background: #5f7efc;
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(78, 111, 247, 0.6);
+  }
+
+  .floating-menu-btn.show {
+    display: flex;
+    animation: fadeInScale 0.4s ease forwards;
+  }
+
+  @keyframes fadeInScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hamburger-line {
+    width: 26px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  /* Cuando el menú está abierto, transformar las líneas en X */
+  .floating-menu-btn.menu-open .hamburger-line:first-child {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  .floating-menu-btn.menu-open .hamburger-line:last-child {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+
+  :global(html.dark) .floating-menu-btn {
+    background: rgba(78, 111, 247, 0.9);
+  }
+
+  :global(html.dark) .floating-menu-btn:hover {
+    background: rgba(95, 126, 252, 0.95);
+  }
+
+  @media (max-width: 820px) {
+    .floating-menu-btn {
+      width: 64px;
+      height: 64px;
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+
+    .hamburger-line {
+      width: 24px;
+      height: 2.5px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .floating-menu-btn {
+      width: 58px;
+      height: 58px;
+      top: 1.25rem;
+      left: 1.25rem;
+    }
+
+    .hamburger-line {
+      width: 22px;
+      height: 2.5px;
     }
   }
 </style>

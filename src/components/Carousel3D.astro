@@ -1,18 +1,18 @@
 ---
 // Carrusel 3D con efecto de rotación
 const images = [
-	'1540968221243-29f5d70540bf',
-	'1596135187959-562c650d98bc',
-	'1628944682084-831f35256163',
-	'1590013330451-3946e83e0392',
-	'1590421959604-741d0eec0a2e',
-	'1572613000712-eadc57acbecd',
-	'1570097192570-4b49a6736f9f',
-	'1620789550663-2b10e0080354',
-	'1617775623669-20bff4ffaa5c',
-	'1548600916-dc8492f8e845',
-	'1573824969595-a76d4365a2e6',
-	'1633936929709-59991b5fdd72'
+	{ type: 'unsplash', id: '1540968221243-29f5d70540bf' },
+	{ type: 'local', src: '/images/gif1.gif' },
+	{ type: 'local', src: '/images/Medicine.png' },
+	{ type: 'local', src: '/images/olympo-phone-screen.png' },
+	{ type: 'unsplash', id: '1590421959604-741d0eec0a2e' },
+	{ type: 'local', src: '/images/HOMEPAGE (2).png' },
+	{ type: 'unsplash', id: '1570097192570-4b49a6736f9f' },
+	{ type: 'unsplash', id: '1620789550663-2b10e0080354' },
+	{ type: 'unsplash', id: '1617775623669-20bff4ffaa5c' },
+	{ type: 'unsplash', id: '1548600916-dc8492f8e845' },
+	{ type: 'unsplash', id: '1573824969595-a76d4365a2e6' },
+	{ type: 'unsplash', id: '1633936929709-59991b5fdd72' }
 ];
 
 const totalCards = images.length;
@@ -21,12 +21,12 @@ const totalCards = images.length;
 <section class="carousel-section">
 	<div class="scene">
 		<div class="a3d" style={`--n: ${totalCards}`}>
-			{images.map((imageId, index) => (
+			{images.map((image, index) => (
 				<img 
 					class="card" 
-					src={`https://images.unsplash.com/photo-${imageId}?w=280`} 
+					src={image.type === 'unsplash' ? `https://images.unsplash.com/photo-${image.id}?w=280` : image.src} 
 					style={`--i: ${index}`} 
-					alt="jellyfish"
+					alt={image.type === 'local' ? 'Olympo' : 'jellyfish'}
 				/>
 			))}
 		</div>
@@ -53,6 +53,12 @@ const totalCards = images.length;
 		position: relative;
 		/* Forzar que no se corte */
 		contain: none;
+		/* Z-index MUY alto para estar por encima de services */
+		z-index: 50;
+		/* Asegurar que nada corte el contenido */
+		isolation: isolate;
+		/* Crear un nuevo contexto de apilamiento */
+		transform: translateZ(0);
 	}
 
 	/* ====== Relevant CSS ====== */
@@ -77,6 +83,8 @@ const totalCards = images.length;
 		position: relative;
 		/* Forzar que no se corte */
 		contain: none;
+		/* Z-index para estar por encima */
+		z-index: 1;
 	}
 
 	.a3d {
@@ -90,6 +98,9 @@ const totalCards = images.length;
 		-webkit-backface-visibility: hidden;
 		/* Asegurar que no haya clipping */
 		overflow: visible;
+		/* Z-index para las cards */
+		position: relative;
+		z-index: 2;
 	}
 
 	/* simplest y axis rotation */
@@ -101,7 +112,7 @@ const totalCards = images.length;
 
 	.card {
 		/* base card width, you may change this */
-		--w: 17.5em;
+		--w: 20em;
 		/* compute base angle corresponding to a card */
 		--ba: 1turn/var(--n); /* in the future: sibling-count() */
 		
@@ -121,9 +132,10 @@ const totalCards = images.length;
 			rotatey(calc(var(--i)*var(--ba)))
 			/* only after that translate along z axis with minus */
 			translatez(calc(-1*(.5*var(--w) + .5em)/tan(.5*var(--ba))));
-		/* Mejorar rendimiento */
-		image-rendering: -webkit-optimize-contrast;
-		image-rendering: crisp-edges;
+		/* Mejorar calidad de imagen */
+		image-rendering: auto;
+		/* Agregar sombra para mejor visualización */
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -147,11 +159,7 @@ const totalCards = images.length;
 		}
 
 		.card {
-			--w: 15em;
-		}
-		
-		.scene {
-			min-height: 380px;
+			--w: 17em;
 		}
 	}
 
@@ -165,7 +173,7 @@ const totalCards = images.length;
 		}
 
 		.card {
-			--w: 11em;
+			--w: 13em;
 		}
 		
 		.scene {
@@ -185,7 +193,7 @@ const totalCards = images.length;
 		}
 
 		.card {
-			--w: 9em;
+			--w: 10em;
 		}
 		
 		.scene {
