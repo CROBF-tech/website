@@ -139,7 +139,7 @@ const t = useTranslations(lang);
     .field label { display:block; font-size:0.85rem; color: rgba(255,255,255,0.75); margin-bottom:6px; }
     .field input, .field textarea {
         background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.12);
-        padding: 12px 6px; color:#fff; font-size:1rem;
+        padding: 12px 6px; color:#fff; font-size:1rem; width: 100%; box-sizing: border-box;
     }
     .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.45); }
     .field textarea { min-height:120px; width:100%; resize:none; }
@@ -176,6 +176,31 @@ const t = useTranslations(lang);
     @media (max-width: 900px) {
         .contact-form { flex-direction: column; }
         .visual-panel { order: 2; min-height: 220px; }
-        .form-panel { padding: 20px; }
+        .form-panel { padding: 24px; }
+    }
+
+    @media (max-width: 480px) {
+        .contact-form {
+            margin: 1rem auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+        .form-panel {
+            padding: 16px;
+            gap: 10px;
+        }
+        .form-header .heading {
+            font-size: 1.4rem;
+        }
+        .form-header .sub {
+            font-size: 0.85rem;
+        }
+        .visual-panel {
+            min-height: 160px;
+        }
+        .actions button[type="submit"] {
+            width: 100%;
+            padding: 14px 20px;
+        }
     }
 </style>

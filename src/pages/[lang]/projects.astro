@@ -30,6 +30,22 @@ const copy = lang === "en"
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem 0;
+        padding: 2rem 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+        .projects-page {
+            padding: 1.5rem 1rem;
+            align-items: flex-start;
+            min-height: auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .projects-page {
+            padding: 1rem 0.75rem;
+        }
     }
 </style>

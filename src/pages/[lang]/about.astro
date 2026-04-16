@@ -152,7 +152,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 1rem;
+        padding: 0 1.5rem;
     }
 
     /* Hero Section */
@@ -231,7 +231,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
     .team-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(320px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
         justify-items: center;
         align-items: start;
@@ -250,18 +250,6 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         max-width: 720px;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
-        .team-grid {
-            grid-template-columns: repeat(2, minmax(280px, 1fr));
-        }
-
-        .team-grid > :first-child {
-            grid-column: 1 / -1;
-            max-width: 640px;
-        }
-    }
-
     /* Explicit center-column helper for selected cards */
     .team-center-col {
         grid-column: 2 / 3;
@@ -271,14 +259,29 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         justify-content: center;
     }
 
+    /* Place special cards in center column on desktop */
+    .team-grid > :nth-child(5),
+    .team-grid > :nth-child(7) {
+        grid-column: 2 / 3;
+        justify-self: center;
+    }
+
     @media (max-width: 1024px) {
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .team-grid > :first-child {
+            grid-column: 1 / -1;
+            max-width: 640px;
+        }
+
         .team-center-col {
             grid-column: 1 / -1;
         }
-    }
 
-    @media (max-width: 768px) {
-        .team-center-col {
+        .team-grid > :nth-child(5),
+        .team-grid > :nth-child(7) {
             grid-column: 1 / -1;
         }
     }
@@ -286,32 +289,19 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     @media (max-width: 768px) {
         .team-grid {
             grid-template-columns: 1fr;
+            gap: 1.25rem;
         }
 
         .team-grid > :first-child {
             grid-column: 1 / -1;
             max-width: 100%;
         }
-    }
 
-    /* Place Briana in the center column and Magali centered below her */
-    /* Assuming DOM order: 1=Juan(span), 2=Ezequiel,3=Leandro,4=Lautaro,5=Briana,6=Sofia,7=Magali */
-    .team-grid > :nth-child(5) {
-        grid-column: 2 / 3;
-        justify-self: center;
-    }
-
-    .team-grid > :nth-child(7) {
-        grid-column: 2 / 3;
-        justify-self: center;
-    }
-
-    @media (max-width: 1024px) {
-        .team-grid > :nth-child(5),
-        .team-grid > :nth-child(7) {
+        .team-center-col {
             grid-column: 1 / -1;
         }
     }
+
 
     .team-values {
         text-align: center;
@@ -422,18 +412,30 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             padding: 1rem 0;
         }
 
+        .container {
+            padding: 0 1rem;
+        }
+
         .hero-section {
             margin-bottom: 3rem;
             padding: 1rem 0;
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 6vw, 3rem);
         }
 
         .section {
             margin-bottom: 3rem;
         }
 
-        .team-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .section-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+        }
+
+        .section-description {
+            font-size: 1rem;
+            max-width: 100%;
         }
 
         .team-values {
@@ -441,14 +443,30 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             margin-top: 2rem;
         }
 
+        .team-values p {
+            font-size: 1rem;
+        }
+
         .philosophy-section {
             padding: 2rem 1.5rem;
             margin: 3rem 0;
         }
 
+        .motto {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+        }
+
         .contact-card {
             padding: 2rem 1.5rem;
-            margin: 0 1rem;
+            max-width: 100%;
+        }
+
+        .contact-title {
+            font-size: 1.4rem;
+        }
+
+        .contact-description {
+            font-size: 1rem;
         }
     }
 
@@ -461,12 +479,15 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             margin-bottom: 2rem;
         }
 
+        .hero-title {
+            font-size: clamp(1.5rem, 8vw, 2.2rem);
+        }
+
         .section {
             margin-bottom: 2.5rem;
         }
 
         .team-grid {
-            grid-template-columns: 1fr;
             gap: 1rem;
         }
 

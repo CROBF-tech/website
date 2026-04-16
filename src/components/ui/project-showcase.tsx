@@ -110,7 +110,7 @@ export function ProjectShowcase({ lang = "es" }: ProjectShowcaseProps) {
   }
 
   return (
-    <section ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-2xl mx-auto px-6 py-16">
+    <section ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
       <h2 className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-8">Casos reales</h2>
 
       <div

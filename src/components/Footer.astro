@@ -537,18 +537,41 @@ const homeHref = `/${lang}`;
     @media (max-width: 640px) {
         .footer-main-content {
             margin-top: 3rem;
+            padding: 0 1rem;
         }
 
         .footer-heading {
             margin-bottom: 2rem;
+            font-size: clamp(1.8rem, 7vw, 3rem);
         }
 
         .footer-pill-primary {
             padding: 1rem 2rem;
+            width: 100%;
+            max-width: 280px;
         }
 
         .footer-bottom-bar {
             padding: 1.5rem 1rem;
+        }
+
+        .footer-marquee-wrapper {
+            top: 6rem;
+        }
+
+        .footer-social-badge {
+            padding: 0.6rem 1rem;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .footer-heading {
+            font-size: clamp(1.5rem, 8vw, 2.2rem);
+        }
+
+        .footer-marquee-item {
+            gap: 1.5rem;
+            font-size: 0.65rem;
         }
     }
 </style>

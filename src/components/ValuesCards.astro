@@ -15,8 +15,12 @@ const { image, title, description } = Astro.props;
         padding: 10px;
         border-radius: 20px;
         max-width: 300px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
     }
     .card-img {
+        max-width: 100%;
         max-height: auto;
         object-fit: cover;
         border-radius: 10px;
@@ -29,5 +33,13 @@ const { image, title, description } = Astro.props;
         font-size: 22px;
         text-align: center;
         width: 100%;
+    }
+    @media (max-width: 480px) {
+        div {
+            max-width: 100%;
+        }
+        h5 {
+            font-size: 18px;
+        }
     }
 </style>

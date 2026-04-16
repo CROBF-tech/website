@@ -191,27 +191,27 @@ const projects = [
 const stackingProjects = [
     {
         title: "Descubrimiento y análisis",
-        description: "Evaluamos tus objetivos y necesidades técnicas para definir el alcance del proyecto y entregarte una propuesta a medida.",
-        link: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop",
-        color: "#0096C7",
+        description: "Evaluar objetivos y necesidades|Definir el alcance del proyecto|Propuesta a medida y plan estratégico",
+        link: "/video_card1.mp4",
+        color: "#3b82f6",
+    },
+    {
+        title: "Diseño y UX",
+        description: "Interfaces de usuario modernas|Experiencia de usuario intuitiva|Prototipos y wireframes|Actualizaciones en cada sprint",
+        link: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&auto=format&fit=crop",
+        color: "#6d28d9",
     },
     {
         title: "Desarrollo",
-        description: "Desarrollamos tu solución a medida utilizando tecnologías modernas y prácticas ágiles. Recibís actualizaciones de progreso en cada sprint.",
-        link: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&auto=format&fit=crop",
-        color: "#0077B6",
-    },
-    {
-        title: "Pruebas e implementación",
-        description: "Antes del lanzamiento, se validan la funcionalidad, el rendimiento y la usabilidad. Aseguramos una implementación fluida y sin interrupciones.",
+        description: "Programación con metodologías ágiles|Código limpio y escalable|Soluciones robustas|Pruebas exhaustivas",
         link: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&auto=format&fit=crop",
-        color: "#023E8A",
+        color: "#94a3b8",
     },
     {
-        title: "Soporte continuo",
-        description: "Después de la entrega, brindamos mantenimiento, actualizaciones y optimización continua. Tu sistema se mantiene estable y preparado para crecer junto a tu negocio.",
+        title: "Lanzamiento y Soporte",
+        description: "Despliegue en entornos de producción|Mantenimiento continuo|Soporte técnico dedicado|Garantía de funcionamiento óptimo",
         link: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop",
-        color: "#03045E",
+        color: "#38bdf8",
     },
 ];
 
@@ -653,17 +653,13 @@ const stackingProjects = [
         .hero-intro {
             justify-items: center;
             text-align: center;
-            /* mantener padding horizontal, pero centrar el contenido */
             padding-left: 1.3rem;
             padding-right: 1.3rem;
         }
 
         .hero-intro-content {
-            width: min(920px, 70%);
+            width: min(920px, 85%);
             margin-inline: auto;
-            /* Desplazar más a la izquierda para posicionamiento visual */
-            transform: translateX(-15%);
-            will-change: transform;
         }
     }
 
@@ -706,7 +702,7 @@ const stackingProjects = [
         font-size: clamp(2rem, 4.6vw, 4.2rem);
         line-height: 1.02;
         margin: 0;
-        max-width: 18ch;
+        max-width: 100%;
     }
 
     .home h1,
@@ -721,13 +717,15 @@ const stackingProjects = [
         gap: 0.05em;
         font-family: 'Plus Jakarta Sans', "Inter", "Inter Tight", "-apple-system", "BlinkMacSystemFont", "Segoe UI", sans-serif;
         font-weight: 900;
-        font-size: clamp(2.8rem, 9.8vw, 90px);
+        font-size: clamp(2.2rem, 8vw, 90px);
         line-height: 0.95;
         letter-spacing: -0.035em;
         margin: 0;
-        max-width: none;
+        max-width: 100%;
         text-transform: uppercase;
         color: rgba(60, 60, 60, 0.98);
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     :global(html.dark) .hero-title {
@@ -736,7 +734,8 @@ const stackingProjects = [
 
     .hero-title__line {
         display: block;
-        white-space: nowrap;
+        white-space: normal;
+        word-break: break-word;
     }
 
     .hero-title__swap {
@@ -770,7 +769,8 @@ const stackingProjects = [
 
     .hero-left-rotate-wrap {
         display: inline-block;
-        min-width: 15ch;
+        min-width: 0;
+        max-width: 100%;
         overflow: clip;
         contain: paint;
     }
@@ -944,9 +944,11 @@ const stackingProjects = [
     .services {
         background: transparent;
         border-radius: 0;
-        padding: 2.2rem 1.7rem 2.5rem;
+        padding: 2.2rem 1rem 2.5rem;
         border: 0;
         margin-top: 12rem;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .services > .eyebrow,
@@ -1530,10 +1532,11 @@ const stackingProjects = [
         align-items: center;
         justify-content: center;
         gap: 1.5rem;
-        padding: 4rem clamp(2rem, 5vw, 4rem);
+        padding: 4rem clamp(2rem, 6vw, 5rem);
         text-align: center;
         max-width: 600px;
-        margin-right: auto;
+        margin: 0;
+        width: fit-content;
     }
 
     .video-cta-title {
@@ -1578,15 +1581,23 @@ const stackingProjects = [
 
     @media (max-width: 768px) {
         .video-cta-container {
-            min-height: 380px;
+            min-height: 320px;
+            border-radius: 1.2rem;
+            width: calc(100% - 2rem);
         }
 
         .video-cta-content {
-            padding: 3rem 2rem;
+            padding: 2.5rem 1.5rem;
         }
 
         .video-cta-title {
             max-width: 100%;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+        }
+
+        .video-cta-banner {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
     }
 
@@ -1746,11 +1757,10 @@ const stackingProjects = [
         gap: 1.8rem;
     }
 
-    /* Stacking Cards Section */
     .stacking-cards-section {
-        width: 100vw;
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
         padding: 0;
         margin-top: 4rem;
         margin-bottom: 0;
@@ -1768,7 +1778,7 @@ const stackingProjects = [
     }
     
     :global(html.dark) .stacking-cards-eyebrow {
-        color: rgba(229, 236, 255, 0.7);
+        color: rgba(255, 255, 255, 0.85);
     }
     
     .stacking-cards-title {
@@ -1781,7 +1791,7 @@ const stackingProjects = [
     }
     
     :global(html.dark) .stacking-cards-title {
-        color: rgba(247, 250, 255, 0.98);
+        color: #ffffff;
     }
     
     .stacking-cards-section :global(main) {
@@ -1826,17 +1836,65 @@ const stackingProjects = [
     @media (max-width: 760px) {
         .home {
             padding-top: 1.2rem;
-            gap: 3.4rem;
+            gap: 2.5rem;
+            width: calc(100% - 1.6rem);
+        }
+
+        .hero-intro {
+            padding-top: 4rem;
+            padding-bottom: 0;
+        }
+
+        .hero-intro-content {
+            width: 100%;
+            gap: 1.2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 10vw, 3.2rem);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            max-width: 100%;
         }
 
         .hero-visual {
             min-height: 300px;
         }
 
+        .services {
+            margin-top: 4rem;
+            padding: 1.5rem 0.5rem 2rem;
+        }
+
+        .services > h2 {
+            max-width: 100%;
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
+        }
 
         .services-grid {
             grid-template-columns: 1fr;
             gap: 1rem;
+        }
+
+        .portfolio {
+            padding: 0 0 1.5rem;
+            margin-top: 0;
+        }
+
+        .portfolio > h2 {
+            max-width: 100%;
+            font-size: clamp(1.5rem, 6vw, 2rem);
+        }
+
+        .portfolio-row {
+            width: calc(100% - 1.6rem);
+        }
+
+        .project-card {
+            flex: 0 0 clamp(200px, 70vw, 280px);
+            width: clamp(200px, 70vw, 280px);
         }
 
         .process-grid {
@@ -1851,6 +1909,57 @@ const stackingProjects = [
         .step-dot {
             width: 78px;
             height: 78px;
+        }
+
+        .team {
+            padding: 0 0.5rem;
+        }
+
+        .team-copy h2 {
+            max-width: 100%;
+            font-size: clamp(1.5rem, 6vw, 2rem);
+        }
+
+        .stacking-cards-section {
+            margin-top: 2rem;
+        }
+
+        .stacking-cards-title {
+            font-size: clamp(1.6rem, 6vw, 2.5rem);
+            margin-bottom: -3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .home {
+            width: calc(100% - 1.2rem);
+            gap: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 9vw, 2.8rem);
+        }
+
+        .actions {
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+
+        .btn {
+            width: 100%;
+            max-width: 280px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        h2 {
+            font-size: clamp(1.4rem, 5.5vw, 2rem);
+            max-width: 100%;
+        }
+
+        .eyebrow {
+            font-size: 0.65rem;
         }
     }
 

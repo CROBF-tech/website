@@ -22,24 +22,28 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     .CardsContainer {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 1rem;
         justify-content: center;
-        align-items: center;
-        width: fit-content;
+        align-items: start;
+        width: 100%;
+        max-width: 650px;
         margin: 0 auto;
-    }
-
-    .Card {
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        width: 250px;
+        box-sizing: border-box;
     }
 
     @media (max-width: 768px) {
         .CardsContainer {
             flex-direction: column;
             align-items: center;
+            max-width: 320px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .CardsContainer {
+            max-width: 100%;
+            padding: 0 0.5rem;
         }
     }
 </style>
