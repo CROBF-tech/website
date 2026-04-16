@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import { getLangFromUrl } from "../../../i18n/translate";
+import "../../../styles/global.css";
 
 const lang = getLangFromUrl(Astro.url);
 ---
@@ -18,6 +19,17 @@ const lang = getLangFromUrl(Astro.url);
                 <p class="info-label">LOCATION & YEAR</p>
                 <p class="info-value">Argentina © 2025</p>
             </div>
+        </div>
+
+        <div class="project-actions">
+            <a href="https://catalogo-olympo.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                Ver en vivo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
         </div>
 
         <div class="project-image">
@@ -69,6 +81,84 @@ const lang = getLangFromUrl(Astro.url);
         color: hsl(var(--foreground));
         margin: 0;
         line-height: 1.4;
+    }
+
+    .project-actions {
+        margin-bottom: 3rem;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        border-radius: 2rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-style: preserve-3d;
+        will-change: transform;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
+
+    .btn-primary {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        color: rgba(16, 25, 49, 0.96);
+        box-shadow: 
+            0 10px 30px -10px rgba(0, 0, 0, 0.1),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1),
+            inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+        box-shadow: 
+            0 20px 40px -10px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(16, 25, 49, 0.96);
+    }
+
+    .btn-primary:visited {
+        color: rgba(16, 25, 49, 0.96);
+    }
+
+    :global(html.dark) .btn-primary {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.96);
+    }
+
+    :global(html.dark) .btn-primary:hover,
+    :global(html.dark) .btn-primary:focus,
+    :global(html.dark) .btn-primary:active {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 0.96);
+    }
+
+    :global(html.dark) .btn-primary:visited {
+        color: rgba(255, 255, 255, 0.96);
+    }
+
+    .btn svg {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s ease;
+    }
+
+    .btn:hover svg {
+        transform: translate(2px, -2px);
     }
 
     .project-image {
