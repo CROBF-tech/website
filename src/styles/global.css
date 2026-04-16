@@ -28,3 +28,25 @@
 		filter: blur(0);
 	}
 }
+
+/* Magnetic Button Effect */
+.magnetic-btn {
+	cursor: pointer;
+	transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: transform;
+	transform-style: preserve-3d;
+}
+
+.magnetic-btn:hover {
+	transform: scale(1.02);
+}
+
+/* Apply magnetic effect to all buttons */
+.btn,
+.btn-primary,
+.btn-ghost,
+button,
+a.btn {
+	transform-style: preserve-3d;
+	will-change: transform;
+}

@@ -1,18 +1,18 @@
 ---
-// Carrusel 3D con efecto de rotación
+// Carrusel 3D con efecto de rotación - Diseño web oscuro y programación elegante
 const images = [
-	{ type: 'unsplash', id: '1540968221243-29f5d70540bf' },
-	{ type: 'local', src: '/images/gif1.gif' },
-	{ type: 'local', src: '/images/Medicine.png' },
-	{ type: 'local', src: '/images/olympo-phone-screen.png' },
-	{ type: 'unsplash', id: '1590421959604-741d0eec0a2e' },
-	{ type: 'local', src: '/images/HOMEPAGE (2).png' },
-	{ type: 'unsplash', id: '1570097192570-4b49a6736f9f' },
-	{ type: 'unsplash', id: '1620789550663-2b10e0080354' },
-	{ type: 'unsplash', id: '1617775623669-20bff4ffaa5c' },
-	{ type: 'unsplash', id: '1548600916-dc8492f8e845' },
-	{ type: 'unsplash', id: '1573824969595-a76d4365a2e6' },
-	{ type: 'unsplash', id: '1633936929709-59991b5fdd72' }
+	{ type: 'unsplash', id: '1555066931-4365d14bab8c' }, // Code on dark screen
+	{ type: 'unsplash', id: '1542831371-29b0f74f9713' }, // Dark programming
+	{ type: 'unsplash', id: '1461749280684-6fc3fe0c4f04' }, // Dark tech
+	{ type: 'unsplash', id: '1484417894907-623942c8ee29' }, // Code dark mode
+	{ type: 'unsplash', id: '1526374965341-9f53d1c9f7b9' }, // Dark minimal
+	{ type: 'unsplash', id: '1550439062-609e1531270e' }, // Dark aesthetic
+	{ type: 'unsplash', id: '1607706189992-eae578626c86' }, // Dark code setup
+	{ type: 'unsplash', id: '1571171637578-41bc2dd41cd2' }, // Dark laptop code
+	{ type: 'unsplash', id: '1607799279861-4dd421887fb3' }, // Dark workspace
+	{ type: 'unsplash', id: '1618477388954-7852f32655ec' }, // Dark coding
+	{ type: 'unsplash', id: '1605379399642-870262d3d051' }, // Dark theme code
+	{ type: 'unsplash', id: '1629654297299-c8506221ca97' }  // Dark editor
 ];
 
 const totalCards = images.length;
@@ -24,9 +24,10 @@ const totalCards = images.length;
 			{images.map((image, index) => (
 				<img 
 					class="card" 
-					src={image.type === 'unsplash' ? `https://images.unsplash.com/photo-${image.id}?w=280` : image.src} 
+					src={image.type === 'unsplash' ? `https://images.unsplash.com/photo-${image.id}?w=280&q=80` : image.src} 
 					style={`--i: ${index}`} 
-					alt={image.type === 'local' ? 'Olympo' : 'jellyfish'}
+					alt="Landing page design"
+					loading="lazy"
 				/>
 			))}
 		</div>

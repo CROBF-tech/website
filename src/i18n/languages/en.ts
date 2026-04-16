@@ -71,6 +71,7 @@ export default {
         "If you want to learn more about us or explore our solutions, don't hesitate to contact us! At CROBF, we are always ready to face new challenges and build a future together.",
     // ===============================================================
     'form.contact.title': 'Contact Us',
+    'form.contact.description': "Need help with something? Get in touch and we'll reply shortly.",
     'form.contact.name': 'Name',
     'form.contact.email': 'Email',
     'form.contact.message': 'Message',

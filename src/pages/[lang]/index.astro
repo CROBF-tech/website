@@ -55,12 +55,12 @@ const copy =
               processSubtitle: "Proceso de trabajo",
               portfolioTitle: "Ya lo hicimos. Tu industria puede ser la proxima",
               portfolioSubtitle: "Casos reales",
-              withUsSubtitle: "Solutions Squad",
+              withUsSubtitle: "Equipo de Soluciones",
               teamTitle: "Nuestro equipo",
               teamText: "Disenadores, developers y especialistas en crecimiento enfocados en resultados reales.",
-              teamAction: "Ver founders",
+              teamAction: "Ver el equipo",
               ctaText: "Sumate al futuro del desarrollo de software autonomo.",
-              ctaAction: "Agenda una reunion",
+              ctaAction: "Contáctanos",
               endTitle: "Listo para digitalizar tu negocio?",
               endPrimary: "Comencemos",
               endSecondary: "Conoce mas sobre nosotros",
@@ -314,16 +314,21 @@ const stackingProjects = [
             </div>
         </section>
 
-        <section class="floating-cta" data-reveal>
-            <p>{copy.ctaText}</p>
-            <a href={`/${lang}/contact#contact_form`} class="btn btn-primary">{copy.ctaAction}</a>
-        </section>
+        <section class="video-cta-banner" data-reveal>
+            <div class="video-cta-container">
+                <!-- Video Background -->
+                <div class="video-background">
+                    <video autoplay muted loop playsinline class="video-element">
+                        <source src="/video_formulario.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay"></div>
+                </div>
 
-        <section class="end-cta" id="contacto">
-            <h2 data-reveal>{copy.endTitle}</h2>
-            <div class="actions">
-                <a href={`/${lang}/contact#contact_form`} class="btn btn-ghost" data-reveal style="--reveal-delay: 40ms;">{copy.endPrimary}</a>
-                <a href={`/${lang}/about`} class="btn btn-primary" data-reveal style="--reveal-delay: 70ms;">{copy.endSecondary}</a>
+                <!-- Content -->
+                <div class="video-cta-content">
+                    <h2 class="video-cta-title">{copy.ctaText}</h2>
+                    <a href={`/${lang}/contact#contact_form`} class="btn btn-primary video-cta-btn">{copy.ctaAction}</a>
+                </div>
             </div>
         </section>
 
@@ -826,30 +831,91 @@ const stackingProjects = [
         letter-spacing: 0.02em;
         text-decoration: none;
         border: 1px solid transparent;
-        transition: transform 140ms ease, box-shadow 140ms ease;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-style: preserve-3d;
+        will-change: transform;
     }
 
     .btn:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px) scale(1.02);
     }
 
     .btn-primary {
-        background: linear-gradient(120deg, #1f34f3, #4c6aff);
-        color: #f6f8ff;
-        box-shadow: 0 10px 30px rgba(41, 76, 255, 0.25);
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        color: rgba(16, 25, 49, 0.96);
+        box-shadow: 
+            0 10px 30px -10px rgba(0, 0, 0, 0.1),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1),
+            inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
     }
 
     .btn-primary:hover,
     .btn-primary:focus,
-    .btn-primary:active,
+    .btn-primary:active {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+        box-shadow: 
+            0 20px 40px -10px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(16, 25, 49, 1) !important;
+    }
+
     .btn-primary:visited {
-        color: #f6f8ff;
+        color: rgba(16, 25, 49, 0.96) !important;
     }
 
     .btn-ghost {
-        border-color: rgba(41, 76, 255, 0.4);
-        color: #263575;
-        background: rgba(255, 255, 255, 0.68);
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        box-shadow: 
+            0 10px 30px -10px rgba(0, 0, 0, 0.08),
+            inset 0 1px 1px rgba(255, 255, 255, 0.08),
+            inset 0 -1px 2px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: rgba(16, 25, 49, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .btn-ghost:hover {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 
+            0 20px 40px -10px rgba(0, 0, 0, 0.12),
+            inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        color: rgba(16, 25, 49, 1) !important;
+    }
+
+    :global(html.dark) .btn-primary {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.96) !important;
+    }
+
+    :global(html.dark) .btn-primary:hover,
+    :global(html.dark) .btn-primary:focus,
+    :global(html.dark) .btn-primary:active {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 1) !important;
+    }
+
+    :global(html.dark) .btn-primary:visited {
+        color: rgba(255, 255, 255, 0.96) !important;
+    }
+
+    :global(html.dark) .btn-ghost {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    :global(html.dark) .btn-ghost:hover {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 1) !important;
     }
 
     .hero-visual {
@@ -1261,7 +1327,8 @@ const stackingProjects = [
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
         background: transparent;
-        padding: 2.8rem 0 clamp(1.6rem, 2.2vw, 2.2rem);
+        padding: 0 0 clamp(1.6rem, 2.2vw, 2.2rem);
+        margin-top: -2rem;
     }
 
     .portfolio > .eyebrow,
@@ -1402,32 +1469,129 @@ const stackingProjects = [
         color: rgba(40, 56, 93, 0.9);
     }
 
-    .floating-cta {
-        border-radius: 0;
-        padding: 2rem 1.6rem;
-        background: transparent;
-        border: 0;
+    /* Video CTA Banner */
+    .video-cta-banner {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .video-cta-container {
+        position: relative;
+        width: min(1120px, calc(100% - 2.6rem));
+        margin: 0 auto;
+        border-radius: 2rem;
+        overflow: hidden;
+        min-height: 450px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        gap: 1rem;
+        justify-content: flex-start;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        background: #2a2a2a;
     }
 
-    .floating-cta p {
-        margin: 0;
-        max-width: 32ch;
-        font-size: 1.2rem;
-        line-height: 1.15;
-        color: rgba(18, 30, 60, 0.95);
+    .video-background {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
     }
 
-    .end-cta {
+    .video-element {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.3;
+    }
+
+    .video-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            135deg,
+            rgba(20, 20, 20, 0.85) 0%,
+            rgba(40, 40, 40, 0.75) 50%,
+            rgba(20, 20, 20, 0.85) 100%
+        );
+    }
+
+    :global(html.dark) .video-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(10, 10, 10, 0.9) 0%,
+            rgba(30, 30, 30, 0.8) 50%,
+            rgba(10, 10, 10, 0.9) 100%
+        );
+    }
+
+    .video-cta-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 4rem clamp(2rem, 5vw, 4rem);
         text-align: center;
-        padding: 0.7rem 0 2.2rem;
+        max-width: 600px;
+        margin-right: auto;
     }
 
-    .end-cta h2 {
-        color: rgba(16, 27, 56, 0.98);
+    .video-cta-title {
+        margin: 0;
+        font-size: clamp(1.5rem, 3.5vw, 2rem);
+        line-height: 1.25;
+        font-weight: 700;
+        color: #ffffff;
+        text-shadow: 
+            0 2px 20px rgba(0, 0, 0, 0.5),
+            -1px -1px 0 rgba(0, 0, 0, 0.3),
+            1px -1px 0 rgba(0, 0, 0, 0.3),
+            -1px 1px 0 rgba(0, 0, 0, 0.3),
+            1px 1px 0 rgba(0, 0, 0, 0.3);
+        max-width: 20ch;
+        margin-bottom: 0.5rem;
+    }
+
+    .video-cta-btn {
+        font-size: 1rem;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 
+            0 10px 30px -10px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        color: rgba(16, 25, 49, 0.96) !important;
+        align-self: center;
+        margin-top: 0;
+    }
+
+    .video-cta-btn:hover {
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 
+            0 20px 40px -10px rgba(0, 0, 0, 0.3),
+            inset 0 1px 1px rgba(255, 255, 255, 0.8);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: rgba(16, 25, 49, 1) !important;
+    }
+
+    @media (max-width: 768px) {
+        .video-cta-container {
+            min-height: 380px;
+        }
+
+        .video-cta-content {
+            padding: 3rem 2rem;
+        }
+
+        .video-cta-title {
+            max-width: 100%;
+        }
     }
 
     :global(html:not(.dark)) .team-copy .eyebrow {
@@ -1440,22 +1604,6 @@ const stackingProjects = [
 
     :global(html:not(.dark)) .team-copy p {
         color: #27375d !important;
-    }
-
-    :global(html:not(.dark)) .floating-cta p {
-        color: #142044 !important;
-    }
-
-    :global(html:not(.dark)) .end-cta h2 {
-        color: #111c3a !important;
-    }
-
-    .end-cta h2 {
-        margin-inline: auto;
-    }
-
-    .end-cta .actions {
-        justify-content: center;
     }
 
     :global(html.dark) .eyebrow {
@@ -1598,14 +1746,6 @@ const stackingProjects = [
         color: rgba(229, 236, 255, 0.82);
     }
 
-    :global(html.dark) .floating-cta p {
-        color: rgba(236, 242, 255, 0.92);
-    }
-
-    :global(html.dark) .end-cta h2 {
-        color: rgba(247, 250, 255, 0.98);
-    }
-
     :global(html.dark) .home {
         gap: 1.8rem;
     }
@@ -1716,17 +1856,6 @@ const stackingProjects = [
             width: 78px;
             height: 78px;
         }
-
-        .floating-cta {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .floating-cta p {
-            text-align: center;
-        }
-
     }
 
     @media (prefers-reduced-motion: reduce) {

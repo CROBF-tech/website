@@ -72,6 +72,7 @@ export default {
         'Si deseas conocer más sobre nosotros o explorar nuestras soluciones, ¡no dudes en contactarnos! En CROBF, estamos siempre listos para afrontar nuevos desafíos y construir un futuro juntos.',
     // ===============================================================
     'form.contact.title': 'Contáctanos',
+    'form.contact.description': '¿Necesitas ayuda con algo? Ponte en contacto y te responderemos pronto.',
     'form.contact.name': 'Nombre',
     'form.contact.email': 'Email',
     'form.contact.message': 'Mensaje',
