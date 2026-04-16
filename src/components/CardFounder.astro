@@ -24,18 +24,20 @@ const selectedImage = Array.isArray(image)
 
         <div class="card-socials">
             <a
-                href={`${github}`}
+                href={github}
                 target="_blank"
+                rel="noopener noreferrer"
                 aria-label={`Link para github de ${name}`}
-                onclick="this.event.stopPropagation();"
+                onclick="event.stopPropagation();"
                 class="social-link">
                 <Github />
             </a>
             <a
-                href={`${linkedin}`}
+                href={linkedin}
                 target="_blank"
+                rel="noopener noreferrer"
                 aria-label={`Link para linkedin de ${name}`}
-                onclick="this.event.stopPropagation();"
+                onclick="event.stopPropagation();"
                 class="social-link">
                 <Linkedin />
             </a>

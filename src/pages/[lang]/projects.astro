@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { ProjectShowcase } from "../../components/ui/project-showcase";
+import { getLangFromUrl } from "../../i18n/translate";
+
+const lang = getLangFromUrl(Astro.url);
+
+const copy = lang === "en" 
+    ? {
+        title: "Our Projects",
+        description: "Explore our portfolio of successful projects",
+        subtitle: "Success Stories"
+    }
+    : {
+        title: "Nuestros Proyectos",
+        description: "Explora nuestro portafolio de proyectos exitosos",
+        subtitle: "Casos de Éxito"
+    };
+---
+
+<Layout title={copy.title} description={copy.description}>
+    <main class="projects-page">
+        <ProjectShowcase client:load lang={lang} />
+    </main>
+</Layout>
+
+<style>
+    .projects-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+</style>
