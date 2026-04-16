@@ -53,12 +53,10 @@ const totalCards = images.length;
 		position: relative;
 		/* Forzar que no se corte */
 		contain: none;
-		/* Z-index MUY alto para estar por encima de services */
-		z-index: 50;
+		/* Z-index MUY alto para estar por encima de TODO excepto el nav */
+		z-index: 999;
 		/* Asegurar que nada corte el contenido */
 		isolation: isolate;
-		/* Crear un nuevo contexto de apilamiento */
-		transform: translateZ(0);
 	}
 
 	/* ====== Relevant CSS ====== */
@@ -84,7 +82,7 @@ const totalCards = images.length;
 		/* Forzar que no se corte */
 		contain: none;
 		/* Z-index para estar por encima */
-		z-index: 1;
+		z-index: 100;
 	}
 
 	.a3d {
@@ -100,7 +98,7 @@ const totalCards = images.length;
 		overflow: visible;
 		/* Z-index para las cards */
 		position: relative;
-		z-index: 2;
+		z-index: 101;
 	}
 
 	/* simplest y axis rotation */

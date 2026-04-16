@@ -20,24 +20,7 @@ const socials = [
 
 <header class="top-nav" data-navbar>
     <nav class="nav-shell" aria-label="Principal">
-        <div class="menu-wrap">
-            <button role="button" data-sidenav-toggle="" data-sidenav-button="" class="sidenav__button">
-                <div class="sidenav__button-text">
-                    <p data-sidenav-label="" class="sidenav__button-label">Menu</p>
-                    <p data-sidenav-label="" class="sidenav__button-label">Close</p>
-                </div>
-                <div data-sidenav-icon="" class="sidenav__button-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none" class="sidenav__button-icon-svg">
-                        <path d="M7.33333 16L7.33333 -3.2055e-07L8.66667 -3.78832e-07L8.66667 16L7.33333 16Z" fill="currentColor"></path>
-                        <path d="M16 8.66667L-2.62269e-07 8.66667L-3.78832e-07 7.33333L16 7.33333L16 8.66667Z" fill="currentColor"></path>
-                        <path d="M6 7.33333L7.33333 7.33333L7.33333 6C7.33333 6.73637 6.73638 7.33333 6 7.33333Z" fill="currentColor"></path>
-                        <path d="M10 7.33333L8.66667 7.33333L8.66667 6C8.66667 6.73638 9.26362 7.33333 10 7.33333Z" fill="currentColor"></path>
-                        <path d="M6 8.66667L7.33333 8.66667L7.33333 10C7.33333 9.26362 6.73638 8.66667 6 8.66667Z" fill="currentColor"></path>
-                        <path d="M10 8.66667L8.66667 8.66667L8.66667 10C8.66667 9.26362 9.26362 8.66667 10 8.66667Z" fill="currentColor"></path>
-                    </svg>
-                </div>
-            </button>
-        </div>
+        <a href={`${homeHref}/contact`} class="cta">Contáctanos</a>
 
         <a href={homeHref} class="brand" aria-label="Ir al inicio">
             <span class="brand-mark" aria-hidden="true">
@@ -46,7 +29,11 @@ const socials = [
             <span class="brand-text">CROBF</span>
         </a>
 
-        <a href={`${homeHref}/contact`} class="cta">Contáctanos</a>
+        <div class="nav-links">
+            <a href={`${homeHref}/#casos-exito`} class="nav-link">Proyectos</a>
+            <a href={`${homeHref}/blog`} class="nav-link">Blog</a>
+            <a href={`${homeHref}/about`} class="nav-link">Equipo</a>
+        </div>
     </nav>
 
     <div data-sidenav-wrap="" data-nav-state="closed" class="sidenav__nav">
@@ -317,26 +304,40 @@ const socials = [
 </script>
 
 <style>
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-
-  .top-nav {
-    position: relative;
-    z-index: 1000;
-    background: #ffffff;
-    border-bottom: 1px solid rgba(24, 33, 58, 0.14);
-  }
-
+  /* Los estilos de posición del .top-nav están en navbar.css global */
+  
   .nav-shell {
-    width: min(1220px, 100% - 2.6rem);
+    width: 100%;
+    max-width: 1220px;
     margin: 0 auto;
     min-height: 72px;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    column-gap: 1.1rem;
+    column-gap: 2rem;
     position: relative;
+    padding: 0 2.6rem;
+  }
+
+  .cta {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-width: 150px;
+    padding: 0 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96);
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+    transition: opacity 160ms ease;
+  }
+
+  .cta:hover {
+    opacity: 0.7;
   }
 
   .brand {
@@ -346,6 +347,26 @@ const socials = [
     text-decoration: none;
     color: rgba(16, 25, 49, 0.96);
     justify-self: center;
+    margin-left: 3rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-self: end;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96);
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-link:hover {
+    opacity: 0.7;
   }
 
   .brand-mark {
@@ -368,12 +389,6 @@ const socials = [
     color: rgba(16, 25, 49, 0.96);
   }
 
-  .menu-wrap {
-    justify-self: start;
-    position: relative;
-    display: flex;
-  }
-
   .cta {
     justify-self: end;
     display: inline-flex;
@@ -393,46 +408,6 @@ const socials = [
 
   .cta:hover {
     opacity: 0.7;
-  }
-
-  .sidenav__button {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.48rem;
-    justify-content: center;
-    border: none;
-    background: transparent;
-    min-width: 92px;
-    height: 42px;
-    padding: 0 0.8rem;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(20, 33, 64, 0.92);
-    cursor: pointer;
-    transition: none;
-    position: relative;
-    z-index: 1001;
-    box-shadow: none !important;
-    outline: none !important;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .sidenav__button:hover {
-    background: transparent;
-  }
-
-  .sidenav__button:focus,
-  .sidenav__button:focus-visible,
-  .sidenav__button:active {
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent;
-    transform: none;
   }
 
   .sidenav__button-text {
@@ -543,7 +518,7 @@ const socials = [
     position: relative;
     overflow: hidden;
     padding-top: 8em;
-    padding-left: 5em;
+    padding-left: 3em;
     width: 100%;
   }
 
@@ -586,7 +561,7 @@ const socials = [
   .sidenav__menu-link-heading {
     z-index: 1;
     font-family: PP Neue Corp Tight, Arial, sans-serif;
-    font-size: 2.8em;
+    font-size: 3.5em;
     font-weight: 500;
     line-height: 1.1;
     transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
@@ -607,7 +582,7 @@ const socials = [
     flex-flow: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding-left: 2em;
+    padding-left: 3em;
     padding-bottom: 2em;
     padding-right: 2em;
     padding-top: 3em;
@@ -622,11 +597,6 @@ const socials = [
     display: flex;
   }
 
-  :global(html.dark) .top-nav {
-    background: #201D1D;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
   :global(html.dark) .brand,
   :global(html.dark) .brand-text {
     color: #ffffff;
@@ -636,31 +606,8 @@ const socials = [
     color: #ffffff;
   }
 
-  :global(html.dark) .sidenav__button {
-    background: transparent;
-    border-color: transparent;
-    color: #f4f6ff;
-  }
-
-  .sidenav__button .sidenav__button-label,
-  .sidenav__button .sidenav__button-icon {
-    color: rgba(20, 33, 64, 0.92);
-  }
-
-  :global(html.dark) .sidenav__button .sidenav__button-label,
-  :global(html.dark) .sidenav__button .sidenav__button-icon {
-    color: #f4f6ff;
-  }
-
-  :global(html.dark) .sidenav__menu-details .sidenav__button-label,
-  :global(html.dark) .sidenav__menu-details .sidenav__button-label:link,
-  :global(html.dark) .sidenav__menu-details .sidenav__button-label:visited {
+  :global(html.dark) .nav-link {
     color: #ffffff;
-  }
-
-  :global(html.dark) .sidenav__button:hover {
-    background: transparent;
-    border-color: transparent;
   }
 
   :global(html.dark) .sidenav__menu-link {
@@ -701,18 +648,23 @@ const socials = [
 
   @media (max-width: 820px) {
     .nav-shell {
-      width: min(1220px, 100% - 1.8rem);
+      max-width: 100%;
+      padding: 0 1.8rem;
       min-height: 74px;
-      grid-template-columns: 1fr auto 1fr;
-      column-gap: 0.6rem;
+      grid-template-columns: auto 1fr;
+      column-gap: 1rem;
     }
 
-    .brand-text {
-      font-size: clamp(18px, 5.2vw, 22px);
+    .nav-links {
+      display: none;
     }
 
     .cta {
       display: none;
+    }
+
+    .brand-text {
+      font-size: clamp(18px, 5.2vw, 22px);
     }
 
     .sidenav__menu {
@@ -722,7 +674,7 @@ const socials = [
 
   @media (max-width: 420px) {
     .nav-shell {
-      width: calc(100% - 1rem);
+      padding: 0 1rem;
       min-height: 68px;
     }
 
