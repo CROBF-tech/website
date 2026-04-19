@@ -52,14 +52,14 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className='h-screen flex items-center justify-center sticky top-0'
+      className='min-h-[70vh] sm:h-screen flex items-center justify-center sticky top-0'
     >
       <motion.div
         style={{
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className={`relative -top-[25%] w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] mx-auto min-h-[320px] sm:h-[420px] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
+        className={`relative -top-[10%] sm:-top-[25%] w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] mx-auto min-h-[320px] sm:h-[420px] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
       >
 
         {/* Main card body */}

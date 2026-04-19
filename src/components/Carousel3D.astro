@@ -1,45 +1,57 @@
 ---
 // Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
 const images = [
-	{ type: 'unsplash', id: '1634017839464-5c339ebe3cb4' }, // 3D fluid purple
-	{ type: 'unsplash', id: '1618005198919-d3d4b5a92ead' }, // 3D digital blue
-	{ type: 'unsplash', id: '1620121692029-d088224ddc74' }, // 3D abstract colorful
-	{ type: 'unsplash', id: '1579546929518-9e396f3cc809' }, // 3D gradient purple
-	{ type: 'unsplash', id: '1635070041078-e363dbe005cb' }, // Abstract tech blue
-	{ type: 'unsplash', id: '1579546929662-711aa81148cf' }, // 3D shapes purple
-	{ type: 'unsplash', id: '1550859492-d5da9d8e45f3' }, // 3D waves blue
-	{ type: 'unsplash', id: '1558494949-ef010cbdcc31' }, // 3D tech abstract
-	{ type: 'unsplash', id: '1451187580459-43490279c0fa' }, // 3D light trails
-	{ type: 'unsplash', id: '1550745165-9bc0b252726f' }, // Abstract neon lights
-	{ type: 'unsplash', id: '1519681393784-d120267933ba' }, // Purple abstract smoke
-	{ type: 'unsplash', id: '1618172193622-ae2d025f4032' }  // Neon blue abstract
+	{ type: 'unsplash' as const, id: '1634017839464-5c339ebe3cb4' }, // 3D fluid purple
+	{ type: 'unsplash' as const, id: '1618005198919-d3d4b5a92ead' }, // 3D digital blue
+	{ type: 'unsplash' as const, id: '1620121692029-d088224ddc74' }, // 3D abstract colorful
+	{ type: 'unsplash' as const, id: '1579546929518-9e396f3cc809' }, // 3D gradient purple
+	{ type: 'unsplash' as const, id: '1635070041078-e363dbe005cb' }, // Abstract tech blue
+	{ type: 'unsplash' as const, id: '1579546929662-711aa81148cf' }, // 3D shapes purple
+	{ type: 'unsplash' as const, id: '1550859492-d5da9d8e45f3' }, // 3D waves blue
+	{ type: 'unsplash' as const, id: '1558494949-ef010cbdcc31' }, // 3D tech abstract
+	{ type: 'unsplash' as const, id: '1451187580459-43490279c0fa' }, // 3D light trails
+	{ type: 'unsplash' as const, id: '1550745165-9bc0b252726f' }, // Abstract neon lights
+	{ type: 'unsplash' as const, id: '1519681393784-d120267933ba' }, // Purple abstract smoke
+	{ type: 'unsplash' as const, id: '1618172193622-ae2d025f4032' }  // Neon blue abstract
 ];
 
 const totalCards = images.length;
 ---
 
-<section class="carousel-section">
-	<div class="scene">
-		<div class="a3d" style={`--n: ${totalCards}`}>
-			{images.map((image, index) => (
-				<img 
-					class="card" 
-					src={image.type === 'unsplash' ? `https://images.unsplash.com/photo-${image.id}?w=280&q=80` : image.src} 
-					style={`--i: ${index}`} 
-					alt="Abstract futuristic design"
-					loading="lazy"
-				/>
-			))}
+<div class="carousel-wrapper">
+	<section class="carousel-section">
+		<div class="scene">
+			<div class="a3d" style={`--n: ${totalCards}`}>
+				{images.map((image, index) => (
+					<img 
+						class="card" 
+						src={`https://images.unsplash.com/photo-${image.id}?w=450&q=80`}
+						style={`--i: ${index}`} 
+						alt="Abstract futuristic design"
+						loading="lazy"
+					/>
+				))}
+			</div>
 		</div>
-	</div>
-</section>
+	</section>
+</div>
 
 <style>
-	.carousel-section {
-		/* Salir del contenedor padre para ocupar todo el ancho */
+	.carousel-wrapper {
+		/*
+		 * El wrapper TAMBIÉN rompe a full-width con el mismo truco 100vw.
+		 * Así en desktop no recorta nada (es tan ancho como el viewport).
+		 * En mobile/tablet, overflow-x:clip evita scroll horizontal
+		 * sin romper el 3D (a diferencia de overflow:hidden).
+		 */
 		width: 100vw;
 		margin-left: calc(50% - 50vw);
 		margin-right: calc(50% - 50vw);
+		position: relative;
+	}
+
+	.carousel-section {
+		width: 100%;
 		/* mover carrusel hacia arriba para integrarlo con la hero-intro */
 		padding: 1rem 0 12rem;
 		/* aumentar margin-top negativo para elevar el carrusel sobre la hero */
@@ -112,6 +124,7 @@ const totalCards = images.length;
 	.card {
 		/* base card width, you may change this */
 		--w: 20em;
+
 		/* compute base angle corresponding to a card */
 		--ba: 1turn/var(--n); /* in the future: sibling-count() */
 		
@@ -143,8 +156,12 @@ const totalCards = images.length;
 		}
 	}
 
-	/* Tablet */
+	/* Tablet: activar clip horizontal para evitar scroll */
 	@media (max-width: 1024px) {
+		.carousel-wrapper {
+			overflow-x: clip;
+		}
+
 		.carousel-section {
 			padding: 0.75rem 0 6rem;
 			/* tablet: subir menos que desktop pero más que antes */
@@ -172,7 +189,7 @@ const totalCards = images.length;
 		}
 
 		.card {
-			--w: 13em;
+			--w: 15em;
 		}
 		
 		.scene {
@@ -192,7 +209,7 @@ const totalCards = images.length;
 		}
 
 		.card {
-			--w: 10em;
+			--w: 12em;
 		}
 		
 		.scene {

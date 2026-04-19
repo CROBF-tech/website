@@ -268,11 +268,13 @@ import "normalize.css";
     @media (max-width: 900px) {
         .you-can-scroll-demo header {
             min-height: 8vh;
-            padding-top: 0.55rem;
+            padding-top: 2rem;
         }
 
         .you-can-scroll-demo section:first-of-type {
-            padding-left: 1.4rem;
+            padding-left: 0;
+            justify-content: center;
+            --font-level: 7;
         }
 
         .you-can-scroll-demo ul {
@@ -292,20 +294,27 @@ import "normalize.css";
 
     @media (max-width: 480px) {
         .you-can-scroll-demo header {
-            padding-top: 0.3rem;
+            padding-top: 0.2rem;
+            min-height: auto;
         }
 
         .you-can-scroll-demo section:first-of-type {
-            padding-left: 0.8rem;
-            --font-level: 4;
+            padding-left: 0;
+            justify-content: center;
+            --font-level: 11;
         }
 
         .you-can-scroll-demo h1 {
-            --font-level: 5;
+            --font-level: 8;
         }
 
         .you-can-scroll-demo .final-moment {
-            --font-level: 3;
+            --font-level: 7;
+        }
+
+        .you-can-scroll-demo ul {
+            padding-top: 1vh;
+            padding-bottom: 5vh;
         }
     }
 </style>

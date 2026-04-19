@@ -270,7 +270,7 @@ const stackingProjects = [
         <Carousel3D />
 
         <!-- services: Ejemplos / ¿Qué podemos crear juntos? -->
-        <section class="services" id="services" style="margin-top: -28rem;">
+        <section class="services" id="services">
             <p class="eyebrow" data-reveal style="--reveal-delay: 0ms;">{copy.servicesSubtitle}</p>
             <h2 data-reveal style="--reveal-delay: 50ms;">{copy.servicesTitle}</h2>
             <div data-reveal style="--reveal-delay: 90ms; margin-top: 0.75rem;">
@@ -592,6 +592,7 @@ const stackingProjects = [
         padding: 1.2rem 0 5rem;
         display: grid;
         gap: 1.8rem;
+        position: relative;
     }
 
     [data-reveal] {
@@ -622,6 +623,13 @@ const stackingProjects = [
 
     :global(body) {
         overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    :global(main) {
+        margin: 0;
+        padding: 0;
     }
 
     .eyebrow {
@@ -969,7 +977,9 @@ const stackingProjects = [
         border-radius: 0;
         padding: 2.2rem 1rem 2.5rem;
         border: 0;
-        margin-top: 12rem;
+        margin-top: -22rem;
+        position: relative;
+        z-index: 1000;
         width: 100%;
         box-sizing: border-box;
     }
@@ -1887,7 +1897,7 @@ const stackingProjects = [
         }
 
         .services {
-            margin-top: 4rem;
+            margin-top: -20rem;
             padding: 1.5rem 0.5rem 2rem;
         }
 
@@ -1957,6 +1967,10 @@ const stackingProjects = [
         .home {
             width: calc(100% - 1.2rem);
             gap: 2rem;
+        }
+
+        .services {
+            margin-top: -14rem;
         }
 
         .hero-title {
