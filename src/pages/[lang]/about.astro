@@ -6,6 +6,7 @@ import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
 import Values from "../../components/Values.astro";
 import Purpose from "../../components/Purpose.astro";
+import { GlobePulse } from "../../components/ui/cobe-globe-pulse";
 
 export function getStaticPaths() {
     return [
@@ -17,6 +18,9 @@ export function getStaticPaths() {
         },
     ];
 }
+
+export const prerender = true;
+
 const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
@@ -101,8 +105,49 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                         />
                     </div>
                 </div>
-                <div class="team-values">
-                    <p set:html={t("about.team.values")} />
+            </section>
+
+            <!-- Globe Section -->
+            <section class="globe-section">
+                <div class="globe-container">
+                    <GlobePulse 
+                        client:load 
+                        speed={0}
+                        markers={[
+                            { id: "pulse-1", location: [-32.8895, -68.8458], delay: 0 },
+                        ]}
+                    />
+                </div>
+                <p class="section-description">
+                    Con base en Argentina y años de trayectoria como desarrolladores de software, volcamos toda nuestra experiencia en crear soluciones web interactivas, animadas y únicas en su clase, trabajando con clientes de cualquier parte del mundo.
+                </p>
+
+                <!-- Services Grid -->
+                <div class="services-help-section">
+                    <h2 class="services-help-title">Podemos ayudarte con ...</h2>
+                    <div class="services-help-grid">
+                        <div class="service-help-item">
+                            <span class="service-number">01</span>
+                            <h3 class="service-help-heading">Diseño</h3>
+                            <p class="service-help-text">
+                                Creamos interfaces estéticas y funcionales centradas en el usuario. Diseñamos experiencias modernas, optimizadas para cualquier dispositivo y enfocadas en potenciar la conversión de tu negocio.
+                            </p>
+                        </div>
+                        <div class="service-help-item">
+                            <span class="service-number">02</span>
+                            <h3 class="service-help-heading">Desarrollo</h3>
+                            <p class="service-help-text">
+                                Construimos soluciones tecnológicas utilizando stacks modernos. Nos enfocamos en el rendimiento, la seguridad y un código limpio que permita que tu plataforma crezca sin limitaciones técnicas.
+                            </p>
+                        </div>
+                        <div class="service-help-item">
+                            <span class="service-number">03</span>
+                            <h3 class="service-help-heading">✦ El paquete completo</h3>
+                            <p class="service-help-text">
+                                Un sitio web completo, desde el concepto hasta la implementación: eso es lo que nos distingue. Nuestro gran sentido del diseño y nuestras habilidades de desarrollo nos permiten crear proyectos increíbles.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -212,12 +257,13 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     }
 
     .section-description {
-        font-size: 1.125rem;
+        font-size: 1.5rem;
         line-height: 1.7;
-        color: var(--color-bright-gray-500);
-        max-width: 800px;
+        color: var(--color-bright-gray-950);
+        max-width: 650px;
         margin: 0 auto 2rem;
         text-align: center;
+        letter-spacing: -0.01em;
     }
 
     :global(html.dark) .section-description {
@@ -335,6 +381,124 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         border-radius: 24px;
         padding: 3rem 2rem;
         margin: 4rem 0;
+    }
+
+    /* Globe Section */
+    .globe-section {
+        margin: 5rem 0;
+        padding: 3rem 0;
+    }
+
+    .globe-container {
+        max-width: 1100px;
+        width: 1100px;
+        height: 550px;
+        margin: 0 auto;
+        padding: 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .globe-container :global(.relative) {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1100px !important;
+        height: 1100px !important;
+    }
+
+    /* Services Help Section */
+    .services-help-section {
+        margin-top: 5rem;
+        padding: 0 2rem;
+    }
+
+    .services-help-title {
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        font-weight: 400;
+        margin-bottom: 3rem;
+        color: var(--color-bright-gray-950);
+        text-align: left;
+    }
+
+    :global(html.dark) .services-help-title {
+        color: var(--color-bright-gray-50);
+    }
+
+    .services-help-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .service-help-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .service-number {
+        font-size: 0.875rem;
+        color: var(--color-bright-gray-400);
+        font-weight: 300;
+    }
+
+    :global(html.dark) .service-number {
+        color: var(--color-bright-gray-500);
+    }
+
+    .service-help-heading {
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: var(--color-bright-gray-950);
+        margin: 0;
+    }
+
+    :global(html.dark) .service-help-heading {
+        color: var(--color-bright-gray-50);
+    }
+
+    .service-help-text {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: var(--color-bright-gray-600);
+        margin: 0;
+    }
+
+    :global(html.dark) .service-help-text {
+        color: var(--color-bright-gray-300);
+    }
+
+    @media (max-width: 1024px) {
+        .services-help-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .services-help-section {
+            margin-top: 3rem;
+            padding: 0 1rem;
+        }
+
+        .services-help-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin-bottom: 2rem;
+        }
+
+        .globe-container {
+            max-width: 100%;
+            padding: 1rem;
+        }
+
+        .globe-section {
+            margin: 3rem 0;
+            padding: 2rem 0;
+        }
     }
 
     :global(html.dark) .philosophy-section {

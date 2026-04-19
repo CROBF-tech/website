@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 
 interface ProjectData {
   title: string;
+  subtitle?: string;
   description: string;
   link: string;
   color: string;
@@ -15,6 +16,7 @@ interface ProjectData {
 interface CardProps {
   i: number;
   title: string;
+  subtitle?: string;
   description: string;
   url: string;
   color: string;
@@ -26,6 +28,7 @@ interface CardProps {
 export const Card = ({
   i,
   title,
+  subtitle,
   description,
   url,
   color,
@@ -58,19 +61,8 @@ export const Card = ({
         }}
         className={`relative -top-[25%] w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] mx-auto min-h-[320px] sm:h-[420px] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
       >
-        {/* Colored accent border */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: '-1.5px',
-            borderRadius: '26px',
-            background: `linear-gradient(135deg, ${color}90 0%, ${color}30 40%, transparent 60%, ${color}20 100%)`,
-            zIndex: -1,
-            pointerEvents: 'none',
-          }}
-        />
 
-        {/* Main card body — dark glass */}
+        {/* Main card body */}
         <div
           style={{
             position: 'relative',
@@ -78,27 +70,106 @@ export const Card = ({
             height: '100%',
             minHeight: 'inherit',
             borderRadius: '24px',
-            background: `linear-gradient(145deg, rgba(20, 20, 28, 0.97), rgba(12, 12, 18, 0.99))`,
-            border: `1px solid ${color}25`,
-            boxShadow: `
-              0 8px 40px rgba(0, 0, 0, 0.5),
-              inset 0 1px 0 rgba(255, 255, 255, 0.06)
-            `,
             overflow: 'hidden',
           }}
         >
-          {/* Subtle inner glow from accent color */}
+          {/* Light mode background and border */}
           <div
+            className='absolute inset-0 dark:hidden'
             style={{
-              position: 'absolute',
-              top: '-40%',
-              left: '-20%',
-              width: '60%',
-              height: '80%',
-              background: `radial-gradient(ellipse, ${color}12 0%, transparent 70%)`,
-              pointerEvents: 'none',
+              background: `
+                radial-gradient(90% 62% at 18% 2%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 55%),
+                linear-gradient(135deg, #ffffff 0%, #f6f9ff 52%, #eef3ff 100%)
+              `,
+              border: '1px solid rgba(70, 103, 190, 0.28)',
+              borderRadius: '24px',
+              boxShadow: `
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+                0 0 14px rgba(69, 109, 236, 0.2),
+                0 10px 24px rgba(26, 44, 94, 0.14)
+              `,
+            }}
+          >
+            {/* Inner border effect for light mode */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '24px',
+                boxShadow: '0 0 0 1px rgba(59, 108, 244, 0.22) inset',
+                pointerEvents: 'none',
+              }}
+            />
+          </div>
+          
+          {/* Dark mode background and border */}
+          <div
+            className='absolute inset-0 hidden dark:block'
+            style={{
+              background: `linear-gradient(180deg, rgba(16, 18, 24, 1), rgba(11, 13, 18, 1))`,
+              border: '1px solid rgba(90, 104, 140, 0.28)',
+              borderRadius: '24px',
+              boxShadow: `0 0 0 1px rgba(255, 255, 255, 0.04) inset`,
             }}
           />
+
+          {/* Animated gradient bottom border - Light mode */}
+          <div
+            className='absolute bottom-0 left-0 right-0 h-5 dark:hidden z-20'
+            style={{
+              borderRadius: '0 0 24px 24px',
+              pointerEvents: 'none',
+              overflow: 'hidden',
+              animation: 'borderFlow 8s linear infinite',
+              backgroundImage: `repeating-linear-gradient(90deg, 
+                rgba(59, 130, 246, 0.8) 0%, 
+                rgba(96, 165, 250, 0.9) 12.5%, 
+                rgba(147, 197, 253, 0.7) 25%, 
+                rgba(59, 130, 246, 0.8) 37.5%, 
+                rgba(30, 64, 175, 0.9) 50%, 
+                rgba(59, 130, 246, 0.8) 62.5%, 
+                rgba(147, 197, 253, 0.7) 75%, 
+                rgba(96, 165, 250, 0.9) 87.5%, 
+                rgba(59, 130, 246, 0.8) 100%
+              )`,
+              backgroundSize: '200% 100%',
+            }}
+          />
+
+          {/* Animated gradient bottom border - Dark mode */}
+          <div
+            className='absolute bottom-0 left-0 right-0 h-5 hidden dark:block z-20'
+            style={{
+              borderRadius: '0 0 24px 24px',
+              pointerEvents: 'none',
+              overflow: 'hidden',
+              animation: 'borderFlow 8s linear infinite',
+              backgroundImage: `repeating-linear-gradient(90deg, 
+                rgba(59, 130, 246, 1) 0%, 
+                rgba(96, 165, 250, 1) 12.5%, 
+                rgba(147, 197, 253, 0.8) 25%, 
+                rgba(59, 130, 246, 1) 37.5%, 
+                rgba(37, 99, 235, 1) 50%, 
+                rgba(59, 130, 246, 1) 62.5%, 
+                rgba(147, 197, 253, 0.8) 75%, 
+                rgba(96, 165, 250, 1) 87.5%, 
+                rgba(59, 130, 246, 1) 100%
+              )`,
+              backgroundSize: '200% 100%',
+            }}
+          />
+
+          {/* Add keyframes for animation */}
+          <style>{`
+            @keyframes borderFlow {
+              from { 
+                background-position: 0% 0;
+              }
+              to { 
+                background-position: 200% 0;
+              }
+            }
+          `}</style>
 
           {/* ── Mobile Layout (flow) ── */}
           <div className='flex sm:hidden flex-col p-5 pt-6 relative z-10 h-full'>
@@ -107,7 +178,7 @@ export const Card = ({
                 fontSize: 'clamp(2rem, 10vw, 3rem)',
                 fontWeight: 800,
                 lineHeight: 1,
-                background: `linear-gradient(135deg, ${color}, ${color}99)`,
+                background: `linear-gradient(135deg, #3b82f6, #60a5fa)`,
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 marginBottom: '0.25rem',
@@ -115,15 +186,22 @@ export const Card = ({
             >
               {stepNumber}
             </p>
-            <h2 className='text-lg font-bold text-white mb-3 leading-tight'>{title}</h2>
-            <ul className='space-y-1.5 flex-1'>
-              {bullets.map((bullet, idx) => (
-                <li key={idx} className='flex items-start gap-2 text-sm text-white/80'>
-                  <span style={{ color, marginTop: '2px', fontSize: '10px' }}>●</span>
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
+            <h2 className='text-lg font-bold mb-2 leading-tight text-[rgba(16,24,48,0.96)] dark:text-[rgba(246,248,255,0.96)]'>{title}</h2>
+            {subtitle && (
+              <p className='text-sm mb-3 text-[rgba(33,48,84,0.85)] dark:text-[rgba(233,239,255,0.85)] leading-relaxed'>
+                {subtitle}
+              </p>
+            )}
+            {bullets.length > 0 && bullets[0] !== '' && (
+              <ul className='space-y-1.5 flex-1'>
+                {bullets.map((bullet, idx) => (
+                  <li key={idx} className='flex items-start gap-2 text-sm text-[rgba(33,48,84,0.9)] dark:text-[rgba(233,239,255,0.9)]'>
+                    <span style={{ color: '#3b82f6', marginTop: '2px', fontSize: '10px' }}>●</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* ── Desktop Layout ── */}
@@ -135,7 +213,7 @@ export const Card = ({
                   fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
                   fontWeight: 800,
                   lineHeight: 1,
-                  background: `linear-gradient(135deg, ${color}, ${color}80)`,
+                  background: `linear-gradient(135deg, #3b82f6, #60a5fa)`,
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   marginBottom: '0.5rem',
@@ -143,15 +221,22 @@ export const Card = ({
               >
                 {stepNumber}
               </p>
-              <h2 className='text-2xl font-bold text-white mb-4 leading-tight'>{title}</h2>
-              <ul className='space-y-2.5'>
-                {bullets.map((bullet, idx) => (
-                  <li key={idx} className='flex items-start gap-2.5 text-[0.95rem] text-white/80 leading-snug'>
-                    <span style={{ color, marginTop: '4px', fontSize: '8px', flexShrink: 0 }}>●</span>
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
+              <h2 className='text-2xl font-bold mb-3 leading-tight text-[rgba(16,24,48,0.96)] dark:text-[rgba(246,248,255,0.96)]'>{title}</h2>
+              {subtitle && (
+                <p className='text-base mb-4 text-[rgba(33,48,84,0.85)] dark:text-[rgba(233,239,255,0.85)] leading-relaxed'>
+                  {subtitle}
+                </p>
+              )}
+              {bullets.length > 0 && bullets[0] !== '' && (
+                <ul className='space-y-2.5'>
+                  {bullets.map((bullet, idx) => (
+                    <li key={idx} className='flex items-start gap-2.5 text-[0.95rem] leading-snug text-[rgba(33,48,84,0.9)] dark:text-[rgba(233,239,255,0.9)]'>
+                      <span style={{ color: '#3b82f6', marginTop: '4px', fontSize: '8px', flexShrink: 0 }}>●</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {/* Right side — media */}
@@ -217,6 +302,7 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(
                   i={i}
                   url={project.link}
                   title={project.title}
+                  subtitle={project.subtitle}
                   color={project.color}
                   description={project.description}
                   progress={scrollYProgress}

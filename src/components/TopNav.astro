@@ -12,9 +12,9 @@ const links = [
 ];
 
 const socials = [
-    { href: "#", label: "Instagram" },
-    { href: "#", label: "LinkedIn" },
-    { href: "#", label: "Github" },
+    { href: "https://www.instagram.com/crobf_tech/", label: "Instagram" },
+    { href: "https://www.linkedin.com/company/crobf/", label: "LinkedIn" },
+    { href: "https://github.com/CROBF-tech", label: "Github" },
 ];
 ---
 
@@ -45,6 +45,12 @@ const socials = [
                 <div data-sidenav-panel="" class="sidenav__menu-bg-panel"></div>
             </div>
             <div class="sidenav__menu-inner">
+                <button class="sidenav__close-btn" data-sidenav-toggle="" aria-label="Cerrar menú">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
                 <ul class="sidenav__menu-list">
                     {
                         links.map((link, index) => (
@@ -68,7 +74,7 @@ const socials = [
                     <div class="sidenav__menu-socials">
                         {
                             socials.map((social) => (
-                                <a data-sidenav-fade="" href={social.href} class="sidenav__button-label">{social.label}</a>
+                                <a data-sidenav-fade="" href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`${social.label} de CROBF`} class="sidenav__button-label">{social.label}</a>
                             ))
                         }
                     </div>
@@ -522,6 +528,35 @@ const socials = [
     width: 100%;
   }
 
+  .sidenav__close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    padding: 0;
+    z-index: 10;
+  }
+
+  .sidenav__close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+  }
+
+  .sidenav__close-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .sidenav__menu-list {
     flex-flow: column;
     width: 100%;
@@ -556,6 +591,26 @@ const socials = [
     justify-content: flex-start;
     align-items: center;
     gap: 0.5em;
+    position: relative;
+  }
+
+  .sidenav__menu-link::before {
+    content: '';
+    position: absolute;
+    left: -1.5em;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: #0052cc;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+  }
+
+  .sidenav__menu-link:hover::before {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
   }
 
   .sidenav__menu-link-heading {
@@ -570,6 +625,10 @@ const socials = [
     letter-spacing: -0.02em;
     color: #000000;
     flex: 0 0 auto;
+  }
+
+  .sidenav__menu-link:hover .sidenav__menu-link-heading {
+    transform: translateX(0.5em);
   }
 
   .sidenav__menu-link-eyebrow {
@@ -614,6 +673,10 @@ const socials = [
     color: rgba(242, 244, 250, 0.95);
   }
 
+  :global(html.dark) .sidenav__menu-link::before {
+    background: #5f7efc;
+  }
+
   :global(html.dark) .sidenav__menu-link:hover {
     color: #ffffff;
   }
@@ -636,6 +699,15 @@ const socials = [
 
   :global(html.dark) .sidenav__button-label {
     color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__close-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  :global(html.dark) .sidenav__close-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
   }
 
   @media (max-width: 1020px) {
