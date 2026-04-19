@@ -147,6 +147,7 @@ const socials = [
     let menuToggles = document.querySelectorAll("[data-sidenav-toggle]");
     let menuLinks = navWrap.querySelectorAll("[data-sidenav-link]");
     let fadeTargets = navWrap.querySelectorAll("[data-sidenav-fade]");
+    let closeBtn = navWrap.querySelector(".sidenav__close-btn");
     let menuButton = document.querySelector("[data-sidenav-button]");
     let menuButtonTexts = menuButton?.querySelectorAll("[data-sidenav-label]");
     let menuButtonIcon = menuButton?.querySelector("[data-sidenav-icon]");
@@ -157,6 +158,10 @@ const socials = [
     }
     if (menuButtonIcon) {
       gsap.set(menuButtonIcon, { rotate: 0 });
+    }
+    // Ocultar botón de cerrar inicialmente
+    if (closeBtn) {
+      gsap.set(closeBtn, { autoAlpha: 0 });
     }
 
     let state = navWrap.getAttribute("data-nav-state");
@@ -173,7 +178,8 @@ const socials = [
         .fromTo(menuButtonIcon, {rotate: 0}, {rotate: 315}, "<")
         .fromTo(overlay, {autoAlpha: 0}, {autoAlpha: 1}, "<")
         .fromTo(bgPanels, {xPercent: -101}, {xPercent: 0, stagger: 0.12, duration: 0.575}, "<")
-        .fromTo(menuLinks, {yPercent: 140, rotate: 10}, {yPercent: 0, rotate: 0, stagger: 0.05}, "<+=0.35")
+        .fromTo(closeBtn, {autoAlpha: 0}, {autoAlpha: 1, duration: 0.3}, "<+=0.3")
+        .fromTo(menuLinks, {yPercent: 140, rotate: 10}, {yPercent: 0, rotate: 0, stagger: 0.05}, "<+=0.05")
         .fromTo(fadeTargets, {autoAlpha: 0, yPercent: 50}, {autoAlpha: 1, yPercent: 0, stagger: 0.04}, "<+=0.2");
     };
     
@@ -182,7 +188,8 @@ const socials = [
       navWrap.setAttribute("data-nav-state", "closed");
       
       tl.clear()
-        .to(overlay, {autoAlpha: 0})
+        .to(closeBtn, {autoAlpha: 0, duration: 0.2})
+        .to(overlay, {autoAlpha: 0}, "<")
         .to(menu, {xPercent: -120}, "<")
         .to(menuButtonTexts, {yPercent: 0}, "<")
         .to(menuButtonIcon, {rotate: 0}, "<")
@@ -335,15 +342,21 @@ const socials = [
     padding: 0 1.5rem;
     border-radius: 999px;
     text-decoration: none;
-    color: rgba(16, 25, 49, 0.96);
+    color: rgba(16, 25, 49, 0.96) !important;
     font-size: 16px;
     font-weight: 600;
-    background: transparent;
+    background: transparent !important;
     transition: opacity 160ms ease;
   }
 
-  .cta:hover {
+  .cta:hover,
+  .cta:focus,
+  .cta:active,
+  .cta:visited,
+  .cta:link {
     opacity: 0.7;
+    color: rgba(16, 25, 49, 0.96) !important;
+    background: transparent !important;
   }
 
   .brand {
@@ -405,15 +418,21 @@ const socials = [
     padding: 0 1.5rem;
     border-radius: 999px;
     text-decoration: none;
-    color: rgba(16, 25, 49, 0.96);
+    color: rgba(16, 25, 49, 0.96) !important;
     font-size: 16px;
     font-weight: 600;
-    background: transparent;
+    background: transparent !important;
     transition: opacity 160ms ease;
   }
 
-  .cta:hover {
+  .cta:hover,
+  .cta:focus,
+  .cta:active,
+  .cta:visited,
+  .cta:link {
     opacity: 0.7;
+    color: rgba(16, 25, 49, 0.96) !important;
+    background: transparent !important;
   }
 
   .sidenav__button-text {
@@ -535,20 +554,27 @@ const socials = [
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    color: #ffffff;
+    color: #000000;
     padding: 0;
     z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  [data-nav-state="open"] .sidenav__close-btn {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .sidenav__close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     transform: rotate(90deg);
   }
 
@@ -662,7 +688,17 @@ const socials = [
   }
 
   :global(html.dark) .cta {
-    color: #ffffff;
+    color: #ffffff !important;
+    background: transparent !important;
+  }
+
+  :global(html.dark) .cta:hover,
+  :global(html.dark) .cta:focus,
+  :global(html.dark) .cta:active,
+  :global(html.dark) .cta:visited,
+  :global(html.dark) .cta:link {
+    color: #ffffff !important;
+    background: transparent !important;
   }
 
   :global(html.dark) .nav-link {

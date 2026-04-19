@@ -62,14 +62,6 @@ function BentoGrid({ items }: BentoGridProps) {
                                 <h3 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">{item.title}</h3>
                                 <p className="text-sm font-[425] leading-relaxed text-gray-700 dark:text-gray-300">{item.text}</p>
                             </div>
-
-                            <div className="pt-2 mt-auto flex flex-row items-center justify-between">
-                                <div className="flex items-center space-x-2 text-xs text-gray-900 dark:text-gray-400">
-                                    <span className="rounded-md bg-black/5 px-2 py-1 backdrop-blur-sm transition-all duration-200 hover:bg-black/10 dark:bg-white/10 dark:text-gray-300 dark:hover:bg-white/20">
-                                        #servicio
-                                    </span>
-                                </div>
-                            </div>
                         </div>
 
                         <div className="pointer-events-none absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-transparent via-gray-100/50 to-transparent p-px opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:via-white/5" />

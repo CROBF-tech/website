@@ -151,40 +151,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                 </div>
             </section>
 
-            <!-- Philosophy Section -->
-            <section class="section philosophy-section">
-                <h2 class="section-title">{t("about.philosophy.title")}</h2>
-                <p class="section-description" set:html={t("about.philosophy.description")} />
-                <PhilosophyCards />
-                <p class="motto" set:html={t("about.philosophy.motto")} />
-            </section>
 
-            <!-- Values Section -->
-            <section class="section">
-                <h2 class="section-title" set:html={t("about.values.title")} />
-                <Values />
-            </section>
-
-            <!-- Purpose Section -->
-            <section class="section">
-                <h2 class="section-title" set:html={t("about.purpose.title")} />
-                <Purpose />
-                <p class="section-description" set:html={t("about.purpose.summary")} />
-            </section>
-
-            <!-- Vision Section -->
-            <section class="section">
-                <h2 class="section-title" set:html={t("about.vision.title")} />
-                <p class="section-description" set:html={t("about.vision.description")} />
-            </section>
-
-            <!-- Contact Section -->
-            <section class="contact-section">
-                <div class="contact-card">
-                    <h2 class="contact-title" set:html={t("about.contact.title")} />
-                    <p class="contact-description" set:html={t("about.contact.description")} />
-                </div>
-            </section>
         </div>
     </main>
 </Layout>

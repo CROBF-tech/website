@@ -131,17 +131,17 @@ const t = useTranslations(lang);
 
     html.dark .visual-panel { background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.1)); }
 
-    .form-header .heading { line-height: 1.05; font-size: 1.8rem; color: #fff; margin: 0 0 8px 0; font-weight: 700; }
-    .form-header .sub { margin: 0 0 18px 0; color: rgba(255,255,255,0.72); font-size: 0.95rem; }
+    .form-header .heading { line-height: 1.05; font-size: 2rem; color: #fff; margin: 0 0 8px 0; font-weight: 700; }
+    .form-header .sub { margin: 0 0 18px 0; color: rgba(255,255,255,0.72); font-size: 1.05rem; }
 
     .form-panel form { display: flex; flex-direction: column; gap: 12px; }
 
-    .field label { display:block; font-size:0.85rem; color: rgba(255,255,255,0.75); margin-bottom:6px; }
+    .field label { display:block; font-size:0.95rem; color: rgba(255,255,255,0.75); margin-bottom:6px; }
     .field input, .field textarea {
         background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.12);
-        padding: 12px 6px; color:#fff; font-size:1rem; width: 100%; box-sizing: border-box;
+        padding: 12px 6px; color:#fff; font-size:1.1rem; width: 100%; box-sizing: border-box;
     }
-    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.45); }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.45); font-size: 1.05rem; }
     .field textarea { min-height:120px; width:100%; resize:none; }
 
     .field input:focus, .field textarea:focus {
@@ -151,7 +151,7 @@ const t = useTranslations(lang);
 
     .actions { margin-top:6px; }
     .actions button[type="submit"]{
-        background:#fff; color:#0b0b0b; border:none; border-radius:999px; padding:12px 26px; font-size:1rem; font-weight:700;
+        background:#fff; color:#0b0b0b; border:none; border-radius:999px; padding:12px 26px; font-size:1.05rem; font-weight:700;
         cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,0.28);
     }
     .actions button[type="submit"]:hover{ transform: translateY(-2px); transition: transform 0.18s ease; }

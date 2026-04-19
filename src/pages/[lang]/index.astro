@@ -167,6 +167,11 @@ const projects = [
         text: "Sitio institucional con foco en conversion.",
     },
     {
+        image: "/images/olympo-phone-screen.png",
+        title: "Catálogo Digital",
+        text: "Catálogo premium: Estética moderna y conversión ágil.",
+    },
+    {
         image: "/projects/todo-app.svg",
         title: "Taskflow",
         text: "Sistema de tareas y productividad para equipos.",
@@ -265,10 +270,10 @@ const stackingProjects = [
         <Carousel3D />
 
         <!-- services: Ejemplos / ¿Qué podemos crear juntos? -->
-        <section class="services" id="services" style="margin-top: -24rem;">
+        <section class="services" id="services" style="margin-top: -28rem;">
             <p class="eyebrow" data-reveal style="--reveal-delay: 0ms;">{copy.servicesSubtitle}</p>
             <h2 data-reveal style="--reveal-delay: 50ms;">{copy.servicesTitle}</h2>
-            <div data-reveal style="--reveal-delay: 90ms; margin-top: 3.5rem;">
+            <div data-reveal style="--reveal-delay: 90ms; margin-top: 0.75rem;">
                 <BentoGrid client:load items={serviceItems} />
             </div>
         </section>
@@ -886,18 +891,25 @@ const stackingProjects = [
             inset 0 1px 1px rgba(255, 255, 255, 0.1),
             inset 0 -1px 2px rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(16, 25, 49, 0.96);
+        color: rgba(16, 25, 49, 0.96) !important;
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
     }
 
-    .btn-ghost:hover {
+    .btn-ghost:hover,
+    .btn-ghost:focus,
+    .btn-ghost:active {
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
         border-color: rgba(255, 255, 255, 0.2);
         box-shadow: 
             0 20px 40px -10px rgba(0, 0, 0, 0.2),
             inset 0 1px 1px rgba(255, 255, 255, 0.2);
         color: rgba(16, 25, 49, 1) !important;
+    }
+
+    .btn-ghost:visited,
+    .btn-ghost:link {
+        color: rgba(16, 25, 49, 0.96) !important;
     }
 
     :global(html.dark) .btn-primary {
@@ -924,10 +936,17 @@ const stackingProjects = [
         color: rgba(255, 255, 255, 0.96) !important;
     }
 
-    :global(html.dark) .btn-ghost:hover {
+    :global(html.dark) .btn-ghost:hover,
+    :global(html.dark) .btn-ghost:focus,
+    :global(html.dark) .btn-ghost:active {
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
         border-color: rgba(255, 255, 255, 0.25);
         color: rgba(255, 255, 255, 1) !important;
+    }
+
+    :global(html.dark) .btn-ghost:visited,
+    :global(html.dark) .btn-ghost:link {
+        color: rgba(255, 255, 255, 0.96) !important;
     }
 
     .hero-visual {
@@ -1550,11 +1569,16 @@ const stackingProjects = [
         font-weight: 700;
         color: #ffffff;
         text-shadow: 
-            0 2px 20px rgba(0, 0, 0, 0.5),
-            -1px -1px 0 rgba(0, 0, 0, 0.3),
-            1px -1px 0 rgba(0, 0, 0, 0.3),
-            -1px 1px 0 rgba(0, 0, 0, 0.3),
-            1px 1px 0 rgba(0, 0, 0, 0.3);
+            0 0 6px rgba(0, 0, 0, 0.9),
+            0 0 10px rgba(0, 0, 0, 0.7),
+            -1.5px -1.5px 0 rgba(0, 0, 0, 0.8),
+            1.5px -1.5px 0 rgba(0, 0, 0, 0.8),
+            -1.5px 1.5px 0 rgba(0, 0, 0, 0.8),
+            1.5px 1.5px 0 rgba(0, 0, 0, 0.8),
+            -2px 0 0 rgba(0, 0, 0, 0.7),
+            2px 0 0 rgba(0, 0, 0, 0.7),
+            0 -2px 0 rgba(0, 0, 0, 0.7),
+            0 2px 0 rgba(0, 0, 0, 0.7);
         max-width: 20ch;
         margin-bottom: 0.5rem;
     }
@@ -1629,11 +1653,6 @@ const stackingProjects = [
         color: rgba(229, 236, 255, 0.76);
     }
 
-    :global(html.dark) .btn-ghost {
-        border-color: rgba(116, 136, 255, 0.45);
-        color: #dce4ff;
-        background: rgba(30, 36, 55, 0.65);
-    }
 
     :global(html.dark) .service-card,
     :global(html.dark) .project-card {
