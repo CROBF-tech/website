@@ -1,0 +1,912 @@
+---
+import { getLangFromUrl } from "../i18n/translate";
+
+const lang = getLangFromUrl(Astro.url);
+const homeHref = `/${lang}`;
+
+const links = [
+    { href: homeHref, label: "Inicio" },
+    { href: `${homeHref}/projects`, label: "Proyectos" },
+    { href: `${homeHref}/blog`, label: "Blog" },
+    { href: `${homeHref}/about`, label: "Equipo" },
+];
+
+const socials = [
+    { href: "https://www.instagram.com/crobf_tech/", label: "Instagram" },
+    { href: "https://www.linkedin.com/company/crobf/", label: "LinkedIn" },
+    { href: "https://github.com/CROBF-tech", label: "Github" },
+];
+---
+
+<header class="top-nav" data-navbar>
+    <nav class="nav-shell" aria-label="Principal">
+        <a href={`${homeHref}/contact`} class="cta">Contáctanos</a>
+
+        <a href={homeHref} class="brand" aria-label="Ir al inicio">
+            <span class="brand-mark" aria-hidden="true">
+                <img src="/crobf-logo.png" alt="" class="brand-logo" />
+            </span>
+            <span class="brand-text">CROBF</span>
+        </a>
+
+        <div class="nav-links">
+            <a href={`${homeHref}/projects`} class="nav-link">Proyectos</a>
+            <a href={`${homeHref}/blog`} class="nav-link">Blog</a>
+            <a href={`${homeHref}/about`} class="nav-link">Equipo</a>
+        </div>
+    </nav>
+
+    <div data-sidenav-wrap="" data-nav-state="closed" class="sidenav__nav">
+        <div data-sidenav-overlay="" data-sidenav-toggle="" class="sidenav__overlay"></div>
+        <nav data-sidenav-menu="" class="sidenav__menu">
+            <div class="sidenav__menu-bg">
+                <div data-sidenav-panel="" class="sidenav__menu-bg-panel is--first"></div>
+                <div data-sidenav-panel="" class="sidenav__menu-bg-panel is--second"></div>
+                <div data-sidenav-panel="" class="sidenav__menu-bg-panel"></div>
+            </div>
+            <div class="sidenav__menu-inner">
+                <button class="sidenav__close-btn" data-sidenav-toggle="" aria-label="Cerrar menú">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <ul class="sidenav__menu-list">
+                    {
+                        links.map((link, index) => (
+                            <li class="sidenav__menu-list-item">
+                                <a data-sidenav-link="" href={link.href} class="sidenav__menu-link">
+                                    <p class="sidenav__menu-link-heading">{link.label}</p>
+                                    <p class="sidenav__menu-link-eyebrow">0{index + 1}</p>
+                                </a>
+                            </li>
+                        ))
+                    }
+                    <li class="sidenav__menu-list-item">
+                        <a data-sidenav-link="" href={`${homeHref}/contact`} class="sidenav__menu-link">
+                            <p class="sidenav__menu-link-heading">Contáctanos</p>
+                            <p class="sidenav__menu-link-eyebrow">0{links.length + 1}</p>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidenav__menu-details">
+                    <p data-sidenav-fade="" class="sidenav__button-label">Socials</p>
+                    <div class="sidenav__menu-socials">
+                        {
+                            socials.map((social) => (
+                                <a data-sidenav-fade="" href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`${social.label} de CROBF`} class="sidenav__button-label">{social.label}</a>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Botón flotante que aparece al hacer scroll (fuera del header) -->
+<button class="floating-menu-btn" data-floating-menu aria-label="Abrir menú">
+    <span class="hamburger-icon">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </span>
+</button>
+
+<script is:inline>
+  // Cargar GSAP dinámicamente y luego iniciar
+  function loadGSAPAndInit() {
+    // Cargar gsap
+    const gsapScript = document.createElement('script');
+    gsapScript.src = 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js';
+    gsapScript.onload = () => {
+      // Cargar CustomEase después de GSAP
+      const customEaseScript = document.createElement('script');
+      customEaseScript.src = 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js';
+      customEaseScript.onload = () => {
+        initSideNavWipeEffect();
+      };
+      document.head.appendChild(customEaseScript);
+    };
+    document.head.appendChild(gsapScript);
+  }
+
+  function initSideNavWipeEffect(){
+    if (!window.gsap) {
+      setTimeout(initSideNavWipeEffect, 100);
+      return;
+    }
+
+    const gsap = window.gsap;
+    
+    // Registrar CustomEase si está disponible
+    if (window.CustomEase) {
+      gsap.registerPlugin(window.CustomEase);
+      window.CustomEase.create("main", "0.65, 0.01, 0.05, 0.99");
+    }
+
+    gsap.defaults({
+      ease: window.CustomEase ? "main" : "power2.inOut",
+      duration: 0.7
+    });
+
+    let navWrap = document.querySelector("[data-sidenav-wrap]");
+    if (!navWrap) {
+      console.log("navWrap no encontrado");
+      return;
+    }
+
+    // Evita agregar listeners duplicados si el script se ejecuta de nuevo.
+    if (navWrap.dataset.sidenavInitialized === "true") {
+      return;
+    }
+    navWrap.dataset.sidenavInitialized = "true";
+    
+    let overlay = navWrap.querySelector("[data-sidenav-overlay]");
+    let menu = navWrap.querySelector("[data-sidenav-menu]");
+    let bgPanels = navWrap.querySelectorAll("[data-sidenav-panel]");
+    let menuToggles = document.querySelectorAll("[data-sidenav-toggle]");
+    let menuLinks = navWrap.querySelectorAll("[data-sidenav-link]");
+    let fadeTargets = navWrap.querySelectorAll("[data-sidenav-fade]");
+    let closeBtn = navWrap.querySelector(".sidenav__close-btn");
+    let menuButton = document.querySelector("[data-sidenav-button]");
+    let menuButtonTexts = menuButton?.querySelectorAll("[data-sidenav-label]");
+    let menuButtonIcon = menuButton?.querySelector("[data-sidenav-icon]");
+
+    // Estado visual inicial del botón: mostrar "Menu".
+    if (menuButtonTexts?.length) {
+      gsap.set(menuButtonTexts, { yPercent: 0 });
+    }
+    if (menuButtonIcon) {
+      gsap.set(menuButtonIcon, { rotate: 0 });
+    }
+    // Ocultar botón de cerrar inicialmente
+    if (closeBtn) {
+      gsap.set(closeBtn, { autoAlpha: 0 });
+    }
+
+    let state = navWrap.getAttribute("data-nav-state");
+    let tl = gsap.timeline();
+    
+    const openNav = () => {
+      state = "open";
+      navWrap.setAttribute("data-nav-state", "open");
+      
+      tl.clear()
+        .set(navWrap, {display: "block"})
+        .set(menu, {xPercent: 0}, "<")
+        .fromTo(menuButtonTexts, {yPercent: 0}, {yPercent: -100, stagger: 0.2})
+        .fromTo(menuButtonIcon, {rotate: 0}, {rotate: 315}, "<")
+        .fromTo(overlay, {autoAlpha: 0}, {autoAlpha: 1}, "<")
+        .fromTo(bgPanels, {xPercent: -101}, {xPercent: 0, stagger: 0.12, duration: 0.575}, "<")
+        .fromTo(closeBtn, {autoAlpha: 0}, {autoAlpha: 1, duration: 0.3}, "<+=0.3")
+        .fromTo(menuLinks, {yPercent: 140, rotate: 10}, {yPercent: 0, rotate: 0, stagger: 0.05}, "<+=0.05")
+        .fromTo(fadeTargets, {autoAlpha: 0, yPercent: 50}, {autoAlpha: 1, yPercent: 0, stagger: 0.04}, "<+=0.2");
+    };
+    
+    const closeNav = () => {
+      state = "closed";
+      navWrap.setAttribute("data-nav-state", "closed");
+      
+      tl.clear()
+        .to(closeBtn, {autoAlpha: 0, duration: 0.2})
+        .to(overlay, {autoAlpha: 0}, "<")
+        .to(menu, {xPercent: -120}, "<")
+        .to(menuButtonTexts, {yPercent: 0}, "<")
+        .to(menuButtonIcon, {rotate: 0}, "<")
+        .set(navWrap, {display: "none"});
+    };
+    
+    menuToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        state = navWrap.getAttribute("data-nav-state");
+        if (state === "open") {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });    
+    });
+    
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && navWrap.getAttribute("data-nav-state") === "open") {
+        closeNav();
+      }
+    });
+    
+    console.log("Sidenav initialized successfully");
+  }
+
+  // Inicializar cuando el documento esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadGSAPAndInit);
+  } else {
+    loadGSAPAndInit();
+  }
+
+  // Scroll detection for floating button
+  function initScrollBehavior() {
+    const navbar = document.querySelector('[data-navbar]');
+    const floatingBtn = document.querySelector('[data-floating-menu]');
+    const navWrap = document.querySelector("[data-sidenav-wrap]");
+    
+    console.log('Floating button found:', floatingBtn);
+    
+    if (!navbar || !floatingBtn) {
+      console.log('Navbar or floating button not found');
+      return;
+    }
+
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const navbarHeight = navbar.offsetHeight;
+      
+      console.log('Scroll Y:', currentScrollY, 'Navbar height:', navbarHeight);
+      
+      // Show floating button when scrolled past the navbar
+      if (currentScrollY > navbarHeight + 50) {
+        floatingBtn.classList.add('show');
+        console.log('Showing floating button');
+      } else {
+        floatingBtn.classList.remove('show');
+        console.log('Hiding floating button');
+      }
+
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }
+
+    // Floating button opens the sidenav
+    floatingBtn.addEventListener('click', () => {
+      console.log('Floating button clicked');
+      const state = navWrap?.getAttribute("data-nav-state");
+      if (state === "closed") {
+        // Trigger the same open function
+        const menuToggle = document.querySelector("[data-sidenav-toggle]");
+        if (menuToggle) {
+          menuToggle.click();
+        }
+        floatingBtn.classList.add('menu-open');
+      } else {
+        // Close the menu
+        const menuToggle = document.querySelector("[data-sidenav-toggle]");
+        if (menuToggle) {
+          menuToggle.click();
+        }
+        floatingBtn.classList.remove('menu-open');
+      }
+    });
+
+    // Listen for menu state changes to update button
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-nav-state') {
+          const state = navWrap.getAttribute('data-nav-state');
+          if (state === 'open') {
+            floatingBtn.classList.add('menu-open');
+          } else {
+            floatingBtn.classList.remove('menu-open');
+          }
+        }
+      });
+    });
+
+    if (navWrap) {
+      observer.observe(navWrap, { attributes: true });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Check initial state
+    updateNavbar();
+  }
+
+  // Initialize scroll behavior after DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initScrollBehavior);
+  } else {
+    initScrollBehavior();
+  }
+</script>
+
+<style>
+  /* Los estilos de posición del .top-nav están en navbar.css global */
+  
+  .nav-shell {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    min-height: 72px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 2rem;
+    position: relative;
+    padding: 0 2.6rem;
+  }
+
+  .cta {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-width: 150px;
+    padding: 0 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96) !important;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent !important;
+    transition: opacity 160ms ease;
+  }
+
+  .cta:hover,
+  .cta:focus,
+  .cta:active,
+  .cta:visited,
+  .cta:link {
+    opacity: 0.7;
+    color: rgba(16, 25, 49, 0.96) !important;
+    background: transparent !important;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96);
+    justify-self: center;
+    margin-left: 3rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-self: end;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96);
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-link:hover {
+    opacity: 0.7;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  .brand-text {
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: rgba(16, 25, 49, 0.96);
+  }
+
+  .cta {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-width: 150px;
+    padding: 0 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: rgba(16, 25, 49, 0.96) !important;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent !important;
+    transition: opacity 160ms ease;
+  }
+
+  .cta:hover,
+  .cta:focus,
+  .cta:active,
+  .cta:visited,
+  .cta:link {
+    opacity: 0.7;
+    color: rgba(16, 25, 49, 0.96) !important;
+    background: transparent !important;
+  }
+
+  .sidenav__button-text {
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 1.5em;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .sidenav__button-icon {
+    justify-content: center;
+    align-items: center;
+    width: 1em;
+    height: 1em;
+    transition: transform 0.4s cubic-bezier(0.65, 0.05, 0, 1);
+    display: flex;
+  }
+
+  .sidenav__button-icon-svg {
+    width: 100%;
+  }
+
+  .sidenav__button-label {
+    color: #000000;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.125em;
+    line-height: 1.4;
+  }
+
+  .sidenav__nav {
+    z-index: 9999;
+    width: 100%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    position: fixed;
+    inset: 0%;
+  }
+
+  .sidenav__overlay {
+    z-index: 0;
+    cursor: pointer;
+    background-color: #13131366;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0%;
+  }
+
+  .sidenav__menu {
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 26em;
+    height: auto;
+    margin-left: 0;
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: 4em;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    border-top-right-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
+  }
+
+  .sidenav__menu-bg {
+    z-index: 0;
+    position: absolute;
+    inset: 0%;
+    overflow: hidden;
+  }
+
+  .sidenav__menu-bg-panel {
+    z-index: 0;
+    background-color: #ffffff;
+    position: absolute;
+    inset: 0%;
+    min-height: 100%;
+    min-width: 100%;
+    border-top-right-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
+  }
+
+  .sidenav__menu-bg-panel.is--first {
+    background-color: #0052cc;
+  }
+
+  .sidenav__menu-bg-panel.is--second {
+    background-color: #131313;
+  }
+
+  .sidenav__menu-inner {
+    z-index: 1;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    padding-top: 8em;
+    padding-left: 3em;
+    width: 100%;
+  }
+
+  .sidenav__close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #000000;
+    padding: 0;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  [data-nav-state="open"] .sidenav__close-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidenav__close-btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+    transform: rotate(90deg);
+  }
+
+  .sidenav__close-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .sidenav__menu-list {
+    flex-flow: column;
+    width: 100%;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .sidenav__menu-list-item {
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+  }
+
+  .sidenav__menu-link {
+    grid-column-gap: 0.75em;
+    grid-row-gap: 0.75em;
+    color: #131313;
+    width: auto;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 0;
+    padding-right: 2em;
+    text-decoration: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    position: relative;
+  }
+
+  .sidenav__menu-link::before {
+    content: '';
+    position: absolute;
+    left: -1.5em;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: #0052cc;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+  }
+
+  .sidenav__menu-link:hover::before {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+
+  .sidenav__menu-link-heading {
+    z-index: 1;
+    font-family: PP Neue Corp Tight, Arial, sans-serif;
+    font-size: 2.5em;
+    font-weight: 500;
+    line-height: 1.1;
+    transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
+    position: relative;
+    margin: 0px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    flex: 0 0 auto;
+  }
+
+  .sidenav__menu-link:hover .sidenav__menu-link-heading {
+    transform: translateX(0.5em);
+  }
+
+  .sidenav__menu-link-eyebrow {
+    display: none;
+  }
+
+  .sidenav__menu-details {
+    grid-column-gap: 1.25em;
+    grid-row-gap: 1.25em;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 0.5em;
+    padding-bottom: 2em;
+    padding-right: 2em;
+    padding-top: 3em;
+    display: flex;
+    width: 100%;
+  }
+
+  .sidenav__menu-socials {
+    grid-column-gap: 1.5em;
+    grid-row-gap: 1.5em;
+    flex-flow: row;
+    display: flex;
+  }
+
+  :global(html.dark) .brand,
+  :global(html.dark) .brand-text {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .cta {
+    color: #ffffff !important;
+    background: transparent !important;
+  }
+
+  :global(html.dark) .cta:hover,
+  :global(html.dark) .cta:focus,
+  :global(html.dark) .cta:active,
+  :global(html.dark) .cta:visited,
+  :global(html.dark) .cta:link {
+    color: #ffffff !important;
+    background: transparent !important;
+  }
+
+  :global(html.dark) .nav-link {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__menu-link {
+    color: rgba(242, 244, 250, 0.95);
+  }
+
+  :global(html.dark) .sidenav__menu-link::before {
+    background: #5f7efc;
+  }
+
+  :global(html.dark) .sidenav__menu-link:hover {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__menu-bg-panel {
+    background-color: #1a1a1a;
+  }
+
+  :global(html.dark) .sidenav__menu-bg-panel.is--first {
+    background-color: #0052cc;
+  }
+
+  :global(html.dark) .sidenav__menu-bg-panel.is--second {
+    background-color: #0a0a0a;
+  }
+
+  :global(html.dark) .sidenav__menu-link-heading {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__button-label {
+    color: #ffffff;
+  }
+
+  :global(html.dark) .sidenav__close-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  :global(html.dark) .sidenav__close-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  @media (max-width: 1020px) {
+    .brand-text {
+      font-size: 22px;
+    }
+
+    .cta {
+      font-size: 14px;
+      height: 38px;
+      min-width: 122px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .nav-shell {
+      max-width: 100%;
+      padding: 0 1.8rem;
+      min-height: 74px;
+      grid-template-columns: auto 1fr;
+      column-gap: 1rem;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .cta {
+      display: none;
+    }
+
+    .brand-text {
+      font-size: clamp(18px, 5.2vw, 22px);
+    }
+
+    .sidenav__menu {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-shell {
+      padding: 0 1rem;
+      min-height: 68px;
+    }
+
+    .sidenav__button {
+      min-width: 84px;
+      height: 38px;
+      padding: 0 0.65rem;
+      font-size: 13px;
+    }
+
+    .brand-logo {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  /* Floating menu button styles */
+  .floating-menu-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #4e6ff7;
+    border: none;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(78, 111, 247, 0.5);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    padding: 0;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .floating-menu-btn:hover {
+    background: #5f7efc;
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(78, 111, 247, 0.6);
+  }
+
+  .floating-menu-btn.show {
+    display: flex;
+    animation: fadeInScale 0.4s ease forwards;
+  }
+
+  @keyframes fadeInScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hamburger-line {
+    width: 26px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  /* Cuando el menú está abierto, transformar las líneas en X */
+  .floating-menu-btn.menu-open .hamburger-line:first-child {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  .floating-menu-btn.menu-open .hamburger-line:last-child {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+
+  :global(html.dark) .floating-menu-btn {
+    background: rgba(78, 111, 247, 0.9);
+  }
+
+  :global(html.dark) .floating-menu-btn:hover {
+    background: rgba(95, 126, 252, 0.95);
+  }
+
+  @media (max-width: 820px) {
+    .floating-menu-btn {
+      width: 64px;
+      height: 64px;
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+
+    .hamburger-line {
+      width: 24px;
+      height: 2.5px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .floating-menu-btn {
+      width: 58px;
+      height: 58px;
+      top: 1.25rem;
+      left: 1.25rem;
+    }
+
+    .hamburger-line {
+      width: 22px;
+      height: 2.5px;
+    }
+  }
+</style>

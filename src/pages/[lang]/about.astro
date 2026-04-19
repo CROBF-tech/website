@@ -6,6 +6,7 @@ import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
 import Values from "../../components/Values.astro";
 import Purpose from "../../components/Purpose.astro";
+import { GlobePulse } from "../../components/ui/cobe-globe-pulse";
 
 export function getStaticPaths() {
     return [
@@ -17,6 +18,9 @@ export function getStaticPaths() {
         },
     ];
 }
+
+export const prerender = true;
+
 const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
@@ -25,15 +29,10 @@ const t = useTranslations(getLangFromUrl(Astro.url));
         <div class="container">
             <!-- Hero Section -->
             <section class="hero-section">
-                <h1 class="hero-title">{t("about.title")} - <span class="accent-text">CROBF</span></h1>
-                <p class="hero-description" set:html={t("about.welcome")} />
+                <h1 class="hero-title">SOBRE NOSOTROS</h1>
             </section>
 
-            <!-- Who We Are Section -->
-            <section class="section">
-                <h2 class="section-title">{t("about.whoWeAre.title")}</h2>
-                <p class="section-description" set:html={t("about.whoWeAre.description")} />
-            </section>
+            <!-- Who We Are Section removed per request -->
 
             <!-- Team Grid -->
             <section class="team-section">
@@ -74,64 +73,85 @@ const t = useTranslations(getLangFromUrl(Astro.url));
                         profession={TEAM_MEMBERS.Lautaro.profession}
                         description={TEAM_MEMBERS.Lautaro.description}
                     />
+                    <div class="team-center-col">
+                        <CardFounder
+                            name={TEAM_MEMBERS.Briana.fullname}
+                            image={TEAM_MEMBERS.Briana.logo}
+                            github={TEAM_MEMBERS.Briana.gitHub}
+                            linkedin={TEAM_MEMBERS.Briana.linkedin}
+                            link={TEAM_MEMBERS.Briana.link}
+                            profession={TEAM_MEMBERS.Briana.profession}
+                            description={TEAM_MEMBERS.Briana.description}
+                        />
+                    </div>
                     <CardFounder
-                        name={TEAM_MEMBERS.Briana.fullname}
-                        image={TEAM_MEMBERS.Briana.logo}
-                        github={TEAM_MEMBERS.Briana.gitHub}
-                        linkedin={TEAM_MEMBERS.Briana.linkedin}
-                        link={TEAM_MEMBERS.Briana.link}
-                        profession={TEAM_MEMBERS.Briana.profession}
-                        description={TEAM_MEMBERS.Briana.description}
-                    />
-                    <CardFounder
-                        name={TEAM_MEMBERS.Sofia.fullName}
-                        image={TEAM_MEMBERS.Sofia.logo}
+                        name={"Valentina Osorio"}
+                        image={'/founders/valentina_osorio.jpeg'}
                         github={TEAM_MEMBERS.Sofia.gitHub}
                         linkedin={TEAM_MEMBERS.Sofia.linkedin}
                         link={TEAM_MEMBERS.Sofia.link}
-                        profession={TEAM_MEMBERS.Sofia.profession}
+                        profession={'Diseñador UX/UI'}
                         description={TEAM_MEMBERS.Sofia.description}
                     />
-                </div>
-                <div class="team-values">
-                    <p set:html={t("about.team.values")} />
-                </div>
-            </section>
-
-            <!-- Philosophy Section -->
-            <section class="section philosophy-section">
-                <h2 class="section-title">{t("about.philosophy.title")}</h2>
-                <p class="section-description" set:html={t("about.philosophy.description")} />
-                <PhilosophyCards />
-                <p class="motto" set:html={t("about.philosophy.motto")} />
-            </section>
-
-            <!-- Values Section -->
-            <section class="section">
-                <h2 class="section-title" set:html={t("about.values.title")} />
-                <Values />
-            </section>
-
-            <!-- Purpose Section -->
-            <section class="section">
-                <h2 class="section-title" set:html={t("about.purpose.title")} />
-                <Purpose />
-                <p class="section-description" set:html={t("about.purpose.summary")} />
-            </section>
-
-            <!-- Vision Section -->
-            <section class="section">
-                <h2 class="section-title" set:html={t("about.vision.title")} />
-                <p class="section-description" set:html={t("about.vision.description")} />
-            </section>
-
-            <!-- Contact Section -->
-            <section class="contact-section">
-                <div class="contact-card">
-                    <h2 class="contact-title" set:html={t("about.contact.title")} />
-                    <p class="contact-description" set:html={t("about.contact.description")} />
+                    <div class="team-center-col">
+                        <CardFounder
+                            name={"Magali Rodriguez"}
+                            image={'/founders/magali_rodriguez.jpeg'}
+                            github={""}
+                            linkedin={"https://ar.linkedin.com/in/magalidev"}
+                            link={'/founders/magali_rodriguez'}
+                            profession={'Diseñador UX/UI'}
+                            description={""}
+                        />
+                    </div>
                 </div>
             </section>
+
+            <!-- Globe Section -->
+            <section class="globe-section">
+                <div class="globe-container">
+                    <GlobePulse 
+                        client:load 
+                        speed={0}
+                        markers={[
+                            { id: "pulse-1", location: [-32.8895, -68.8458], delay: 0 },
+                        ]}
+                    />
+                </div>
+                <p class="section-description">
+                    Con base en Argentina y años de trayectoria como desarrolladores de software, volcamos toda nuestra experiencia en crear soluciones web interactivas, animadas y únicas en su clase, trabajando con clientes de cualquier parte del mundo.
+                </p>
+
+                <!-- Services Grid -->
+                <div class="services-help-section">
+                    <h2 class="services-help-title">Podemos ayudarte con ...</h2>
+                    <div class="services-help-grid">
+                        <div class="service-help-item">
+                            <span class="service-number">01</span>
+                            <h3 class="service-help-heading">Diseño</h3>
+                            <p class="service-help-text">
+                                Creamos interfaces estéticas y funcionales centradas en el usuario. Diseñamos experiencias modernas, optimizadas para cualquier dispositivo y enfocadas en potenciar la conversión de tu negocio.
+                            </p>
+                        </div>
+                        <div class="service-help-item">
+                            <span class="service-number">02</span>
+                            <h3 class="service-help-heading">Desarrollo</h3>
+                            <p class="service-help-text">
+                                Construimos soluciones tecnológicas utilizando stacks modernos. Nos enfocamos en el rendimiento, la seguridad y un código limpio que permita que tu plataforma crezca sin limitaciones técnicas.
+                            </p>
+                        </div>
+                        <div class="service-help-item">
+                            <span class="service-number">03</span>
+                            <h3 class="service-help-heading">✦ El paquete completo</h3>
+                            <p class="service-help-text">
+                                Un sitio web completo, desde el concepto hasta la implementación: eso es lo que nos distingue. Nuestro gran sentido del diseño y nuestras habilidades de desarrollo nos permiten crear proyectos increíbles.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
         </div>
     </main>
 </Layout>
@@ -144,7 +164,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 1rem;
+        padding: 0 1.5rem;
     }
 
     /* Hero Section */
@@ -204,12 +224,13 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     }
 
     .section-description {
-        font-size: 1.125rem;
+        font-size: 1.5rem;
         line-height: 1.7;
-        color: var(--color-bright-gray-500);
-        max-width: 800px;
+        color: var(--color-bright-gray-950);
+        max-width: 650px;
         margin: 0 auto 2rem;
         text-align: center;
+        letter-spacing: -0.01em;
     }
 
     :global(html.dark) .section-description {
@@ -223,23 +244,89 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
     .team-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
         justify-items: center;
+        align-items: start;
         margin-bottom: 3rem;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+        width: 100%;
     }
+
+    /* Make first card span full width and center it (1 above, 3 below) */
+    .team-grid > :first-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 720px;
+    }
+
+    /* Explicit center-column helper for selected cards */
+    .team-center-col {
+        grid-column: 2 / 3;
+        justify-self: center;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Place special cards in center column on desktop */
+    .team-grid > :nth-child(5),
+    .team-grid > :nth-child(7) {
+        grid-column: 2 / 3;
+        justify-self: center;
+    }
+
+    @media (max-width: 1024px) {
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .team-grid > :first-child {
+            grid-column: 1 / -1;
+            max-width: 640px;
+        }
+
+        .team-center-col {
+            grid-column: 1 / -1;
+        }
+
+        .team-grid > :nth-child(5),
+        .team-grid > :nth-child(7) {
+            grid-column: 1 / -1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .team-grid > :first-child {
+            grid-column: 1 / -1;
+            max-width: 100%;
+        }
+
+        .team-center-col {
+            grid-column: 1 / -1;
+        }
+    }
+
 
     .team-values {
         text-align: center;
         margin-top: 3rem;
         padding: 2rem;
-        background: var(--color-bright-gray-100);
+        background: transparent !important;
         border-radius: 16px;
         border-left: 4px solid var(--accent);
     }
 
     :global(html.dark) .team-values {
-        background: var(--color-bright-gray-700);
+        background: transparent !important;
         border-left-color: var(--accent);
     }
 
@@ -257,14 +344,132 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 
     /* Philosophy Section */
     .philosophy-section {
-        background: linear-gradient(135deg, var(--color-bright-gray-50) 0%, var(--color-blue-100) 100%);
+        background: transparent !important;
         border-radius: 24px;
         padding: 3rem 2rem;
         margin: 4rem 0;
     }
 
+    /* Globe Section */
+    .globe-section {
+        margin: 5rem 0;
+        padding: 3rem 0;
+    }
+
+    .globe-container {
+        max-width: 1100px;
+        width: 1100px;
+        height: 550px;
+        margin: 0 auto;
+        padding: 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .globe-container :global(.relative) {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1100px !important;
+        height: 1100px !important;
+    }
+
+    /* Services Help Section */
+    .services-help-section {
+        margin-top: 5rem;
+        padding: 0 2rem;
+    }
+
+    .services-help-title {
+        font-size: clamp(2rem, 4vw, 2.5rem);
+        font-weight: 400;
+        margin-bottom: 3rem;
+        color: var(--color-bright-gray-950);
+        text-align: left;
+    }
+
+    :global(html.dark) .services-help-title {
+        color: var(--color-bright-gray-50);
+    }
+
+    .services-help-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .service-help-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .service-number {
+        font-size: 0.875rem;
+        color: var(--color-bright-gray-400);
+        font-weight: 300;
+    }
+
+    :global(html.dark) .service-number {
+        color: var(--color-bright-gray-500);
+    }
+
+    .service-help-heading {
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: var(--color-bright-gray-950);
+        margin: 0;
+    }
+
+    :global(html.dark) .service-help-heading {
+        color: var(--color-bright-gray-50);
+    }
+
+    .service-help-text {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: var(--color-bright-gray-600);
+        margin: 0;
+    }
+
+    :global(html.dark) .service-help-text {
+        color: var(--color-bright-gray-300);
+    }
+
+    @media (max-width: 1024px) {
+        .services-help-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .services-help-section {
+            margin-top: 3rem;
+            padding: 0 1rem;
+        }
+
+        .services-help-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin-bottom: 2rem;
+        }
+
+        .globe-container {
+            max-width: 100%;
+            padding: 1rem;
+        }
+
+        .globe-section {
+            margin: 3rem 0;
+            padding: 2rem 0;
+        }
+    }
+
     :global(html.dark) .philosophy-section {
-        background: linear-gradient(135deg, var(--color-bright-gray-700) 0%, var(--color-bright-gray-950) 100%);
+        background: transparent !important;
     }
 
     .motto {
@@ -285,7 +490,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     }
 
     .contact-card {
-        background: var(--color-bright-gray-50);
+        background: transparent !important;
         border: 2px solid var(--accent);
         border-radius: 20px;
         padding: 2.5rem;
@@ -296,7 +501,7 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     }
 
     :global(html.dark) .contact-card {
-        background: var(--color-bright-gray-700);
+        background: transparent !important;
         border-color: var(--accent);
     }
 
@@ -338,18 +543,30 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             padding: 1rem 0;
         }
 
+        .container {
+            padding: 0 1rem;
+        }
+
         .hero-section {
             margin-bottom: 3rem;
             padding: 1rem 0;
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 6vw, 3rem);
         }
 
         .section {
             margin-bottom: 3rem;
         }
 
-        .team-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .section-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+        }
+
+        .section-description {
+            font-size: 1rem;
+            max-width: 100%;
         }
 
         .team-values {
@@ -357,14 +574,30 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             margin-top: 2rem;
         }
 
+        .team-values p {
+            font-size: 1rem;
+        }
+
         .philosophy-section {
             padding: 2rem 1.5rem;
             margin: 3rem 0;
         }
 
+        .motto {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+        }
+
         .contact-card {
             padding: 2rem 1.5rem;
-            margin: 0 1rem;
+            max-width: 100%;
+        }
+
+        .contact-title {
+            font-size: 1.4rem;
+        }
+
+        .contact-description {
+            font-size: 1rem;
         }
     }
 
@@ -377,12 +610,15 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             margin-bottom: 2rem;
         }
 
+        .hero-title {
+            font-size: clamp(1.5rem, 8vw, 2.2rem);
+        }
+
         .section {
             margin-bottom: 2.5rem;
         }
 
         .team-grid {
-            grid-template-columns: 1fr;
             gap: 1rem;
         }
 

@@ -1,0 +1,351 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { SITE_DESCRIPTION } from "../../../consts";
+import { getLangFromUrl } from "../../../i18n/translate";
+
+const lang = getLangFromUrl(Astro.url);
+const { slug } = Astro.params;
+
+const postsByLang = {
+    en: [
+        {
+            slug: "international-womens-day",
+            title: "International Women's Day",
+            date: "Mar 8, 2025",
+            author: "Ana Paula Toledo",
+            image: "https://blog.crobf.tech/blog/Dia_internacional_de_la_mujer.png",
+            excerpt: "Insights, practices, and ideas for product and engineering teams.",
+        },
+        {
+            slug: "unlock-the-power-of-your-software-team",
+            title: "Unlock the Power of Your Software Team",
+            date: "Feb 19, 2025",
+            author: "Casiano Ezequiel",
+            image: "https://blog.crobf.tech/blog/desbloquea_el_poder_de_tu_equipo_de_software.jpg",
+            excerpt: "How to improve collaboration, velocity, and quality in software teams.",
+        },
+        {
+            slug: "benefits-of-using-the-pair-programming-technique-in-teams",
+            title: "Benefits of Pair Programming in Teams",
+            date: "Feb 13, 2025",
+            author: "Casiano Ezequiel",
+            image: "https://blog.crobf.tech/blog/Beneficios_de_usar_la_t%C3%A9cnica_Pair_Programming_en_equipos.jpg",
+            excerpt: "Practical benefits of pair programming for delivery and learning.",
+        },
+        {
+            slug: "5-css-features-you-should-know-about",
+            title: "5 CSS Features You Should Know",
+            date: "Dec 26, 2024",
+            author: "Juan Beresiarte",
+            image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
+            excerpt: "A quick guide to useful CSS features for modern interfaces.",
+        },
+        {
+            slug: "what-is-solid-and-why-should-you-use-it",
+            title: "What is SOLID and Why Use It?",
+            date: "Nov 26, 2024",
+            author: "Juan Beresiarte",
+            image: "https://blog.crobf.tech/blog/placheholder-blog-solid.jpg",
+            excerpt: "Understanding SOLID principles and where they add value.",
+        },
+        {
+            slug: "how-to-build-a-highly-effective-development-team",
+            title: "How to Build a Highly Effective Development Team",
+            date: "Nov 26, 2024",
+            author: "Casiano Ezequiel",
+            image: "https://blog.crobf.tech/blog/Como_Construir_un_Equipo_de_Desarrollo_Altamente_Efectivo.jpg",
+            excerpt: "Tactics to structure and scale high-performing development teams.",
+        },
+    ],
+    es: [
+        {
+            slug: "el-rol-de-las-mujeres-en-el-mundo-it",
+            title: "El Rol de las Mujeres en el Mundo IT",
+            date: "Mar 8, 2026",
+            author: "Juan Beresiarte",
+            image: "https://blog.crobf.tech/blog/dia-de-la-mujer.png",
+            excerpt: "Ideas y reflexiones sobre diversidad e inclusion en tecnologia.",
+        },
+        {
+            slug: "la-trampa-de-la-sobre-normalizacion",
+            title: "La Trampa de la Sobre-Normalizacion",
+            date: "May 27, 2025",
+            author: "Casiano Ezequiel",
+            image: "https://blog.crobf.tech/blog/La-Trampa-de-la-Sobre-Normalizacion.png",
+            excerpt: "Cuando normalizar de mas impacta rendimiento y mantenimiento.",
+        },
+        {
+            slug: "introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave",
+            title: "Introduccion a los Requerimientos de Software",
+            date: "Apr 2, 2025",
+            author: "Ana Paula Toledo",
+            image: "https://blog.crobf.tech/blog/introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave.jpg",
+            excerpt: "Metodos y caracteristicas clave para definir mejores requerimientos.",
+        },
+        {
+            slug: "dia-internacional-de-la-mujer",
+            title: "Dia Internacional de La Mujer",
+            date: "Mar 8, 2025",
+            author: "Ana Paula Toledo",
+            image: "https://blog.crobf.tech/blog/Dia_internacional_de_la_mujer.png",
+            excerpt: "Un recorrido sobre aportes, desafios y oportunidades en IT.",
+        },
+        {
+            slug: "desbloquea-el-poder-de-tu-equipo-de-software",
+            title: "Desbloquea el Poder de tu Equipo de Software",
+            date: "Feb 19, 2025",
+            author: "Casiano Ezequiel",
+            image: "https://blog.crobf.tech/blog/desbloquea_el_poder_de_tu_equipo_de_software.jpg",
+            excerpt: "Como potenciar resultados con procesos y colaboracion efectiva.",
+        },
+        {
+            slug: "5-funciones-de-css-que-deberias-conocer",
+            title: "5 funciones de css que deberias conocer",
+            date: "Dec 26, 2024",
+            author: "Juan Beresiarte",
+            image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
+            excerpt: "Funciones utiles de CSS para mejorar interfaces y productividad.",
+        },
+    ],
+};
+
+const list = lang === "en" ? postsByLang.en : postsByLang.es;
+const post = list.find((item) => item.slug === slug);
+
+if (!post) {
+    return Astro.redirect(`/${lang}/blog`);
+}
+
+const copy =
+    lang === "en"
+        ? {
+              back: "Back to blog",
+              reading: "Reading",
+              loadError: "We could not load the full article right now. Please try again in a moment.",
+          }
+        : {
+              back: "Volver al blog",
+              reading: "Leyendo",
+              loadError: "No pudimos cargar el articulo completo en este momento. Proba nuevamente en unos segundos.",
+          };
+
+const sourceUrl = `https://blog.crobf.tech/${lang}/blog/${slug}/`;
+let articleHtml = "";
+
+try {
+    const response = await fetch(sourceUrl);
+    if (response.ok) {
+        const html = await response.text();
+        const articleMatch = html.match(/<article[\s\S]*?<\/article>/i);
+        if (articleMatch) {
+            articleHtml = articleMatch[0]
+                .replace(/<script[\s\S]*?<\/script>/gi, "")
+                .replace(/\s+on[a-z]+="[^"]*"/gi, "")
+                .replace(/(src|href)="\/(?!\/)/gi, '$1="https://blog.crobf.tech/');
+        }
+    }
+} catch {
+    articleHtml = "";
+}
+---
+
+<Layout title={post.title} description={SITE_DESCRIPTION}>
+    <main class="post-page">
+        <a class="back-link" href={`/${lang}/blog`}>{copy.back}</a>
+
+        <article class="post-shell">
+            <p class="eyebrow">{copy.reading}</p>
+            <h1>{post.title}</h1>
+            <p class="meta">{post.author} · {post.date}</p>
+            {
+                articleHtml ? (
+                    <div class="external-article" set:html={articleHtml}></div>
+                ) : (
+                    <>
+                        <img src={post.image} alt={post.title} loading="lazy" />
+                        <p class="excerpt">{post.excerpt}</p>
+                        <p class="note">{copy.loadError}</p>
+                    </>
+                )
+            }
+        </article>
+    </main>
+</Layout>
+
+<style>
+    .post-page {
+        width: min(960px, calc(100% - 2.2rem));
+        margin: 0 auto;
+        padding: 1.8rem 0 4.5rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .back-link {
+        color: #2b49df;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .post-shell {
+        border: 1px solid rgba(67, 77, 104, 0.22);
+        border-radius: 1rem;
+        background: linear-gradient(170deg, rgba(253, 254, 255, 0.98), rgba(243, 246, 255, 0.95));
+        padding: 1.2rem;
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .eyebrow {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+        color: rgba(23, 30, 48, 0.72);
+    }
+
+    h1 {
+        margin: 0;
+        font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+        line-height: 1.12;
+    }
+
+    .meta,
+    .excerpt,
+    .note {
+        margin: 0;
+        color: rgba(23, 30, 48, 0.78);
+        line-height: 1.5;
+    }
+
+    .meta {
+        font-size: 0.85rem;
+    }
+
+    .post-shell > img {
+        width: 100%;
+        max-height: 440px;
+        object-fit: cover;
+        border-radius: 0.8rem;
+        border: 1px solid rgba(73, 89, 130, 0.2);
+    }
+
+    .external-article {
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .external-article :global(.hero-image img),
+    .external-article :global(img) {
+        width: 100%;
+        max-height: 460px;
+        object-fit: cover;
+        border-radius: 0.8rem;
+        border: 1px solid rgba(73, 89, 130, 0.2);
+    }
+
+    .external-article :global(.title h1) {
+        margin: 0.2rem 0 0;
+        font-size: clamp(1.35rem, 2.3vw, 2rem);
+        line-height: 1.2;
+    }
+
+    .external-article :global(.date),
+    .external-article :global(time) {
+        font-size: 0.82rem;
+        color: rgba(23, 30, 48, 0.65);
+    }
+
+    .external-article :global(p),
+    .external-article :global(li) {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: rgba(23, 30, 48, 0.88);
+    }
+
+    .external-article :global(h2) {
+        margin: 1.1rem 0 0.3rem;
+        font-size: clamp(1.22rem, 2vw, 1.6rem);
+        line-height: 1.3;
+    }
+
+    .external-article :global(h3) {
+        margin: 0.9rem 0 0.25rem;
+        font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+        line-height: 1.35;
+    }
+
+    .external-article :global(a) {
+        color: #2b49df;
+    }
+
+    .note {
+        font-size: 0.9rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(88, 106, 153, 0.2);
+    }
+
+    :global(html.dark) .post-shell {
+        border-color: rgba(94, 120, 214, 0.32);
+        background: linear-gradient(180deg, rgba(15, 20, 35, 0.92), rgba(14, 18, 31, 0.76));
+        box-shadow: 0 0 0 1px rgba(47, 77, 180, 0.24) inset;
+    }
+
+    :global(html.dark) .eyebrow,
+    :global(html.dark) .meta,
+    :global(html.dark) .excerpt,
+    :global(html.dark) .note {
+        color: rgba(229, 236, 255, 0.78);
+    }
+
+    :global(html.dark) .external-article :global(.date),
+    :global(html.dark) .external-article :global(time),
+    :global(html.dark) .external-article :global(p),
+    :global(html.dark) .external-article :global(li) {
+        color: rgba(229, 236, 255, 0.82);
+    }
+
+    :global(html.dark) .external-article :global(a) {
+        color: #9eb0ff;
+    }
+
+    :global(html.dark) .back-link {
+        color: #9eb0ff;
+    }
+
+    @media (max-width: 768px) {
+        .post-page {
+            width: calc(100% - 1.6rem);
+            padding: 1.2rem 0 3rem;
+        }
+
+        .post-shell {
+            padding: 1rem;
+            border-radius: 0.8rem;
+        }
+
+        h1 {
+            font-size: clamp(1.3rem, 5vw, 2rem);
+        }
+
+        .external-article :global(p),
+        .external-article :global(li) {
+            font-size: 0.92rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .post-page {
+            width: calc(100% - 1rem);
+        }
+
+        .post-shell {
+            padding: 0.8rem;
+        }
+
+        .post-shell > img {
+            max-height: 280px;
+        }
+    }
+</style>

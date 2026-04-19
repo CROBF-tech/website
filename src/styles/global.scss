@@ -7,8 +7,7 @@ body {
 	font-family: 'Atkinson', sans-serif;
 	margin: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: var(--background-color);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
@@ -17,10 +16,11 @@ body {
 }
 
 main {
-	width: 720px;
+	width: 100%;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
+	box-sizing: border-box;
 }
 
 h1,
@@ -126,5 +126,38 @@ hr {
 
 	main {
 		padding: 1em;
+	}
+}
+
+/* Global override: make common panel/card sections transparent and remove shadows */
+/* This makes cards/panels appear without colored backgrounds across the site. */
+.card,
+.panel,
+.panel-card,
+.post-card,
+.hero-card,
+.section-card,
+.service-card,
+.project-card,
+.founder-card,
+.site-panel,
+.banner,
+.card-overlay {
+	background: transparent !important;
+	box-shadow: none !important;
+	border: none !important;
+}
+
+/* Social icon backgrounds */
+.social-link {
+	background: transparent !important;
+	border: none !important;
+}
+
+@media (max-width: 768px) {
+	.card,
+	.post-card,
+	.section-card {
+		padding: 0 !important;
 	}
 }

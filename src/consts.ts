@@ -9,7 +9,7 @@ export const PAGINATION_SIZE = 13;
 export const TEAM_MEMBERS = {
     Juan: {
         fullName: 'Beresiarte Juan',
-        logo: '/founders/juan_beresiarte.jpeg',
+        logo: ['/founders/juan_beresiarte.jpeg', '/founders/juan_beresiarte_con_traje.png'],
         email: 'juanberesiarte@gmail.com',
         gitHub: 'https://github.com/beresiartejuan',
         linkedin: 'https://www.linkedin.com/in/beresiartejuan/',

@@ -23,8 +23,12 @@ const t = useTranslations(getLangFromUrl(Astro.url));
 <style>
     .cards-philosophy {
         display: flex;
-        flex-direction: arrow;
-        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        align-items: stretch;
+        width: 100%;
     }
     html.dark .card {
         background-color: #39445b;
@@ -32,9 +36,12 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     .card {
         font-size: 15px;
         text-align: center;
-        padding: 10px;
+        padding: 1rem;
         max-width: 300px;
+        width: 100%;
         border: solid 1px black;
+        border-radius: 12px;
+        box-sizing: border-box;
     }
     .card h4 {
         color: var(--accent);
@@ -43,6 +50,10 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     @media (max-width: 600px) {
         .cards-philosophy {
             flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            max-width: 100%;
         }
     }
 </style>

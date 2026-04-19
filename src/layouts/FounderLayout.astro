@@ -65,5 +65,21 @@ const { title, description, heroImage } = Astro.props;
         .last-updated-on {
             font-style: italic;
         }
+
+        @media (max-width: 768px) {
+            .prose {
+                width: calc(100% - 2rem);
+                padding: 0.5em;
+            }
+
+            .title h1 {
+                font-size: clamp(1.5rem, 5vw, 2.2rem);
+            }
+
+            .hero-image {
+                width: 60%;
+                max-width: 200px;
+            }
+        }
     </style>
 </Layout>
