@@ -52,14 +52,14 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className='h-[55vh] sm:h-[75vh] flex items-center justify-center sticky top-0'
+      className='h-[44vh] sm:h-[75vh] flex items-center justify-center sticky top-0'
     >
       <motion.div
         style={{
           scale,
-          top: `calc(-5vh + ${i * 25}px)`,
+          top: `calc(-2vh + ${i * 16}px)`,
         }}
-        className={`relative -top-[10%] sm:-top-[25%] w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] mx-auto min-h-[320px] sm:h-[420px] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
+        className={`relative -top-[4%] sm:-top-[25%] w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] mx-auto min-h-[280px] sm:h-[420px] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
       >
 
         {/* Main card body */}
@@ -306,7 +306,7 @@ const Component = forwardRef<HTMLElement, ComponentRootProps>(
                   color={project.color}
                   description={project.description}
                   progress={scrollYProgress}
-                  range={[i * 0.25, 1]}
+                  range={[i * 0.2, 1]}
                   targetScale={targetScale}
                 />
               );
