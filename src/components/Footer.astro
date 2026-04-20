@@ -536,7 +536,7 @@ const homeHref = `/${lang}`;
 
     @media (max-width: 640px) {
         .footer-main-content {
-            margin-top: 3rem;
+            margin-top: 0rem;
             padding: 0 1rem;
         }
 
@@ -553,14 +553,21 @@ const homeHref = `/${lang}`;
 
         .footer-bottom-bar {
             padding: 1.5rem 1rem;
+            position: absolute;
+            bottom: 8rem;
         }
 
         .footer-marquee-wrapper {
-            top: 6rem;
+            top: 18rem;
         }
 
         .footer-social-badge {
             padding: 0.6rem 1rem;
+        }
+
+        .footer-giant-bg-text {
+            bottom: 2vh;
+            font-size: 30vw;
         }
     }
 
