@@ -65,7 +65,7 @@ export function ProjectShowcase({ lang = "es" }: ProjectShowcaseProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list')
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid')
   const [isMobile, setIsMobile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<number | null>(null)
@@ -265,37 +265,50 @@ export function ProjectShowcase({ lang = "es" }: ProjectShowcaseProps) {
       ) : (
         /* Grid View */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-0">
-          {projectsWithLang.map((project, index) => (
-            <a
-              key={project.title}
-              href={project.link}
-              className="group block"
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="relative overflow-hidden rounded-lg bg-secondary/20 aspect-[4/3] mb-4">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="bg-blue-600 text-white px-6 py-3 rounded-full font-medium">
-                    View
-                  </span>
+          {projectsWithLang.map((project, index) => {
+            // Array de colores de fondo: beige, gris, negro alternados
+            const bgColors = [
+              '#d4c5b9', // beige
+              '#2d2d2d', // negro/gris muy oscuro
+              '#e8e4df', // beige claro
+              '#1a1a1a', // negro
+              '#c9b8a8', // beige medio
+            ];
+            
+            return (
+              <a
+                key={project.title}
+                href={project.link}
+                className="group block"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div 
+                  className="relative overflow-hidden aspect-[4/3] mb-6 transition-all duration-500 group-hover:shadow-2xl flex items-center justify-center p-8 md:p-12" 
+                  style={{ 
+                    backgroundColor: bgColors[index % bgColors.length],
+                  }}
+                >
+                  <div className="relative bg-white rounded-lg shadow-xl overflow-hidden w-[75%] h-[70%] transition-transform duration-500 group-hover:scale-105">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-2 px-2">
-                <h3 className="text-foreground font-medium text-xl md:text-2xl tracking-tight">
-                  {project.title}
-                </h3>
-                <div className="flex items-center justify-between text-xs md:text-sm border-t border-border/30 pt-2">
-                  <span style={{ color: '#000000' }}><span className="dark:!text-white">{project.description}</span></span>
-                  <span className="tabular-nums" style={{ color: '#000000' }}><span className="dark:!text-white">{project.year}</span></span>
+                <div className="space-y-3 px-2">
+                  <h3 className="text-foreground font-semibold text-xl md:text-2xl tracking-tight">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center justify-between text-sm md:text-base border-t border-border/30 pt-3">
+                    <span style={{ color: '#666666' }}><span className="dark:!text-gray-300">{project.description}</span></span>
+                    <span className="tabular-nums font-medium" style={{ color: '#000000' }}><span className="dark:!text-white">{project.year}</span></span>
+                  </div>
                 </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
       )}
     </section>
