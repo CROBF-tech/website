@@ -1,6 +1,11 @@
 ---
 // Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
-const images = [
+const items = [
+	{ type: 'video' as const, src: '/video_1.mp4' },
+	{ type: 'video' as const, src: '/video_2.mp4' },
+	{ type: 'video' as const, src: '/video_3.mp4' },
+	{ type: 'video' as const, src: '/video_4.mp4' },
+	{ type: 'video' as const, src: '/video_5.mp4' },
 	{ type: 'unsplash' as const, id: '1634017839464-5c339ebe3cb4' }, // 3D fluid purple
 	{ type: 'unsplash' as const, id: '1618005198919-d3d4b5a92ead' }, // 3D digital blue
 	{ type: 'unsplash' as const, id: '1620121692029-d088224ddc74' }, // 3D abstract colorful
@@ -8,28 +13,35 @@ const images = [
 	{ type: 'unsplash' as const, id: '1635070041078-e363dbe005cb' }, // Abstract tech blue
 	{ type: 'unsplash' as const, id: '1579546929662-711aa81148cf' }, // 3D shapes purple
 	{ type: 'unsplash' as const, id: '1550859492-d5da9d8e45f3' }, // 3D waves blue
-	{ type: 'unsplash' as const, id: '1558494949-ef010cbdcc31' }, // 3D tech abstract
-	{ type: 'unsplash' as const, id: '1451187580459-43490279c0fa' }, // 3D light trails
-	{ type: 'unsplash' as const, id: '1550745165-9bc0b252726f' }, // Abstract neon lights
-	{ type: 'unsplash' as const, id: '1519681393784-d120267933ba' }, // Purple abstract smoke
-	{ type: 'unsplash' as const, id: '1618172193622-ae2d025f4032' }  // Neon blue abstract
 ];
 
-const totalCards = images.length;
+const totalCards = items.length;
 ---
 
 <div class="carousel-wrapper">
 	<section class="carousel-section">
 		<div class="scene">
 			<div class="a3d" style={`--n: ${totalCards}`}>
-				{images.map((image, index) => (
-					<img 
-						class="card" 
-						src={`https://images.unsplash.com/photo-${image.id}?w=450&q=80`}
-						style={`--i: ${index}`} 
-						alt="Abstract futuristic design"
-						loading="lazy"
-					/>
+				{items.map((item, index) => (
+					item.type === 'video' ? (
+						<video 
+							class="card" 
+							src={item.src}
+							style={`--i: ${index}`}
+							autoplay
+							muted
+							loop
+							playsinline
+						/>
+					) : (
+						<img 
+							class="card" 
+							src={`https://images.unsplash.com/photo-${item.id}?w=450&q=80`}
+							style={`--i: ${index}`} 
+							alt="Abstract futuristic design"
+							loading="lazy"
+						/>
+					)
 				))}
 			</div>
 		</div>
@@ -148,6 +160,12 @@ const totalCards = images.length;
 		image-rendering: auto;
 		/* Agregar sombra para mejor visualización */
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	}
+
+	/* Estilos específicos para videos */
+	video.card {
+		/* Asegurar que el video se reproduzca correctamente */
+		pointer-events: none;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
