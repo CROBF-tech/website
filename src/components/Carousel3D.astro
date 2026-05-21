@@ -2,17 +2,16 @@
 // Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
 const items = [
 	{ type: 'video' as const, src: '/video_1.mp4' },
-	{ type: 'video' as const, src: '/video_2.mp4' },
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%201.png' },
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%202.png' },
 	{ type: 'video' as const, src: '/video_3.mp4' },
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%203.png' },
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%204.png' },
 	{ type: 'video' as const, src: '/video_4.mp4' },
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%205.png' },
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%206.png' },
 	{ type: 'video' as const, src: '/video_5.mp4' },
-	{ type: 'unsplash' as const, id: '1634017839464-5c339ebe3cb4' }, // 3D fluid purple
-	{ type: 'unsplash' as const, id: '1618005198919-d3d4b5a92ead' }, // 3D digital blue
-	{ type: 'unsplash' as const, id: '1620121692029-d088224ddc74' }, // 3D abstract colorful
-	{ type: 'unsplash' as const, id: '1579546929518-9e396f3cc809' }, // 3D gradient purple
-	{ type: 'unsplash' as const, id: '1635070041078-e363dbe005cb' }, // Abstract tech blue
-	{ type: 'unsplash' as const, id: '1579546929662-711aa81148cf' }, // 3D shapes purple
-	{ type: 'unsplash' as const, id: '1550859492-d5da9d8e45f3' }, // 3D waves blue
+	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%207.png' },
 ];
 
 const totalCards = items.length;
@@ -36,9 +35,9 @@ const totalCards = items.length;
 					) : (
 						<img 
 							class="card" 
-							src={`https://images.unsplash.com/photo-${item.id}?w=450&q=80`}
+							src={item.src}
 							style={`--i: ${index}`} 
-							alt="Abstract futuristic design"
+							alt="Web development workspace"
 							loading="lazy"
 						/>
 					)
@@ -134,14 +133,15 @@ const totalCards = items.length;
 	}
 
 	.card {
-		/* base card width, you may change this */
-		--w: 20em;
+		/* Desktop card size: 400x571 */
+		--w: 400px;
 
 		/* compute base angle corresponding to a card */
 		--ba: 1turn/var(--n); /* in the future: sibling-count() */
 		
 		grid-area: 1/ 1 /* stack in same one grid cell */;
 		width: var(--w);
+		max-width: 90vw;
 		aspect-ratio: 7/ 10;
 		object-fit: cover;
 		border-radius: 1.5em;
@@ -166,6 +166,7 @@ const totalCards = items.length;
 	video.card {
 		/* Asegurar que el video se reproduzca correctamente */
 		pointer-events: none;
+		object-fit: cover;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -193,7 +194,7 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 17em;
+			--w: 340px;
 		}
 	}
 
@@ -207,7 +208,7 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 15em;
+			--w: 300px;
 		}
 		
 		.scene {
@@ -227,7 +228,7 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 12em;
+			--w: 240px;
 		}
 		
 		.scene {
