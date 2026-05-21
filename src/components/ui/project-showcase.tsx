@@ -20,7 +20,7 @@ interface ProjectShowcaseProps {
 const projects: Project[] = [
   {
     title: "Catálogo Digital",
-    description: "E-commerce & Development",
+    description: "Catálogo premium: Estética moderna y conversión ágil.",
     year: "2025",
     link: "/catalogo-digital",
     image: "/images/olympo-phone-screen.png",
@@ -28,34 +28,34 @@ const projects: Project[] = [
   },
   {
     title: "Hexadevs",
-    description: "Design & Development",
+    description: "Academia online de programación con cursos interactivos y proyectos prácticos",
     year: "2024",
     link: "/hexadevs",
     image: "/projects/hexadevs.png",
     location: "Argentina",
   },
   {
-    title: "Taskflow",
-    description: "Design & Development",
+    title: "Todo App",
+    description: "Aplicación de gestión de tareas con diseño minimalista y funcionalidades avanzadas",
     year: "2024",
     link: "/taskflow",
-    image: "/projects/todo-app.svg",
+    image: "/projects/todo-app.png",
     location: "Argentina",
   },
   {
-    title: "Learning Hub",
-    description: "Design & Development",
+    title: "Flashcards",
+    description: "Aplicación de estudio con tarjetas de memoria para aprendizaje efectivo",
     year: "2023",
     link: "/learning-hub",
-    image: "/projects/flashcards.svg",
+    image: "/projects/flashcards.png",
     location: "Argentina",
   },
   {
     title: "Bunny JS",
-    description: "Design & Development",
+    description: "Libreria JavaScript ligero y moderno para desarrollo web rápido",
     year: "2023",
     link: "/bunny-js",
-    image: "/projects/bunny-js.svg",
+    image: "/projects/bunny-js.png",
     location: "Argentina",
   },
 ]
@@ -274,6 +274,7 @@ export function ProjectShowcase({ lang = "es" }: ProjectShowcaseProps) {
               '#1a1a1a', // negro
               '#c9b8a8', // beige medio
             ];
+            const isCatalogo = project.title === "Catálogo Digital";
             
             return (
               <a
@@ -284,16 +285,22 @@ export function ProjectShowcase({ lang = "es" }: ProjectShowcaseProps) {
                 onMouseLeave={handleMouseLeave}
               >
                 <div 
-                  className="relative overflow-hidden aspect-[4/3] mb-6 transition-all duration-500 group-hover:shadow-2xl flex items-center justify-center p-8 md:p-12" 
+                  className="relative overflow-hidden aspect-[4/3] mb-6 transition-all duration-500 group-hover:shadow-2xl flex items-center justify-center p-6 sm:p-8 md:p-12" 
                   style={{ 
                     backgroundColor: bgColors[index % bgColors.length],
                   }}
                 >
-                  <div className="relative bg-white rounded-lg shadow-xl overflow-hidden w-[75%] h-[70%] transition-transform duration-500 group-hover:scale-105">
+                  <div
+                    className={
+                      isCatalogo
+                        ? "relative bg-white rounded-lg shadow-xl overflow-hidden w-[75%] h-[70%] transition-transform duration-500 group-hover:scale-105"
+                        : "relative bg-white rounded-lg shadow-xl overflow-hidden w-full h-full max-w-[360px] max-h-[240px] transition-transform duration-500 group-hover:scale-105 flex items-center justify-center"
+                    }
+                  >
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className={isCatalogo ? "w-full h-full object-cover" : "w-full h-full object-contain"}
                     />
                   </div>
                 </div>

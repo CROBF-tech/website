@@ -6,9 +6,9 @@ import "../../../styles/global.css";
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<Layout title="Taskflow - CROBF" description="Sistema de tareas y productividad para equipos.">
+<Layout title="Todo App - CROBF" description="Aplicación de gestión de tareas con diseño minimalista y funcionalidades avanzadas.">
     <main class="project-detail">
-        <h1 class="project-title">TASKFLOW</h1>
+        <h1 class="project-title">TODO APP</h1>
 
         <div class="project-info">
             <div class="info-column">
@@ -22,13 +22,18 @@ const lang = getLangFromUrl(Astro.url);
         </div>
 
         <div class="project-actions">
-            <a href="#" class="btn btn-primary btn-disabled">
-                Próximamente
+            <a href="https://todoapp.crobf.tech/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                Ver en vivo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
             </a>
         </div>
 
         <div class="project-image">
-            <img src="/projects/todo-app.svg" alt="Taskflow" />
+            <img src="/projects/todo-app.png" alt="Todo App" />
         </div>
     </main>
 </Layout>
