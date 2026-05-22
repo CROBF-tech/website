@@ -1,17 +1,14 @@
 ---
 // Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
 const items = [
-	{ type: 'video' as const, src: '/video_1.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%201.png' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%202.png' },
-	{ type: 'video' as const, src: '/video_3.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%203.png' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%204.png' },
-	{ type: 'video' as const, src: '/video_4.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%205.png' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%206.png' },
-	{ type: 'video' as const, src: '/video_5.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%207.png' },
+	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_4.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_5.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
+	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },
 ];
 
 const totalCards = items.length;
@@ -21,27 +18,18 @@ const totalCards = items.length;
 	<section class="carousel-section">
 		<div class="scene">
 			<div class="a3d" style={`--n: ${totalCards}`}>
-				{items.map((item, index) => (
-					item.type === 'video' ? (
-						<video 
-							class="card" 
+					{items.map((item, index) => (
+						<video
+							class="card"
 							src={item.src}
+							data-variant={item.variant}
 							style={`--i: ${index}`}
 							autoplay
 							muted
 							loop
 							playsinline
 						/>
-					) : (
-						<img 
-							class="card" 
-							src={item.src}
-							style={`--i: ${index}`} 
-							alt="Web development workspace"
-							loading="lazy"
-						/>
-					)
-				))}
+					))}
 			</div>
 		</div>
 	</section>
@@ -94,12 +82,12 @@ const totalCards = items.length;
 		overflow: visible !important;
 		/* for 3D look; smaller = more extreme effect */
 		perspective: 35em;
-		min-height: 900px;
+		min-height: 720px;
 		width: 100%;
 		display: grid;
 		place-items: center;
 		/* Agregar padding vertical MUY generoso para que las cards NUNCA se corten */
-		padding: 8rem 0;
+		padding: 6rem 0;
 		/* Eliminar cualquier clipping */
 		clip-path: none;
 		position: relative;
@@ -133,8 +121,8 @@ const totalCards = items.length;
 	}
 
 	.card {
-		/* Desktop card size: 400x571 */
-		--w: 400px;
+		/* Desktop card size: 320x457 */
+		--w: 320px;
 
 		/* compute base angle corresponding to a card */
 		--ba: 1turn/var(--n); /* in the future: sibling-count() */
@@ -160,6 +148,11 @@ const totalCards = items.length;
 		image-rendering: auto;
 		/* Agregar sombra para mejor visualización */
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	}
+
+	.card[data-variant="olympo"] {
+		object-fit: contain;
+		background: radial-gradient(circle at 50% 40%, rgba(120, 12, 18, 0.35), rgba(0, 0, 0, 0.85));
 	}
 
 	/* Estilos específicos para videos */
@@ -189,12 +182,16 @@ const totalCards = items.length;
 		}
 
 		.scene {
-			min-height: 600px;
-			padding: 4rem 0;
+			min-height: 520px;
+			padding: 3.5rem 0;
 		}
 
 		.card {
-			--w: 340px;
+			--w: 280px;
+		}
+
+		.card[data-variant="olympo"] {
+			object-fit: contain;
 		}
 	}
 
@@ -208,13 +205,13 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 300px;
+			--w: 240px;
 		}
 		
 		.scene {
-			min-height: 550px;
+			min-height: 460px;
 			perspective: 30em;
-			padding: 3.5rem 0;
+			padding: 3rem 0;
 		}
 	}
 
@@ -228,13 +225,13 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 240px;
+			--w: 200px;
 		}
 		
 		.scene {
-			min-height: 500px;
+			min-height: 400px;
 			perspective: 25em;
-			padding: 3rem 0;
+			padding: 2.5rem 0;
 		}
 	}
 </style>
