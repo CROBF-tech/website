@@ -82,12 +82,12 @@ const totalCards = items.length;
 		overflow: visible !important;
 		/* for 3D look; smaller = more extreme effect */
 		perspective: 35em;
-		min-height: 720px;
+		min-height: 900px;
 		width: 100%;
 		display: grid;
 		place-items: center;
 		/* Agregar padding vertical MUY generoso para que las cards NUNCA se corten */
-		padding: 6rem 0;
+		padding: 8rem 0;
 		/* Eliminar cualquier clipping */
 		clip-path: none;
 		position: relative;
@@ -121,38 +121,24 @@ const totalCards = items.length;
 	}
 
 	.card {
-		/* Desktop card size: 320x457 */
-		--w: 320px;
+		--w: 400px;
+		--radius: 700px;
 
-		/* compute base angle corresponding to a card */
-		--ba: 1turn/var(--n); /* in the future: sibling-count() */
-		
-		grid-area: 1/ 1 /* stack in same one grid cell */;
+		--ba: 1turn/var(--n);
+
+		grid-area: 1/ 1;
 		width: var(--w);
 		max-width: 90vw;
 		aspect-ratio: 7/ 10;
 		object-fit: cover;
 		border-radius: 1.5em;
-		/* don't want to see back of cards in front of screen plane */
 		backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
-		/* need to use a transform chain here, cannot use separate 
-		 * rotate & translate properties because they'd be applied 
-		 * in wrong order (translate, then rotate) for what we need */
-		transform: 
-			/* rotate around y axis; in the future: sibling-index() */
+		transform:
 			rotatey(calc(var(--i)*var(--ba)))
-			/* only after that translate along z axis with minus */
-			translatez(calc(-1*(.5*var(--w) + .5em)/tan(.5*var(--ba))));
-		/* Mejorar calidad de imagen */
+			translatez(calc(-1 * var(--radius)));
 		image-rendering: auto;
-		/* Agregar sombra para mejor visualización */
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-	}
-
-	.card[data-variant="olympo"] {
-		object-fit: contain;
-		background: radial-gradient(circle at 50% 40%, rgba(120, 12, 18, 0.35), rgba(0, 0, 0, 0.85));
 	}
 
 	/* Estilos específicos para videos */
@@ -182,16 +168,13 @@ const totalCards = items.length;
 		}
 
 		.scene {
-			min-height: 520px;
-			padding: 3.5rem 0;
+			min-height: 600px;
+			padding: 4rem 0;
 		}
 
 		.card {
-			--w: 280px;
-		}
-
-		.card[data-variant="olympo"] {
-			object-fit: contain;
+			--w: 340px;
+			--radius: 580px;
 		}
 	}
 
@@ -205,13 +188,14 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 240px;
+			--w: 300px;
+			--radius: 460px;
 		}
-		
+
 		.scene {
-			min-height: 460px;
+			min-height: 550px;
 			perspective: 30em;
-			padding: 3rem 0;
+			padding: 3.5rem 0;
 		}
 	}
 
@@ -225,13 +209,14 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 200px;
+			--w: 240px;
+			--radius: 360px;
 		}
-		
+
 		.scene {
-			min-height: 400px;
+			min-height: 500px;
 			perspective: 25em;
-			padding: 2.5rem 0;
+			padding: 3rem 0;
 		}
 	}
 </style>
