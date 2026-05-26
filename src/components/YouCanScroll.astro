@@ -1,0 +1,328 @@
+---
+import "normalize.css";
+---
+
+<section class="you-can-scroll-demo" data-you-scroll>
+    <header>
+        <h1 class="fluid">Con nosotros</h1>
+    </header>
+    <main>
+        <section class="content fluid">
+            <h2>
+                <span aria-hidden="true">podés&nbsp;</span>
+                <span class="sr-only">you can ship things.</span>
+            </h2>
+            <ul aria-hidden="true" style="--count: 20">
+                <li style="--i: 0">automatizar</li>
+                <li style="--i: 1">conectar</li>
+                <li style="--i: 2">vender</li>
+                <li style="--i: 3">modernizar</li>
+                <li style="--i: 4">digitalizar</li>
+                <li style="--i: 5">optimizar</li>
+                <li style="--i: 19">empezar hoy</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="fluid final-moment">El momento es ahora.</h2>
+        </section>
+    </main>
+    <footer></footer>
+</section>
+
+<script is:inline>
+    const root = document.querySelector("[data-you-scroll]");
+
+    if (root) {
+        const items = Array.from(root.querySelectorAll("ul li"));
+        let rafId = 0;
+
+        const updateWordFocus = () => {
+            rafId = 0;
+            const viewportCenter = window.innerHeight * 0.5;
+
+            let activeIndex = 0;
+            let minDistance = Number.POSITIVE_INFINITY;
+
+            items.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                const center = rect.top + rect.height * 0.5;
+                const distance = Math.abs(center - viewportCenter);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    activeIndex = index;
+                }
+            });
+
+            items.forEach((item, index) => {
+                item.classList.toggle("is-active", index === activeIndex);
+                item.classList.toggle("is-near", Math.abs(index - activeIndex) === 1);
+            });
+
+            const activeItem = items[activeIndex];
+            if (activeItem) {
+                const rect = activeItem.getBoundingClientRect();
+                const activeCenterY = rect.top + rect.height * 0.5;
+                root.style.setProperty("--focus-top", `${activeCenterY}px`);
+            }
+        };
+
+        const requestUpdate = () => {
+            if (rafId) return;
+            rafId = window.requestAnimationFrame(updateWordFocus);
+        };
+
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+        requestUpdate();
+    }
+</script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+    @layer normalize, base, demo, stick, effect, scrollbar, debug;
+
+    .you-can-scroll-demo {
+        --start: 0;
+        --end: 360;
+        --focus-top: 50vh;
+        --lightness: 65%;
+        --base-chroma: 0.3;
+        --font-size-min: 14;
+        --font-size-max: 20;
+        --font-ratio-min: 1.1;
+        --font-ratio-max: 1.33;
+        --font-width-min: 375;
+        --font-width-max: 1500;
+        color-scheme: light dark;
+        width: 100%;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        font-family: "Geist", "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
+        position: relative;
+        margin: 0;
+        margin-bottom: -0.4rem;
+    }
+
+    .you-can-scroll-demo[data-theme="light"] { color-scheme: light only; }
+    .you-can-scroll-demo[data-theme="dark"] { color-scheme: dark only; --lightness: 75%; }
+
+    :global(html:not(.dark)) .you-can-scroll-demo {
+        color-scheme: light only;
+    }
+
+    .you-can-scroll-demo *,
+    .you-can-scroll-demo *::before,
+    .you-can-scroll-demo *::after { box-sizing: border-box; }
+
+    .you-can-scroll-demo .fluid {
+        --fluid-min: calc(var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0)));
+        --fluid-max: calc(var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0)));
+        --fluid-preferred: calc((var(--fluid-max) - var(--fluid-min)) / (var(--font-width-max) - var(--font-width-min)));
+        --fluid-type: clamp(
+            (var(--fluid-min) / 16) * 1rem,
+            ((var(--fluid-min) / 16) * 1rem) - (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) + (var(--fluid-preferred) * 100vi),
+            (var(--fluid-max) / 16) * 1rem
+        );
+        font-size: var(--fluid-type);
+    }
+
+    .you-can-scroll-demo header {
+        min-height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding-inline: 0;
+        padding-top: 6rem;
+    }
+
+    .you-can-scroll-demo h1 {
+        --font-size-min: 26;
+        --font-level: 7;
+        text-wrap: pretty;
+        line-height: 1.05;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+        background: linear-gradient(canvasText 60%, color-mix(in oklch, canvas, canvasText));
+        background-clip: text;
+        color: transparent;
+    }
+
+    .you-can-scroll-demo main { width: 100%; }
+
+    .you-can-scroll-demo section:first-of-type {
+        --font-level: 6;
+        display: flex;
+        line-height: 1.25;
+        width: 100%;
+        padding-left: 2.6rem;
+    }
+
+    .you-can-scroll-demo section:first-of-type h2 {
+        position: sticky;
+        top: var(--focus-top);
+        transform: translateY(-50%);
+        font-size: inherit;
+        margin: 0;
+        display: inline-block;
+        height: fit-content;
+        font-weight: 600;
+    }
+
+    .you-can-scroll-demo section:last-of-type {
+        min-height: 2vh;
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        justify-content: center;
+        padding-top: 0;
+    }
+
+    .you-can-scroll-demo section:last-of-type h2 {
+        --font-level: 6;
+        font-weight: 600;
+        line-height: 1.25;
+        text-align: center;
+    }
+
+    .you-can-scroll-demo .final-moment {
+        --font-level: 5;
+    }
+
+    .you-can-scroll-demo ul {
+        --step: calc((var(--end) - var(--start)) / (var(--count) - 1));
+        font-weight: 600;
+        padding-inline: 0;
+        padding-top: 10vh;
+        padding-bottom: 18vh;
+        margin: 0;
+        list-style-type: none;
+    }
+
+    .you-can-scroll-demo { scroll-snap-type: y mandatory; }
+    .you-can-scroll-demo li { scroll-snap-align: center; }
+    .you-can-scroll-demo li { scroll-snap-stop: always; }
+
+    .you-can-scroll-demo h2,
+    .you-can-scroll-demo li:last-of-type {
+        background: linear-gradient(canvasText 50%, color-mix(in oklch, canvas, canvasText 25%));
+        background-clip: text;
+        color: transparent;
+    }
+
+    :global(html:not(.dark)) .you-can-scroll-demo h1,
+    :global(html:not(.dark)) .you-can-scroll-demo h2,
+    :global(html:not(.dark)) .you-can-scroll-demo li:last-of-type {
+        background: linear-gradient(#101a35 52%, #2b3f6f 100%);
+        background-clip: text;
+        color: transparent;
+    }
+
+    :global(html:not(.dark)) .you-can-scroll-demo .bear-link {
+        color: #142247;
+    }
+
+    .you-can-scroll-demo li:not(:last-of-type) {
+        color: oklch(var(--lightness) var(--base-chroma) calc(var(--start) + (var(--step) * var(--i))));
+    }
+
+    .you-can-scroll-demo li {
+        opacity: 0;
+        transition: opacity 180ms linear;
+    }
+
+    .you-can-scroll-demo li.is-near {
+        opacity: 0.42;
+    }
+
+    .you-can-scroll-demo li.is-active {
+        opacity: 1;
+        filter: brightness(1.15);
+    }
+
+    .you-can-scroll-demo li:last-of-type {
+        text-align: center;
+    }
+
+    .you-can-scroll-demo footer {
+        padding-block: 0.4rem;
+        opacity: 0.5;
+    }
+
+    .you-can-scroll-demo .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    @media (max-width: 900px) {
+        .you-can-scroll-demo header {
+            min-height: 8vh;
+            padding-top: 2rem;
+        }
+
+        .you-can-scroll-demo section:first-of-type {
+            padding-left: 0;
+            justify-content: center;
+            --font-level: 7;
+        }
+
+        .you-can-scroll-demo ul {
+            padding-top: 18vh;
+            padding-bottom: 15vh;
+        }
+
+        .you-can-scroll-demo section:last-of-type {
+            min-height: 2vh;
+            padding-top: 0;
+        }
+
+        .you-can-scroll-demo {
+            margin-bottom: -0.3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .you-can-scroll-demo {
+            min-height: 70vh; /* Reduces vertical gap to prevent the titles from being pushed too far apart */
+        }
+        
+        .you-can-scroll-demo header {
+            padding-top: 0;
+            min-height: auto;
+        }
+
+        .you-can-scroll-demo section:first-of-type {
+            padding-left: 0;
+            justify-content: center;
+            --font-level: 9; /* Increased dramatically by ~50% for visibility */
+            flex-wrap: wrap; /* Safely wrappers larger words without breaking 100vw */
+            max-width: 100vw;
+            margin-top: 2rem; /* Pulls slightly tighter to header */
+            margin-bottom: 1rem; 
+        }
+
+        .you-can-scroll-demo h1 {
+            --font-level: 8;
+        }
+
+        .you-can-scroll-demo .final-moment {
+            --font-level: 7;
+            margin-top: -1rem; /* Pulls bottom title closer */
+        }
+
+        .you-can-scroll-demo ul {
+            padding-top: 0vh;
+            padding-bottom: 2vh;
+        }
+    }
+</style>

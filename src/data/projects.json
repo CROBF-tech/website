@@ -19,7 +19,7 @@
             "es": "Libreria JavaScript ligero y moderno para desarrollo web rápido",
             "en": "Lightweight and modern JavaScript library for rapid web development"
         },
-        "image": "/projects/bunny-js.svg",
+        "image": "/projects/bunny-js.png",
         "link": "https://bunny-js.crobf.tech/",
         "technologies": ["JavaScript", "TypeScript", "Vite"]
     },
@@ -31,7 +31,7 @@
             "es": "Aplicación de gestión de tareas con diseño minimalista y funcionalidades avanzadas",
             "en": "Task management application with minimalist design and advanced features"
         },
-        "image": "/projects/todo-app.svg",
+        "image": "/projects/todo-app.png",
         "link": "https://todoapp.crobf.tech/",
         "technologies": ["React", "TypeScript", "CSS3"]
     },
@@ -43,7 +43,7 @@
             "es": "Aplicación de estudio con tarjetas de memoria para aprendizaje efectivo",
             "en": "Study application with memory cards for effective learning"
         },
-        "image": "/projects/flashcards.svg",
+        "image": "/projects/flashcards.png",
         "link": "https://flashcards.crobf.tech/",
         "technologies": ["React", "TypeScript", "Local Storage"]
     }

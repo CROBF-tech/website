@@ -6,38 +6,60 @@ const t = useTranslations(lang);
 ---
 
 <div class="contact-form">
-    <span class="heading">{t("form.contact.title")}</span>
-    <form method="POST" id="contact_form">
-        <input type="hidden" name="access_key" value={MAIL_KEY} />
+    <div class="form-panel">
+        <div class="form-header">
+            <h2 class="heading">{t("form.contact.title")}</h2>
+            <p class="sub">{t("form.contact.description") ?? "Need help with something? Get in touch and we’ll reply shortly."}</p>
+        </div>
 
-        <label for="name">{t("form.contact.name")}</label>
-        <input type="text" name="name" placeholder="Jhon Doe" required="" />
+        <form method="POST" id="contact_form">
+            <input type="hidden" name="access_key" value={MAIL_KEY} />
 
-        <label for="email">{t("form.contact.email")}</label>
-        <input type="email" id="email" name="email" placeholder="jhondoe@email.com" required="" />
+            <div class="field">
+                <label for="name">{t("form.contact.name")}</label>
+                <input type="text" name="name" placeholder="Jhon Doe" required="" />
+            </div>
 
-        <label for="message">{t("form.contact.message")}</label>
-        <textarea id="message" name="message" placeholder={t("form.contact.placeholder.message") as string} required=""
-        ></textarea>
+            <div class="field">
+                <label for="email">{t("form.contact.email")}</label>
+                <input type="email" id="email" name="email" placeholder="jhondoe@email.com" required="" />
+            </div>
 
-        <button type="submit">{t("form.contact.submit")}</button>
+            <div class="field">
+                <label for="message">{t("form.contact.message")}</label>
+                <textarea id="message" name="message" placeholder={t("form.contact.placeholder.message") as string} required=""></textarea>
+            </div>
 
-        <div class="result"></div>
-    </form>
+            <div class="actions">
+                <button type="submit">{t("form.contact.submit")}</button>
+            </div>
+
+            <div class="result"></div>
+        </form>
+    </div>
+
+    <div class="visual-panel" aria-hidden="true">
+        <!-- Decorative side: large image or gradient to match reference -->
+        <div class="visual-content">
+                <video class="panel-video" src="/video_formulario.mp4" autoplay muted loop playsinline></video>
+            </div>
+    </div>
 </div>
 <script is:inline>
     const form = document.getElementById("contact_form");
     const result = document.querySelector(".result");
 
     form.addEventListener("submit", async function (e) {
-        const formData = new FormData(form);
         e.preventDefault();
+        const formData = new FormData(form);
 
         try {
             const json = JSON.stringify(Object.fromEntries(formData));
 
             result.classList.add("wait");
             result.innerHTML = "Please wait...";
+
+            console.log('Enviando datos:', json);
 
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
@@ -48,126 +70,162 @@ const t = useTranslations(lang);
                 body: json,
             });
 
+            console.log('Response status:', response.status);
             const data = await response.json();
+            console.log('Response data:', data);
 
-            if (data.status === 400) throw new Error();
+            if (!response.ok || data.success === false) {
+                throw new Error(data.message || 'Error al enviar el formulario');
+            }
 
-            console.log(data);
-
-            result.classList.replace("wait", "success");
+            result.classList.remove("wait");
+            result.classList.add("success");
             result.innerHTML = "Se envió el mensaje correctamente";
+            
+            setTimeout(() => {
+                form.reset();
+                setTimeout(() => {
+                    result.classList.remove("success");
+                    result.innerHTML = "";
+                }, 3000);
+            }, 2000);
         } catch (e) {
-            result.classList.replace("wait", "error");
-            result.innerHTML = "Hubo un error al enviar tu mensaje";
-        } finally {
-            form.reset();
+            console.error('Error completo:', e);
+            result.classList.remove("wait");
+            result.classList.add("error");
+            result.innerHTML = "Hubo un error al enviar tu mensaje: " + e.message;
         }
     });
 </script>
 <style>
     .contact-form {
-        width: 800px;
-        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+        max-width: 900px;
+        width: 100%;
+        margin: 2rem auto;
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     }
+
     .result {
-        display: none;
+        display: block;
         padding: 0.5rem 0;
-        border-radius: 15px;
+        border-radius: 12px;
         text-align: center;
         margin-top: 10px;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease, height 0.3s ease;
     }
-    .result.wait {
-        display: inline-block !important;
-        border: solid 2px #bfdd17;
-        background-color: #bad4263b;
-    }
-    .result.success {
-        display: inline-block !important;
-        border: solid 2px #2f790c;
-        background-color: #5ac7283b;
-    }
+
+    .result.wait,
+    .result.success,
     .result.error {
-        display: inline-block !important;
-        border: solid 2px #920e0e;
-        background-color: #c526263b;
-    }
-    .contact-form {
-        background-color: #e2e2e2;
-        padding: 1rem 1.5rem 2rem 1.5rem;
-        border-radius: 10px;
-    }
-    html.dark .contact-form {
-        background-color: #39445b;
+        opacity: 1;
+        height: auto;
+        padding: 0.75rem;
     }
 
-    .contact-form label {
-        color: black;
-    }
-    html.dark label {
-        color: white !important;
-    }
+    .result.wait { border: solid 2px #bfdd17; background-color: #bad4263b; }
+    .result.success { border: solid 2px #2f790c; background-color: #5ac7283b; }
+    .result.error { border: solid 2px #920e0e; background-color: #c526263b; }
 
-    .contact-form .heading {
-        line-height: 2.4rem;
-        font-size: 2.4rem;
-        color: black;
-        margin: 1rem 0;
-        font-weight: bold;
-        display: inline-block;
-        border-bottom: var(--accent) 3px solid;
-    }
-    html.dark .heading {
-        color: white !important;
-    }
-
-    .contact-form form {
+    .form-panel {
+        flex: 1 1 420px;
+        background-color: #0f1113;
+        color: #fff;
+        padding: 36px;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        gap: 12px;
     }
 
-    .contact-form label {
-        margin-left: 5px;
+    .visual-panel {
+        flex: 1 1 480px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        padding: 0; /* remove padding so video can fill */
+        overflow: hidden;
+        position: relative; /* allow absolute video to fill */
+        display: block;
     }
 
-    textarea {
-        resize: none;
-        height: 80px;
-        width: auto;
+    html.dark .visual-panel { background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.1)); }
+
+    .form-header .heading { line-height: 1.05; font-size: 2rem; color: #fff; margin: 0 0 8px 0; font-weight: 700; }
+    .form-header .sub { margin: 0 0 18px 0; color: rgba(255,255,255,0.72); font-size: 1.05rem; }
+
+    .form-panel form { display: flex; flex-direction: column; gap: 12px; }
+
+    .field label { display:block; font-size:0.95rem; color: rgba(255,255,255,0.75); margin-bottom:6px; }
+    .field input, .field textarea {
+        background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.12);
+        padding: 12px 6px; color:#fff; font-size:1.1rem; width: 100%; box-sizing: border-box;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.45); font-size: 1.05rem; }
+    .field textarea { min-height:120px; width:100%; resize:none; }
+
+    .field input:focus, .field textarea:focus {
+        outline:none; border-bottom-color:var(--accent); box-shadow:0 6px 24px rgba(0,0,0,0.25);
+        transform: translateY(-2px); transition: all 0.18s ease;
     }
 
-    .contact-form input,
-    .contact-form textarea {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        margin-bottom: 20px;
+    .actions { margin-top:6px; }
+    .actions button[type="submit"]{
+        background:#fff; color:#0b0b0b; border:none; border-radius:999px; padding:12px 26px; font-size:1.05rem; font-weight:700;
+        cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,0.28);
     }
-    html.dark .contact-form input,
-    html.dark .contact-form textarea {
-        background-color: #39445b;
-        color: white;
-        box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-        outline: none;
-        box-shadow: 0 0 5px var(--accent);
-        transform: scale(1.02);
-        transition: transform 0.3s ease-in-out;
+    .actions button[type="submit"]:hover{ transform: translateY(-2px); transition: transform 0.18s ease; }
+
+    .visual-content { width:100%; height:100%; display:block; position:relative; }
+    .visual-content .quote { font-size: 1.05rem; color: rgba(0,0,0,0.85); font-weight:700; margin-bottom:16px; }
+    html.dark .visual-content .quote { color: rgba(255,255,255,0.95); }
+    .visual-content .credit { font-size:0.9rem; color: rgba(0,0,0,0.6); }
+    html.dark .visual-content .credit { color: rgba(255,255,255,0.6); }
+
+    .panel-video {
+        position: absolute;
+        inset: 0; /* top/right/bottom/left = 0 */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right center; /* align important content to the right */
+        display: block;
+        transform: translateZ(0);
     }
 
-    .contact-form button[type="submit"] {
-        background-color: var(--accent);
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 0.7rem;
-        font-size: 1.2rem;
-        cursor: pointer;
+    @media (max-width: 900px) {
+        .contact-form { flex-direction: column; }
+        .visual-panel { order: 2; min-height: 220px; }
+        .form-panel { padding: 24px; }
     }
 
-    .contact-form button[type="submit"]:hover {
-        transform: scale(1.02);
-        transition: transform 0.3s ease-in-out;
+    @media (max-width: 480px) {
+        .contact-form {
+            margin: 1rem auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+        .form-panel {
+            padding: 16px;
+            gap: 10px;
+        }
+        .form-header .heading {
+            font-size: 1.4rem;
+        }
+        .form-header .sub {
+            font-size: 0.85rem;
+        }
+        .visual-panel {
+            min-height: 160px;
+        }
+        .actions button[type="submit"] {
+            width: 100%;
+            padding: 14px 20px;
+        }
     }
 </style>

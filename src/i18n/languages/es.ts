@@ -35,8 +35,6 @@ export default {
     'about.whoWeAre.title': '¿Quiénes Somos?',
     'about.whoWeAre.description':
         'CROBF está formado por nueve profesionales apasionados por la tecnología y el desarrollo de software:',
-    'about.team.values':
-        'Nos define nuestra diversidad de conocimientos, nuestras ganas de aprender y nuestro compromiso con el trabajo en equipo.',
     'about.philosophy.title': 'Nuestra Filosofía',
     'about.philosophy.description':
         'En CROBF, creemos que el aprendizaje y el éxito van de la mano. Por eso, hemos estructurado nuestro equipo en dos áreas principales:',
@@ -72,6 +70,7 @@ export default {
         'Si deseas conocer más sobre nosotros o explorar nuestras soluciones, ¡no dudes en contactarnos! En CROBF, estamos siempre listos para afrontar nuevos desafíos y construir un futuro juntos.',
     // ===============================================================
     'form.contact.title': 'Contáctanos',
+    'form.contact.description': '¿Necesitas ayuda con algo? Ponte en contacto y te responderemos pronto.',
     'form.contact.name': 'Nombre',
     'form.contact.email': 'Email',
     'form.contact.message': 'Mensaje',

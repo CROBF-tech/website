@@ -1,0 +1,222 @@
+---
+// Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
+const items = [
+	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_4.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_5.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
+	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },
+];
+
+const totalCards = items.length;
+---
+
+<div class="carousel-wrapper">
+	<section class="carousel-section">
+		<div class="scene">
+			<div class="a3d" style={`--n: ${totalCards}`}>
+					{items.map((item, index) => (
+						<video
+							class="card"
+							src={item.src}
+							data-variant={item.variant}
+							style={`--i: ${index}`}
+							autoplay
+							muted
+							loop
+							playsinline
+						/>
+					))}
+			</div>
+		</div>
+	</section>
+</div>
+
+<style>
+	.carousel-wrapper {
+		/*
+		 * El wrapper TAMBIÉN rompe a full-width con el mismo truco 100vw.
+		 * Así en desktop no recorta nada (es tan ancho como el viewport).
+		 * En mobile/tablet, overflow-x:clip evita scroll horizontal
+		 * sin romper el 3D (a diferencia de overflow:hidden).
+		 */
+		width: 100vw;
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
+		position: relative;
+	}
+
+	.carousel-section {
+		width: 100%;
+		/* mover carrusel hacia arriba para integrarlo con la hero-intro */
+		padding: 1rem 0 12rem;
+		/* aumentar margin-top negativo para elevar el carrusel sobre la hero */
+		margin-top: -16rem;
+		margin-bottom: 4rem;
+		display: grid;
+		place-items: center;
+		/* Permitir que las cards se vean completamente */
+		overflow: visible !important;
+		/* Eliminar cualquier clipping */
+		clip-path: none;
+		position: relative;
+		/* Forzar que no se corte */
+		contain: none;
+		/* Z-index MUY alto para estar por encima de TODO excepto el nav */
+		z-index: 999;
+		/* Asegurar que nada corte el contenido */
+		isolation: isolate;
+	}
+
+	/* ====== Relevant CSS ====== */
+	.scene, 
+	.a3d {
+		display: grid;
+	}
+
+	.scene {
+		/* NO usar overflow hidden aquí para evitar clipping */
+		overflow: visible !important;
+		/* for 3D look; smaller = more extreme effect */
+		perspective: 35em;
+		min-height: 900px;
+		width: 100%;
+		display: grid;
+		place-items: center;
+		/* Agregar padding vertical MUY generoso para que las cards NUNCA se corten */
+		padding: 8rem 0;
+		/* Eliminar cualquier clipping */
+		clip-path: none;
+		position: relative;
+		/* Forzar que no se corte */
+		contain: none;
+		/* Z-index para estar por encima */
+		z-index: 100;
+	}
+
+	.a3d {
+		place-self: center /* middle align */;
+		/* don't flatten 3D transformed children 
+		 * of this parent having its own 3D transform */
+		transform-style: preserve-3d;
+		animation: ry 32s linear infinite;
+		/* Mejorar rendimiento durante scroll */
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		/* Asegurar que no haya clipping */
+		overflow: visible;
+		/* Z-index para las cards */
+		position: relative;
+		z-index: 101;
+	}
+
+	/* simplest y axis rotation */
+	@keyframes ry {
+		to {
+			rotate: y 1turn;
+		}
+	}
+
+	.card {
+		--w: 400px;
+		--radius: 700px;
+
+		--ba: 1turn/var(--n);
+
+		grid-area: 1/ 1;
+		width: var(--w);
+		max-width: 90vw;
+		aspect-ratio: 7/ 10;
+		object-fit: cover;
+		border-radius: 1.5em;
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		transform:
+			rotatey(calc(var(--i)*var(--ba)))
+			translatez(calc(-1 * var(--radius)));
+		image-rendering: auto;
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	}
+
+	/* Estilos específicos para videos */
+	video.card {
+		/* Asegurar que el video se reproduzca correctamente */
+		pointer-events: none;
+		object-fit: cover;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.a3d {
+			animation-duration: 128s;
+		}
+	}
+
+	/* Tablet: activar clip horizontal para evitar scroll */
+	@media (max-width: 1024px) {
+		.carousel-wrapper {
+			overflow-x: clip;
+		}
+
+		.carousel-section {
+			padding: 0.75rem 0 6rem;
+			/* tablet: subir menos que desktop pero más que antes */
+			margin-top: -12rem;
+			margin-bottom: 3rem;
+		}
+
+		.scene {
+			min-height: 600px;
+			padding: 4rem 0;
+		}
+
+		.card {
+			--w: 340px;
+			--radius: 580px;
+		}
+	}
+
+	/* Mobile */
+	@media (max-width: 768px) {
+		.carousel-section {
+			padding: 0.5rem 0 5rem;
+			/* mobile: subir moderadamente */
+			margin-top: -10rem;
+			margin-bottom: 2rem;
+		}
+
+		.card {
+			--w: 300px;
+			--radius: 460px;
+		}
+
+		.scene {
+			min-height: 550px;
+			perspective: 30em;
+			padding: 3.5rem 0;
+		}
+	}
+
+	/* Small mobile */
+	@media (max-width: 480px) {
+		.carousel-section {
+			padding: 0.5rem 0 4rem;
+			/* small mobile: subir ligeramente para no tapar contenido */
+			margin-top: -6rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.card {
+			--w: 240px;
+			--radius: 360px;
+		}
+
+		.scene {
+			min-height: 500px;
+			perspective: 25em;
+			padding: 3rem 0;
+		}
+	}
+</style>

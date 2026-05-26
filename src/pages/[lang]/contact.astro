@@ -28,4 +28,26 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             padding: 20px;
         }
     </style>
+    <script is:inline>
+        // If page opened with #contact_form, scroll to it (handles direct links from CTAs)
+        (function(){
+            if (typeof window === 'undefined') return;
+            const tryScroll = () => {
+                const hash = window.location.hash;
+                if (!hash) return;
+                const id = hash.replace('#','');
+                const el = document.getElementById(id);
+                if (el) {
+                    const headerOffset = 80; // adjust if you have a fixed header
+                    const rect = el.getBoundingClientRect();
+                    const top = window.scrollY + rect.top - headerOffset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            };
+
+            // Try on load and after a short delay (site may do client rendering)
+            window.addEventListener('load', tryScroll);
+            setTimeout(tryScroll, 300);
+        })();
+    </script>
 </Layout>
