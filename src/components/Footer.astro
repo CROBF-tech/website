@@ -133,8 +133,8 @@ const homeHref = `/${lang}`;
                 });
             };
 
-            element.addEventListener("mousemove", handleMouseMove);
-            element.addEventListener("mouseleave", handleMouseLeave);
+            (element as HTMLElement).addEventListener("mousemove", handleMouseMove);
+            (element as HTMLElement).addEventListener("mouseleave", handleMouseLeave);
         });
     }
 
