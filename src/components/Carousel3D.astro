@@ -1,5 +1,5 @@
 ---
-// Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
+// Carrusel 3D con efecto de rotación - 12 videos
 const items = [
 	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
 	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },
@@ -9,6 +9,10 @@ const items = [
 	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
 	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },
 	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/flashcards.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
 ];
 
 const totalCards = items.length;
@@ -37,12 +41,6 @@ const totalCards = items.length;
 
 <style>
 	.carousel-wrapper {
-		/*
-		 * El wrapper TAMBIÉN rompe a full-width con el mismo truco 100vw.
-		 * Así en desktop no recorta nada (es tan ancho como el viewport).
-		 * En mobile/tablet, overflow-x:clip evita scroll horizontal
-		 * sin romper el 3D (a diferencia de overflow:hidden).
-		 */
 		width: 100vw;
 		margin-left: calc(50% - 50vw);
 		margin-right: calc(50% - 50vw);
@@ -51,23 +49,13 @@ const totalCards = items.length;
 
 	.carousel-section {
 		width: 100%;
-		/* mover carrusel hacia arriba para integrarlo con la hero-intro */
 		padding: 1rem 0 12rem;
-		/* aumentar margin-top negativo para elevar el carrusel sobre la hero */
 		margin-top: -16rem;
 		margin-bottom: 4rem;
 		display: grid;
 		place-items: center;
-		/* Permitir que las cards se vean completamente */
-		overflow: visible !important;
-		/* Eliminar cualquier clipping */
-		clip-path: none;
 		position: relative;
-		/* Forzar que no se corte */
-		contain: none;
-		/* Z-index MUY alto para estar por encima de TODO excepto el nav */
 		z-index: 999;
-		/* Asegurar que nada corte el contenido */
 		isolation: isolate;
 	}
 
@@ -78,23 +66,17 @@ const totalCards = items.length;
 	}
 
 	.scene {
-		/* NO usar overflow hidden aquí para evitar clipping */
-		overflow: visible !important;
+		/* prevent scrollbars */
+		overflow: hidden;
 		/* for 3D look; smaller = more extreme effect */
 		perspective: 35em;
+		/* lateral fade */
+		mask: linear-gradient(90deg, #0000, red 20% 80%, #0000);
 		min-height: 900px;
 		width: 100%;
 		display: grid;
 		place-items: center;
-		/* Agregar padding vertical MUY generoso para que las cards NUNCA se corten */
 		padding: 8rem 0;
-		/* Eliminar cualquier clipping */
-		clip-path: none;
-		position: relative;
-		/* Forzar que no se corte */
-		contain: none;
-		/* Z-index para estar por encima */
-		z-index: 100;
 	}
 
 	.a3d {
@@ -103,14 +85,6 @@ const totalCards = items.length;
 		 * of this parent having its own 3D transform */
 		transform-style: preserve-3d;
 		animation: ry 32s linear infinite;
-		/* Mejorar rendimiento durante scroll */
-		backface-visibility: hidden;
-		-webkit-backface-visibility: hidden;
-		/* Asegurar que no haya clipping */
-		overflow: visible;
-		/* Z-index para las cards */
-		position: relative;
-		z-index: 101;
 	}
 
 	/* simplest y axis rotation */
@@ -121,29 +95,28 @@ const totalCards = items.length;
 	}
 
 	.card {
-		--w: 400px;
-		--radius: 700px;
-
+		/* base card width */
+		--w: 17.5em;
+		/* compute base angle corresponding to a card */
 		--ba: 1turn/var(--n);
 
-		grid-area: 1/ 1;
+		grid-area: 1/ 1 /* stack in same one grid cell */;
 		width: var(--w);
 		max-width: 90vw;
 		aspect-ratio: 7/ 10;
 		object-fit: cover;
 		border-radius: 1.5em;
+		/* don't want to see back of cards in front of screen plane */
 		backface-visibility: hidden;
-		-webkit-backface-visibility: hidden;
+		/* rotate around y axis, then translate along z axis */
 		transform:
 			rotatey(calc(var(--i)*var(--ba)))
-			translatez(calc(-1 * var(--radius)));
-		image-rendering: auto;
+			translatez(calc(-1*(0.5*var(--w) + 0.5em)/tan(0.5*var(--ba))));
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 	}
 
 	/* Estilos específicos para videos */
 	video.card {
-		/* Asegurar que el video se reproduzca correctamente */
 		pointer-events: none;
 		object-fit: cover;
 	}
@@ -154,7 +127,7 @@ const totalCards = items.length;
 		}
 	}
 
-	/* Tablet: activar clip horizontal para evitar scroll */
+	/* Tablet */
 	@media (max-width: 1024px) {
 		.carousel-wrapper {
 			overflow-x: clip;
@@ -162,7 +135,6 @@ const totalCards = items.length;
 
 		.carousel-section {
 			padding: 0.75rem 0 6rem;
-			/* tablet: subir menos que desktop pero más que antes */
 			margin-top: -12rem;
 			margin-bottom: 3rem;
 		}
@@ -173,8 +145,7 @@ const totalCards = items.length;
 		}
 
 		.card {
-			--w: 340px;
-			--radius: 580px;
+			--w: 15em;
 		}
 	}
 
@@ -182,14 +153,12 @@ const totalCards = items.length;
 	@media (max-width: 768px) {
 		.carousel-section {
 			padding: 0.5rem 0 5rem;
-			/* mobile: subir moderadamente */
 			margin-top: -10rem;
 			margin-bottom: 2rem;
 		}
 
 		.card {
-			--w: 300px;
-			--radius: 460px;
+			--w: 13em;
 		}
 
 		.scene {
@@ -203,14 +172,12 @@ const totalCards = items.length;
 	@media (max-width: 480px) {
 		.carousel-section {
 			padding: 0.5rem 0 4rem;
-			/* small mobile: subir ligeramente para no tapar contenido */
 			margin-top: -6rem;
 			margin-bottom: 1.5rem;
 		}
 
 		.card {
-			--w: 240px;
-			--radius: 360px;
+			--w: 11em;
 		}
 
 		.scene {
