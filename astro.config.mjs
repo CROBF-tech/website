@@ -15,10 +15,12 @@ export default defineConfig({
     vite: {
       css: {
           preprocessorOptions: {
-              sass: {
+                sass: {
+                  // @ts-ignore - valid Vite 5.4+ option not yet in types
                   api: "modern-compiler",
               },
               scss: {
+                  // @ts-ignore - valid Vite 5.4+ option not yet in types
                   api: "modern-compiler",
               },
           },

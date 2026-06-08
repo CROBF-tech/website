@@ -1,17 +1,14 @@
 ---
 // Carrusel 3D con efecto de rotación - Diseño 3D azul violeta negro
 const items = [
-	{ type: 'video' as const, src: '/video_1.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%201.png' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%202.png' },
-	{ type: 'video' as const, src: '/video_3.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%203.png' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%204.png' },
-	{ type: 'video' as const, src: '/video_4.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%205.png' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%206.png' },
-	{ type: 'video' as const, src: '/video_5.mp4' },
-	{ type: 'image' as const, src: '/images/Imagen%20Carrusel%207.png' },
+	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_4.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/video_5.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
+	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },
+	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },
 ];
 
 const totalCards = items.length;
@@ -21,27 +18,18 @@ const totalCards = items.length;
 	<section class="carousel-section">
 		<div class="scene">
 			<div class="a3d" style={`--n: ${totalCards}`}>
-				{items.map((item, index) => (
-					item.type === 'video' ? (
-						<video 
-							class="card" 
+					{items.map((item, index) => (
+						<video
+							class="card"
 							src={item.src}
+							data-variant={item.variant}
 							style={`--i: ${index}`}
 							autoplay
 							muted
 							loop
 							playsinline
 						/>
-					) : (
-						<img 
-							class="card" 
-							src={item.src}
-							style={`--i: ${index}`} 
-							alt="Web development workspace"
-							loading="lazy"
-						/>
-					)
-				))}
+					))}
 			</div>
 		</div>
 	</section>
@@ -133,32 +121,23 @@ const totalCards = items.length;
 	}
 
 	.card {
-		/* Desktop card size: 400x571 */
 		--w: 400px;
+		--radius: 700px;
 
-		/* compute base angle corresponding to a card */
-		--ba: 1turn/var(--n); /* in the future: sibling-count() */
-		
-		grid-area: 1/ 1 /* stack in same one grid cell */;
+		--ba: 1turn/var(--n);
+
+		grid-area: 1/ 1;
 		width: var(--w);
 		max-width: 90vw;
 		aspect-ratio: 7/ 10;
 		object-fit: cover;
 		border-radius: 1.5em;
-		/* don't want to see back of cards in front of screen plane */
 		backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
-		/* need to use a transform chain here, cannot use separate 
-		 * rotate & translate properties because they'd be applied 
-		 * in wrong order (translate, then rotate) for what we need */
-		transform: 
-			/* rotate around y axis; in the future: sibling-index() */
+		transform:
 			rotatey(calc(var(--i)*var(--ba)))
-			/* only after that translate along z axis with minus */
-			translatez(calc(-1*(.5*var(--w) + .5em)/tan(.5*var(--ba))));
-		/* Mejorar calidad de imagen */
+			translatez(calc(-1 * var(--radius)));
 		image-rendering: auto;
-		/* Agregar sombra para mejor visualización */
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 	}
 
@@ -195,6 +174,7 @@ const totalCards = items.length;
 
 		.card {
 			--w: 340px;
+			--radius: 580px;
 		}
 	}
 
@@ -209,8 +189,9 @@ const totalCards = items.length;
 
 		.card {
 			--w: 300px;
+			--radius: 460px;
 		}
-		
+
 		.scene {
 			min-height: 550px;
 			perspective: 30em;
@@ -229,8 +210,9 @@ const totalCards = items.length;
 
 		.card {
 			--w: 240px;
+			--radius: 360px;
 		}
-		
+
 		.scene {
 			min-height: 500px;
 			perspective: 25em;

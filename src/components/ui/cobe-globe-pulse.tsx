@@ -102,8 +102,10 @@ export function GlobePulse({
         arcWidth: 0.5,
         arcHeight: 0.25,
         opacity: 0.7,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         context: {
           // Custom rendering for Argentina
+          // @ts-ignore - fillStyle is a valid cobe context option
           fillStyle: (lat: number, long: number) => {
             // Argentina boundaries
             if (lat >= -55 && lat <= -21.8 && long >= -73.6 && long <= -53.6) {
@@ -171,7 +173,7 @@ export function GlobePulse({
           key={m.id}
           style={{
             position: "absolute",
-            // @ts-expect-error CSS Anchor Positioning
+            // @ts-ignore CSS Anchor Positioning
             positionAnchor: `--cobe-${m.id}`,
             bottom: "anchor(center)",
             left: "anchor(center)",
