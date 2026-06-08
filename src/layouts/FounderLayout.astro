@@ -5,13 +5,14 @@ import Layout from "./Layout.astro";
 type Props = CollectionEntry<"founder">["data"];
 
 const { title, description, heroImage } = Astro.props;
+const heroImageSrc = Array.isArray(heroImage) ? heroImage[0] : heroImage;
 ---
 
 <Layout title={title} description={description}>
     <main>
         <article>
             <div class="hero-image">
-                {heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+                {heroImageSrc && <img width={1020} height={510} src={heroImageSrc} alt="" />}
             </div>
             <div class="prose">
                 <div class="title">

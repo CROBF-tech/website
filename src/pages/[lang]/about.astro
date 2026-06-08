@@ -1,8 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import CardFounder from "../../components/CardFounder.astro";
-import PhilosophyCards from "../../components/PhilosophyCards.astro";
-import { SITE_TITLE, TEAM_MEMBERS } from "../../consts";
+import { SITE_TITLE } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
 import Values from "../../components/Values.astro";
 import Purpose from "../../components/Purpose.astro";
@@ -21,7 +21,13 @@ export function getStaticPaths() {
 
 export const prerender = true;
 
-const t = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allFounders = await getCollection("founder");
+const teamMembers = allFounders
+    .filter(f => f.id.startsWith(`${lang}/`) && f.data.index !== undefined)
+    .sort((a, b) => (a.data.index ?? 99) - (b.data.index ?? 99));
 ---
 
 <Layout title={`${t("about.title")} - ${SITE_TITLE}`} description={t("about.description") as string}>
@@ -37,73 +43,24 @@ const t = useTranslations(getLangFromUrl(Astro.url));
             <!-- Team Grid -->
             <section class="team-section">
                 <div class="team-grid">
-                    <CardFounder
-                        name={TEAM_MEMBERS.Juan.fullName}
-                        image={TEAM_MEMBERS.Juan.logo}
-                        github={TEAM_MEMBERS.Juan.gitHub}
-                        linkedin={TEAM_MEMBERS.Juan.linkedin}
-                        link={TEAM_MEMBERS.Juan.link}
-                        profession={TEAM_MEMBERS.Juan.profession}
-                        description={TEAM_MEMBERS.Juan.description}
-                    />
-                    <CardFounder
-                        name={TEAM_MEMBERS.Ezequiel.fullName}
-                        image={TEAM_MEMBERS.Ezequiel.logo}
-                        github={TEAM_MEMBERS.Ezequiel.gitHub}
-                        linkedin={TEAM_MEMBERS.Ezequiel.linkedin}
-                        link={TEAM_MEMBERS.Ezequiel.link}
-                        profession={TEAM_MEMBERS.Ezequiel.profession}
-                        description={TEAM_MEMBERS.Ezequiel.description}
-                    />
-                    <CardFounder
-                        name={TEAM_MEMBERS.Leandro.fullname}
-                        image={TEAM_MEMBERS.Leandro.logo}
-                        github={TEAM_MEMBERS.Leandro.gitHub}
-                        linkedin={TEAM_MEMBERS.Leandro.linkedin}
-                        link={TEAM_MEMBERS.Leandro.link}
-                        profession={TEAM_MEMBERS.Leandro.profession}
-                        description={TEAM_MEMBERS.Leandro.description}
-                    />
-                    <CardFounder
-                        name={TEAM_MEMBERS.Lautaro.fullName}
-                        image={TEAM_MEMBERS.Lautaro.logo}
-                        github={TEAM_MEMBERS.Lautaro.gitHub}
-                        linkedin={TEAM_MEMBERS.Lautaro.linkedin}
-                        link={TEAM_MEMBERS.Lautaro.link}
-                        profession={TEAM_MEMBERS.Lautaro.profession}
-                        description={TEAM_MEMBERS.Lautaro.description}
-                    />
-                    <div class="team-center-col">
-                        <CardFounder
-                            name={TEAM_MEMBERS.Briana.fullname}
-                            image={TEAM_MEMBERS.Briana.logo}
-                            github={TEAM_MEMBERS.Briana.gitHub}
-                            linkedin={TEAM_MEMBERS.Briana.linkedin}
-                            link={TEAM_MEMBERS.Briana.link}
-                            profession={TEAM_MEMBERS.Briana.profession}
-                            description={TEAM_MEMBERS.Briana.description}
-                        />
-                    </div>
-                    <CardFounder
-                        name={"Valentina Osorio"}
-                        image={'/founders/valentina_osorio.jpeg'}
-                        github={'https://github.com/Valen2203'}
-                        linkedin={'https://www.linkedin.com/in/valentina-osorio-6a4b25303/'}
-                        link={'/founders/valentina_osorio'}
-                        profession={'Diseñador UX/UI'}
-                        description={TEAM_MEMBERS.Sofia.description}
-                    />
-                    <div class="team-center-col">
-                        <CardFounder
-                            name={"Magali Rodriguez"}
-                            image={'/founders/magali_rodriguez.jpeg'}
-                            github={'https://github.com/MagaliDev'}
-                            linkedin={'https://www.linkedin.com/in/magalidev'}
-                            link={'/founders/magali_rodriguez'}
-                            profession={'Diseñador UX/UI'}
-                            description={""}
-                        />
-                    </div>
+                    {teamMembers.map((member) => {
+                        const slug = member.id.replace(`${lang}/`, '');
+                        const link = `/founders/${slug}`;
+                        const card = (
+                            <CardFounder
+                                name={member.data.title}
+                                image={member.data.heroImage ?? ''}
+                                github={member.data.github ?? ''}
+                                linkedin={member.data.linkedin ?? ''}
+                                link={link}
+                                profession={member.data.profession ?? ''}
+                                description={member.data.description}
+                            />
+                        );
+                        return member.data.centerCol
+                            ? <div class="team-center-col">{card}</div>
+                            : card;
+                    })}
                 </div>
             </section>
 

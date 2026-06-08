@@ -27,3 +27,6 @@ pnpm-debug.log*
 .idea/
 .vscode
 desktop.ini
+
+# gstack browser tool (session files, logs)
+.gstack/
