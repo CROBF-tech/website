@@ -6,7 +6,13 @@ const founder = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string(),
-        heroImage: z.string().optional(),
+        heroImage: z.union([z.string(), z.array(z.string())]).optional(),
+        profession: z.string().optional(),
+        github: z.string().optional(),
+        linkedin: z.string().optional(),
+        email: z.string().optional(),
+        index: z.number().optional(),
+        centerCol: z.boolean().optional(),
     }),
 });
 
