@@ -1,18 +1,18 @@
 ---
 // Carrusel 3D con efecto de rotación - 12 videos
 const items = [
-	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/video_4.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/video_5.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
-	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/flashcards.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },
-	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },
+	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },      // 1
+	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },     // 2
+	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },      // 3
+	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },        // 4
+	{ type: 'video' as const, src: '/video_4.mp4', variant: 'default' },      // 5
+	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },      // 6
+	{ type: 'video' as const, src: '/video_5.mp4', variant: 'default' },      // 7
+	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },      // 8 (repetido - 7 posiciones después)
+	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },     // 9
+	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },     // 10 (repetido - 8 posiciones después)
+	{ type: 'video' as const, src: '/flashcards.mp4', variant: 'default' },   // 11
+	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },        // 12 (repetido - 8 posiciones después)
 ];
 
 const totalCards = items.length;
