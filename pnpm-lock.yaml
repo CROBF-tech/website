@@ -38,6 +38,9 @@ importers:
       astro:
         specifier: ^6.3.7
         version: 6.3.7(@types/node@24.12.4)(@vercel/functions@3.6.0)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(sass@1.99.0)(yaml@2.9.0)
+      astro-seo:
+        specifier: ^1.1.0
+        version: 1.1.0(prettier@3.8.3)(typescript@5.9.3)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1241,6 +1244,9 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+
+  astro-seo@1.1.0:
+    resolution: {integrity: sha512-G6LDNDyga30o+52v58jU7C35n3cORUzk7RSuY+xf/ZRbW6JiNplyaOO1VoYVKO+xzYNaBcxqNln2RFRR/wgJNQ==}
 
   astro@6.3.7:
     resolution: {integrity: sha512-zIeDRrI0qNgN1lcCjNqt6/IVCVej7VwSa326cO8uP9BOk1cg4QuffhLnOn2gCgWQr32/wxpSRFfXiLKHglu1Tw==}
@@ -3920,6 +3926,14 @@ snapshots:
   array-iterate@2.0.1: {}
 
   astring@1.9.0: {}
+
+  astro-seo@1.1.0(prettier@3.8.3)(typescript@5.9.3):
+    dependencies:
+      '@astrojs/check': 0.9.9(prettier@3.8.3)(typescript@5.9.3)
+    transitivePeerDependencies:
+      - prettier
+      - prettier-plugin-astro
+      - typescript
 
   astro@6.3.7(@types/node@24.12.4)(@vercel/functions@3.6.0)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.4)(sass@1.99.0)(yaml@2.9.0):
     dependencies:

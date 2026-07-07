@@ -12,13 +12,13 @@ const lang = getLangFromUrl(Astro.url);
 const copy =
     lang === "en"
         ? {
-              badge: "Technology studio",
-              heroTitle: "We create solutions We build software",
-              heroTitleLine1: "We create solutions",
-              heroTitleLine2: "We build software",
-              heroText: "We build digital products with strategy, design, and engineering to help your business scale.",
-              heroPrimary: "Start a project",
-              heroSecondary: "View services",
+              badge: "Web, apps & automation for your business",
+              heroTitle: "Stop doing everything manually We automate it for you",
+              heroTitleLine1: "Stop doing everything manually",
+              heroTitleLine2: "We automate it for you",
+              heroText: "We build websites, automate processes, and develop mobile and desktop apps for small businesses. No templates, fully custom.",
+              heroPrimary: "Get a quote",
+              heroSecondary: "See how it works",
               heroMetaA: "Consulting and Product",
               heroMetaB: "In-house software team",
               heroGapTitle: "",
@@ -36,16 +36,16 @@ const copy =
               ctaAction: "Schedule a meeting",
               endTitle: "Ready to digitize your business?",
               endPrimary: "Let's start",
-                            endSecondary: "Learn more about us",
+              endSecondary: "Learn more about us",
           }
         : {
-              badge: "Estudio de tecnología",
-              heroTitle: "La mejor forma de Creando sistemas",
-              heroTitleLine1: "La mejor forma de",
-              heroTitleLine2: "Creando sistemas",
-              heroText: "Somos expertos en desarrollo de software y diseño de experiencias digitales. Creamos todo tipo de aplicaciones con código propio y soluciones a medida.",
-              heroPrimary: "Completar formulario",
-              heroSecondary: "Whatsapp directo",
+              badge: "Web, apps y automatización para tu negocio",
+              heroTitle: "Dejá de hacer todo a mano Nosotros te automatizamos",
+              heroTitleLine1: "Dejá de hacer todo a mano",
+              heroTitleLine2: "Nosotros te automatizamos",
+              heroText: "Hacemos páginas web, automatizamos procesos y desarrollamos apps de celular y de escritorio para PyMEs y negocios locales. Sin plantillas, hecho a tu medida.",
+              heroPrimary: "Cotizar mi proyecto",
+              heroSecondary: "Ver cómo funciona",
               heroMetaA: "",
               heroMetaB: "",
               heroGapTitle: "",
@@ -60,9 +60,9 @@ const copy =
               teamText: "Disenadores, developers y especialistas en crecimiento enfocados en resultados reales.",
               teamAction: "Ver el equipo",
               ctaText: "Sumate al futuro del desarrollo de software autonomo.",
-              ctaAction: "Contáctanos",
+              ctaAction: "Agendar reunión",
               endTitle: "Listo para digitalizar tu negocio?",
-              endPrimary: "Comencemos",
+              endPrimary: "Empezar proyecto",
               endSecondary: "Conoce mas sobre nosotros",
           };
 
@@ -71,65 +71,65 @@ const serviceItems =
         ? [
               {
                   icon: "app",
-                  title: "App and web systems",
-                  text: "Order, stock, shift, and customer management. Built around your workflow.",
-              },
-              {
-                  icon: "dashboard",
-                  title: "Dashboards and reports",
-                  text: "Clear real-time business data for better decisions.",
+                  title: "Professional website",
+                  text: "Customers can't find you online? We build a modern website that sells 24/7. Optimized for Google and easy to use.",
               },
               {
                   icon: "automation",
-                  title: "Automation",
-                  text: "Remove repetitive tasks so your team can focus on what matters.",
-              },
-              {
-                  icon: "commerce",
-                  title: "E-commerce",
-                  text: "Online stores integrated with payment, invoicing, logistics, and stock.",
+                  title: "Task automation",
+                  text: "Losing hours on repetitive tasks? We automate invoicing, email sending, reminders, and more. Your time is money.",
               },
               {
                   icon: "ai",
-                  title: "Artificial intelligence",
-                  text: "Chatbots, demand prediction, and data analysis with AI for your business.",
+                  title: "Mobile app",
+                  text: "Want to run your business from anywhere? We develop Android and iPhone apps adapted to how you work.",
+              },
+              {
+                  icon: "dashboard",
+                  title: "Desktop app",
+                  text: "Need a system for your office or business? We build Windows and Mac programs that do exactly what you need.",
+              },
+              {
+                  icon: "commerce",
+                  title: "Online store",
+                  text: "Want to sell online? Store connected with MercadoPago, WhatsApp, and shipping. You sell while you sleep.",
               },
               {
                   icon: "integrations",
-                  title: "Integrations",
-                  text: "We connect tools like SAP, Tango, MercadoPago, WhatsApp, and your current stack.",
+                  title: "Everything connected",
+                  text: "Have systems that don't talk to each other? We unify your website, management system, WhatsApp, and payments. All synced.",
               },
           ]
         : [
               {
                   icon: "app",
-                  title: "App y sistemas web",
-                  text: "Gestion de pedidos, stock, turnos y clientes. Lo que necesites, a medida.",
-              },
-              {
-                  icon: "dashboard",
-                  title: "Dashboards e informes",
-                  text: "Datos de tu negocio claros y en tiempo real para tomar mejores decisiones.",
+                  title: "Página web profesional",
+                  text: "¿Tus clientes no te encuentran online? Te hacemos una web moderna que vende 24/7. Optimizada para Google y fácil de usar.",
               },
               {
                   icon: "automation",
-                  title: "Automatizacion",
-                  text: "Elimina tareas manuales y repetitivas para que tu equipo se enfoque en lo importante.",
-              },
-              {
-                  icon: "commerce",
-                  title: "E-commerce",
-                  text: "Tiendas online integradas con medios de pago, facturacion, logistica y stock.",
+                  title: "Automatización de tareas",
+                  text: "¿Perdés horas en tareas repetitivas? Automatizamos facturación, envíos de mails, recordatorios y más. Tu tiempo vale oro.",
               },
               {
                   icon: "ai",
-                  title: "Inteligencia artificial",
-                  text: "Chatbots, prediccion de demanda y analisis de datos con IA aplicada a tu negocio.",
+                  title: "App de celular",
+                  text: "¿Querés controlar tu negocio desde cualquier lado? Desarrollamos apps para Android e iPhone adaptadas a cómo trabajás.",
+              },
+              {
+                  icon: "dashboard",
+                  title: "App de escritorio",
+                  text: "¿Necesitás un sistema para tu oficina o negocio? Creamos programas para Windows y Mac que hacen exactamente lo que necesitás.",
+              },
+              {
+                  icon: "commerce",
+                  title: "Tienda online",
+                  text: "¿Querés vender por internet? Tienda online conectada con MercadoPago, WhatsApp y envíos. Vendés mientras dormís.",
               },
               {
                   icon: "integrations",
-                  title: "Integraciones",
-                  text: "Conectamos SAP, Tango, MercadoPago, WhatsApp y lo que ya uses hoy.",
+                  title: "Todo conectado",
+                  text: "¿Tenés sistemas que no se hablan? Unificamos tu página web, tu sistema de gestión, WhatsApp y medios de pago. Todo sincronizado.",
               },
           ];
 
@@ -242,9 +242,9 @@ const stackingProjects = [
                                                 <span
                                                     class="hero-left-rotate"
                                                     data-hero-left-rotate
-                                                    data-hero-words="para solucionar|para innovar|para simplificar|para asegurar"
+                                                    data-hero-words="para hacer crecer tu negocio|para automatizar tus procesos|para tener tu página web|para tu app de celular"
                                                 >
-                                                    para solucionar
+                                                    para hacer crecer tu negocio
                                                 </span>
                                             </span>
                                         </span>
@@ -359,8 +359,11 @@ const stackingProjects = [
 
                     if (words.length > 1) {
                         let wordIndex = 0;
+                        let intervalId = 0;
+                        let isPaused = false;
 
                         const changeWord = () => {
+                            if (isPaused) return;
                             heroLeftRotate.classList.add("is-leaving");
 
                             window.setTimeout(() => {
@@ -381,9 +384,27 @@ const stackingProjects = [
                             }, SELECTOR_DURATION_MS / 2);
                         };
 
-                        window.setTimeout(() => {
-                            window.setInterval(changeWord, WORD_LIST_DURATION_MS + 1000);
-                        }, WORD_LIST_DURATION_MS + 450);
+                        const startRotation = () => {
+                            if (intervalId) return;
+                            intervalId = window.setInterval(changeWord, WORD_LIST_DURATION_MS + 1000);
+                        };
+
+                        const swapParent = heroLeftRotate.closest("[data-hero-bottom-swap]") || heroLeftRotate;
+
+                        swapParent.addEventListener("mouseenter", () => {
+                            isPaused = true;
+                        });
+                        swapParent.addEventListener("mouseleave", () => {
+                            isPaused = false;
+                        });
+                        swapParent.addEventListener("focusin", () => {
+                            isPaused = true;
+                        });
+                        swapParent.addEventListener("focusout", () => {
+                            isPaused = false;
+                        });
+
+                        window.setTimeout(startRotation, WORD_LIST_DURATION_MS + 450);
                     }
                 }
             }
@@ -637,7 +658,7 @@ const stackingProjects = [
         text-transform: uppercase;
         letter-spacing: 0.08em;
         font-size: 0.72rem;
-        color: rgba(23, 30, 48, 0.72);
+        color: rgba(23, 30, 48, 0.90);
     }
 
     .hero-intro {
@@ -817,7 +838,7 @@ const stackingProjects = [
     }
 
     .subtitle {
-        color: rgba(23, 30, 48, 0.78);
+        color: rgba(23, 30, 48, 0.92);
         max-width: 52ch;
         margin: 0;
     }
@@ -992,7 +1013,7 @@ const stackingProjects = [
     }
 
     .services > .eyebrow {
-        color: rgba(32, 46, 78, 0.78);
+        color: rgba(32, 46, 78, 0.92);
         margin-bottom: 0.8rem;
     }
 
@@ -1383,7 +1404,7 @@ const stackingProjects = [
     }
 
     .portfolio > .eyebrow {
-        color: rgba(52, 69, 108, 0.78);
+        color: rgba(52, 69, 108, 0.92);
     }
 
     .portfolio > h2 {
@@ -1676,7 +1697,7 @@ const stackingProjects = [
     }
 
     :global(html.dark) .services > .eyebrow {
-        color: rgba(230, 236, 255, 0.78);
+        color: rgba(230, 236, 255, 0.90);
     }
 
     :global(html.dark) .services > h2 {
@@ -1752,7 +1773,7 @@ const stackingProjects = [
     }
 
     :global(html.dark) .portfolio > .eyebrow {
-        color: rgba(202, 209, 225, 0.78);
+        color: rgba(202, 209, 225, 0.90);
     }
 
     :global(html.dark) .project-card h3 {
@@ -2015,6 +2036,20 @@ const stackingProjects = [
             opacity: 1;
             transform: none;
             filter: none;
+        }
+
+        .hero-left-rotate,
+        .hero-title__swap-item,
+        .hero-title__swap-track {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        .hero-left-rotate.is-leaving,
+        .hero-left-rotate.is-entering,
+        .hero-left-rotate.is-hidden {
+            transform: none !important;
+            opacity: 1 !important;
         }
     }
 </style>

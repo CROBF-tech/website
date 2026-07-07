@@ -162,3 +162,55 @@ hr {
 		padding: 0 !important;
 	}
 }
+
+/* ============================================================
+ * A11Y-002: Focus visible for keyboard navigation (WCAG 2.4.7)
+ * Provides a visible focus indicator for all interactive
+ * elements when navigated via keyboard, while removing the
+ * outline for mouse users via :focus:not(:focus-visible).
+ * ============================================================ */
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+    outline: 3px solid #4c6aff;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Circular elements (theme toggle, floating menu button) */
+button.theme-toggle:focus-visible,
+.floating-menu-btn:focus-visible,
+.footer-social-link:focus-visible {
+    outline: 3px solid #4c6aff;
+    outline-offset: 4px;
+    border-radius: 50%;
+}
+
+/* Remove outline for mouse users, keep for keyboard */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Dark mode: brighter focus color for contrast */
+html.dark a:focus-visible,
+html.dark button:focus-visible,
+html.dark [tabindex]:focus-visible,
+html.dark input:focus-visible,
+html.dark textarea:focus-visible,
+html.dark select:focus-visible,
+html.dark summary:focus-visible {
+    outline-color: #6b9fff;
+    box-shadow: 0 0 0 4px rgba(75, 139, 245, 0.3);
+}
+
+html.dark button.theme-toggle:focus-visible,
+html.dark .floating-menu-btn:focus-visible,
+html.dark .footer-social-link:focus-visible {
+    outline-color: #6b9fff;
+    box-shadow: 0 0 0 4px rgba(75, 139, 245, 0.3);
+}

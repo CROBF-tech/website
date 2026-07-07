@@ -53,9 +53,6 @@ function BentoGrid({ items }: BentoGridProps) {
                                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black/5 transition-all duration-300 group-hover:bg-gradient-to-br dark:bg-white/10">
                                     {iconByKey[item.icon] ?? <CheckCircle className="h-5 w-5 text-blue-500" />}
                                 </div>
-                                <span className="rounded-lg bg-black/5 px-3 py-1 text-xs font-medium text-gray-900 backdrop-blur-sm transition-colors duration-300 group-hover:bg-black/10 dark:bg-white/10 dark:text-gray-200 dark:group-hover:bg-white/20">
-                                    Active
-                                </span>
                             </div>
 
                             <div className="space-y-3 flex-1 flex flex-col justify-start">

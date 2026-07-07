@@ -35,6 +35,8 @@ export default {
     'about.whoWeAre.title': '¿Quiénes Somos?',
     'about.whoWeAre.description':
         'CROBF está formado por nueve profesionales apasionados por la tecnología y el desarrollo de software:',
+    'about.team.values':
+        'Nos definen nuestros diversos conocimientos, nuestras ganas de aprender y nuestro compromiso con el trabajo en equipo.',
     'about.philosophy.title': 'Nuestra Filosofía',
     'about.philosophy.description':
         'En CROBF, creemos que el aprendizaje y el éxito van de la mano. Por eso, hemos estructurado nuestro equipo en dos áreas principales:',

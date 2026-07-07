@@ -130,6 +130,24 @@ const posts =
                   image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
               },
           ];
+
+const excerptsBySlug: Record<string, string> = {
+    "el-rol-de-las-mujeres-en-el-mundo-it": "Reflexiones sobre diversidad e inclusión en equipos tecnológicos y su impacto en la innovación. Datos y experiencias que muestran por qué la diversidad importa.",
+    "la-trampa-de-la-sobre-normalizacion": "Aprendé a evitar errores comunes en el diseño de bases de datos que ralentizan tus aplicaciones. Casos reales y soluciones prácticas.",
+    "introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave": "Descubrí cómo documentar mejor los requerimientos para evitar malentendidos costosos entre desarrolladores y clientes.",
+    "dia-internacional-de-la-mujer": "Celebramos el aporte de las mujeres en tecnología con datos del sector y experiencias del equipo CROBF. Historias que inspiran.",
+    "desbloquea-el-poder-de-tu-equipo-de-software": "Estrategias prácticas para mejorar la productividad y comunicación de tu equipo de desarrollo. Basado en nuestra experiencia real.",
+    "5-funciones-de-css-que-deberias-conocer": "Funciones modernas de CSS que te ahorrarán código y mejorarán el rendimiento de tus sitios. Con ejemplos prácticos.",
+    "international-womens-day": "Reflections on diversity and inclusion in tech teams and its impact on innovation. Data and experiences showing why diversity matters.",
+    "unlock-the-power-of-your-software-team": "Practical strategies to improve your software team's productivity and communication. Based on our real experience.",
+    "benefits-of-using-the-pair-programming-technique-in-teams": "How pair programming boosts code quality, knowledge sharing, and team velocity. A practical guide with real outcomes.",
+    "5-css-features-you-should-know-about": "Modern CSS features that save you code and improve your site's performance. With practical examples.",
+    "what-is-solid-and-why-should-you-use-it": "The SOLID principles explained with real examples. Learn how to write more maintainable and scalable software.",
+    "how-to-build-a-highly-effective-development-team": "How to assemble and lead a highly effective development team. Hiring, culture, and process lessons from the trenches.",
+};
+const defaultExcerpt = lang === "en"
+    ? "Article by the CROBF team on software development and best practices."
+    : "Artículo del equipo CROBF sobre desarrollo de software y mejores prácticas.";
 ---
 
 <Layout title={pageCopy.title} description={SITE_DESCRIPTION}>
@@ -146,10 +164,7 @@ const posts =
                 posts.map((post) => {
                     const tags = lang === "en" ? ["Blog", "Software"] : ["Blog", "Software"];
                     const readTime = lang === "en" ? "5 min read" : "5 min lectura";
-                    const excerpt =
-                        lang === "en"
-                            ? "Insights, practices, and ideas for product and engineering teams."
-                            : "Ideas, practicas y aprendizajes para equipos de producto y desarrollo.";
+                    const excerpt = excerptsBySlug[post.slug] || defaultExcerpt;
 
                     return (
                         <article class="post-card">
@@ -272,7 +287,7 @@ const posts =
         text-transform: uppercase;
         letter-spacing: 0.08em;
         font-size: 0.72rem;
-        color: rgba(23, 30, 48, 0.72);
+        color: rgba(23, 30, 48, 0.90);
     }
 
     h1 {
@@ -404,7 +419,7 @@ const posts =
     .post-excerpt {
         margin: 0;
         font-size: 0.82rem;
-        color: rgba(23, 30, 48, 0.78);
+        color: rgba(23, 30, 48, 0.92);
     }
 
     .post-meta {
