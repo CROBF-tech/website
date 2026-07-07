@@ -315,23 +315,37 @@ import "normalize.css";
             --font-level: 3;
         }
 
+        /* Ocultar el "podés" fijo en mobile */
         .you-can-scroll-demo section:first-of-type h2 {
-            position: relative;
-            top: auto;
-            transform: none;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
+            display: none;
         }
 
         .you-can-scroll-demo ul {
-            padding-top: 2vh;
-            padding-bottom: 8vh;
+            padding-top: 4vh;
+            padding-bottom: 12vh;
             text-align: center;
         }
 
         .you-can-scroll-demo li {
             font-size: 1.75rem;
-            line-height: 1.6;
+            line-height: calc(20vh);
+            padding: 1rem 0;
+        }
+
+        /* Agregar "podés" antes de cada palabra en mobile */
+        .you-can-scroll-demo li::before {
+            content: "podés ";
+            font-weight: 400;
+            opacity: 0.8;
+            background: linear-gradient(canvasText 50%, color-mix(in oklch, canvas, canvasText 25%));
+            background-clip: text;
+            color: transparent;
+        }
+
+        :global(html:not(.dark)) .you-can-scroll-demo li::before {
+            background: linear-gradient(#101a35 52%, #2b3f6f 100%);
+            background-clip: text;
+            color: transparent;
         }
 
         .you-can-scroll-demo section:last-of-type {
