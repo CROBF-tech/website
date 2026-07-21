@@ -2,9 +2,14 @@
 interface Props {
     title: string;
     description: string;
+    image?: string;
+    type?: "website" | "article";
+    lang?: "es" | "en";
+    publishedTime?: string;
+    author?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image, type = "website", lang = "es", publishedTime, author } = Astro.props;
 
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
@@ -14,12 +19,13 @@ import "../styles/global.css";
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
     <head>
-        <BaseHead title={title} description={description} />
+        <BaseHead title={title} description={description} image={image} type={type} lang={lang} publishedTime={publishedTime} author={author} />
+        <slot name="head" />
     </head>
     <body>
-        <Header />
+        <Header lang={lang} />
         <slot />
         <ThemeIcon />
         <Footer />
@@ -30,3 +36,4 @@ import "../styles/global.css";
         </script>
     </body>
 </html>
+

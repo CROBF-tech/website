@@ -18,7 +18,7 @@ const copy = lang === "en"
     };
 ---
 
-<Layout title={copy.title} description={copy.description}>
+<Layout title={copy.title} description={copy.description} lang={lang}>
     <main class="projects-page">
         <ProjectShowcase client:load lang={lang} />
     </main>

@@ -1,6 +1,4 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
 import "../styles/global.scss";
 import "../styles/navbar.css";
 import { SEO } from "astro-seo";
@@ -10,9 +8,15 @@ interface Props {
     title: string;
     description: string;
     image?: string;
+    type?: "website" | "article";
+    lang?: "es" | "en";
+    publishedTime?: string;
+    author?: string;
 }
 
-const { title, description, image = "/Logo1120x1120.png" } = Astro.props;
+const { title, description, image = "/Logo1120x1120.png", type = "website", lang = "es", publishedTime, author } = Astro.props;
+
+const ogLocale = lang === "en" ? "en_US" : "es_AR";
 ---
 
 <SEO
@@ -23,14 +27,16 @@ const { title, description, image = "/Logo1120x1120.png" } = Astro.props;
     openGraph={{
         basic: {
             title: title,
-            type: "website",
+            type: type,
             image: image,
             url: Astro.url.toString(),
         },
         optional: {
             description: description,
-            locale: "es_AR",
+            locale: ogLocale,
             siteName: "CROBF",
+            ...(publishedTime ? { publishedTime } : {}),
+            ...(author ? { authors: [author] } : {}),
         },
         image: {
             alt: "CROBF - Web, apps y automatización para tu negocio",
@@ -48,6 +54,7 @@ const { title, description, image = "/Logo1120x1120.png" } = Astro.props;
             { rel: "icon", type: "image/png", href: "/Logo360x360Icon.png" },
             { rel: "preload", href: "/fonts/atkinson-regular.woff", as: "font", type: "font/woff", crossorigin: "anonymous" },
             { rel: "preload", href: "/fonts/atkinson-bold.woff", as: "font", type: "font/woff", crossorigin: "anonymous" },
+            ...(lang === "en" ? [{ rel: "alternate", hreflang: "es", href: Astro.url.toString().replace(`/${lang}/`, "/es/") }, { rel: "alternate", hreflang: "en", href: Astro.url.toString() }] : [{ rel: "alternate", hreflang: "es", href: Astro.url.toString() }, { rel: "alternate", hreflang: "en", href: Astro.url.toString().replace(`/${lang}/`, "/en/") }]),
         ],
         meta: [
             { name: "viewport", content: "width=device-width,initial-scale=1" },

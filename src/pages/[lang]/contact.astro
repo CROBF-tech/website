@@ -7,7 +7,7 @@ import { SITE_TITLE } from "../../consts";
 const t = useTranslations(getLangFromUrl(Astro.url));
 ---
 
-<Layout title={`${t("navbar.contact")} - ${SITE_TITLE}`} description={t("about.description") as string}>
+<Layout title={`${t("navbar.contact")} - ${SITE_TITLE}`} description={t("about.description") as string} lang={getLangFromUrl(Astro.url)}>
     <div>
         <FormContact />
     </div>

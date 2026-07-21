@@ -1,5 +1,10 @@
 ---
+interface Props {
+    lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
 import TopNav from "./TopNav.astro";
 ---
 
-<TopNav />
+<TopNav lang={lang} />
