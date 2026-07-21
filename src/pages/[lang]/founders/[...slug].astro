@@ -1,30 +1,17 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 import FounderLayout from "../../../layouts/FounderLayout.astro";
 
-export const prerender = true;
+const { lang, slug } = Astro.params;
+const fullId = `${lang}/${slug}`;
 
-export async function getStaticPaths() {
-    const posts = await getCollection("founder");
+const allFounders = await getCollection("founder");
+const documentation = allFounders.find((post) => post.id === fullId);
 
-    return posts.map((post) => {
-        const { id } = post;
-        const match = id.match(/[^\/]+/g);
-        if (!match || match.length < 2) {
-            throw new Error(`El id "${id}" no tiene el formato esperado.`);
-        }
-
-        const [lang = "en", ...real_slug] = match;
-
-        return {
-            params: { lang, slug: real_slug.join("/") },
-            props: post,
-        };
-    });
+if (!documentation) {
+    return new Response(null, { status: 404 });
 }
-type Props = CollectionEntry<"founder">;
 
-const documentation = Astro.props;
 const { Content } = await render(documentation);
 ---
 

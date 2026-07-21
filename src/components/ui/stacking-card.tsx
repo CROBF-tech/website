@@ -3,7 +3,6 @@
 import { ReactLenis } from 'lenis/react';
 import { useTransform, motion, useScroll, MotionValue } from 'motion/react';
 import { useRef, forwardRef } from 'react';
-import { cn } from '@/lib/utils';
 
 interface ProjectData {
   title: string;
@@ -283,7 +282,7 @@ interface ComponentRootProps {
 }
 
 const Component = forwardRef<HTMLElement, ComponentRootProps>(
-  ({ projects }, ref) => {
+  ({ projects }) => {
     const container = useRef(null);
     const { scrollYProgress } = useScroll({
       target: container,

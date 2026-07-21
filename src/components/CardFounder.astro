@@ -2,7 +2,7 @@
 import { getLangFromUrl } from "../i18n/translate";
 import Github from "./svgs/Github.astro";
 import Linkedin from "./svgs/Linkedin.astro";
-const { name, image, github, linkedin, link, profession, description } = Astro.props;
+const { name, image, github, linkedin, link, profession } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 
 // Seleccionar imagen aleatoria si es un array

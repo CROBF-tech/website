@@ -4,22 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import CardFounder from "../../components/CardFounder.astro";
 import { SITE_TITLE } from "../../consts";
 import { useTranslations, getLangFromUrl } from "../../i18n/translate";
-import Values from "../../components/Values.astro";
-import Purpose from "../../components/Purpose.astro";
 import { GlobePulse } from "../../components/ui/cobe-globe-pulse";
-
-export function getStaticPaths() {
-    return [
-        {
-            params: { lang: "es" },
-        },
-        {
-            params: { lang: "en" },
-        },
-    ];
-}
-
-export const prerender = true;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

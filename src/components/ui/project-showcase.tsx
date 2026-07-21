@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { ArrowUpRight, List, Grid2X2 } from "lucide-react"
+import { List, Grid2X2 } from "lucide-react"
 
 interface Project {
   title: string
