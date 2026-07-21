@@ -17,4 +17,19 @@ const founder = defineCollection({
     }),
 });
 
-export const collections = { founder };
+const blog = defineCollection({
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+    schema: z.object({
+        title: z.string(),
+        description: z.string().optional().default(''),
+        pubDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
+        heroImage: z.string().optional(),
+        author: z.string().optional().default('CROBF'),
+        tags: z.array(z.string()).optional().default([]),
+        featured: z.boolean().optional().default(false),
+        readingTime: z.number().int().positive().optional(),
+    }),
+});
+
+export const collections = { founder, blog };

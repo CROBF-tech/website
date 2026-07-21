@@ -1,103 +1,210 @@
 ---
+import IconChevronFirst from "./svgs/IconChevronFirst.astro";
+import IconChevronLeft from "./svgs/IconChevronLeft.astro";
+import IconChevronRight from "./svgs/IconChevronRight.astro";
+import IconChevronLast from "./svgs/IconChevronLast.astro";
+
 interface Props {
     total: number;
     current: number;
+    lang?: "es" | "en";
+    baseHref?: string;
+    showFirstLast?: boolean;
 }
 
-const { total, current } = Astro.props;
+const { total, current, lang = "es", baseHref, showFirstLast = true } = Astro.props;
 
-const pages = Array.from({ length: total }, (_, i) => i + 1);
+const labels = {
+    es: { first: "Primera", last: "Última", prev: "Anterior", next: "Siguiente", page: "Página" },
+    en: { first: "First", last: "Last", prev: "Previous", next: "Next", page: "Page" },
+};
+const t = labels[lang];
+
+const buildHref = (page: number): string => {
+    const params = new URLSearchParams();
+    if (page > 1) params.set("page", String(page));
+    const qs = params.toString();
+    const base = baseHref ?? Astro.url.pathname;
+    return qs ? `${base}?${qs}` : base;
+};
+
+const neighbours = 1;
+const pages: (number | "…")[] = [];
+const push = (value: number | "…") => {
+    if (pages.length === 0 || pages[pages.length - 1] !== value) pages.push(value);
+};
+
+if (showFirstLast) push(1);
+const start = Math.max(showFirstLast ? 2 : 1, current - neighbours);
+const end = Math.min(showFirstLast ? total - 1 : total, current + neighbours);
+if (start > (showFirstLast ? 2 : 1)) push("…");
+for (let p = start; p <= end; p++) push(p);
+if (end < (showFirstLast ? total - 1 : total)) push("…");
+if (showFirstLast && total > 1) push(total);
+
+const isFirst = current <= 1;
+const isLast = current >= total;
 ---
 
-<div class="pagination">
+<nav class="pagination" aria-label={t.page}>
     {
-        current > 1 && (
-            <a href={`?page=${current - 1}`} class="pagination-link prev">
-                <svg width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M6 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zm7.219.376a1 1 0 111.562 1.249L11.28 10l3.5 4.375a1 1 0 11-1.562 1.249l-4-5a1 1 0 010-1.25l4-5z"
-                        fill="currentColor"
-                    />
-                </svg>
+        showFirstLast && (
+            <a
+                href={buildHref(1)}
+                class:list={["pagination-link pagination-link--edge", { "is-disabled": isFirst }]}
+                aria-label={t.first}
+                aria-disabled={isFirst ? "true" : undefined}
+                tabindex={isFirst ? -1 : undefined}
+            >
+                <IconChevronFirst />
             </a>
         )
     }
 
-    <div class="pagination-numbers">
+    <a
+        href={buildHref(current - 1)}
+        class:list={["pagination-link pagination-link--edge", { "is-disabled": isFirst }]}
+        aria-label={t.prev}
+        aria-disabled={isFirst ? "true" : undefined}
+        tabindex={isFirst ? -1 : undefined}
+    >
+        <IconChevronLeft />
+    </a>
+
+    <div class="pagination-numbers" role="list">
         {
-            pages.map((page) => {
-                if (page - 1 === current || page === current || page + 1 === current) {
-                    return (
-                        <a href={`?page=${page}`} class:list={["pagination-link", { active: page === current }]}>
-                            {page}
-                        </a>
-                    );
-                }
-                return null;
-            })
+            pages.map((entry) =>
+                entry === "…" ? (
+                    <span class="pagination-ellipsis" aria-hidden="true">…</span>
+                ) : (
+                    <a
+                        href={buildHref(entry)}
+                        class:list={["pagination-link", { active: entry === current }]}
+                        aria-label={`${t.page} ${entry}`}
+                        aria-current={entry === current ? "page" : undefined}
+                    >
+                        {entry}
+                    </a>
+                )
+            )
         }
     </div>
 
+    <a
+        href={buildHref(current + 1)}
+        class:list={["pagination-link pagination-link--edge", { "is-disabled": isLast }]}
+        aria-label={t.next}
+        aria-disabled={isLast ? "true" : undefined}
+        tabindex={isLast ? -1 : undefined}
+    >
+        <IconChevronRight />
+    </a>
+
     {
-        current < total && (
-            <a href={`?page=${current + 1}`} class="pagination-link next">
-                <svg width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M14 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zm-7.219.376l4 5a1 1 0 010 1.249l-4 5a1 1 0 11-1.562-1.25l3.5-4.374-3.5-4.376a1 1 0 111.562-1.25z"
-                        fill="currentColor"
-                    />
-                </svg>
+        showFirstLast && (
+            <a
+                href={buildHref(total)}
+                class:list={["pagination-link pagination-link--edge", { "is-disabled": isLast }]}
+                aria-label={t.last}
+                aria-disabled={isLast ? "true" : undefined}
+                tabindex={isLast ? -1 : undefined}
+            >
+                <IconChevronLast />
             </a>
         )
     }
-</div>
+</nav>
 
-<style lang="scss">
+<style>
     .pagination {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1rem;
-        margin: 2rem 0;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 2.5rem 0 0;
     }
 
     .pagination-numbers {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
+        align-items: center;
     }
 
     .pagination-link {
-        padding: 0.5rem 1rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        padding: 0 0.65rem;
+        border: 1px solid rgba(95, 114, 166, 0.25);
+        border-radius: 0.6rem;
+        background: transparent;
+        color: rgba(23, 30, 48, 0.85);
         text-decoration: none;
-        color: #333;
-        transition: all 0.2s ease;
-        text-align: center;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: transparent;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
 
     .pagination-link:hover {
-        background-color: #f0f0f0;
+        background: rgba(73, 109, 244, 0.08);
+        border-color: rgba(73, 109, 244, 0.45);
+        color: rgba(20, 30, 58, 0.95);
     }
 
     .pagination-link.active {
-        background-color: #30374a;
-        color: white;
-        border-color: white;
+        background: linear-gradient(120deg, #1f34f3, #4c6aff);
+        color: #f6f8ff;
+        border-color: transparent;
+        box-shadow: 0 8px 22px rgba(41, 76, 255, 0.28);
     }
 
-    .prev,
-    .next {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        border-radius: 4px;
-        border: 1px solid #ddd;
+    .pagination-link--edge {
+        padding: 0 0.55rem;
+    }
+
+    .pagination-link.is-disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    .pagination-ellipsis {
+        min-width: 1.5rem;
+        text-align: center;
+        color: rgba(23, 30, 48, 0.55);
+        font-weight: 600;
+        user-select: none;
+    }
+
+    :global(html.dark) .pagination-link {
+        color: rgba(229, 236, 255, 0.85);
+        border-color: rgba(160, 178, 235, 0.22);
+    }
+
+    :global(html.dark) .pagination-link:hover {
+        background: rgba(95, 126, 252, 0.18);
+        color: #ffffff;
+    }
+
+    :global(html.dark) .pagination-ellipsis {
+        color: rgba(229, 236, 255, 0.55);
+    }
+
+    @media (max-width: 520px) {
+        .pagination {
+            gap: 0.3rem;
+        }
+
+        .pagination-link {
+            min-width: 2rem;
+            height: 2rem;
+            font-size: 0.78rem;
+        }
+
+        .pagination-numbers {
+            gap: 0.25rem;
+        }
     }
 </style>

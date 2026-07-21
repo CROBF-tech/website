@@ -1,0 +1,145 @@
+---
+title: '5 funciones de css que deberías conocer'
+description: 'Hoy quiero hablarte de cinco funciones geniales de CSS que probablemente cambiarán tu manera de escribir estilos. Si estás aprendiendo CSS, estas funciones te van a facilitar la vida. Vamos a…'
+pubDate: 'Dec 26 2024'
+heroImage: '/blog/5_funciones_de_css_que_deberias_conocer.png'
+author: 'Juan Beresiarte'
+tags:
+  - 'CSS'
+readingTime: 2
+---
+Hoy quiero hablarte de cinco funciones geniales de CSS que probablemente cambiarán tu manera de escribir estilos. Si estás aprendiendo CSS, estas funciones te van a facilitar la vida. Vamos a verlas una por una, con ejemplos que muestran cómo haríamos las cosas "a mano" y cómo podemos simplificarlas con estas herramientas.
+
+## 1. calc(): Realiza cálculos directamente en tu CSS ​​📏
+
+¿Te has encontrado sumando o restando valores manualmente para ajustar el tamaño de un elemento? Con `calc()`, puedes hacerlo directamente en tu hoja de estilos, sin necesidad de cálculos previos.
+
+### Ejemplo sin calc():
+```css
+.container {
+  width: 70%;
+  margin: 20px;
+}
+```
+### Ejemplo con calc():
+```css
+.container {
+  width: calc(70% - 20px);
+  margin: 20px;
+}
+```
+
+Con `calc()`, puedes combinar diferentes unidades de medida, como porcentajes y pixeles, para lograr diseños más flexibles y adaptables.
+
+---
+
+## 2. repeat(): Simplifica la creación de grids 💡
+
+Si usas Grid Layout, seguro que te has encontrado escribiendo columnas o filas repetitivas. Con `repeat()`, puedes evitar códigos redundantes y mejorar la legibilidad.
+
+### Ejemplo sin repeat():
+```css
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
+}
+```
+### Ejemplo con repeat():
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Lo mismo, pero más limpio */
+}
+```
+
+`repeat()` es ideal para grids complejos o con un patrón definido
+
+---
+
+## 3. min(): Controla el tamaño máximo dinámico 🤏
+
+`min()` te permite especificar el tamaño más pequeño entre varios valores, perfecto para diseños responsivos.
+
+### Ejemplo sin min():
+```css
+.box {
+  width: 50vw; /* Podría ser demasiado grande en pantallas grandes */
+}
+
+@media (min-width: 600px) {
+  .box {
+    width: 300px; /* Tamaño fijo en pantallas más grandes */
+  }
+}
+```
+### Ejemplo con min():
+```css
+.box {
+  width: min(50vw, 300px); /* Escoge automáticamente el valor más pequeño */
+}
+```
+
+Con `min()`, reduces reglas de media queries y logras un diseño más fluido.
+
+---
+
+## 4. clamp(): Control total del tamaño en diseños responsivos
+
+`clamp()` permite definir un rango de tamaños mínimo y máximo, ideal para fuentes y elementos que necesitan escalar según el tamaño de la pantalla.
+
+### Ejemplo sin clamp():
+```css
+.text {
+  font-size: 16px; /* Tamaño fijo */
+}
+
+@media (min-width: 600px) {
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .text {
+    font-size: 24px;
+  }
+}
+```
+### Ejemplo con clamp():
+```css
+.text {
+  font-size: clamp(16px, 2vw, 24px); /* Escala entre 16px y 24px */
+}
+```
+
+Con `clamp()`, eliminas varias reglas de media queries y consigues un diseño mucho más flexible.
+
+---
+
+## 5. fit-content(): Ajusta el ancho al contenido 
+
+`fit-content()` te permite ajustar el ancho de un elemento al tamaño de su contenido, pero sin que este se expanda más allá de un valor máximo que definas. Esto es muy útil para crear botones o elementos que se ajusten dinámicamente al texto que contienen, pero que no se hagan excesivamente grandes en pantallas anchas.
+
+### Ejemplo sin fit-content():
+
+```css
+.button {
+  width: auto; /* Se expande según el contenido */
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+```
+
+(En este caso, si el texto del botón es muy largo, el botón se extenderá demasiado).
+
+### Ejemplo con fit-content():
+
+```css
+.button {
+  width: fit-content(200px); /* Se ajusta al contenido, pero con un máximo de 200px */
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+```
+
+Con `fit-content()`, el botón se ajustará al tamaño del texto, pero nunca superará los 200px de ancho. Si el texto es más corto, el botón será más pequeño.

@@ -1,262 +1,260 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { SITE_DESCRIPTION } from "../../consts";
+import Pagination from "../../components/Pagination.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
 import { getLangFromUrl } from "../../i18n/translate";
 
-const lang = getLangFromUrl(Astro.url);
+const lang = (getLangFromUrl(Astro.url) === "en" ? "en" : "es") as "es" | "en";
 
-const pageCopy =
-    lang === "en"
-        ? {
-              title: "CROBF Blog Archive",
-              badge: "Legacy Articles",
-              heading: "Articles that were previously on this site",
-              text: "The historical CROBF blog now lives in its dedicated project. You can read old and new posts from this page.",
-              cta: "View complete archive",
-              read: "Read article",
-              dateLabel: "Published",
-              authorLabel: "Author",
-          }
-          : {
-              title: "Archivo del Blog CROBF",
-              badge: "",
-              heading: "BLOG",
-              text: "Explora recursos y consejos de nuestro equipo<br/>de expertos para llevar tus conocimientos al<br/>siguiente nivel y potenciar tu práctica profesional",
-              cta: "Ver archivo completo",
-              read: "Leer articulo",
-              dateLabel: "Publicado",
-              authorLabel: "Autor",
-          };
+const pageCopy = {
+    es: {
+        title: "Blog CROBF",
+        eyebrow: "Recursos para tu equipo",
+        heading: "Blog",
+        text: "Recursos, guías y opiniones escritas por nuestro equipo para llevar tus conocimientos al siguiente nivel y potenciar tu práctica profesional.",
+        read: "Leer artículo",
+        empty: "Aún no hay publicaciones en este idioma.",
+        featuredBadge: "Destacado",
+        minutes: "min",
+        showing: "Mostrando",
+        of: "de",
+        results: (n: number) => (n === 1 ? "artículo" : "artículos"),
+        back: "Volver al blog",
+    },
+    en: {
+        title: "CROBF Blog",
+        eyebrow: "Resources for your team",
+        heading: "Blog",
+        text: "Resources, guides and opinions written by our team to take your knowledge to the next level and boost your professional practice.",
+        read: "Read article",
+        empty: "No posts available in this language yet.",
+        featuredBadge: "Featured",
+        minutes: "min",
+        showing: "Showing",
+        of: "of",
+        results: (n: number) => (n === 1 ? "article" : "articles"),
+        back: "Back to blog",
+    },
+}[lang];
 
-const posts =
-    lang === "en"
-        ? [
-              {
-                  slug: "international-womens-day",
-                  title: "International Women's Day",
-                  date: "Mar 8, 2025",
-                  author: "Ana Paula Toledo",
-                  href: "https://blog.crobf.tech/en/blog/international-womens-day/",
-                  image: "https://blog.crobf.tech/blog/Dia_internacional_de_la_mujer.png",
-              },
-              {
-                  slug: "unlock-the-power-of-your-software-team",
-                  title: "Unlock the Power of Your Software Team",
-                  date: "Feb 19, 2025",
-                  author: "Casiano Ezequiel",
-                  href: "https://blog.crobf.tech/en/blog/unlock-the-power-of-your-software-team/",
-                  image: "https://blog.crobf.tech/blog/desbloquea_el_poder_de_tu_equipo_de_software.jpg",
-              },
-              {
-                  slug: "benefits-of-using-the-pair-programming-technique-in-teams",
-                  title: "Benefits of Pair Programming in Teams",
-                  date: "Feb 13, 2025",
-                  author: "Casiano Ezequiel",
-                  href: "https://blog.crobf.tech/en/blog/benefits-of-using-the-pair-programming-technique-in-teams/",
-                  image: "https://blog.crobf.tech/blog/Beneficios_de_usar_la_t%C3%A9cnica_Pair_Programming_en_equipos.jpg",
-              },
-              {
-                  slug: "5-css-features-you-should-know-about",
-                  title: "5 CSS Features You Should Know",
-                  date: "Dec 26, 2024",
-                  author: "Juan Beresiarte",
-                  href: "https://blog.crobf.tech/en/blog/5-css-features-you-should-know-about/",
-                  image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
-              },
-              {
-                  slug: "what-is-solid-and-why-should-you-use-it",
-                  title: "What is SOLID and Why Use It?",
-                  date: "Nov 26, 2024",
-                  author: "Juan Beresiarte",
-                  href: "https://blog.crobf.tech/en/blog/what-is-solid-and-why-should-you-use-it/",
-                  image: "https://blog.crobf.tech/blog/placheholder-blog-solid.jpg",
-              },
-              {
-                  slug: "how-to-build-a-highly-effective-development-team",
-                  title: "How to Build a Highly Effective Development Team",
-                  date: "Nov 26, 2024",
-                  author: "Casiano Ezequiel",
-                  href: "https://blog.crobf.tech/en/blog/how-to-build-a-highly-effective-development-team/",
-                  image: "https://blog.crobf.tech/blog/Como_Construir_un_Equipo_de_Desarrollo_Altamente_Efectivo.jpg",
-              },
-          ]
-        : [
-              {
-                  slug: "el-rol-de-las-mujeres-en-el-mundo-it",
-                  title: "El Rol de las Mujeres en el Mundo IT",
-                  date: "Mar 8, 2026",
-                  author: "Juan Beresiarte",
-                  href: "https://blog.crobf.tech/es/blog/el-rol-de-las-mujeres-en-el-mundo-it/",
-                  image: "https://blog.crobf.tech/blog/dia-de-la-mujer.png",
-              },
-              {
-                  slug: "la-trampa-de-la-sobre-normalizacion",
-                  title: "La Trampa de la Sobre-Normalizacion",
-                  date: "May 27, 2025",
-                  author: "Casiano Ezequiel",
-                  href: "https://blog.crobf.tech/es/blog/la-trampa-de-la-sobre-normalizacion/",
-                  image: "https://blog.crobf.tech/blog/La-Trampa-de-la-Sobre-Normalizacion.png",
-              },
-              {
-                  slug: "introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave",
-                  title: "Introduccion a los Requerimientos de Software",
-                  date: "Apr 2, 2025",
-                  author: "Ana Paula Toledo",
-                  href: "https://blog.crobf.tech/es/blog/introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave/",
-                  image: "https://blog.crobf.tech/blog/introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave.jpg",
-              },
-              {
-                  slug: "dia-internacional-de-la-mujer",
-                  title: "Dia Internacional de La Mujer",
-                  date: "Mar 8, 2025",
-                  author: "Ana Paula Toledo",
-                  href: "https://blog.crobf.tech/es/blog/dia-internacional-de-la-mujer/",
-                  image: "https://blog.crobf.tech/blog/Dia_internacional_de_la_mujer.png",
-              },
-              {
-                  slug: "desbloquea-el-poder-de-tu-equipo-de-software",
-                  title: "Desbloquea el Poder de tu Equipo de Software",
-                  date: "Feb 19, 2025",
-                  author: "Casiano Ezequiel",
-                  href: "https://blog.crobf.tech/es/blog/desbloquea-el-poder-de-tu-equipo-de-software/",
-                  image: "https://blog.crobf.tech/blog/desbloquea_el_poder_de_tu_equipo_de_software.jpg",
-              },
-              {
-                  slug: "5-funciones-de-css-que-deberias-conocer",
-                  title: "5 funciones de css que deberias conocer",
-                  date: "Dec 26, 2024",
-                  author: "Juan Beresiarte",
-                  href: "https://blog.crobf.tech/es/blog/5-funciones-de-css-que-deberias-conocer/",
-                  image: "https://blog.crobf.tech/blog/5_funciones_de_css_que_deberias_conocer.png",
-              },
-          ];
+const PAGE_SIZE = 9;
+const url = new URL(Astro.request.url);
+const requestedPage = Number.parseInt(url.searchParams.get("page") ?? "1", 10);
+const page = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
 
-const excerptsBySlug: Record<string, string> = {
-    "el-rol-de-las-mujeres-en-el-mundo-it": "Reflexiones sobre diversidad e inclusión en equipos tecnológicos y su impacto en la innovación. Datos y experiencias que muestran por qué la diversidad importa.",
-    "la-trampa-de-la-sobre-normalizacion": "Aprendé a evitar errores comunes en el diseño de bases de datos que ralentizan tus aplicaciones. Casos reales y soluciones prácticas.",
-    "introduccion-a-los-requerimientos-de-software-metodos-y-caracteristicas-clave": "Descubrí cómo documentar mejor los requerimientos para evitar malentendidos costosos entre desarrolladores y clientes.",
-    "dia-internacional-de-la-mujer": "Celebramos el aporte de las mujeres en tecnología con datos del sector y experiencias del equipo CROBF. Historias que inspiran.",
-    "desbloquea-el-poder-de-tu-equipo-de-software": "Estrategias prácticas para mejorar la productividad y comunicación de tu equipo de desarrollo. Basado en nuestra experiencia real.",
-    "5-funciones-de-css-que-deberias-conocer": "Funciones modernas de CSS que te ahorrarán código y mejorarán el rendimiento de tus sitios. Con ejemplos prácticos.",
-    "international-womens-day": "Reflections on diversity and inclusion in tech teams and its impact on innovation. Data and experiences showing why diversity matters.",
-    "unlock-the-power-of-your-software-team": "Practical strategies to improve your software team's productivity and communication. Based on our real experience.",
-    "benefits-of-using-the-pair-programming-technique-in-teams": "How pair programming boosts code quality, knowledge sharing, and team velocity. A practical guide with real outcomes.",
-    "5-css-features-you-should-know-about": "Modern CSS features that save you code and improve your site's performance. With practical examples.",
-    "what-is-solid-and-why-should-you-use-it": "The SOLID principles explained with real examples. Learn how to write more maintainable and scalable software.",
-    "how-to-build-a-highly-effective-development-team": "How to assemble and lead a highly effective development team. Hiring, culture, and process lessons from the trenches.",
+const allEntries = (await getCollection("blog"))
+    .filter((post) => post.id.startsWith(`${lang}/`))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const totalPages = Math.max(1, Math.ceil(allEntries.length / PAGE_SIZE));
+const safePage = Math.min(page, totalPages);
+const start = (safePage - 1) * PAGE_SIZE;
+const end = start + PAGE_SIZE;
+const pageEntries = allEntries.slice(start, end);
+
+const featured = safePage === 1 ? allEntries.find((post) => post.data.featured) ?? null : null;
+const featuredIndex = featured ? allEntries.indexOf(featured) : -1;
+const regularEntries = featured
+    ? allEntries.filter((_, idx) => idx !== featuredIndex).slice(start, end)
+    : pageEntries;
+
+const toExcerpt = (entry: (typeof allEntries)[number]) => {
+    if (entry.data.description && entry.data.description.length > 0) {
+        return entry.data.description;
+    }
+    return "";
 };
-const defaultExcerpt = lang === "en"
-    ? "Article by the CROBF team on software development and best practices."
-    : "Artículo del equipo CROBF sobre desarrollo de software y mejores prácticas.";
 ---
 
-<Layout title={pageCopy.title} description={SITE_DESCRIPTION}>
-    <main class="blog-page">
+    <Layout title={pageCopy.title} description={pageCopy.text} lang={lang}>
+        <main class="blog-page" data-blog-page>
         <section class="blog-hero">
-            {pageCopy.badge && <p class="eyebrow">{pageCopy.badge}</p>}
+            {pageCopy.eyebrow && <p class="eyebrow">{pageCopy.eyebrow}</p>}
             <h1>{pageCopy.heading}</h1>
-            <p set:html={pageCopy.text}></p>
-            <!-- Botón eliminado según solicitud -->
+            <p>{pageCopy.text}</p>
         </section>
 
-        <section class="posts-grid" id="posts" aria-label="Blog posts">
-            {
-                posts.map((post) => {
-                    const tags = lang === "en" ? ["Blog", "Software"] : ["Blog", "Software"];
-                    const readTime = lang === "en" ? "5 min read" : "5 min lectura";
-                    const excerpt = excerptsBySlug[post.slug] || defaultExcerpt;
-
-                    return (
-                        <article class="post-card">
-                            <a class="post-media" href={`/${lang}/blog/${post.slug}`}>
-                                <img src={post.image} alt={post.title} loading="lazy" />
-                                <div class="post-gradient"></div>
-                                <div class="post-tags">
-                                    {tags.map((tag) => (
-                                        <span class="post-tag">{tag}</span>
-                                    ))}
-                                </div>
-                                <div class="post-hover-action">{pageCopy.read}</div>
-                            </a>
-
-                            <div class="post-content">
-                                <h2>{post.title}</h2>
-                                <p class="post-excerpt">{excerpt}</p>
-
-                                <div class="post-meta">
-                                    <div class="post-author">
-                                        <span class="avatar-fallback">{post.author[0]}</span>
-                                        <div class="author-info">
-                                            <span class="author-name">{post.author}</span>
-                                            <span class="author-date">{post.date}</span>
-                                        </div>
-                                    </div>
-
-                                    <span class="read-time">{readTime}</span>
+        {
+            featured && (
+                <article class="post-card post-card--featured" data-reveal>
+                    <a class="post-media" href={`/${lang}/blog/${featured.id.split("/").slice(1).join("/")}`}>
+                        <img
+                            src={featured.data.heroImage}
+                            alt={featured.data.title}
+                            loading="eager"
+                        />
+                        <div class="post-gradient"></div>
+                        <div class="post-tags">
+                            {featured.data.tags?.slice(0, 2).map((tag) => (
+                                <span class="post-tag">{tag}</span>
+                            ))}
+                        </div>
+                        <span class="featured-badge">{pageCopy.featuredBadge}</span>
+                        <span class="post-hover-action">{pageCopy.read}</span>
+                    </a>
+                    <div class="post-content">
+                        <h2>{featured.data.title}</h2>
+                        <p class="post-excerpt">{toExcerpt(featured)}</p>
+                        <div class="post-meta">
+                            <div class="post-author">
+                                <span class="avatar-fallback">
+                                    {(featured.data.author || "C")[0]}
+                                </span>
+                                <div class="author-info">
+                                    <span class="author-name">{featured.data.author}</span>
+                                    <span class="author-date">
+                                        <FormattedDate date={featured.data.pubDate} lang={lang} />
+                                    </span>
                                 </div>
                             </div>
-                        </article>
-                    );
-                })
-            }
+                            {featured.data.readingTime && (
+                                <span class="read-time">
+                                    {featured.data.readingTime} {pageCopy.minutes}
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                </article>
+            )
+        }
+
+        <section
+            class="posts-grid"
+            id="posts"
+            aria-label="Blog posts"
+        >
+            {regularEntries.length === 0 && (
+                <p class="no-posts" data-reveal>
+                    {pageCopy.empty}
+                </p>
+            )}
+            {regularEntries.map((post) => {
+                const slug = post.id.split("/").slice(1).join("/");
+                return (
+                    <article class="post-card" data-reveal>
+                        <a class="post-media" href={`/${lang}/blog/${slug}`}>
+                            {post.data.heroImage ? (
+                                <img
+                                    src={post.data.heroImage}
+                                    alt={post.data.title}
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div class="post-media-fallback" aria-hidden="true">
+                                    <span>{post.data.title.slice(0, 1)}</span>
+                                </div>
+                            )}
+                            <div class="post-gradient"></div>
+                            <div class="post-tags">
+                                {(post.data.tags ?? []).slice(0, 2).map((tag) => (
+                                    <span class="post-tag">{tag}</span>
+                                ))}
+                            </div>
+                            <div class="post-hover-action">{pageCopy.read}</div>
+                        </a>
+                        <div class="post-content">
+                            <h2>{post.data.title}</h2>
+                            <p class="post-excerpt">{toExcerpt(post)}</p>
+                            <div class="post-meta">
+                                <div class="post-author">
+                                    <span class="avatar-fallback">
+                                        {(post.data.author || "C")[0]}
+                                    </span>
+                                    <div class="author-info">
+                                        <span class="author-name">{post.data.author}</span>
+                                        <span class="author-date">
+                                            <FormattedDate date={post.data.pubDate} lang={lang} />
+                                        </span>
+                                    </div>
+                                </div>
+                                {post.data.readingTime && (
+                                    <span class="read-time">
+                                        {post.data.readingTime} {pageCopy.minutes}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </article>
+                );
+            })}
         </section>
 
-        <script>
-            import { animate, inView, stagger } from "motion";
-            const mAnimate: any = animate;
-            const mInView: any = inView;
-
-            const cards = Array.from(document.querySelectorAll(".post-card")).filter(
-                (card): card is HTMLElement => card instanceof HTMLElement
-            );
-            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-            if (!prefersReducedMotion && cards.length > 0) {
-                mAnimate(
-                    cards,
-                    {
-                        opacity: [0.78, 1],
-                        transform: ["translateY(16px) scale(0.985)", "translateY(0px) scale(1)"],
-                    },
-                    { duration: 0.55, delay: stagger(0.08), easing: [0.22, 1, 0.36, 1] }
-                );
-
-                mInView(
-                    ".post-card",
-                    (element: any) => {
-                        mAnimate(
-                            element,
-                            {
-                                opacity: [0.82, 1],
-                                transform: ["translateY(14px)", "translateY(0px)"],
-                            },
-                            { duration: 0.38, easing: [0.22, 1, 0.36, 1] }
-                        );
-                    },
-                    { amount: 0.35 }
-                );
-
-                cards.forEach((card) => {
-                    card.addEventListener("pointerenter", () => {
-                        mAnimate(
-                            card,
-                            { transform: "translateY(-6px) scale(1.015)" },
-                            { duration: 0.2, easing: "ease-out" }
-                        );
-                    });
-
-                    card.addEventListener("pointerleave", () => {
-                        mAnimate(
-                            card,
-                            { transform: "translateY(0px) scale(1)" },
-                            { duration: 0.24, easing: "ease-out" }
-                        );
-                    });
-                });
-            }
-        </script>
+        {
+            allEntries.length > 0 && (
+                <div class="blog-footer">
+                    <p class="blog-count">
+                        {pageCopy.showing} <strong>{start + 1}–{Math.min(end, allEntries.length)}</strong> {pageCopy.of} <strong>{allEntries.length}</strong> {pageCopy.results(allEntries.length)}
+                    </p>
+                    {totalPages > 1 && (
+                        <Pagination
+                            total={totalPages}
+                            current={safePage}
+                            lang={lang}
+                            baseHref={`/${lang}/blog`}
+                        />
+                    )}
+                </div>
+            )
+        }
     </main>
 </Layout>
+
+<script>
+    import { animate, inView, stagger } from "motion";
+
+    const mAnimate: any = animate;
+    const mInView: any = inView;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+
+    if (!reduceMotion && cards.length > 0) {
+        mAnimate(
+            cards,
+            {
+                opacity: [0.78, 1],
+                transform: ["translateY(16px) scale(0.985)", "translateY(0px) scale(1)"],
+            },
+            { duration: 0.55, delay: stagger(0.06), easing: [0.22, 1, 0.36, 1] }
+        );
+
+        mInView(
+            "[data-reveal]",
+            (element: any) => {
+                if (element.__revealed) return;
+                element.__revealed = true;
+                mAnimate(
+                    element,
+                    {
+                        opacity: [0.82, 1],
+                        transform: ["translateY(14px)", "translateY(0px)"],
+                    },
+                    { duration: 0.38, easing: [0.22, 1, 0.36, 1] }
+                );
+            },
+            { amount: 0.25 }
+        );
+
+        const postCards = document.querySelectorAll<HTMLElement>(".post-card:not(.post-card--featured)");
+        postCards.forEach((card) => {
+            card.addEventListener("pointerenter", () => {
+                mAnimate(
+                    card,
+                    { transform: "translateY(-6px) scale(1.015)" },
+                    { duration: 0.2, easing: "ease-out" }
+                );
+            });
+            card.addEventListener("pointerleave", () => {
+                mAnimate(
+                    card,
+                    { transform: "translateY(0px) scale(1)" },
+                    { duration: 0.24, easing: "ease-out" }
+                );
+            });
+        });
+    }
+</script>
 
 <style>
     .blog-page {
@@ -264,80 +262,104 @@ const defaultExcerpt = lang === "en"
         margin: 0 auto;
         padding: 2rem 0 5rem;
         display: grid;
-        gap: 2rem;
+        gap: 1.6rem;
+        box-sizing: border-box;
+        min-width: 0;
     }
 
     .blog-hero {
-        /* Hero: dejar solo el texto sin fondo de card, centrado */
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        padding: 3rem 0 1.25rem;
-        margin-top: 0.6rem;
-        margin-bottom: 0.6rem;
+        text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        text-align: center;
+        padding: 3rem 0 1rem;
+        margin-top: 0.6rem;
+        min-width: 0;
+        width: 100%;
     }
 
     .eyebrow {
         margin: 0 0 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.12em;
         font-size: 0.72rem;
-        color: rgba(23, 30, 48, 0.90);
+        color: var(--color-blue-700, #202ee2);
+        font-weight: 600;
     }
 
     h1 {
         margin: 0;
-        font-size: clamp(1.8rem, 3.2vw, 2.8rem);
-        line-height: 1.1;
+        font-size: clamp(2rem, 4.4vw, 3.4rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
     }
 
     .blog-hero p {
         margin-top: 0.9rem;
         margin-bottom: 0;
-        color: rgba(23, 30, 48, 0.8);
-        max-width: 72ch;
-    }
-
-    .btn {
-        margin-top: 1.2rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.72rem 1.2rem;
-        border-radius: 999px;
-        text-decoration: none;
-        color: #f6f8ff;
-        background: linear-gradient(120deg, #1f34f3, #4c6aff);
-        box-shadow: 0 10px 30px rgba(41, 76, 255, 0.25);
+        color: rgba(23, 30, 48, 0.78);
+        max-width: 62ch;
+        font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+        line-height: 1.55;
     }
 
     .posts-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.9rem;
+        gap: 1.1rem;
+    }
+
+    .no-posts {
+        grid-column: 1 / -1;
+        text-align: center;
+        opacity: 0.7;
+        padding: 2rem;
     }
 
     .post-card {
-        border: 1px solid rgba(95, 114, 166, 0.3);
+        border: 1px solid rgba(95, 114, 166, 0.18);
         border-radius: 1.1rem;
         background: linear-gradient(170deg, rgba(254, 255, 255, 0.6), rgba(244, 248, 255, 0.45));
         backdrop-filter: blur(12px);
         display: grid;
-        gap: 0;
-        align-content: start;
         overflow: hidden;
-        transition: transform 200ms ease, box-shadow 220ms ease, border-color 220ms ease;
+        transition: transform 220ms ease, box-shadow 240ms ease, border-color 220ms ease;
+        min-width: 0;
     }
 
     .post-card:hover {
         transform: translateY(-3px);
-        border-color: rgba(73, 109, 244, 0.45);
+        border-color: rgba(73, 109, 244, 0.4);
         box-shadow: 0 18px 34px rgba(32, 56, 120, 0.16);
+    }
+
+    .post-card--featured {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 0;
+        align-items: stretch;
+    }
+
+    .post-card--featured .post-media {
+        aspect-ratio: auto;
+        min-height: 320px;
+        height: 100%;
+    }
+
+    .post-card--featured .post-content {
+        padding: clamp(1.25rem, 2.4vw, 2rem);
+        gap: 1rem;
+        min-width: 0;
+    }
+
+    .post-card--featured h2 {
+        font-size: clamp(1.35rem, 2.4vw, 1.75rem) !important;
+        line-height: 1.18 !important;
+    }
+
+    .post-card--featured .post-excerpt {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
     }
 
     .post-media {
@@ -346,23 +368,41 @@ const defaultExcerpt = lang === "en"
         aspect-ratio: 16 / 9;
         overflow: hidden;
         text-decoration: none;
+        background: linear-gradient(135deg, #2f56f0, #6282ff);
     }
 
     .post-media img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 420ms ease;
+        transition: transform 480ms ease;
     }
 
     .post-card:hover .post-media img {
-        transform: scale(1.08);
+        transform: scale(1.06);
+    }
+
+    .post-media-fallback {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #2f56f0, #6282ff);
     }
 
     .post-gradient {
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(4, 8, 18, 0.02), rgba(4, 8, 18, 0.6));
+        background: linear-gradient(180deg, rgba(4, 8, 18, 0) 30%, rgba(4, 8, 18, 0.7) 100%);
+    }
+
+    .post-card--featured .post-gradient {
+        background: linear-gradient(120deg, rgba(4, 8, 18, 0.05), rgba(4, 8, 18, 0.4));
     }
 
     .post-tags {
@@ -370,19 +410,41 @@ const defaultExcerpt = lang === "en"
         left: 0.8rem;
         bottom: 0.8rem;
         display: flex;
-        gap: 0.45rem;
+        gap: 0.4rem;
         z-index: 2;
     }
 
+    .post-card--featured .post-tags {
+        top: 0.8rem;
+        bottom: auto;
+    }
+
     .post-tag {
-        font-size: 0.7rem;
-        letter-spacing: 0.02em;
-        padding: 0.25rem 0.5rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
+        padding: 0.3rem 0.55rem;
         border-radius: 999px;
         color: #f2f6ff;
-        background: rgba(10, 16, 34, 0.52);
-        border: 1px solid rgba(189, 207, 255, 0.24);
-        backdrop-filter: blur(4px);
+        background: rgba(10, 16, 34, 0.55);
+        border: 1px solid rgba(189, 207, 255, 0.22);
+        backdrop-filter: blur(6px);
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .featured-badge {
+        position: absolute;
+        right: 0.8rem;
+        top: 0.8rem;
+        z-index: 2;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        background: linear-gradient(120deg, #ffb347, #ff7a59);
+        color: #1a1404;
+        text-transform: uppercase;
+        font-weight: 700;
     }
 
     .post-hover-action {
@@ -393,11 +455,12 @@ const defaultExcerpt = lang === "en"
         color: #f4f7ff;
         font-size: 0.85rem;
         font-weight: 600;
-        letter-spacing: 0.01em;
-        background: rgba(8, 15, 36, 0.26);
+        letter-spacing: 0.02em;
+        background: rgba(8, 15, 36, 0.32);
         backdrop-filter: blur(2px);
         opacity: 0;
-        transition: opacity 230ms ease;
+        transition: opacity 240ms ease;
+        z-index: 3;
     }
 
     .post-card:hover .post-hover-action {
@@ -405,38 +468,61 @@ const defaultExcerpt = lang === "en"
     }
 
     .post-content {
-        padding: 1rem;
+        padding: 1rem 1.1rem 1.1rem;
         display: grid;
         gap: 0.65rem;
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .post-card h2 {
         margin: 0;
         font-size: 1.05rem;
-        line-height: 1.28;
+        line-height: 1.3;
+        color: rgba(20, 30, 58, 0.96);
+        text-wrap: balance;
+        word-break: break-word;
+        overflow-wrap: anywhere;
     }
 
     .post-excerpt {
         margin: 0;
-        font-size: 0.82rem;
-        color: rgba(23, 30, 48, 0.92);
+        font-size: 0.85rem;
+        color: rgba(23, 30, 48, 0.78);
+        line-height: 1.55;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .post-card--featured .post-excerpt {
+        -webkit-line-clamp: 5;
+        line-clamp: 5;
     }
 
     .post-meta {
         margin-top: 0.2rem;
         padding-top: 0.75rem;
-        border-top: 1px solid rgba(88, 107, 158, 0.2);
+        border-top: 1px solid rgba(88, 107, 158, 0.18);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 0.65rem;
+        flex-wrap: wrap;
+        gap: 0.55rem 0.65rem;
+        min-width: 0;
     }
 
     .post-author {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.55rem;
         min-width: 0;
+        flex: 1 1 auto;
     }
 
     .avatar-fallback {
@@ -456,6 +542,8 @@ const defaultExcerpt = lang === "en"
     .author-info {
         display: grid;
         gap: 0.05rem;
+        min-width: 0;
+        max-width: 100%;
     }
 
     .author-name,
@@ -467,36 +555,56 @@ const defaultExcerpt = lang === "en"
     .author-name {
         font-weight: 600;
         color: rgba(20, 30, 58, 0.93);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        max-width: 100%;
     }
 
     .author-date,
     .read-time {
-        color: rgba(23, 30, 48, 0.62);
+        color: rgba(23, 30, 48, 0.6);
     }
 
-    :global(html.dark) .blog-hero,
+    .read-time {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .blog-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .blog-count {
+        margin: 0;
+        font-size: 0.85rem;
+        color: rgba(23, 30, 48, 0.65);
+    }
+
+    :global(html.dark) .blog-hero p {
+        color: rgba(229, 236, 255, 0.7);
+    }
+
     :global(html.dark) .post-card {
-        border-color: rgba(94, 120, 214, 0.32);
-        background: linear-gradient(180deg, rgba(15, 20, 35, 0.92), rgba(14, 18, 31, 0.76));
-        box-shadow: 0 0 0 1px rgba(47, 77, 180, 0.24) inset;
+        border-color: rgba(94, 120, 214, 0.28);
+        background: linear-gradient(180deg, rgba(15, 20, 35, 0.85), rgba(14, 18, 31, 0.7));
     }
 
-    :global(html.dark) .eyebrow,
-    :global(html.dark) .blog-hero p,
+    :global(html.dark) .post-card h2 {
+        color: rgba(235, 241, 255, 0.96);
+    }
+
     :global(html.dark) .post-excerpt {
-        color: rgba(229, 236, 255, 0.76);
-    }
-
-    :global(html.dark) .post-card {
-        border-color: rgba(107, 126, 183, 0.36);
-    }
-
-    :global(html.dark) .post-hover-action {
-        background: rgba(4, 10, 25, 0.36);
+        color: rgba(229, 236, 255, 0.7);
     }
 
     :global(html.dark) .post-meta {
-        border-top-color: rgba(160, 178, 235, 0.2);
+        border-top-color: rgba(160, 178, 235, 0.18);
     }
 
     :global(html.dark) .author-name {
@@ -505,19 +613,29 @@ const defaultExcerpt = lang === "en"
 
     :global(html.dark) .author-date,
     :global(html.dark) .read-time {
-        color: rgba(229, 236, 255, 0.68);
+        color: rgba(229, 236, 255, 0.6);
     }
 
-    /* Asegurar que el hero no tenga fondo en modo oscuro */
-    :global(html.dark) .blog-hero {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
+    :global(html.dark) .blog-count {
+        color: rgba(229, 236, 255, 0.6);
+    }
+
+    :global(html.dark) .eyebrow {
+        color: #93b1ff;
     }
 
     @media (max-width: 980px) {
         .posts-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .post-card--featured {
+            grid-template-columns: 1fr;
+        }
+
+        .post-card--featured .post-media {
+            aspect-ratio: 16 / 9;
+            min-height: 0;
         }
     }
 
@@ -528,16 +646,16 @@ const defaultExcerpt = lang === "en"
         }
 
         .blog-hero {
-            padding: 2rem 0 1rem;
+            padding: 2rem 0 0.75rem;
         }
 
         .blog-hero p {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             max-width: 100%;
         }
 
         h1 {
-            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            font-size: clamp(1.7rem, 7vw, 2.4rem);
         }
 
         .posts-grid {
@@ -546,15 +664,15 @@ const defaultExcerpt = lang === "en"
         }
 
         .post-content {
-            padding: 0.85rem;
+            padding: 0.95rem 1rem 1rem;
         }
 
         .post-card h2 {
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .post-excerpt {
-            font-size: 0.78rem;
+            font-size: 0.82rem;
         }
 
         .post-meta {
@@ -568,7 +686,80 @@ const defaultExcerpt = lang === "en"
         }
 
         .blog-hero {
-            padding: 1.5rem 0 0.75rem;
+            padding: 1.5rem 0 0.5rem;
+        }
+
+        .post-card--featured .post-content {
+            padding: 1.1rem;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .post-content {
+            padding: 0.9rem;
+        }
+
+        .post-card h2 {
+            font-size: 0.98rem;
+            line-height: 1.28;
+        }
+
+        .post-excerpt {
+            font-size: 0.78rem;
+        }
+
+        .post-meta {
+            gap: 0.5rem;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .post-meta {
+            gap: 0.45rem 0.55rem;
+        }
+
+        .post-author {
+            gap: 0.45rem;
+        }
+
+        .avatar-fallback {
+            width: 1.75rem;
+            height: 1.75rem;
+            font-size: 0.7rem;
+        }
+
+        .author-name,
+        .author-date,
+        .read-time {
+            font-size: 0.68rem;
+        }
+    }
+
+    @media (max-width: 320px) {
+        .post-meta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.35rem;
+        }
+
+        .post-author {
+            width: 100%;
+        }
+
+        .read-time {
+            align-self: flex-start;
+        }
+
+        .post-content {
+            padding: 0.85rem 0.8rem 0.9rem;
+        }
+
+        .post-card h2 {
+            font-size: 0.95rem;
+        }
+
+        .post-excerpt {
+            font-size: 0.8rem;
         }
     }
 </style>
