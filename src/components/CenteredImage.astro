@@ -8,17 +8,28 @@ interface Props {
 const { src, alt } = Astro.props;
 ---
 
-<div>
+<div class="centered-image">
     <img src={src} alt={alt} />
 </div>
 
 <style>
-    div {
+    .centered-image {
         width: 100%;
+        max-width: 100%;
         text-align: center;
+        box-sizing: border-box;
     }
 
-    img {
-        max-width: 90%;
+    .centered-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        display: inline-block;
+    }
+
+    @media (min-width: 641px) {
+        .centered-image img {
+            max-width: 90%;
+        }
     }
 </style>

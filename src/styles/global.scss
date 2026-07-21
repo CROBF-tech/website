@@ -21,6 +21,12 @@ main {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	min-width: 0;
+}
+
+html,
+body {
+	overflow-x: hidden;
 }
 
 h1,
@@ -86,7 +92,10 @@ table {
 	width: 100%;
 }
 
-img {
+img,
+iframe,
+video,
+embed {
 	max-width: 100%;
 	height: auto;
 	border-radius: 8px;
@@ -101,10 +110,15 @@ code {
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
+	max-width: 100%;
+	overflow-x: auto;
+	box-sizing: border-box;
 }
 
 pre>code {
 	all: unset;
+	word-break: normal;
+	white-space: pre;
 }
 
 blockquote {
@@ -135,7 +149,6 @@ hr {
 .card,
 .panel,
 .panel-card,
-.post-card,
 .hero-card,
 .section-card,
 .service-card,
@@ -157,7 +170,6 @@ hr {
 
 @media (max-width: 768px) {
 	.card,
-	.post-card,
 	.section-card {
 		padding: 0 !important;
 	}
