@@ -6,7 +6,7 @@ const { name, image, github, linkedin, link, profession } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 
 // Seleccionar imagen aleatoria si es un array
-const selectedImage = Array.isArray(image) 
+const selectedImage = Array.isArray(image)
     ? image[Math.floor(Math.random() * image.length)]
     : image;
 ---
@@ -28,7 +28,6 @@ const selectedImage = Array.isArray(image)
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Link para github de ${name}`}
-                onclick="event.stopPropagation();"
                 class="social-link">
                 <Github />
             </a>
@@ -37,13 +36,18 @@ const selectedImage = Array.isArray(image)
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Link para linkedin de ${name}`}
-                onclick="event.stopPropagation();"
                 class="social-link">
                 <Linkedin />
             </a>
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll<HTMLElement>(".card-socials .social-link").forEach((el) => {
+        el.addEventListener("click", (e) => e.stopPropagation());
+    });
+</script>
 
 <style>
     .card {
