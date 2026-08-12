@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Carousel3D from "../../components/Carousel3D.astro";
 import { BentoGrid } from "../../components/ui/bento-grid";
 import StackingCards from "../../components/ui/stacking-card";
+import YouCanScroll from "../../components/YouCanScroll.astro";
 import { SITE_DESCRIPTION } from "../../consts";
 import { getLangFromUrl } from "../../i18n/translate";
 
@@ -257,8 +258,6 @@ const stackingProjects = [
             </div>
         </section>
 
-        <!-- services moved above to sit under the carousel -->
-
         <!-- Stacking Cards Section -->
         <section class="stacking-cards-section">
             <p class="stacking-cards-eyebrow" data-reveal style="--reveal-delay: 0ms;">Proceso de trabajo</p>
@@ -286,6 +285,8 @@ const stackingProjects = [
                 <a href={`/${lang}/projects`} class="btn btn-primary">Ver más</a>
             </div>
         </section>
+
+        <YouCanScroll />
 
         <section class="team" id="about-us">
             <div class="team-copy" data-reveal>
