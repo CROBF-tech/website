@@ -2,7 +2,7 @@
 
 import { ReactLenis } from 'lenis/react';
 import { useTransform, motion, useScroll, MotionValue } from 'motion/react';
-import { useRef, forwardRef } from 'react';
+import { useRef } from 'react';
 
 interface ProjectData {
   title: string;
@@ -281,42 +281,40 @@ interface ComponentRootProps {
   projects: ProjectData[];
 }
 
-const Component = forwardRef<HTMLElement, ComponentRootProps>(
-  ({ projects }) => {
-    const container = useRef(null);
-    const { scrollYProgress } = useScroll({
-      target: container,
-      offset: ['start start', 'end end'],
-    });
+const Component = ({ projects }: ComponentRootProps) => {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end'],
+  });
 
-    return (
-      <ReactLenis root>
-        <main ref={container}>
-          <section>
-            {projects.map((project, i) => {
-              const targetScale = 1 - (projects.length - i) * 0.05;
-              return (
-                <Card
-                  key={`p_${i}`}
-                  i={i}
-                  url={project.link}
-                  title={project.title}
-                  subtitle={project.subtitle}
-                  color={project.color}
-                  description={project.description}
-                  progress={scrollYProgress}
-                  range={[i * 0.2, 1]}
-                  targetScale={targetScale}
-                />
-              );
-            })}
-          </section>
-        </main>
-      </ReactLenis>
-    );
-  }
-);
+  return (
+    <ReactLenis root>
+      <main ref={container}>
+        <section>
+          {projects.map((project, i) => {
+            const targetScale = 1 - (projects.length - i) * 0.05;
+            return (
+              <Card
+                key={`p_${i}`}
+                i={i}
+                url={project.link}
+                title={project.title}
+                subtitle={project.subtitle}
+                color={project.color}
+                description={project.description}
+                progress={scrollYProgress}
+                range={[i * 0.2, 1]}
+                targetScale={targetScale}
+              />
+            );
+          })}
+        </section>
+      </main>
+    </ReactLenis>
+  );
+};
 
-Component.displayName = 'Component';
+Component.displayName = 'StackingCards';
 
 export default Component;
