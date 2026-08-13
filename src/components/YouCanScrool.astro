@@ -10,7 +10,6 @@ import "normalize.css";
         <section class="content fluid">
             <h2>
                 <span aria-hidden="true">podés&nbsp;</span>
-                <span class="sr-only">you can ship things.</span>
             </h2>
             <ul aria-hidden="true" style="--count: 20">
                 <li style="--i: 0">automatizar</li>
@@ -63,16 +62,10 @@ import "normalize.css";
             if (activeItem) {
                 const rect = activeItem.getBoundingClientRect();
                 const activeCenterY = rect.top + rect.height * 0.5;
-                root.style.setProperty("--focus-top", `${activeCenterY}px`);
-                const offset =
-    activeIndex === 0
-        ? 0
-        : activeIndex * 105 - 5;
+                const activeLeft = rect.left;
 
-root.style.setProperty(
-    "--h2-offset",
-    `${offset}%`
-);
+root.style.setProperty("--focus-left", `${activeLeft}px`);
+                root.style.setProperty("--focus-top", `${activeCenterY}px`);
             }
         };
 
@@ -167,19 +160,25 @@ root.style.setProperty(
         display: flex;
         line-height: 1.25;
         width: 100%;
-        padding-left: 2.6rem;
+        padding-left: 0;
+        justify-content: center;
     }
 
-    .you-can-scroll-demo section:first-of-type h2 {
-        position: sticky;
-        top: var(--focus-top);
-        transform: translateY(var(--h2-offset));
-        font-size: inherit;
-        margin: 0;
-        display: inline-block;
-        height: fit-content;
-        font-weight: 600;
-    }
+.you-can-scroll-demo section:first-of-type h2 {
+    position: fixed;
+
+    top: var(--focus-top);
+    left: var(--focus-left);
+
+    transform: translate(-100%, -50%);
+
+    font-size: inherit;
+    margin: 0;
+    display: inline-block;
+    height: fit-content;
+    font-weight: 600;
+    white-space: nowrap;
+}
 
     .you-can-scroll-demo section:last-of-type {
         min-height: 2vh;
@@ -209,6 +208,7 @@ root.style.setProperty(
         padding-bottom: 18vh;
         margin: 0;
         list-style-type: none;
+        transform: translateX(30%);
     }
 
     .you-can-scroll-demo { scroll-snap-type: y mandatory; }
