@@ -1,8 +1,7 @@
 'use client';
 
-import { ReactLenis } from 'lenis/react';
-import { useTransform, motion, useScroll, MotionValue } from 'motion/react';
-import { useRef } from 'react';
+import { useTransform, useSpring, motion, useScroll, MotionValue } from 'motion/react';
+import { useEffect, useRef, forwardRef } from 'react';
 
 interface ProjectData {
   title: string;
@@ -14,6 +13,7 @@ interface ProjectData {
 
 interface CardProps {
   i: number;
+  total: number;
   title: string;
   subtitle?: string;
   description: string;
@@ -26,6 +26,7 @@ interface CardProps {
 
 export const Card = ({
   i,
+  total,
   title,
   subtitle,
   description,
@@ -35,30 +36,27 @@ export const Card = ({
   range,
   targetScale,
 }: CardProps) => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'start start'],
-  });
+  const restY = i * 14;
+  const isLast = i === total - 1;
+  const rawScale = useTransform(progress, range, [1, targetScale]);
+  const rawY = useTransform(progress, range, [restY, isLast ? restY : restY - 640]);
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
-  const scale = useTransform(progress, range, [1, targetScale]);
+  const spring = { stiffness: 260, damping: 32, mass: 0.6 };
+  const scale = useSpring(rawScale, spring);
+  const y = useSpring(rawY, spring);
 
   // Parse bullet points from description (separated by |)
   const bullets = description.split('|').map(b => b.trim());
   const stepNumber = String(i + 1).padStart(2, '0');
 
   return (
-    <div
-      ref={container}
-      className='h-[44vh] sm:h-[75vh] flex items-center justify-center sticky top-0'
-    >
       <motion.div
         style={{
           scale,
-          top: `calc(-2vh + ${i * 16}px)`,
+          y,
+          zIndex: total - i,
         }}
-        className={`relative -top-[4%] sm:-top-[25%] w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] mx-auto min-h-[280px] sm:h-[420px] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
+        className={`absolute top-8 sm:top-12 left-0 right-0 mx-auto w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] h-[440px] sm:h-[420px] max-h-[calc(100%-2rem)] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
       >
 
         {/* Main card body */}
@@ -100,7 +98,7 @@ export const Card = ({
               }}
             />
           </div>
-          
+
           {/* Dark mode background and border */}
           <div
             className='absolute inset-0 hidden dark:block'
@@ -120,15 +118,15 @@ export const Card = ({
               pointerEvents: 'none',
               overflow: 'hidden',
               animation: 'borderFlow 8s linear infinite',
-              backgroundImage: `repeating-linear-gradient(90deg, 
-                rgba(59, 130, 246, 0.8) 0%, 
-                rgba(96, 165, 250, 0.9) 12.5%, 
-                rgba(147, 197, 253, 0.7) 25%, 
-                rgba(59, 130, 246, 0.8) 37.5%, 
-                rgba(30, 64, 175, 0.9) 50%, 
-                rgba(59, 130, 246, 0.8) 62.5%, 
-                rgba(147, 197, 253, 0.7) 75%, 
-                rgba(96, 165, 250, 0.9) 87.5%, 
+              backgroundImage: `repeating-linear-gradient(90deg,
+                rgba(59, 130, 246, 0.8) 0%,
+                rgba(96, 165, 250, 0.9) 12.5%,
+                rgba(147, 197, 253, 0.7) 25%,
+                rgba(59, 130, 246, 0.8) 37.5%,
+                rgba(30, 64, 175, 0.9) 50%,
+                rgba(59, 130, 246, 0.8) 62.5%,
+                rgba(147, 197, 253, 0.7) 75%,
+                rgba(96, 165, 250, 0.9) 87.5%,
                 rgba(59, 130, 246, 0.8) 100%
               )`,
               backgroundSize: '200% 100%',
@@ -143,15 +141,15 @@ export const Card = ({
               pointerEvents: 'none',
               overflow: 'hidden',
               animation: 'borderFlow 8s linear infinite',
-              backgroundImage: `repeating-linear-gradient(90deg, 
-                rgba(59, 130, 246, 1) 0%, 
-                rgba(96, 165, 250, 1) 12.5%, 
-                rgba(147, 197, 253, 0.8) 25%, 
-                rgba(59, 130, 246, 1) 37.5%, 
-                rgba(37, 99, 235, 1) 50%, 
-                rgba(59, 130, 246, 1) 62.5%, 
-                rgba(147, 197, 253, 0.8) 75%, 
-                rgba(96, 165, 250, 1) 87.5%, 
+              backgroundImage: `repeating-linear-gradient(90deg,
+                rgba(59, 130, 246, 1) 0%,
+                rgba(96, 165, 250, 1) 12.5%,
+                rgba(147, 197, 253, 0.8) 25%,
+                rgba(59, 130, 246, 1) 37.5%,
+                rgba(37, 99, 235, 1) 50%,
+                rgba(59, 130, 246, 1) 62.5%,
+                rgba(147, 197, 253, 0.8) 75%,
+                rgba(96, 165, 250, 1) 87.5%,
                 rgba(59, 130, 246, 1) 100%
               )`,
               backgroundSize: '200% 100%',
@@ -161,10 +159,10 @@ export const Card = ({
           {/* Add keyframes for animation */}
           <style>{`
             @keyframes borderFlow {
-              from { 
+              from {
                 background-position: 0% 0;
               }
-              to { 
+              to {
                 background-position: 200% 0;
               }
             }
@@ -247,33 +245,27 @@ export const Card = ({
                   boxShadow: `0 4px 30px rgba(0, 0, 0, 0.4), 0 0 60px ${color}10`,
                 }}
               >
-                <motion.div
-                  className='w-full h-full'
-                  style={{ scale: imageScale }}
-                >
-                  {/\.(mp4|webm|mov)(\?|$)/i.test(url) ? (
-                    <video
-                      src={url}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                  ) : (
-                    <img
-                      src={url}
-                      alt={title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                  )}
-                </motion.div>
+                {/\.(mp4|webm|mov)(\?|$)/i.test(url) ? (
+                  <video
+                    src={url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                ) : (
+                  <img
+                    src={url}
+                    alt={title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
       </motion.div>
-    </div>
   );
 };
 
@@ -281,40 +273,98 @@ interface ComponentRootProps {
   projects: ProjectData[];
 }
 
-const Component = ({ projects }: ComponentRootProps) => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start start', 'end end'],
-  });
+const Component = forwardRef<HTMLElement, ComponentRootProps>(
+  ({ projects }, ref) => {
+    const container = useRef<HTMLElement>(null);
+    const pinRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+      target: container,
+      offset: ['start start', 'end end'],
+    });
 
-  return (
-    <ReactLenis root>
-      <main ref={container}>
-        <section>
+    // CSS `position: sticky` is unreliable here (breaks under GSAP
+    // ScrollTrigger + Astro's client-island wrapper), so the pin is done
+    // manually with position: fixed, the same technique GSAP's own
+    // ScrollTrigger `pin: true` uses under the hood.
+    useEffect(() => {
+      const wrap = container.current;
+      const pin = pinRef.current;
+      if (!wrap || !pin) return;
+
+      const update = () => {
+        const rect = wrap.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        // position:fixed is relative to the viewport, not the (centered,
+        // width-constrained) content column, so left/width must be copied
+        // over by hand whenever the pin is fixed to avoid a horizontal jump.
+        if (rect.top > 0) {
+          pin.style.position = 'absolute';
+          pin.style.top = '0px';
+          pin.style.bottom = '';
+          pin.style.left = '0px';
+          pin.style.width = '100%';
+        } else if (rect.bottom < vh) {
+          pin.style.position = 'absolute';
+          pin.style.top = '';
+          pin.style.bottom = '0px';
+          pin.style.left = '0px';
+          pin.style.width = '100%';
+        } else {
+          pin.style.position = 'fixed';
+          pin.style.top = '0px';
+          pin.style.bottom = '';
+          pin.style.left = `${rect.left}px`;
+          pin.style.width = `${rect.width}px`;
+        }
+      };
+
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      return () => {
+        window.removeEventListener('scroll', update);
+        window.removeEventListener('resize', update);
+      };
+    }, []);
+
+    // Each card gets a full screen height of scroll to shrink/exit in, but
+    // the last one just sits still (nothing to animate), so give it a much
+    // shorter hold instead of a full screen — otherwise the section drags
+    // on with a long static pause before the next section appears.
+    const lastVh = 25;
+    const perCardVh = 75;
+    const totalVh = (projects.length - 1) * perCardVh + lastVh;
+    const segmentStart = (i: number) => (i * perCardVh) / totalVh;
+
+    return (
+      <main ref={container} style={{ height: `${totalVh}vh` }} className='relative'>
+        <section ref={pinRef} className='absolute left-0 h-screen w-full'>
           {projects.map((project, i) => {
-            const targetScale = 1 - (projects.length - i) * 0.05;
+            const isLast = i === projects.length - 1;
+            const targetScale = isLast ? 1 : 0.9;
             return (
               <Card
                 key={`p_${i}`}
                 i={i}
+                total={projects.length}
                 url={project.link}
                 title={project.title}
                 subtitle={project.subtitle}
                 color={project.color}
                 description={project.description}
                 progress={scrollYProgress}
-                range={[i * 0.2, 1]}
+                range={[segmentStart(i), isLast ? 1 : segmentStart(i + 1)]}
                 targetScale={targetScale}
               />
             );
           })}
         </section>
       </main>
-    </ReactLenis>
-  );
-};
+    );
+  }
+);
 
-Component.displayName = 'StackingCards';
+Component.displayName = 'Component';
 
 export default Component;

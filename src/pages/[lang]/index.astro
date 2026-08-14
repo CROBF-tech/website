@@ -1787,13 +1787,19 @@ const stackingProjects = [
         margin-left: 0;
         margin-right: 0;
         padding: 0;
-        margin-top: 1.6rem;
+        margin-top: 0.8rem;
         margin-bottom: 0;
-        padding-top: 1rem;
+        padding-top: 0.3rem;
         overflow: visible;
         position: relative;
     }
-    
+
+    /* Astro wraps client:load islands in <astro-island style="display:contents">,
+       which breaks position:sticky for descendants in Chromium. Force a real box. */
+    .stacking-cards-section :global(astro-island) {
+        display: block;
+    }
+
     .stacking-cards-eyebrow {
         text-align: center;
         text-transform: uppercase;
@@ -1824,7 +1830,7 @@ const stackingProjects = [
     
     .stacking-cards-section :global(main) {
         min-height: 100vh;
-        margin-top: 0.6rem;
+        margin-top: 0.2rem;
     }
 
     @media (max-width: 960px) {
