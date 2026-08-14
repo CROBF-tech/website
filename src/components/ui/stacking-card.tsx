@@ -56,7 +56,7 @@ export const Card = ({
           y,
           zIndex: total - i,
         }}
-        className={`absolute top-8 sm:top-12 left-0 right-0 mx-auto w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] h-[440px] sm:h-[420px] max-h-[calc(100%-2rem)] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
+        className={`absolute top-[calc(50%-220px)] sm:top-[calc(50%-210px)] left-0 right-0 mx-auto w-[calc(100%-1.5rem)] sm:w-[85%] max-w-[1200px] h-[440px] sm:h-[420px] max-h-[calc(100%-2rem)] rounded-[1.25rem] sm:rounded-[1.5rem] origin-top`}
       >
 
         {/* Main card body */}
