@@ -171,14 +171,14 @@ const stackingProjects = [
         title: "Descubrimiento y análisis",
         subtitle: "Comenzamos entendiendo los objetivos de tu negocio y los requerimientos técnicos. Definimos juntos el alcance del proyecto y te enviamos una cotización personalizada.",
         description: "",
-        link: "/video_card1.mp4",
+        link: "/video_card1-poster.jpg",
         color: "#3b82f6",
     },
     {
         title: "Desarrollo",
         subtitle: "Desarrollamos tu solución a medida utilizando tecnologías modernas y prácticas ágiles. Recibís actualizaciones de progreso en cada sprint.",
         description: "",
-        link: "/carddesarrollo.mp4",
+        link: "/carddesarrollo-poster.jpg",
         color: "#6d28d9",
     },
     {
@@ -247,7 +247,7 @@ const stackingProjects = [
             <p class="eyebrow" data-reveal style="--reveal-delay: 0ms;">{copy.servicesSubtitle}</p>
             <h2 data-reveal style="--reveal-delay: 50ms;">{copy.servicesTitle}</h2>
             <div data-reveal style="--reveal-delay: 90ms; margin-top: 0.75rem;">
-                <BentoGrid client:load items={serviceItems} />
+                <BentoGrid client:visible items={serviceItems} />
             </div>
         </section>
 
@@ -262,7 +262,7 @@ const stackingProjects = [
         <section class="stacking-cards-section">
             <p class="stacking-cards-eyebrow" data-reveal style="--reveal-delay: 0ms;">Proceso de trabajo</p>
             <h2 class="stacking-cards-title" data-reveal style="--reveal-delay: 40ms;">Como funciona</h2>
-            <StackingCards client:load projects={stackingProjects} />
+            <StackingCards client:visible projects={stackingProjects} />
         </section>
 
         <section class="portfolio" id="casos-exito">
@@ -301,8 +301,16 @@ const stackingProjects = [
             <div class="video-cta-container">
                 <!-- Video Background -->
                 <div class="video-background">
-                    <video autoplay muted loop playsinline class="video-element">
-                        <source src="/video_formulario.mp4" type="video/mp4">
+                    <video
+                        class="video-element"
+                        data-src="/video_formulario.webm"
+                        data-fallback="/video_formulario.mp4"
+                        poster="/video_formulario-poster.jpg"
+                        muted
+                        loop
+                        playsinline
+                        preload="none"
+                    >
                     </video>
                 </div>
 
@@ -514,7 +522,34 @@ const stackingProjects = [
                     processSection.classList.add("is-line-active");
                 }
             } else {
-                const revealObserver = new IntersectionObserver(
+                const ctaVideo = document.querySelector('.video-cta-banner .video-element');
+            if (ctaVideo instanceof HTMLVideoElement) {
+                const ctaObserver = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            const video = entry.target;
+                            if (entry.isIntersecting) {
+                                if (!video.src && video.dataset.src && video.dataset.fallback) {
+                                    video.innerHTML = `
+                                        <source src="${video.dataset.src}" type="video/webm">
+                                        <source src="${video.dataset.fallback}" type="video/mp4">
+                                    `;
+                                    video.load();
+                                    if (!reduceMotion) {
+                                        video.play().catch(() => {});
+                                    }
+                                }
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    },
+                    { rootMargin: '100px', threshold: 0.1 }
+                );
+                ctaObserver.observe(ctaVideo);
+            }
+
+            const revealObserver = new IntersectionObserver(
                     (entries, observer) => {
                         entries.forEach((entry) => {
                             if (!entry.isIntersecting) return;

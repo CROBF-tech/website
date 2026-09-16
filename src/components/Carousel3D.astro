@@ -1,34 +1,33 @@
 ---
-// Carrusel 3D con efecto de rotación - 12 videos
+// Carrusel 3D con efecto de rotación - 9 videos únicos (sin duplicados)
 const items = [
-	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },      // 1
-	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },     // 2
-	{ type: 'video' as const, src: '/video_3.mp4', variant: 'default' },      // 3
-	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },        // 4
-	{ type: 'video' as const, src: '/video_4.mp4', variant: 'default' },      // 5
-	{ type: 'video' as const, src: '/TodoApp.mp4', variant: 'default' },      // 6
-	{ type: 'video' as const, src: '/video_5.mp4', variant: 'default' },      // 7
-	{ type: 'video' as const, src: '/video_1.mp4', variant: 'default' },      // 8 (repetido - 7 posiciones después)
-	{ type: 'video' as const, src: '/Bunny_Js.mp4', variant: 'default' },     // 9
-	{ type: 'video' as const, src: '/hexadevs.mp4', variant: 'default' },     // 10 (repetido - 8 posiciones después)
-	{ type: 'video' as const, src: '/flashcards.mp4', variant: 'default' },   // 11
-	{ type: 'video' as const, src: '/olympo.mp4', variant: 'olympo' },        // 12 (repetido - 8 posiciones después)
+	{ type: 'video' as const, src: '/video_1.webm', fallback: '/video_1.mp4', poster: '/video_1-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/hexadevs.webm', fallback: '/hexadevs.mp4', poster: '/hexadevs-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/video_3.webm', fallback: '/video_3.mp4', poster: '/video_3-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/olympo.webm', fallback: '/olympo.mp4', poster: '/olympo-poster.jpg', variant: 'olympo' },
+	{ type: 'video' as const, src: '/video_4.webm', fallback: '/video_4.mp4', poster: '/video_4-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/TodoApp.webm', fallback: '/TodoApp.mp4', poster: '/TodoApp-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/video_5.webm', fallback: '/video_5.mp4', poster: '/video_5-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/Bunny_Js.webm', fallback: '/Bunny_Js.mp4', poster: '/Bunny_Js-poster.jpg', variant: 'default' },
+	{ type: 'video' as const, src: '/flashcards.webm', fallback: '/flashcards.mp4', poster: '/flashcards-poster.jpg', variant: 'default' },
 ];
 
 const totalCards = items.length;
 ---
 
-<div class="carousel-wrapper">
+<div class="carousel-wrapper" data-carousel-3d>
 	<section class="carousel-section">
 		<div class="scene">
 			<div class="a3d" style={`--n: ${totalCards}`}>
 					{items.map((item, index) => (
 						<video
 							class="card"
-							src={item.src}
+							data-src={item.src}
+							data-fallback={item.fallback}
 							data-variant={item.variant}
 							style={`--i: ${index}`}
-							autoplay
+							poster={item.poster}
+							preload="none"
 							muted
 							loop
 							playsinline
@@ -38,6 +37,60 @@ const totalCards = items.length;
 		</div>
 	</section>
 </div>
+
+<script>
+	(function () {
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const wrapper = document.querySelector('[data-carousel-3d]');
+		if (!wrapper) return;
+
+		const videos = Array.from(wrapper.querySelectorAll('video[data-src]'));
+		if (!videos.length) return;
+
+		function loadVideo(video: HTMLVideoElement) {
+			if (video.src) return;
+			const webmSrc = video.dataset.src;
+			const mp4Src = video.dataset.fallback;
+			if (!webmSrc || !mp4Src) return;
+
+			video.innerHTML = `
+				<source src="${webmSrc}" type="video/webm">
+				<source src="${mp4Src}" type="video/mp4">
+			`;
+			video.load();
+			if (!reduceMotion) {
+				const playPromise = video.play();
+				if (playPromise) {
+					playPromise.catch(() => {});
+				}
+			}
+		}
+
+		function unloadVideo(video: HTMLVideoElement) {
+			if (!video.src) return;
+			video.pause();
+			video.removeAttribute('src');
+			video.innerHTML = '';
+			video.load();
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					const video = entry.target as HTMLVideoElement;
+					if (entry.isIntersecting) {
+						loadVideo(video);
+					} else {
+						unloadVideo(video);
+					}
+				});
+			},
+			{ rootMargin: '150px', threshold: 0.1 }
+		);
+
+		videos.forEach((video) => observer.observe(video));
+	})();
+</script>
 
 <style>
 	.carousel-wrapper {

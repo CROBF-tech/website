@@ -252,12 +252,15 @@ export const Card = ({
                     muted
                     loop
                     playsInline
+                    preload="none"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 ) : (
                   <img
                     src={url}
                     alt={title}
+                    loading="lazy"
+                    decoding="async"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 )}

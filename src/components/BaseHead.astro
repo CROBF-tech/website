@@ -52,6 +52,10 @@ const ogLocale = lang === "en" ? "en_US" : "es_AR";
     extend={{
         link: [
             { rel: "icon", type: "image/png", href: "/Logo360x360Icon.png" },
+            { rel: "preconnect", href: "https://fonts.googleapis.com" },
+            { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
+            { rel: "preconnect", href: "https://images.unsplash.com" },
+            { rel: "dns-prefetch", href: "https://images.unsplash.com" },
             { rel: "preload", href: "/fonts/atkinson-regular.woff", as: "font", type: "font/woff", crossorigin: "anonymous" },
             { rel: "preload", href: "/fonts/atkinson-bold.woff", as: "font", type: "font/woff", crossorigin: "anonymous" },
             ...(lang === "en" ? [{ rel: "alternate", hreflang: "es", href: Astro.url.toString().replace(`/${lang}/`, "/es/") }, { rel: "alternate", hreflang: "en", href: Astro.url.toString() }] : [{ rel: "alternate", hreflang: "es", href: Astro.url.toString() }, { rel: "alternate", hreflang: "en", href: Astro.url.toString().replace(`/${lang}/`, "/en/") }]),

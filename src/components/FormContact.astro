@@ -38,10 +38,19 @@ const t = useTranslations(lang);
         </form>
     </div>
 
-    <div class="visual-panel" aria-hidden="true">
+    <div class="visual-panel" aria-hidden="true" data-form-video-panel>
         <!-- Decorative side: large image or gradient to match reference -->
         <div class="visual-content">
-                <video class="panel-video" src="/video_formulario.mp4" autoplay muted loop playsinline></video>
+                <video
+                    class="panel-video"
+                    data-src="/video_formulario.webm"
+                    data-fallback="/video_formulario.mp4"
+                    poster="/video_formulario-poster.jpg"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                ></video>
             </div>
     </div>
 </div>
@@ -49,7 +58,37 @@ const t = useTranslations(lang);
     const form = document.getElementById("contact_form");
     const result = document.querySelector(".result");
 
-    form.addEventListener("submit", async function (e) {
+    (function () {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const panelVideo = document.querySelector("[data-form-video-panel] .panel-video");
+    if (panelVideo instanceof HTMLVideoElement) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const video = entry.target;
+                    if (entry.isIntersecting) {
+                        if (!video.src && video.dataset.src && video.dataset.fallback) {
+                            video.innerHTML = `
+                                <source src="${video.dataset.src}" type="video/webm">
+                                <source src="${video.dataset.fallback}" type="video/mp4">
+                            `;
+                            video.load();
+                            if (!reduceMotion) {
+                                video.play().catch(() => {});
+                            }
+                        }
+                    } else {
+                        video.pause();
+                    }
+                });
+            },
+            { rootMargin: "100px", threshold: 0.1 }
+        );
+        observer.observe(panelVideo);
+    }
+})();
+
+form.addEventListener("submit", async function (e) {
         e.preventDefault();
         const formData = new FormData(form);
 
