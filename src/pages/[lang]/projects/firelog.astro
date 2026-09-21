@@ -1,0 +1,367 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getLangFromUrl } from "../../../i18n/translate";
+
+const lang = getLangFromUrl(Astro.url);
+import "../../../styles/global.css";
+
+const features = [
+    { icon: "<line x1=\"2\" x2=\"22\" y1=\"2\" y2=\"22\"/><path d=\"M8.5 16.5a5 5 0 0 1 7 0\"/><path d=\"M2 8.82a15 15 0 0 1 4.17-2.65\"/><path d=\"M10.66 5c4.01-.36 8.14.9 11.34 3.76\"/><path d=\"M16.85 11.25a10 10 0 0 1 2.22 1.68\"/><path d=\"M5 13a10 10 0 0 1 5.24-2.76\"/><line x1=\"12\" x2=\"12.01\" y1=\"20\" y2=\"20\"/>", title: "100% offline", text: "Todas las funciones operan sin conexión a internet, pensadas para emergencias en zonas sin cobertura." },
+    { icon: "<ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\"/><path d=\"M3 5V19A9 3 0 0 0 21 19V5\"/><path d=\"M3 12A9 3 0 0 0 21 12\"/>", title: "Base de datos local", text: "SQLite embebida: cada intervención queda guardada en el dispositivo, disponible aunque no haya red." },
+    { icon: "<path d=\"M12 8V4H8\"/><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/>", title: "Informes con IA", text: "Generación automática del informe técnico de la intervención usando Gemini, a partir de los datos registrados." },
+    { icon: "<path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>", title: "GPS integrado", text: "Captura automática de las coordenadas del lugar del operativo, sin tipear direcciones bajo presión." },
+    { icon: "<path d=\"M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z\"/><circle cx=\"12\" cy=\"13\" r=\"3\"/>", title: "Soporte multimedia", text: "Adjuntá fotos de la intervención directamente desde el campo para documentar cada salida." },
+    { icon: "<path d=\"M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z\"/>", title: "Acceso directo", text: "Sin autenticación ni contraseñas: en una emergencia, abrir la app y registrar es un solo paso." },
+];
+
+const stack = ["Expo", "React Native", "SQLite", "Gemini AI", "React Navigation", "TypeScript"];
+---
+
+<Layout title="FireLog - CROBF" description="App móvil offline para bomberos: registro de intervenciones en campo e informes automáticos con IA." lang={lang}>
+    <main class="project-detail">
+        <h1 class="project-title">FIRELOG</h1>
+
+        <div class="project-info">
+            <div class="info-column">
+                <p class="info-label">ROLE / SERVICES</p>
+                <p class="info-value">Mobile App Design & Development</p>
+            </div>
+            <div class="info-column">
+                <p class="info-label">LOCATION & YEAR</p>
+                <p class="info-value">Argentina © 2025</p>
+            </div>
+        </div>
+
+        <div class="project-actions">
+            <a href="https://firelog.crobf.tech/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                Ver en vivo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+        </div>
+
+        <div class="project-image">
+            <img src="/projects/firelog.png" alt="FireLog" />
+        </div>
+
+        <section class="project-sections">
+            <div class="project-block">
+                <p class="info-label">Qué es</p>
+                <div class="project-block-text">
+                <p>FireLog es una aplicación móvil para cuerpos de bomberos que permite registrar intervenciones de emergencia directamente en campo y generar informes técnicos automáticos con inteligencia artificial. Funciona 100% sin conexión: los datos se guardan en una base SQLite embebida en el dispositivo, pensada para escenarios donde no hay señal ni tiempo que perder.</p>
+                <p>La app captura coordenadas GPS y fotos de cada operativo, y a partir de ese registro redacta el informe técnico de intervención, una de las tareas que más horas consume después de cada salida.</p>
+                </div>
+            </div>
+
+            <div class="project-block">
+                <p class="info-label">Cómo surgió</p>
+                <div class="project-block-text">
+                <p>El proyecto nació de una necesidad concreta: los registros de intervenciones se llenaban en papel y las planillas se perdían o quedaban incompletas, mientras que redactar el informe posterior a cada salida insumía horas de trabajo administrativo. Fuera del cuartel, la conectividad suele ser nula, así que cualquier solución basada en la nube quedaba descartada de entrada. FireLog digitaliza ese flujo respetando la realidad del terreno: registro en el momento, sin cuentas ni contraseñas, y el borrador del informe se genera después con IA cuando el bombero lo decide, desde su propio dispositivo.</p>
+                </div>
+            </div>
+
+            <div class="project-block">
+                <p class="info-label">Qué incluye</p>
+                <div class="features-grid">
+                    {features.map((feature) => (
+                        <article class="feature-card">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <Fragment set:html={feature.icon} />
+                                </svg>
+                            </div>
+                            <h3 class="feature-title">{feature.title}</h3>
+                            <p class="feature-text">{feature.text}</p>
+                        </article>
+                    ))}
+                </div>
+            </div>
+
+            <div class="project-block">
+                <p class="info-label">Stack tecnológico</p>
+                <div class="stack-row">
+                    {stack.map((tech) => <span class="stack-pill">{tech}</span>)}
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .project-detail {
+        width: min(1400px, calc(100% - 4rem));
+        margin-inline: auto;
+        padding: 8rem 2rem 5rem;
+    }
+
+    .project-title {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        margin: 0 0 4rem 0;
+        line-height: 1;
+        color: hsl(var(--foreground));
+    }
+
+    .project-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 5rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid hsl(var(--border));
+    }
+
+    .info-column {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .info-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: hsl(var(--foreground) / 0.5);
+        margin: 0;
+    }
+
+    .info-value {
+        font-size: 1.1rem;
+        color: hsl(var(--foreground));
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .project-actions {
+        margin-bottom: 3rem;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        border-radius: 2rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-style: preserve-3d;
+        will-change: transform;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
+
+    .btn-primary {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+        color: rgba(16, 25, 49, 0.96);
+        box-shadow: 
+            0 10px 30px -10px rgba(0, 0, 0, 0.1),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1),
+            inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+        box-shadow: 
+            0 20px 40px -10px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(16, 25, 49, 0.96);
+    }
+
+    .btn-disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    :global(html.dark) .btn-primary {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.96);
+    }
+
+    :global(html.dark) .btn-primary:hover,
+    :global(html.dark) .btn-primary:focus,
+    :global(html.dark) .btn-primary:active {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 0.96);
+    }
+
+    .project-image {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        background: hsl(var(--muted));
+    }
+
+    .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+        .project-detail {
+            padding: 6rem 1.5rem 3rem;
+            width: calc(100% - 2rem);
+        }
+
+        .project-title {
+            margin-bottom: 2.5rem;
+            font-size: clamp(2rem, 7vw, 4rem);
+        }
+
+        .project-info {
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .project-detail {
+            padding: 5rem 1rem 2rem;
+            width: calc(100% - 1rem);
+        }
+
+        .project-title {
+            font-size: clamp(1.8rem, 8vw, 3rem);
+            margin-bottom: 2rem;
+        }
+
+        .project-info {
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<style>
+    .project-sections {
+        display: grid;
+        gap: 4.5rem;
+        margin-top: 5rem;
+    }
+
+    .project-block {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 2rem;
+        align-items: start;
+        padding-top: 3rem;
+        border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+    }
+
+    .project-block .info-label {
+        color: color-mix(in srgb, currentColor 50%, transparent);
+        margin: 0.2rem 0 0;
+    }
+
+    .project-block-text {
+        max-width: 70ch;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .project-block-text p {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: color-mix(in srgb, currentColor 78%, transparent);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+        border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+        border-radius: 0.75rem;
+        background: color-mix(in srgb, currentColor 3%, transparent);
+        transition:
+            transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 0.35s,
+            background 0.35s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-3px);
+        border-color: color-mix(in srgb, currentColor 28%, transparent);
+        background: color-mix(in srgb, currentColor 5%, transparent);
+    }
+
+    .feature-icon {
+        display: grid;
+        place-items: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 0.6rem;
+        background: color-mix(in srgb, currentColor 8%, transparent);
+        margin-bottom: 1rem;
+    }
+
+    .feature-title {
+        margin: 0 0 0.4rem;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .feature-text {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: color-mix(in srgb, currentColor 68%, transparent);
+    }
+
+    .stack-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .stack-pill {
+        font-size: 0.8rem;
+        letter-spacing: 0.02em;
+        padding: 0.4rem 1rem;
+        border-radius: 999px;
+        border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+        background: color-mix(in srgb, currentColor 3%, transparent);
+    }
+
+    @media (max-width: 768px) {
+        .project-sections {
+            gap: 3rem;
+            margin-top: 3.5rem;
+        }
+
+        .project-block {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            padding-top: 2rem;
+        }
+    }
+</style>

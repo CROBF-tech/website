@@ -1,15 +1,75 @@
 [
     {
-        "id": "hexadevs",
-        "name": "HexaDevs",
+        "id": "arcade",
+        "name": "Arcade",
         "type": "WEB",
         "description": {
-            "es": "Academia online de programación con cursos interactivos y proyectos prácticos",
-            "en": "Online programming academy with interactive courses and practical projects"
+            "es": "Portal retro de videojuegos estilo arcade con juegos y changelogs gestionados vía Markdown",
+            "en": "Retro arcade-style video game portal with games and changelogs managed via Markdown"
         },
-        "image": "/projects/hexadevs.png",
-        "link": "https://hexadevs.crobf.tech/",
-        "technologies": ["Next.js", "TypeScript", "Tailwind CSS"]
+        "image": "/projects/arcade.png",
+        "link": "https://arcade.crobf.tech/",
+        "technologies": ["Astro", "Tailwind CSS 4", "Markdown"]
+    },
+    {
+        "id": "financieramente-aylen",
+        "name": "Financieramente Aylen",
+        "type": "WEB",
+        "description": {
+            "es": "Asesoría financiera estratégica para emprendedores, con animaciones fluidas y gráficos interactivos",
+            "en": "Strategic financial advisory for entrepreneurs, with smooth animations and interactive charts"
+        },
+        "image": "/projects/financieramente.png",
+        "link": "https://financieramenteaylen.vercel.app/",
+        "technologies": ["React 19", "TypeScript", "Framer Motion"]
+    },
+    {
+        "id": "office",
+        "name": "Office",
+        "type": "WEB",
+        "description": {
+            "es": "Suite de herramientas simples para documentos, impresión, conversión y pagos desde el navegador",
+            "en": "Suite of simple tools for documents, printing, conversion and payments from the browser"
+        },
+        "image": "/projects/office.png",
+        "link": "https://office.crobf.tech/",
+        "technologies": ["Astro", "TypeScript", "PDF.js"]
+    },
+    {
+        "id": "forge",
+        "name": "Forge",
+        "type": "TOOL",
+        "description": {
+            "es": "Generador de contraseñas, claves y credenciales criptográficas 100% en tu navegador",
+            "en": "Password, key and cryptographic credentials generator, 100% in your browser"
+        },
+        "image": "/projects/forge.png",
+        "link": "https://forge.crobf.tech/",
+        "technologies": ["Astro 7", "React 19", "Web Crypto API"]
+    },
+    {
+        "id": "qr",
+        "name": "QR CROBF",
+        "type": "TOOL",
+        "description": {
+            "es": "Generador y escáner de códigos QR y códigos de barras, privado y sin registros",
+            "en": "Private, registration-free QR code and barcode generator and scanner"
+        },
+        "image": "/projects/qr.png",
+        "link": "https://qr.crobf.tech/",
+        "technologies": ["Astro 7", "React 19", "TypeScript"]
+    },
+    {
+        "id": "firelog",
+        "name": "FireLog",
+        "type": "APP",
+        "description": {
+            "es": "App móvil offline para bomberos: registro de intervenciones e informes automáticos con IA",
+            "en": "Offline mobile app for firefighters: intervention logging and AI-generated reports"
+        },
+        "image": "/projects/firelog.png",
+        "link": "https://firelog.crobf.tech/",
+        "technologies": ["Expo", "React Native", "SQLite"]
     },
     {
         "id": "bunny-js",
@@ -22,29 +82,5 @@
         "image": "/projects/bunny-js.png",
         "link": "https://bunny-js.crobf.tech/",
         "technologies": ["JavaScript", "TypeScript", "Vite"]
-    },
-    {
-        "id": "todo-app",
-        "name": "Todo App",
-        "type": "APP",
-        "description": {
-            "es": "Aplicación de gestión de tareas con diseño minimalista y funcionalidades avanzadas",
-            "en": "Task management application with minimalist design and advanced features"
-        },
-        "image": "/projects/todo-app.png",
-        "link": "https://todoapp.crobf.tech/",
-        "technologies": ["React", "TypeScript", "CSS3"]
-    },
-    {
-        "id": "flashcards",
-        "name": "Flashcards",
-        "type": "APP",
-        "description": {
-            "es": "Aplicación de estudio con tarjetas de memoria para aprendizaje efectivo",
-            "en": "Study application with memory cards for effective learning"
-        },
-        "image": "/projects/flashcards.png",
-        "link": "https://flashcards.crobf.tech/",
-        "technologies": ["React", "TypeScript", "Local Storage"]
     }
 ]
