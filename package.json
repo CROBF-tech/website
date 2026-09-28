@@ -41,5 +41,10 @@
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "typescript": "^5.9.3"
+    },
+    "pnpm": {
+        "overrides": {
+            "path-to-regexp": "6.3.0"
+        }
     }
 }

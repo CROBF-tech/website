@@ -1,0 +1,7 @@
+# Single-package project settings (pnpm 10+/12 read overrides here, not package.json#pnpm)
+overrides:
+  path-to-regexp: 6.3.0
+allowBuilds:
+  esbuild: true
+  '@parcel/watcher': true
+  '@ffmpeg-installer/linux-x64': true
