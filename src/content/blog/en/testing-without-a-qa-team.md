@@ -78,7 +78,7 @@ And the list of what **not** to automate matters just as much:
 - Basic validations the framework already gives you.
 - Anything where testing costs more than fixing the bug.
 
-On the booking project, we started with a single afternoon: the `overlaps(appointment, existing)` function and four tests. Not heroic. But the next time we touched that module, deplying stopped being a bet and became a verification.
+On the booking project, we started with a single afternoon: the `overlaps(appointment, existing)` function and four tests. Not heroic. But the next time we touched that module, deploying stopped being a bet and became a verification.
 
 ## 4. Flaky tests: how to keep from drowning
 

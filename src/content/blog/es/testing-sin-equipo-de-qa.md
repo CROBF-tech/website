@@ -69,7 +69,7 @@ Con el presupuesto claro, el orden para un equipo chico queda así:
 1. **Reglas de negocio puras → unit.** Cálculos, validaciones, transformaciones. Cuentan por decenas y cuestan poco.
 2. **Bordes y endpoints → integration.** Rutas, queries, interacciones con la base de datos usando datos de prueba controlados.
 3. **5 a 10 flujos críticos → e2e.** No más. Registro, pago, "el flujo que generaría plata". Si tu suite de e2e tiene 60 tests, no es una suite, es un problema.
-4. **Cada bug de producción → un test que lo reproduce antes de arreglarlo.** Es la inversión con mejor réndimiento que existe: convertís incidentes en regimientos permanentes del suite.
+4. **Cada bug de producción → un test que lo reproduce antes de arreglarlo.** Es la inversión con mejor rendimiento que existe: convertís incidentes en regimientos permanentes del suite.
 
 Y la lista de lo que **no** conviene automatizar, que es igual de importante:
 
@@ -106,7 +106,7 @@ Después de ese arreglo, mis reglas domésticas son pocas y firmes:
 
 ## 5. Errores comunes (los vi todos)
 
-1. **Testear por culpa.** Persuadir el porcentaje de cobertura como meta; te llena de tests inútiles que hay que mantener.
+1. **Testear por culpa.** Perseguir el porcentaje de cobertura como meta; te llena de tests inútiles que hay que mantener.
 2. **Solo el camino feliz.** Sin bordes: los bugs viven en descuentos, fechas, duplicados y campos vacíos.
 3. **Tests que dependen del orden.** Si el orden importa, es un test de integración mal escrito (y frágil).
 4. **Dormir en vez de esperar.** El `setTimeout` de fábrica produce flaky a velocidad industrial.
