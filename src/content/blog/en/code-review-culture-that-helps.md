@@ -39,7 +39,7 @@ Good etiquette isn't bureaucracy — it's courtesy with a schedule. Nobody shoul
 
 - Keep PRs small. Re-reading 150 lines is easy; 1,500 is not.
 - Write a clear description: what, why, and how to test it.
-- Do your own self-review before requesting someone else's. Most comments you'll find yourself.
+- Do your own self-review before requesting someone else's. You'll find most of them yourself.
 - If the change is visual, attach a screenshot or a short video.
 - Agree on a reasonable response time — and actually honor it.
 

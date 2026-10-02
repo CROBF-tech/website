@@ -29,9 +29,9 @@ Un equipo que se anima a mostrar trabajo a medio hacer es un equipo que encuentr
 El feedback no es un veredicto sobre tu talento: es un regalo que alguien te hace usando su propio tiempo. Un regalo raro si lo envolvés mal, pero un regalo al final.
 
 - Comentá del lado de la persona: sugerí en vez de sentenciar.
-- Separá lo bloquante de lo opcional, y hacelo explícito. Un "sugerencia, no bloquea" ahorra dolores de cabeza.
+- Separá lo bloqueante de lo opcional, y hacelo explícito. Un "sugerencia, no bloquea" ahorra dolores de cabeza.
 - Del otro lado del mostrador: agradecé lo que te dicen, y si no lo aplicás, explicá tu razonamiento en vez de ignorar.
-- Discutí las ideas con ganas, pero dejá el ego fuera. Vos no eres tu diff.
+- Discutí las ideas con ganas, pero dejá el ego fuera. Vos no sos tu diff.
 
 ## 📏 Etiqueta de PR que ayuda a todos
 
@@ -48,7 +48,7 @@ La buena etiqueta no es burocracia: es cortesía con horarios. Nadie tiene que a
 Nada tira la energía del equipo al piso como ver a alguien bloqueado, esperando que otra persona lea su diff en un horario que no es el suyo.
 
 - Escribí los comentarios pensando en el "vos del futuro" que los va a leer a la mañana siguiente, con el contexto que quedó dormido en tu cabeza.
-- No esperes respuesta instantánea: esperá respuesta clara.
+- No esperés respuesta instantánea: esperá respuesta clara.
 - Si es urgente, ping directo y ya, sin culpas.
 - Un buen hilo de review documentado vale más que media reunión.
 
