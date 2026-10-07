@@ -19,7 +19,7 @@ The good news is that onboarding can be designed just like software: with intent
 
 Day 1 starts long before day 1. If your new hire spends three days waiting for an access request, you lose momentum and trust.
 
-- **Prepare all the access:** repos, tools, messaging, environments. Everything working before they walk through the door.
+- **Set up all access:** repos, tools, messaging, environments. Everything working before they walk through the door.
 - **Get the environment ready:** a configured machine, or clear instructions on what to install.
 - **Make sure the setup README actually works:** run it with someone who knows nothing about the project. If it has steps nobody ever executed, that's not documentation — that's fiction.
 - **Build the first-week agenda:** who they'll meet, what they'll read, what they'll do. There will always be surprises, but the first one shouldn't be "nothing was assigned".
@@ -31,7 +31,7 @@ No question should go unanswered because someone "didn't know who to bother".
 - **Pick a specific person**, not "the team". Teams don't answer questions; people do.
 - **Block time on the buddy's calendar:** supporting someone isn't a spare-time activity.
 - **Tell the whole team** that the buddy is the go-to person for the small questions.
-- **Separate the roles:** the buddy supports the day to day; management and evaluation stay with the lead.
+- **Separate the roles:** the buddy supports the day-to-day; management and evaluation stay with the lead.
 
 ## 🔨 A Small First PR in Week One
 
@@ -58,7 +58,7 @@ Nothing builds belonging like contributing. And nothing isolates like waiting we
 
 ## 🔄 Frequent Check-Ins and Two-Way Feedback
 
-- **Short and frequent beats long and rare.** Fifteen minutes a week are pure gold.
+- **Short and frequent beats long and rare.** Fifteen minutes a week is pure gold.
 - **Ask concrete questions:** what slowed you down this week? What was missing?
 - **Give feedback yourself too:** new developers shouldn't have to guess how you see them.
 - **Listen in the other direction:** the onboarding itself improves with what people tell you. That also teaches the newcomer that this is a place where people listen.
@@ -74,4 +74,4 @@ Nothing builds belonging like contributing. And nothing isolates like waiting we
 
 Great onboarding isn't a fancy welcome event: it's a system. Access ready, a buddy present, an early first PR, living docs, a 30-day plan, and feedback flowing both ways. With all of that in place, the new developer doesn't just perform sooner — they stay, they contribute, and they make the team stronger. At CROBF, we believe the way you welcome someone says a lot about how you work every day.
 
-Don't wait for the next hire to improve your process. Pick one item from this list today —the README, the buddy, the 30-day plan— and fix it this very week. Your next developer (and your whole team) will thank you. 💪
+Don't wait for the next hire to improve your process. Pick one item from this list today — the README, the buddy, the 30-day plan — and fix it this very week. Your next developer (and your whole team) will thank you. 💪

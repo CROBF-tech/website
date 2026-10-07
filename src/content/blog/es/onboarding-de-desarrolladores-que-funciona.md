@@ -17,7 +17,7 @@ La buena noticia es que el onboarding se diseña igual que el software: con inte
 
 ## 🚀 Antes del día 1: dejá todo listo
 
-El día 1 empieza bastante antes del día 1. Si la persona tiene que esperar tres días por un acceso, perdemos momento y confianza.
+El día 1 empieza bastante antes del día 1. Si la persona tiene que esperar tres días por un acceso, perdemos impulso y confianza.
 
 - **Prepará los accesos:** repos, herramientas, mensajería, entornos. Todo funcionando antes de que cruce la puerta.
 - **Dejá el entorno listo:** máquina configurada o instrucciones claras de qué instalar.
@@ -59,7 +59,7 @@ Nada genera pertenencia como contribuir. Y nada aísla tanto como esperar semana
 ## 🔄 Check-ins frecuentes y feedback en ambos sentidos
 
 - **Cortos y seguidos ganan a largos y espaciados.** Quince minutos por semana valen oro.
-- **Preguntá cosas concretas:** ¿qué te trabó esta semana? ¿qué te faltó?
+- **Preguntá cosas concretas:** ¿qué te trabó esta semana? ¿Qué te faltó?
 - **Dale feedback vos también:** la persona nueva no tiene que adivinar cómo la estás viendo.
 - **Escuchá en la otra dirección:** el propio onboarding se mejora con lo que te cuentan. Eso además le enseña a la persona nueva que acá se escucha.
 
