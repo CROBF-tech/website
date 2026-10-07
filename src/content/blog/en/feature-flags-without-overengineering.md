@@ -17,7 +17,7 @@ Here's the minimal system I use today: one typed config file, a helper of about 
 
 Last year I rewrote the invoice form for a client and, with the code finished and the tests green, I deployed on a Friday evening. Classic. Around 7:15 the client's accountant messaged me: invoices with a coupon discount showed a badly rounded total. The fix itself was three lines, but the only complete rollback was `git revert` and redeploying the previous version — twenty minutes with the client on the other side of the chat, asking whether their sales were being recorded incorrectly.
 
-A flag would have turned all of that into a two-minute call: `FLAG_NEW_INVOICE_LAYOUT=off`, done. Nobody sees the new form until Monday, when I fix the rounding with a clear head and release it properly. The lesson wasn't "write more tests"; it was that deploying and releasing don't have to be the same act.
+A flag would have turned all of that into a two-minute call: `FLAG_NEW_INVOICE_LAYOUT=off`, done. Nobody would have seen the new form until Monday, when I fixed the rounding with a clear head and released it properly. The lesson wasn't "write more tests"; it was that deploying and releasing don't have to be the same act.
 
 ## 2. When a flag earns its keep — and when it doesn't
 

@@ -17,7 +17,7 @@ Acá va el sistema mínimo que uso hoy: un archivo de configuración tipado, un 
 
 El año pasado reescribí el formulario de facturación de un cliente y, como el código estaba terminado y los tests estaban verdes, deployé un viernes por la tarde. Clásico. A las 19:15 me escribió la contadora del cliente: las facturas con cupón de descuento mostraban el total mal redondeado. El fix en sí eran tres líneas, pero la única vuelta atrás completa era `git revert` y redeployar la versión anterior: unos veinte minutos con el cliente del otro lado del chat preguntando si sus ventas quedaban mal registradas.
 
-Un flag habría convertido todo esto en una llamada de dos minutos: `FLAG_NEW_INVOICE_LAYOUT=off` y listo. Nadie más veía el formulario nuevo hasta el lunes, cuando arreglaba el redondeo con calma y liberaba bien. La lección no fue "escribí más tests", sino que deployar y liberar no tienen por qué ser el mismo acto.
+Un flag habría convertido todo esto en una llamada de dos minutos: `FLAG_NEW_INVOICE_LAYOUT=off` y listo. Nadie más habría visto el formulario nuevo hasta el lunes, cuando habría arreglado el redondeo con calma y lo habría liberado bien. La lección no fue "escribí más tests", sino que deployar y liberar no tienen por qué ser el mismo acto.
 
 ## 2. ¿Cuándo conviene un flag y cuándo no?
 
